@@ -1,0 +1,4 @@
+Package Manager,Description
+apt,Ubuntu apt packages
+brew,Homebrew packages
+snap,Snap packages

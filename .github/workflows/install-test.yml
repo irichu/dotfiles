@@ -1,0 +1,19 @@
+name: installation testing
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install required packages
+        run: sudo apt-get update && sudo apt-get install -y curl git iproute2 locales tar tzdata wget zsh
+
+      - name: Install dotfiles
+        run: chmod +x install.sh && ./install.sh all apt

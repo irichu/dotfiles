@@ -1,0 +1,81 @@
+[colors.bright]
+black = "0x3a3a3a"
+blue = "0x77aaff"
+cyan = "0x66eeff"
+green = "0x99ff33"
+magenta = "0x9988ff"
+red = "0xff5588"
+white = "0xffffff"
+yellow = "0xffee44"
+
+[colors.normal]
+black = "0x3a3a3a"
+blue = "0x77aaff"
+cyan = "0x66eeff"
+green = "0x99ff33"
+magenta = "0x9988ff"
+red = "0xff5588"
+white = "0xffffff"
+yellow = "0xffee44"
+
+[colors.primary]
+background = "0x1c1c1c"
+foreground = "0xffffff"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 13.0
+
+[font.offset]
+y = 1
+
+[font.bold]
+family = "HackGen Console NF"
+style = "Bold"
+
+[font.bold_italic]
+family = "HackGen Console NF"
+style = "Bold Italic"
+
+[font.italic]
+family = "HackGen Console NF"
+style = "Italic"
+
+[font.normal]
+family = "HackGen Console NF"
+style = "Regular"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+# [terminal.shell]
+# args = ["-l", "-c", 'tmux a -t default || tmux new -s default']
+# program = "/bin/bash"
+
+# [terminal.shell]
+# args = ["-l", "-c", 'zellij attach default || zellij --session=default']
+# program = "/bin/bash"
+
+[terminal]
+osc52 = "CopyPaste"
+
+[window]
+decorations = "Full" #"None"
+opacity = 0.95
+
+[window.dimensions]
+columns = 200
+lines = 60
+
+[window.padding]
+x = 8
+y = 8
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Control", action = "Paste" },
+  { key = "C", mods = "Control", action = "Copy" },
+]

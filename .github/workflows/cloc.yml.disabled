@@ -1,0 +1,37 @@
+name: Update cloc badge
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  count_lines:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install cloc
+        run: sudo apt-get install -y cloc jq
+
+      - name: Run cloc and save output
+        run: |
+          cloc --json . > cloc-output.json
+          cat cloc-output.json | jq '{"schemaVersion":1,"label":"Lines of Code","message":(.SUM.code|tostring),"color":"blue"}' > cloc.json
+
+      - name: Commit and push results
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add cloc.json
+          git commit -m "Update cloc stats" || exit 0
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

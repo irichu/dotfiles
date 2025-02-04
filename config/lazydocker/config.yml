@@ -1,0 +1,100 @@
+gui:
+  scrollHeight: 2
+  language: auto
+  theme:
+    activeBorderColor:
+    - green
+    - bold
+    inactiveBorderColor:
+    - default
+    selectedLineBgColor:
+    - blue
+    optionsTextColor:
+    - blue
+  wrapMainPanel: true
+  sidePanelWidth: 0.3333
+  showBottomLine: true
+  expandFocusedSidePanel: false
+  screenMode: normal
+  containerStatusHealthStyle: long
+  border: ""
+logs:
+  since: 60m
+commandTemplates:
+  restartService: '{{ .DockerCompose }} restart {{ .Service.Name }}'
+  startService: '{{ .DockerCompose }} start {{ .Service.Name }}'
+  upService: '{{ .DockerCompose }} up -d {{ .Service.Name }}'
+  up: '{{ .DockerCompose }} up -d'
+  down: '{{ .DockerCompose }} down'
+  downWithVolumes: '{{ .DockerCompose }} down --volumes'
+  dockerCompose: docker-compose
+  stopService: '{{ .DockerCompose }} stop {{ .Service.Name }}'
+  serviceLogs: '{{ .DockerCompose }} logs --since=60m --follow {{ .Service.Name }}'
+  viewServiceLogs: '{{ .DockerCompose }} logs --follow {{ .Service.Name }}'
+  rebuildService: '{{ .DockerCompose }} up -d --build {{ .Service.Name }}'
+  recreateService: '{{ .DockerCompose }} up -d --force-recreate {{ .Service.Name }}'
+  allLogs: '{{ .DockerCompose }} logs --tail=300 --follow'
+  viewAlLogs: '{{ .DockerCompose }} logs'
+  dockerComposeConfig: '{{ .DockerCompose }} config'
+  checkDockerComposeConfig: '{{ .DockerCompose }} config --quiet'
+  serviceTop: '{{ .DockerCompose }} top {{ .Service.Name }}'
+bulkCommands:
+  services:
+  - name: up
+    attach: false
+    shell: false
+    command: '{{ .DockerCompose }} up -d'
+    serviceNames: []
+  - name: up (attached)
+    attach: true
+    shell: false
+    command: '{{ .DockerCompose }} up'
+    serviceNames: []
+  - name: stop
+    attach: false
+    shell: false
+    command: '{{ .DockerCompose }} stop'
+    serviceNames: []
+  - name: pull
+    attach: true
+    shell: false
+    command: '{{ .DockerCompose }} pull'
+    serviceNames: []
+  - name: build
+    attach: true
+    shell: false
+    command: '{{ .DockerCompose }} build --parallel --force-rm'
+    serviceNames: []
+  - name: down
+    attach: false
+    shell: false
+    command: '{{ .DockerCompose }} down'
+    serviceNames: []
+  - name: down with volumes
+    attach: false
+    shell: false
+    command: '{{ .DockerCompose }} down --volumes'
+    serviceNames: []
+  - name: down with images
+    attach: false
+    shell: false
+    command: '{{ .DockerCompose }} down --rmi all'
+    serviceNames: []
+  - name: down with volumes and images
+    attach: false
+    shell: false
+    command: '{{ .DockerCompose }} down --volumes --rmi all'
+    serviceNames: []
+oS:
+  openCommand: sh -c "xdg-open {{filename}} >/dev/null"
+  openLinkCommand: sh -c "xdg-open {{link}} >/dev/null"
+stats:
+  graphs:
+  - caption: CPU (%)
+    statPath: DerivedStats.CPUPercentage
+    color: cyan
+  - caption: Memory (%)
+    statPath: DerivedStats.MemoryPercentage
+    color: green
+  maxDuration: 3m0s
+

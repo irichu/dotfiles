@@ -1,0 +1,15 @@
+themes {
+    custom {
+        fg "#FFFFFF"
+        bg "#1C1C1C"
+        black "#3A3A3A"
+        red "#FF5588"
+        green "#55FF99"
+        yellow "#FFEE44"
+        blue "#77AAFF"
+        magenta "#FF00FF"
+        cyan "#66EEFF"
+        white "#FFFFFF"
+        orange "#FF8800"
+    }
+}

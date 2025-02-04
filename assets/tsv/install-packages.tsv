@@ -1,0 +1,14 @@
+Package	Description
+apt-packages	apt packages
+hackgen	HackGen font
+docker	docker-ce (additional repository)
+fnm	latest FNM and Node.js
+fzf	fzf (github.com)
+lazydocker	LazyDocker
+lazygit	LazyGit
+lazyvim	LazyVim
+neovim	neovim and LazyVim
+rustdesk	RustDesk
+snap-packages	Snappy packages
+starship	starship.rs
+zed	Zed editor

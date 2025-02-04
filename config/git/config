@@ -1,0 +1,60 @@
+[user]
+  email = user@localhost
+  name = user
+
+#[url "github:"]
+#  InsteadOf = https://github.com/
+#  InsteadOf = git@github.com:
+#
+
+[alias]
+  a = add
+  br = branch
+  brd = branch -d
+  ci = commit
+  co = checkout
+  diff = diff
+  diffw = diff --word-diff
+  graph = log --pretty=format:'%Cgreen[%cd] %Cblue%h %Cred<%cn> %Creset%s' --date=short  --decorate --graph --branches --tags --remotes
+  st = status
+  stb = status -sb
+
+[color]
+  ui = true
+
+[diff]
+  indentHeuristic = true
+
+[grep]
+  lineNumber = true
+
+[init]
+  defaultBranch = main
+
+[push]
+  default = current
+
+[pull]
+  ff = only
+  rebase = false
+
+[core]
+  pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true    # use n and N to move between diff sections
+
+  # delta detects terminal colors automatically; set one of these to disable auto-detection
+  # dark = true
+  # light = true
+
+  side-by-side = true
+
+[merge]
+  conflictstyle = zdiff3
+
+[log]
+  date = iso-local

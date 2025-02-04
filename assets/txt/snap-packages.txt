@@ -1,0 +1,8 @@
+alacritty --classic
+bottom
+dog
+dust
+go --classic
+nvim --classic
+rustup --classic
+zellij --classic

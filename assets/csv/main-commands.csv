@@ -1,0 +1,5 @@
+Command,Description
+apt,install Ubuntu apt packages (recommend in container; without systemd)
+brew,install Homebrew and brew packages on Linux or macOS
+snap,install Ubuntu apt and snap packages
+pkg,install pkg packages on Termux
