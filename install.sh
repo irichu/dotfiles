@@ -226,7 +226,7 @@ echo_allcommand_usage() {
   info -ny -cg "Show package list: "
   info -cc "./$(basename "$0") list(alias:ls) <Command>"
   #echo_descriptions "$SCRIPT_DIR"/assets/package-managers.tsv
-  
+
   return 0
 }
 
@@ -362,7 +362,7 @@ install_or_update_starship() {
 
   mkdir -p "$HOME/.local/bin"
   curl -sS https://starship.rs/install.sh | sh -s -- -b "$HOME/.local/bin" -y
-  
+
   #cp -r "$SCRIPT_DIR"/config/starship "$CONFIG_HOME"
   backup_dir "$CONFIG_HOME/starship"
   ln -s "$SCRIPT_DIR/config/starship" "$CONFIG_HOME/"
@@ -403,7 +403,6 @@ install_fzf_via_git() {
 #   info "End: ${FUNCNAME[0]}"
 #   return 0
 # }
-
 
 # install_node_by_nvm() {
 #   info "Start: ${FUNCNAME[0]}"
@@ -456,7 +455,7 @@ install_node_by_fnm() {
   fi
 
   mkdir -p "$CONFIG_HOME/zsh/completions"
-  fnm completions --shell zsh > "$CONFIG_HOME/zsh/completions/_fnm"
+  fnm completions --shell zsh >"$CONFIG_HOME/zsh/completions/_fnm"
 
   fnm --version
   fnm install --lts
@@ -578,7 +577,7 @@ install_apt_package() {
     sudo apt-get update
     sudo apt-get install -y eza
   fi
-  
+
   backup_dir "$CONFIG_HOME/eza"
   ln -s "$SCRIPT_DIR/config/eza" "$CONFIG_HOME/"
 
@@ -917,7 +916,7 @@ backup_dir() {
 
       return 0
     fi
-    
+
     info "Rename ... "
 
     mv "$1"{,.bak$date_str}
@@ -964,7 +963,7 @@ setup_git() {
   current_name=$(git config user.name)
   current_email=$(git config user.email)
 
-  if [ -z "$GITHUB_ACTIONS" ]; then
+  if [ -z "${GITHUB_ACTIONS:-}" ]; then
     read -rp "git user.name [$current_name]:" name
     read -rp "git user.email [$current_email]:" email
   fi
@@ -1012,7 +1011,7 @@ setup_zellij() {
   info "Start: ${FUNCNAME[0]}"
 
   mkdir -p "$CONFIG_HOME/zsh/completions"
-  zellij setup --generate-completion zsh > "$CONFIG_HOME/zsh/completions/_zellij"
+  zellij setup --generate-completion zsh >"$CONFIG_HOME/zsh/completions/_zellij"
 
   #cp -r "$SCRIPT_DIR/config/zellij" "$CONFIG_HOME"
   backup_dir "$CONFIG_HOME/zellij"
