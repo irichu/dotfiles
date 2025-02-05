@@ -197,6 +197,7 @@ The tmux prefix key is configured to `Ctrl + \` for easier access.
 | <kbd>U</kbd>                    | Update tmux plugins with tpm  |
 | <kbd>Ctrl</kbd>+<kbd>s</kbd>    | Save tmux env                 |
 | <kbd>Ctrl</kbd>+<kbd>r</kbd>    | Restore tmux env              |
+| <kbd>d</kbd>                    | Detach the tmux session       |
 | <kbd>e</kbd>                    | Switch pane-synchronize mode  |
 
 ##### tmux plugins
@@ -235,8 +236,8 @@ Based on [LazyVim keymaps](https://www.lazyvim.org/keymaps), with some additiona
 | ----- | ------------------------------------------- | ----------------------------------------------------------------------- |
 | n,v   | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Move to (the end of the previous / the beginning of the next) paragraph |
 | n,v,i | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Backward word / Forward word                                            |
-| i     | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | undo                                                                    |
-| i     | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | redo                                                                    |
+| i     | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo                                                                    |
+| i     | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo                                                                    |
 
 [Emacs-like shortcuts](docs/neovim.md#emacs-like) are configured in insert mode.
 

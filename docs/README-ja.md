@@ -200,6 +200,7 @@ Emacsモード  `bindkey -e` に加えていくつかのバインドを追加し
 | <kbd>U</kbd>                    | tmuxプラグインのアップデートをします    |
 | <kbd>Ctrl</kbd>+<kbd>s</kbd>    | tmux環境を保存します                    |
 | <kbd>Ctrl</kbd>+<kbd>r</kbd>    | tmux環境を復元します                    |
+| <kbd>d</kbd>                    | tmuxセッションからデタッチします        |
 | <kbd>e</kbd>                    | ペインの同期モードON/OFFを切り替えます  |
 
 ##### tmux プラグイン
@@ -252,4 +253,4 @@ window と pane の操作を可能としています．
 
 ## 📜 ライセンス
 
-このプロジェクトは [MIT License](LICENSE) に基づいてライセンスされています．
+このプロジェクトは [MIT License](../LICENSE) に基づいてライセンスされています．
