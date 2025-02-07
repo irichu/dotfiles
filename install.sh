@@ -616,7 +616,7 @@ install_homebrew() {
   fi
 
   if ! cmd_exists brew; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 
   if [ "$(uname)" == "Linux" ]; then
