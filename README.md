@@ -167,7 +167,7 @@ cd dotfiles
 ./install all apt
 ```
 
-or install Homebrew with following command. (USERNAME/PASSWORD: user/user)
+or install Homebrew with following command.
 
 ```bash
 cd dotfiles

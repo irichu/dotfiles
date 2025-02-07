@@ -170,7 +170,7 @@ cd dotfiles
 ./install all apt
 ```
 
-Homebrew をインストールして進める場合は以下のコマンドを実行します. ユーザー名およびパスワードはともに user としています．
+Homebrew をインストールして進める場合は以下のコマンドを実行します.
 
 ```bash
 cd dotfiles
