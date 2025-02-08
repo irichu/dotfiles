@@ -609,7 +609,11 @@ install_homebrew() {
     sudo apt-get update
     sudo apt-get install -y build-essential procps curl file git
   elif cmd_exists dnf; then
-    sudo dnf groupinstall -y 'Development Tools'
+    if dnf --version 2>/dev/null | grep -q "DNF5"; then
+      sudo dnf install -y @Development-Tools
+    else
+      sudo dnf groupinstall -y 'Development Tools'
+    fi
     sudo dnf install -y procps-ng curl file git
     sudo dnf install -y wget util-linux-user # for chsh
   elif cmd_exists pacman; then

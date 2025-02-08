@@ -38,6 +38,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install sudo
+        run: |
+          pacman -Sy --noconfirm sudo
+          echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          usermod -aG wheel $(whoami)
+
       - name: Install required packages
         run: pacman -Syu --noconfirm git
 
