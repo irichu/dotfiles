@@ -621,6 +621,7 @@ install_homebrew() {
   fi
 
   if ! cmd_exists brew; then
+    export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 
