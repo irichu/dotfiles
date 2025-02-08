@@ -17,3 +17,29 @@ jobs:
 
       - name: Install dotfiles
         run: chmod +x install.sh && ./install.sh all apt
+
+  fedora:
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install required packages
+        run: dnf install -y git
+
+      - name: Install dotfiles
+        run: chmod +x install.sh && ./install.sh all brew
+
+  arch:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install required packages
+        run: pacman -Syu --noconfirm git
+
+      - name: Install dotfiles
+        run: chmod +x install.sh && ./install.sh all brew
