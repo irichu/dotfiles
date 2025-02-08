@@ -11,6 +11,7 @@ export LC_ALL=C
 
 readonly DEBUG=true
 readonly ARCH="$(uname -m)"
+#readonly GITHUB_ACTIONS=1
 
 #--------------------------------------------------
 # path
@@ -628,7 +629,14 @@ install_homebrew() {
   fi
 
   cd "$SCRIPT_DIR"
-  brew bundle
+
+  if [ -z "${GITHUB_ACTIONS:-}" ]; then
+    # install all
+    brew bundle
+  else
+    # testing
+    brew bundle --file=assets/ci/Brewfile
+  fi
 
   # fzf set up
   "$(brew --prefix)"/opt/fzf/install --key-bindings --completion --no-update-rc --no-fish
