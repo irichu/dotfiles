@@ -1,4 +1,6 @@
-# Dotfiles
+<img src="https://github.com/user-attachments/assets/4d968f66-bec7-4adb-b7a2-e0b95f9c32a3" alt="Dotfiles" height="32">
+
+# Dotfiles for Linux and Termux
 
 <p>
   <img src="https://img.shields.io/github/languages/code-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub code size in bytes" height="22">

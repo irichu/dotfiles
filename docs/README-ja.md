@@ -1,4 +1,6 @@
-# Dotfiles
+<img src="https://github.com/user-attachments/assets/4d968f66-bec7-4adb-b7a2-e0b95f9c32a3" alt="Dotfiles" height="32">
+
+# Dotfiles for Linux and Termux
 
 <!-- style=for-the-badge height="22" -->
 <p>
