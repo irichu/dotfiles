@@ -59,8 +59,24 @@
 
 1. ダウンロードとインストール
 
+git, curl, wget のいずれかでインストールできます
+
+- git (v2.35.0以上推奨)
+
 ```bash
 git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
+```
+
+- curl & tar
+
+```bash
+curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
+```
+
+- wget & tar
+
+```bash
+wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
 2. パッケージの一括インストール

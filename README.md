@@ -60,8 +60,24 @@ Welcome to my dotfiles. This repository helps easily set up a fast and intuitive
 
 1. Download and Install dotfiles
 
+Use the following git or curl or wget command:
+
+- git (>=2.35.0 recomended)
+
 ```bash
 git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
+```
+
+- curl & tar
+
+```bash
+curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
+```
+
+- wget & tar
+
+```bash
+wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
 2. Bulk installation
