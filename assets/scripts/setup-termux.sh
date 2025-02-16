@@ -13,10 +13,8 @@
 #  pwd
 #)
 
-SCRIPT_DIR="$HOME/.local/share/dotfiles-main"
-
 # Base dir
-DOTFILES_ROOT="$SCRIPT_DIR/../.."
+DOTFILES_ROOT="$HOME/.local/share/dotfiles-main"
 DOTFILES_DATA="$DOTFILES_ROOT/assets"
 DOTFILES_CONFIG="$DOTFILES_ROOT/config"
 
