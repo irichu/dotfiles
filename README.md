@@ -58,30 +58,30 @@ Welcome to my dotfiles. This repository helps easily set up a fast and intuitive
 
 ## 🚀 Installation
 
-1. Download
+1. Download and Install dotfiles
 
 ```bash
 git clone https://github.com/irichu/dotfiles.git
-cd dotfiles
+cd dotfiles && ./install.sh
 ```
 
-2. Install
+2. Bulk installation
 
 > [!NOTE] 
 > Install all components using your preferred package manager:<br>
-> ./install.sh all [apt|brew|snap|pkg]<br>
+> dots all [apt|brew|snap|pkg]<br>
 > Replace [apt|brew|snap|pkg] with your package manager of choice.
 
 For example, to use brew on Linux
 
 ```bash
-./install.sh all brew
+dots all brew
 ```
 
 To use pkg on Termux
 
 ```bash
-./install.sh all pkg
+dots all pkg
 ```
 
 ## ✅ Supported OS
@@ -106,25 +106,25 @@ To use pkg on Termux
 Show help and available commands:
 
 ```bash
-./install.sh --help
+dots --help
 ```
 
 Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles/backup dir:
 
 ```bash
-./install.sh backup
+dots backup
 ```
 
 Show install target package list:
 
 ```bash
-./install.sh list [apt|brew|snap|pkg]
+dots list [apt|brew|snap|pkg]
 ```
 
 Install individual package:
 
 ```bash
-./install.sh [package_name]
+dots [package_name]
 ```
 
 |                                                     Help image                                                     |
@@ -170,14 +170,14 @@ In container, install apt packages
 
 ```bash
 cd dotfiles
-./install all apt
+dots all apt
 ```
 
 or install Homebrew with following command.
 
 ```bash
 cd dotfiles
-./install all brew
+dots all brew
 ```
 
 ## ⌨️ Keymaps

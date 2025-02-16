@@ -57,30 +57,30 @@
 
 ## 🚀 インストール方法
 
-1. ダウンロード
+1. ダウンロードとインストール
 
 ```bash
 git clone https://github.com/irichu/dotfiles.git
-cd dotfiles
+cd dotfiles && ./install.sh
 ```
 
-2. インストール
+2. パッケージの一括インストール
 
 > [!NOTE] 
 > 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
-> ./install.sh all [apt|brew|snap|pkg]<br>
+> dots all [apt|brew|snap|pkg]<br>
 > 具体的には [apt|brew|snap|pkg] の部分を置き換えて実行します
 
 Linux環境にて，brewでセットアップする場合は以下を実行します
 
 ```bash
-./install.sh all brew
+dots all brew
 ```
 
 Termux にて pkg でセットアップする場合は以下の通りです
 
 ```bash
-./install.sh all pkg
+dots all pkg
 ```
 
 ## ✅ サポートOS
@@ -105,25 +105,25 @@ Termux にて pkg でセットアップする場合は以下の通りです
 コマンドのヘルプと使用できるコマンドを表示します
 
 ```bash
-./install.sh --help
+dots --help
 ```
 
 $XDG_CONFIG_HOME ディレクトリのバックアップコピーを $XDG_DATA_HOME/dotfiles/backup に作成します
 
 ```bash
-./install.sh backup
+dots backup
 ```
 
 パッケージマネージャーごとにインストールする対象のパッケージ一覧を表示します
 
 ```bash
-./install.sh list [apt|brew|snap|pkg]
+dots list [apt|brew|snap|pkg]
 ```
 
 個別パッケージのインストールを実行します
 
 ```bash
-./install.sh [package_name]
+dots [package_name]
 ```
 
 | ヘルプ表示のイメージ |
@@ -169,14 +169,14 @@ docker exec -it dotfiles-con /bin/zsh
 
 ```bash
 cd dotfiles
-./install all apt
+dots all apt
 ```
 
 Homebrew をインストールして進める場合は以下のコマンドを実行します.
 
 ```bash
 cd dotfiles
-./install all brew
+dots all brew
 ```
 
 ## ⌨️ よく使うキーマップ

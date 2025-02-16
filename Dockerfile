@@ -35,6 +35,8 @@ RUN groupadd -g $GID $GROUPNAME && \
   echo "$USERNAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER $USERNAME
 WORKDIR /home/$USERNAME/
+ENV HOME="/home/$USERNAME"
+ENV PATH="$HOME/.local/bin:$PATH"
 
 # Add dotfiles
 ARG DOTFILES_DIR=/home/$USERNAME/dotfiles
@@ -42,8 +44,13 @@ RUN mkdir -p $DOTFILES_DIR/config
 COPY --chown=$USERNAME:$USERNAME config $DOTFILES_DIR/config
 COPY --chown=$USERNAME:$USERNAME assets $DOTFILES_DIR/assets
 COPY --chown=$USERNAME:$USERNAME install.sh $DOTFILES_DIR
+COPY --chown=$USERNAME:$USERNAME main.sh $DOTFILES_DIR
 COPY --chown=$USERNAME:$USERNAME Brewfile $DOTFILES_DIR
+
+# Install dots
+RUN cd dotfiles && bash install.sh
 
 # Shellenv
 ENV SHELL=/bin/zsh
+RUN touch "$HOME/.zshrc"
 CMD [ "zsh" ]

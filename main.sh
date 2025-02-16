@@ -44,8 +44,8 @@ if [ $SCRIPT_DIR = "$HOME/.local/bin" ]; then
   cd "$SCRIPT_DIR"
 fi
 
-echo $SCRIPT_DIR
-exit 0
+#echo $SCRIPT_DIR
+#exit 0
 
 #--------------------------------------------------
 # logger

@@ -29,8 +29,16 @@ mkdir -p "$STATE_DIR"
 
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 DATA_DIR="$DATA_HOME/dotfiles-main"
-mkdir -p "$DATA_DIR"
+#mkdir -p "$DATA_DIR"
 #echo $HOME/.{cache,config,local/state}/dotfiles | read cache_dir config_dir state_dir
+
+# add path
+LOCAL_PATH="$HOME/.local/bin"
+mkdir -p $LOCAL_PATH
+
+if [ -d "$LOCAL_PATH" ] && [[ ":$PATH:" != *":$LOCAL_PATH:"* ]]; then
+  export PATH="$LOCAL_PATH:$PATH"
+fi
 
 #--------------------------------------------------
 # logger
@@ -298,4 +306,11 @@ curl -OL https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
 tar xvf main.tar.gz
 backup_dir "$HOME/.local/share/dotfiles-main"
 mv -f dotfiles-main "$HOME/.local/share/"
-\cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
+
+if [ -f "./main.sh" ]; then
+  \cp -f "./main.sh" "$HOME/.local/bin/dots"
+  mkdir -p "$DATA_DIR"
+  \cp -rf ./* "$DATA_DIR"/
+else
+  \cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
+fi
