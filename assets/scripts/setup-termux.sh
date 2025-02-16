@@ -54,7 +54,7 @@ cp -r "$DOTFILES_CONFIG"/lazygit/* "$CONFIG_HOME/lazygit/"
 
 # install lazyvim
 if [ ! -f ~/.config/nvim/lazy-lock.json ]; then
-  "$DOTFILES_ROOT"/install.sh lazyvim
+  dots lazyvim
 
   # lua-language-server
   mkdir -p /data/data/com.termux/files/home/.local/share/nvim/mason/packages/lua-language-server/libexec/bin/
@@ -65,7 +65,7 @@ if [ ! -f ~/.config/nvim/lazy-lock.json ]; then
 fi
 
 # font
-"$DOTFILES_ROOT"/install.sh hackgen
+dots hackgen
 
 #--------------------------------------------------
 # .termux settings
