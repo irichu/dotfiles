@@ -34,10 +34,18 @@ STATE_DIR="$STATE_HOME/dotfiles"
 mkdir -p "$STATE_DIR"
 
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-DATA_DIR="$DATA_HOME/dotfiles"
+DATA_DIR="$DATA_HOME/dotfiles-main"
 mkdir -p "$DATA_DIR"
 #echo $HOME/.{cache,config,local/state}/dotfiles | read cache_dir config_dir state_dir
 #printf "%s\n" $HOME/.{cache,config,local/state}/dotfiles | xargs -I{} sh -c "mkdir -p $1" && echo "$1"' sh {}
+
+if [ $SCRIPT_DIR = "$HOME/.local/bin" ]; then
+  SCRIPT_DIR="$DATA_DIR"
+  cd "$SCRIPT_DIR"
+fi
+
+echo $SCRIPT_DIR
+exit 0
 
 #--------------------------------------------------
 # logger
