@@ -308,9 +308,24 @@ backup_dir "$HOME/.local/share/dotfiles-main"
 mv -f dotfiles-main "$HOME/.local/share/"
 
 if [ -f "./main.sh" ]; then
-  \cp -f "./main.sh" "$HOME/.local/bin/dots"
+  # git repos
+  if [ -d /data/data/com.termux/files/usr/bin ]; then
+    # for termux
+    \cp -f "./main.sh" /data/data/com.termux/files/usr/bin/dots
+  else
+    # install to .local/bin
+    \cp -f "./main.sh" "$HOME/.local/bin/dots"
+  fi
+
+  # copy to .local/share/dotfiles
   mkdir -p "$DATA_DIR"
   \cp -rf ./* "$DATA_DIR"/
 else
-  \cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
+  # for termux
+  if [ -d /data/data/com.termux/files/usr/bin ]; then
+    \cp -f "$HOME/.local/share/dotfiles-main/main.sh" /data/data/com.termux/files/usr/bin/dots
+  else
+    # install
+    \cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
+  fi
 fi
