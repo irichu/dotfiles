@@ -61,8 +61,7 @@ Welcome to my dotfiles. This repository helps easily set up a fast and intuitive
 1. Download and Install dotfiles
 
 ```bash
-git clone https://github.com/irichu/dotfiles.git
-cd dotfiles && ./install.sh
+git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
 ```
 
 2. Bulk installation

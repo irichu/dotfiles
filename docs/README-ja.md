@@ -60,8 +60,7 @@
 1. ダウンロードとインストール
 
 ```bash
-git clone https://github.com/irichu/dotfiles.git
-cd dotfiles && ./install.sh
+git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
 ```
 
 2. パッケージの一括インストール
