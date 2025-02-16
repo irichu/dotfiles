@@ -298,4 +298,4 @@ curl -OL https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
 tar xvf main.tar.gz
 backup_dir "$HOME/.local/share/dotfiles-main"
 mv -f dotfiles-main "$HOME/.local/share/"
-\cp -f "$HOME/.local/share/dotfiles-main/install.sh" "$HOME/.local/bin/dots"
+\cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
