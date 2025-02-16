@@ -67,19 +67,19 @@ git, curl, wget のいずれかでインストールできます
 git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
 ```
 
-- curl & tar
+- curl
 
 ```bash
 curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
-- wget & tar
+- wget
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
-2. パッケージの一括インストール
+1. パッケージの一括インストール
 
 > [!NOTE] 
 > 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
@@ -183,14 +183,12 @@ docker exec -it dotfiles-con /bin/zsh
 コンテナでaptでインストールする場合は以下を実行します．
 
 ```bash
-cd dotfiles
 dots all apt
 ```
 
 Homebrew をインストールして進める場合は以下のコマンドを実行します.
 
 ```bash
-cd dotfiles
 dots all brew
 ```
 

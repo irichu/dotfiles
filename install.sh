@@ -305,7 +305,7 @@ curl -OL https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
 # deploy
 tar xvf main.tar.gz
 backup_dir "$HOME/.local/share/dotfiles-main"
-mv -f dotfiles-main "$HOME/.local/share/"
+mv dotfiles-main "$HOME/.local/share/"
 
 if [ -f "./main.sh" ]; then
   # git repos
@@ -329,3 +329,6 @@ else
     \cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
   fi
 fi
+
+# Remove
+rm ./main.tar.gz

@@ -68,13 +68,13 @@ Use the following git or curl or wget command:
 git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
 ```
 
-- curl & tar
+- curl
 
 ```bash
 curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
-- wget & tar
+- wget
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
@@ -184,14 +184,12 @@ docker exec -it dotfiles-con /bin/zsh
 In container, install apt packages
 
 ```bash
-cd dotfiles
 dots all apt
 ```
 
 or install Homebrew with following command.
 
 ```bash
-cd dotfiles
 dots all brew
 ```
 
