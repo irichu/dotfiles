@@ -39,7 +39,7 @@ mkdir -p "$DATA_DIR"
 #echo $HOME/.{cache,config,local/state}/dotfiles | read cache_dir config_dir state_dir
 #printf "%s\n" $HOME/.{cache,config,local/state}/dotfiles | xargs -I{} sh -c "mkdir -p $1" && echo "$1"' sh {}
 
-if [ "$SCRIPT_DIR" = "$HOME/.local/bin" || "$SCRIPT_DIR" = "/data/data/com.termux/files/usr/bin" ]; then
+if [ "$SCRIPT_DIR" = "$HOME/.local/bin" -o "$SCRIPT_DIR" = "/data/data/com.termux/files/usr/bin" ]; then
   SCRIPT_DIR="$DATA_DIR"
   cd "$SCRIPT_DIR"
 fi
