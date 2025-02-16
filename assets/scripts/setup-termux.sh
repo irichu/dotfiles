@@ -8,10 +8,12 @@
 [ -z "$TERMUX_VERSION" ] && echo 'please use this in termux' && exit 1
 
 # get script path
-SCRIPT_DIR=$(
-  cd $(dirname $BASH_SOURCE)
-  pwd
-)
+#SCRIPT_DIR=$(
+#  cd $(dirname ${BASH_SOURCE:-$0})
+#  pwd
+#)
+
+SCRIPT_DIR="$HOME/.local/share/dotfiles-main"
 
 # Base dir
 DOTFILES_ROOT="$SCRIPT_DIR/../.."
