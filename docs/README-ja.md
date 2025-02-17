@@ -79,7 +79,7 @@ curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bas
 wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
-1. パッケージの一括インストール
+2. パッケージの一括インストール
 
 > [!NOTE] 
 > 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
@@ -96,6 +96,23 @@ Termux にて pkg でセットアップする場合は以下の通りです
 
 ```bash
 dots all pkg
+```
+
+> [!NOTE] 
+> `dots`コマンドが見つからない場合は<br>
+> 以下のコマンドを実行して ~/.local/bin へのパスを通すようにしてみてください
+
+```
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+3. スタート
+
+以下のコマンドで設定を読み込みます
+
+```bash
+exec -l $(which zsh)
 ```
 
 ## ✅ サポートOS
@@ -190,6 +207,34 @@ Homebrew をインストールして進める場合は以下のコマンドを�
 
 ```bash
 dots all brew
+```
+
+## ⚡  エイリアスコマンド
+
+### Tmux
+
+#### セッションの作成
+
+```bash
+t # tmux new
+```
+
+#### セッションへの再接続
+
+```bash
+ta # tmux attach
+```
+
+#### セッション一覧の表示
+
+```bash
+tls # tmux ls
+```
+
+#### Tmuxサーバーの終了
+
+```bash
+tks # tmux kill-server
 ```
 
 ## ⌨️ よく使うキーマップ

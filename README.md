@@ -99,6 +99,23 @@ To use pkg on Termux
 dots all pkg
 ```
 
+> [!NOTE] 
+> If `dots` command not found,<br>
+> please run the following command to add the path to ~/.local/bin.
+
+```
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+3. Start
+
+Relogin or execute following command:
+
+```bash
+exec -l $(which zsh)
+```
+
 ## ✅ Supported OS
 
 - Linux 🐧
@@ -191,6 +208,42 @@ or install Homebrew with following command.
 
 ```bash
 dots all brew
+```
+
+## ⚡ Aliases for quick start
+
+### Tmux
+
+#### Create a session
+
+Quickly start a new tmux session.
+
+```bash
+t # tmux new
+```
+
+#### Attach the last session
+
+Reconnect to the most recent tmux session.
+
+```bash
+ta # tmux attach
+```
+
+#### Show all sessions
+
+List all tmux sessions that are currently running.
+
+```bash
+tls # tmux ls
+```
+
+#### Terminate tmux server
+
+Kill the entire tmux server and all running sessions.
+
+```bash
+tks # tmux kill-server
 ```
 
 ## ⌨️ Keymaps
