@@ -28,7 +28,10 @@ STATE_DIR="$STATE_HOME/dotfiles"
 mkdir -p "$STATE_DIR"
 
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+mkdir -p "$DATA_HOME"
+
 DATA_DIR="$DATA_HOME/dotfiles-main"
+
 #mkdir -p "$DATA_DIR"
 #echo $HOME/.{cache,config,local/state}/dotfiles | read cache_dir config_dir state_dir
 
