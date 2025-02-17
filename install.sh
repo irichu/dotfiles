@@ -338,6 +338,12 @@ fi
 rm ./main.tar.gz
 rm "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
 
+# ~/.bashrc が存在しない場合は作成
+if [ ! -f "$HOME/.bashrc" ]; then
+  touch "$HOME/.bashrc"
+  echo "# Created .bashrc" >> "$HOME/.bashrc"
+fi
+
 # ~/.bashrc に PATH を追加（重複チェックあり）
 if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc; then
   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
@@ -345,3 +351,5 @@ fi
 
 # ~/.bashrc を即反映
 source ~/.bashrc
+
+echo "PATH has been updated! You can now use dots commands."
