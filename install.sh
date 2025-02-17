@@ -12,7 +12,7 @@ DEBUG=true
 #--------------------------------------------------
 
 SCRIPT_DIR=$(
-  cd $(dirname $BASH_SOURCE)
+  cd $(dirname ${BASH_SOURCE:-})
   pwd
 )
 
