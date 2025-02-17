@@ -350,6 +350,6 @@ if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc; then
 fi
 
 # ~/.bashrc を即反映
-source ~/.bashrc
+source "$HOME/.bashrc" || exec bash
 
 echo "PATH has been updated! You can now use dots commands."
