@@ -313,27 +313,35 @@ mv -f dotfiles-main "$HOME/.local/share/"
 
 if [ -f "./main.sh" ]; then
   # git repos
-  if [ -d /data/data/com.termux/files/usr/bin ]; then
-    # for termux
-    \cp -f "./main.sh" /data/data/com.termux/files/usr/bin/dots
-  else
-    # install to .local/bin
-    \cp -f "./main.sh" "$HOME/.local/bin/dots"
-  fi
+  #if [ -d /data/data/com.termux/files/usr/bin ]; then
+  #  # for termux
+  #  \cp -f "./main.sh" /data/data/com.termux/files/usr/bin/dots
+  #else
+  # install to .local/bin
+  \cp -f "./main.sh" "$HOME/.local/bin/dots"
+  #fi
 
   # copy to .local/share/dotfiles
   mkdir -p "$DATA_DIR"
   \cp -rf ./* "$DATA_DIR"/
 else
   # for termux
-  if [ -d /data/data/com.termux/files/usr/bin ]; then
-    \cp -f "$HOME/.local/share/dotfiles-main/main.sh" /data/data/com.termux/files/usr/bin/dots
-  else
-    # install
-    \cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
-  fi
+  #if [ -d /data/data/com.termux/files/usr/bin ]; then
+  #  \cp -f "$HOME/.local/share/dotfiles-main/main.sh" /data/data/com.termux/files/usr/bin/dots
+  #else
+  # install
+  \cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
+  #fi
 fi
 
 # Remove
 rm ./main.tar.gz
 rm "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
+
+# ~/.bashrc に PATH を追加（重複チェックあり）
+if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc; then
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+fi
+
+# ~/.bashrc を即反映
+source ~/.bashrc
