@@ -97,7 +97,7 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-1. Start
+3. Start
 
 Relogin or execute following command:
 
