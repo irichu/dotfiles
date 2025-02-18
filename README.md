@@ -66,11 +66,11 @@ wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | ba
 
 2. Bulk installation
 
+Install all components using your preferred package manager:<br>
+`dots all [apt|brew|snap|pkg]`<br>
+Replace `[apt|brew|snap|pkg]` with your package manager of choice.
+
 > [!IMPORTANT] 
-> Install all components using your preferred package manager:<br>
-> dots all [apt|brew|snap|pkg]<br>
-> Replace [apt|brew|snap|pkg] with your package manager of choice.
->
 > On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using the `dots all brew` command.<br>
 > On Ubuntu, fast installation is possible with the `dots all apt` or `dots all snap` command.<br>
 > On Termux, setup can be done using the `dots all pkg` command.

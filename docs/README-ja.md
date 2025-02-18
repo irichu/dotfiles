@@ -65,11 +65,11 @@ wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | ba
 
 2. パッケージの一括インストール
 
+利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
+`dots all [apt|brew|snap|pkg]`<br>
+具体的には `[apt|brew|snap|pkg]` の部分を置き換えて実行します
+
 > [!IMPORTANT] 
-> 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
-> dots all [apt|brew|snap|pkg]<br>
-> 具体的には [apt|brew|snap|pkg] の部分を置き換えて実行します
->
 >・Linux(Ubuntu/Fedora/Arch Linux)では `dots all brew` コマンドによる自動構築が可能です<br>
 >・Ubuntuでは `dots all apt` または `dots all snap` コマンドで高速なインストールが可能です<br>
 >・Termuxでは `dots all pkg` によるセットアップが可能です
