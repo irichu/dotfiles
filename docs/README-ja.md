@@ -39,22 +39,6 @@
 
 <img src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800" width="800" alt="wsl_zsh_nvim_startuptime">
 
-### Neovim / Tmux Screenshots
-
-|                                          LazyVim tokyonight.nvim style=night                                          |
-| :-------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/53567c2d-8bf2-4f4b-81d8-c6f126895606" width="800" alt="LazyVim"> |
-
-
-|                                                        Tmux split window                                                        |
-| :-----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/2be4ac55-e412-4fa4-a8c8-ec517c70dec0" width="800" alt="Tmux split window"> |
-
-|                                                        Tmux synchronize-panes mode                                                        |
-| :---------------------------------------------------------------------------------------------------------------------------------------: |
-|                <span style="font-size:12px">alias tid='tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"'</span>                          |
-| <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
-
 ## 🚀 インストール方法
 
 1. ダウンロードとインストール
@@ -81,10 +65,15 @@ wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | ba
 
 2. パッケージの一括インストール
 
-> [!NOTE] 
+> [!IMPORTANT] 
 > 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
 > dots all [apt|brew|snap|pkg]<br>
 > 具体的には [apt|brew|snap|pkg] の部分を置き換えて実行します
+>
+>・Linux(Ubuntu/Fedora/Arch Linux)では `dots all brew` コマンドによる自動構築が可能です<br>
+>・Ubuntuでは `dots all apt` または `dots all snap` コマンドで高速なインストールが可能です<br>
+>・Termuxでは `dots all pkg` によるセットアップが可能です
+>
 
 Linux環境にて，brewでセットアップする場合は以下を実行します
 
@@ -115,6 +104,10 @@ source ~/.bashrc
 exec -l $(which zsh)
 ```
 
+> [!NOTE] 
+> SSH接続のように，ログインシェルの場合はTmuxが自動起動します．<br>
+> Tmuxサーバーがすでに起動している場合は，セッション一覧から接続するセッションを選択できます.
+
 ## ✅ サポートOS
 
 - Linux 🐧
@@ -123,6 +116,10 @@ exec -l $(which zsh)
   - Fedora
 - Android 📱
   - 最新版の Termux
+
+> [!WARNING] 
+> Google Playストア版のTermuxは一部のコマンドなどが正常に動作しないことがあるようです．<br>
+> [F-Droid](https://f-droid.org/)からインストールすることが推奨されています
 
 ## ✨ 特徴
 
@@ -155,7 +152,7 @@ dots list [apt|brew|snap|pkg]
 個別パッケージのインストールを実行します
 
 ```bash
-dots [package_name]
+dots <package_name>
 ```
 
 | ヘルプ表示のイメージ |
@@ -164,34 +161,90 @@ dots [package_name]
 
 ### 🖥️ 個別インストール可能なパッケージの例
 
-| パッケージ名  | 説明                                                                                  |
-| ------------- | ------------------------------------------------------------------------------------- |
-| `hackgen`       | HackGenフォント(Hack+源柔ゴシックの合成フォント) NerdFont対応版 をインストールします  |
-| `docker`        | 追加のaptリポジトリからDockerをインストールします                                     |
-| `fnm`           | 最新版のFNM(Fast Node Manager)と最新版LTSのNode.jsをインストールします                |
-| `fzf`           | fzf(fuzzy finder)をgithubからインストールします                                       |
-| `lazydocker`    | LazyDockerをインストールします                                                        |
-| `lazygit`       | LazyGitをインストールします                                                           |
-| `lazyvim`       | LazyVimをインストールします                                                           |
-| `neovim`        | NeovimとLazyVimをインストールします                                                   |
-| `rustdesk`      | Ubuntu Desktop向けにRustDeskをインストールします                                      |
-| `starship`      | starship.rsをインストールします                                                       |
-| `zed`           | Zedエディターをインストールします                                                     |
+The following apps can be installed individually from the `dots <package_name>` command
 
-<!--
-### 😸 All preferred packages
+#### >_ CLI/TUI アプリ
+
+| パッケージ名 | 説明                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------ |
+| `hackgen`    | HackGenフォント(Hack+源柔ゴシックの合成フォント) NerdFont対応版 をインストールします |
+| `docker`     | 追加のaptリポジトリからDockerをインストールします                                    |
+| `fnm`        | 最新版のFNM(Fast Node Manager)と最新版LTSのNode.jsをインストールします               |
+| `fzf`        | fzf(fuzzy finder)をgithubからインストールします                                      |
+| `lazydocker` | LazyDockerをインストールします                                                       |
+| `lazygit`    | LazyGitをインストールします                                                          |
+| `lazyvim`    | LazyVimをインストールします                                                          |
+| `neovim`     | NeovimとLazyVimをインストールします                                                  |
+| `starship`   | starship.rsをインストールします                                                      |
+
+#### 🖥️ GUI アプリ
+
+| パッケージ名 | 説明                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------ |
+| `rustdesk`   | Ubuntu Desktop向けにRustDeskをインストールします                                     |
+| `zed`        | Zedエディターをインストールします                                                    |
+
+#### 🪴 その他
+
+| パッケージ名 | 説明                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------ |
+| `hackgen`    | HackGenフォント(Hack+源柔ゴシックの合成フォント) NerdFont対応版 をインストールします |
+
+### 🍺 Brewパッケージ
+
+`dots all brew`コマンドでインストールする主なパッケージは次のとおりです
+
+| Package Name              | Description                                               |
+| ------------------------- | --------------------------------------------------------- |
+| `bat`                     | cat replacement                                           |
+| `bottom`                  | TUI system resource monitor                               |
+| `broot`                   | Interactive directory navigation tool                     |
+| `cloc`                    | Count lines of code in a project                          |
+| `duf`                     | df replacement with better visualization                  |
+| `dust`                    | du replacement with intuitive output                      |
+| `eza`                     | ls replacement with modern features                       |
+| `fastfetch`               | Fast system information fetcher                           |
+| `fd`                      | find replacement with simpler syntax                      |
+| `fnm`                     | Fast Node Manager for managing Node.js versions           |
+| `fzf`                     | Fuzzy finder for the command line                         |
+| `gh`                      | GitHub CLI tool for interacting with GitHub               |
+| `git-delta`               | Syntax-highlighting pager for git and diff output         |
+| `gping`                   | Graphical ping tool with live visualization               |
+| `jq`                      | Command-line JSON processor                               |
+| `just`                    | Handy command runner similar to Make                      |
+| `lazygit`                 | Simple TUI for Git repositories                           |
+| `ripgrep`                 | grep replacement with blazing fast search                 |
+| `ruff`                    | Fast Python linter and formatter                          |
+| `starship`                | Minimal and customizable shell prompt                     |
+| `tmux`                    | Terminal multiplexer for managing multiple panes          |
+| `tokei`                   | Code statistics tool for counting lines and files         |
+| `typst`                   | Modern markup-based typesetting system                    |
+| `uv`                      | Python version manager with seamless virtual environments |
+| `yazi`                    | TUI file manager inspired by ranger                       |
+| `zellij`                  | Rust-based terminal multiplexer with workspace support    |
+| `zoxide`                  | cd replacement with smart directory jumping               |
+| `zsh`                     | Powerful and customizable shell                           |
+| `zsh-autosuggestions`     | Fish-like command suggestions for zsh                     |
+| `zsh-completions`         | Additional completions for zsh commands                   |
+| `zsh-syntax-highlighting` | Syntax highlighting for zsh command line                  |
+
+
+### 😸 インストール対象アプリ
+
+パッケージマネージャごとにインストールするアプリは次のファイルを参照ください
 
 - [apt packages](assets/txt/apt-packages.txt)
 - [brew packages](Brewfile)
 - [snap packages](assets/txt/snap-packages.txt)
 - [pkg packages](assets/txt/pkg-packages.txt)
--->
 
 ## 🐳 Docker環境でのお試し
 
 以下のコマンドでコンテナを構築，お試しできます．
 
 ```bash
+cd ~/.local/share/dotfiles-main
+
 docker build -t dotfiles-img .
 docker run -it -d --name dotfiles-con dotfiles-img
 docker exec -it dotfiles-con /bin/zsh
@@ -209,7 +262,37 @@ Homebrew をインストールして進める場合は以下のコマンドを�
 dots all brew
 ```
 
+## ギャラリー
+
+### Neovim
+
+|                                          LazyVim tokyonight.nvim style=night                                          |
+| :-------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/53567c2d-8bf2-4f4b-81d8-c6f126895606" width="800" alt="LazyVim"> |
+
+
+### Tmux
+
+|                                                        Tmux split window                                                        |
+| :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/2be4ac55-e412-4fa4-a8c8-ec517c70dec0" width="800" alt="Tmux split window"> |
+
+|                                                        Tmux synchronize-panes mode                                                        |
+| :---------------------------------------------------------------------------------------------------------------------------------------: |
+|                     <span style="font-size:12px">alias tid='tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"'</span>                     |
+| <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
+
 ## ⚡  エイリアスコマンド
+
+### Zsh
+
+#### .zshrcのリロード
+
+Zshの設定を読み込みます
+
+```bash
+.z # source ~/.config/zsh/.zshrc
+```
 
 ### Tmux
 
@@ -235,6 +318,24 @@ tls # tmux ls
 
 ```bash
 tks # tmux kill-server
+```
+
+#### Tmux設定の再読み込み
+
+.tmux.confを読み込みます
+
+```bash
+.t # source ~/.config/tmux/.tmux.conf
+```
+
+### Neovim
+
+#### 検索して開く
+
+fd + fzf で検索したファイルを開きます
+
+```bash
+v # fd --type f --hidden --exclude .git | fzf-tmux -p | xargs -o nvim
 ```
 
 ## ⌨️ よく使うキーマップ

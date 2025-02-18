@@ -40,22 +40,6 @@ Welcome to my dotfiles. This repository helps easily set up a fast and intuitive
 
 <img src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800" width="800" alt="wsl_zsh_nvim_startuptime">
 
-### Neovim / Tmux Screenshots
-
-|                                          LazyVim tokyonight.nvim style=night                                          |
-| :-------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/53567c2d-8bf2-4f4b-81d8-c6f126895606" width="800" alt="LazyVim"> |
-
-
-|                                                        Tmux split window                                                        |
-| :-----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/2be4ac55-e412-4fa4-a8c8-ec517c70dec0" width="800" alt="Tmux split window"> |
-
-|                                                        Tmux synchronize-panes mode                                                        |
-| :---------------------------------------------------------------------------------------------------------------------------------------: |
-|                <span style="font-size:12px">alias tid='tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"'</span>                          |
-| <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
-
 ## 🚀 Installation
 
 1. Download and Install dotfiles
@@ -82,10 +66,15 @@ wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | ba
 
 2. Bulk installation
 
-> [!NOTE] 
+> [!IMPORTANT] 
 > Install all components using your preferred package manager:<br>
 > dots all [apt|brew|snap|pkg]<br>
 > Replace [apt|brew|snap|pkg] with your package manager of choice.
+>
+> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using the `dots all brew` command.<br>
+> On Ubuntu, fast installation is possible with the `dots all apt` or `dots all snap` command.<br>
+> On Termux, setup can be done using the `dots all pkg` command.
+>
 
 For example, to use brew on Linux
 
@@ -108,13 +97,17 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-3. Start
+1. Start
 
 Relogin or execute following command:
 
 ```bash
 exec -l $(which zsh)
 ```
+
+> [!NOTE] 
+> In a login shell, such as an SSH session, Tmux will start automatically.<br>
+> If a Tmux server is already running, you can select a session to connect to.
 
 ## ✅ Supported OS
 
@@ -124,6 +117,10 @@ exec -l $(which zsh)
   - Fedora
 - Android 📱
   - The latest version of Termux
+
+> [!WARNING] 
+> The Google Play Store version of Termux may not work properly with some commands.<br>
+> It is recommended to install it from [F-Droid](https://f-droid.org/).
 
 ## ✨ Features
 
@@ -141,7 +138,7 @@ Show help and available commands:
 dots --help
 ```
 
-Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles/backup dir:
+Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir:
 
 ```bash
 dots backup
@@ -156,7 +153,7 @@ dots list [apt|brew|snap|pkg]
 Install individual package:
 
 ```bash
-dots [package_name]
+dots <package_name>
 ```
 
 |                                                     Help image                                                     |
@@ -165,9 +162,12 @@ dots [package_name]
 
 ### 🖥️ Install individual package
 
+The following apps can be installed individually from the `dots <package_name>` command
+
+#### >_ CLI/TUI Apps
+
 | Package Name    | Description                                 |
 | --------------- | ------------------------------------------- |
-| `hackgen`       | HackGen font (Nerd Font)                    |
 | `docker`        | docker-ce (additional repository)           |
 | `fnm`           | latest FNM (Fast Node Manager) and Node.js  |
 | `fzf`           | fzf (fuzzy finder) from github              |
@@ -175,24 +175,76 @@ dots [package_name]
 | `lazygit`       | LazyGit                                     |
 | `lazyvim`       | LazyVim                                     |
 | `neovim`        | Neovim and LazyVim                          |
-| `rustdesk`      | RustDesk on Ubuntu Desktop                  |
 | `starship`      | starship.rs                                 |
+
+#### 🖥️ GUI Apps
+
+| Package Name    | Description                                 |
+| --------------- | ------------------------------------------- |
+| `rustdesk`      | RustDesk on Ubuntu Desktop                  |
 | `zed`           | Zed editor on Linux Desktop                 |
 
-<!--
-### 😸 All preferred packages
+#### 🪴 Others
+
+| Package Name    | Description                                 |
+| --------------- | ------------------------------------------- |
+| `hackgen`       | HackGen font (Nerd Font)                    |
+
+### 🍺 Brew Apps
+
+The `dots all brew` command mainly installs the following apps
+
+| Package Name              | Description                                               |
+| ------------------------- | --------------------------------------------------------- |
+| `bat`                     | cat replacement                                           |
+| `bottom`                  | TUI system resource monitor                               |
+| `broot`                   | Interactive directory navigation tool                     |
+| `cloc`                    | Count lines of code in a project                          |
+| `duf`                     | df replacement with better visualization                  |
+| `dust`                    | du replacement with intuitive output                      |
+| `eza`                     | ls replacement with modern features                       |
+| `fastfetch`               | Fast system information fetcher                           |
+| `fd`                      | find replacement with simpler syntax                      |
+| `fnm`                     | Fast Node Manager for managing Node.js versions           |
+| `fzf`                     | Fuzzy finder for the command line                         |
+| `gh`                      | GitHub CLI tool for interacting with GitHub               |
+| `git-delta`               | Syntax-highlighting pager for git and diff output         |
+| `gping`                   | Graphical ping tool with live visualization               |
+| `jq`                      | Command-line JSON processor                               |
+| `just`                    | Handy command runner similar to Make                      |
+| `lazygit`                 | Simple TUI for Git repositories                           |
+| `ripgrep`                 | grep replacement with blazing fast search                 |
+| `ruff`                    | Fast Python linter and formatter                          |
+| `starship`                | Minimal and customizable shell prompt                     |
+| `tmux`                    | Terminal multiplexer for managing multiple panes          |
+| `tokei`                   | Code statistics tool for counting lines and files         |
+| `typst`                   | Modern markup-based typesetting system                    |
+| `uv`                      | Python version manager with seamless virtual environments |
+| `yazi`                    | TUI file manager inspired by ranger                       |
+| `zellij`                  | Rust-based terminal multiplexer with workspace support    |
+| `zoxide`                  | cd replacement with smart directory jumping               |
+| `zsh`                     | Powerful and customizable shell                           |
+| `zsh-autosuggestions`     | Fish-like command suggestions for zsh                     |
+| `zsh-completions`         | Additional completions for zsh commands                   |
+| `zsh-syntax-highlighting` | Syntax highlighting for zsh command line                  |
+
+
+### 😸 Target apps
+
+If you want to check all applications per package manager, please refer:
 
 - [apt packages](assets/txt/apt-packages.txt)
 - [brew packages](Brewfile)
 - [snap packages](assets/txt/snap-packages.txt)
 - [pkg packages](assets/txt/pkg-packages.txt)
--->
 
 ## 🐳 Docker
 
 You can build and enter a container with the following commands.
 
 ```bash
+cd ~/.local/share/dotfiles-main
+
 docker build -t dotfiles-img .
 docker run -it -d --name dotfiles-con dotfiles-img
 docker exec -it dotfiles-con /bin/zsh
@@ -210,7 +262,36 @@ or install Homebrew with following command.
 dots all brew
 ```
 
+## Gallery
+
+### Neovim
+
+|                                          LazyVim tokyonight.nvim style=night                                          |
+| :-------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/53567c2d-8bf2-4f4b-81d8-c6f126895606" width="800" alt="LazyVim"> |
+
+### Tmux
+
+|                                                        Tmux split window                                                        |
+| :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/2be4ac55-e412-4fa4-a8c8-ec517c70dec0" width="800" alt="Tmux split window"> |
+
+|                                                        Tmux synchronize-panes mode                                                        |
+| :---------------------------------------------------------------------------------------------------------------------------------------: |
+|                     <span style="font-size:12px">alias tid='tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"'</span>                     |
+| <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
+
 ## ⚡ Aliases for quick start
+
+### Zsh
+
+#### Reload .zshrc
+
+Quickly apply zshrc settings.
+
+```bash
+.z # source ~/.config/zsh/.zshrc
+```
 
 ### Tmux
 
@@ -244,6 +325,24 @@ Kill the entire tmux server and all running sessions.
 
 ```bash
 tks # tmux kill-server
+```
+
+#### Reload tmux config
+
+Reload .tmux.conf
+
+```bash
+.t # source ~/.config/tmux/.tmux.conf
+```
+
+### Neovim
+
+#### Search and Open 
+
+Search and open files by fd and fzf.
+
+```bash
+v # fd --type f --hidden --exclude .git | fzf-tmux -p | xargs -o nvim
 ```
 
 ## ⌨️ Keymaps
