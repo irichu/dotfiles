@@ -1,3 +1,5 @@
+| alias | entity |
+| :-: | :-: |
 | ls              | `eza --icons --git --time-style=iso --group --smart-group`                                                                                                                       |
 | l               | `ls -l`                                                                                                                                                                          |
 | ll              | `ls -l`                                                                                                                                                                          |
