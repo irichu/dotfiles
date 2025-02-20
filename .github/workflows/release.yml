@@ -22,8 +22,8 @@ jobs:
       - name: Create tar.gz and zip
         run: |
           mkdir artifacts
-          tar -czvf artifacts/dotfiles-${VERSION}.tar.gz ./*
-          zip -r artifacts/dotfiles-${VERSION}.zip ./*
+          tar --exclude=artifacts -czvf artifacts/dotfiles-${VERSION}.tar.gz -- * .[^.]*
+          zip -r artifacts/dotfiles-${VERSION}.zip * .[^.]* -x "artifacts/*"
 
       - name: Create GitHub Release
         id: create_release
