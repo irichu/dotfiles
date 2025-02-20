@@ -1,0 +1,9 @@
+# Dependabot configuration version
+version: 2
+
+updates:
+  # Specify the ecosystem to check for updates (GitHub Actions)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
