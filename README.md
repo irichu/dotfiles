@@ -2,9 +2,13 @@
 
 # Dotfiles for Linux and Termux
 
+<!-- Badges -->
 <p>
+  <!-- CODE SIZE -->
   <img src="https://img.shields.io/github/languages/code-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub code size in bytes" height="22">
+  <!-- REPO SIZE -->
   <img src="https://img.shields.io/github/repo-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub repo size" height="22">
+  <!-- Tokei LOC -->
   <a href="https://github.com/irichu/dotfiles">
     <img src="https://tokei.rs/b1/github/irichu/dotfiles?category=lines&style=for-the-badge&logo=https://simpleicons.org/icons/github.svg&color=%2377aaff"
         alt="Tokei total line"
@@ -12,13 +16,14 @@
   </a>
 </p>
 
-<!--
-<img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub Created At" height="22"> 
--->
-
 <p>
+  <!-- LICENSE -->
   <img src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub License" height="22">
+  <!-- CREATED AT -->
+  <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub Created At" height="22"> 
+  <!-- LAST COMMIT -->
   <img src="https://img.shields.io/github/last-commit/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub last commit" height="22">
+  <!-- STARS -->
   <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
 </p>
 
@@ -66,23 +71,29 @@ wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | ba
 
 2. Bulk installation
 
+> [!IMPORTANT] 
+> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `brew`.<br>
+> On Ubuntu, fast installation is possible with `apt` or `snap`.<br>
+> On Termux, setup can be done using `pkg`.
+
+> [!NOTE]
+> On Linux, `sudo` access is required for installation.<br>
+> This is needed to install Homebrew itself with `brew` and to install packages using `apt`, `snap`.
+> 
+
 Install all components using your preferred package manager:<br>
 `dots all [apt|brew|snap|pkg]`<br>
 Replace `[apt|brew|snap|pkg]` with your package manager of choice.
 
-> [!IMPORTANT] 
-> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using the `dots all brew` command.<br>
-> On Ubuntu, fast installation is possible with the `dots all apt` or `dots all snap` command.<br>
-> On Termux, setup can be done using the `dots all pkg` command.
->
+Examples:
 
-For example, to use brew on Linux
+To use brew on Linux:
 
 ```bash
 dots all brew
 ```
 
-To use pkg on Termux
+To use pkg on Termux:
 
 ```bash
 dots all pkg
@@ -108,6 +119,7 @@ exec -l $(which zsh)
 > [!NOTE] 
 > In a login shell, such as an SSH session, Tmux will start automatically.<br>
 > If a Tmux server is already running, you can select a session to connect to.
+>
 
 ## ✅ Supported OS
 
@@ -124,11 +136,11 @@ exec -l $(which zsh)
 
 ## ✨ Features
 
-- **Shell**: zsh with the starship prompt
-- **Editor**: Neovim configured via LazyVim
-- **Terminal Multiplexers**: tmux for session management, zellij for workspace management
-- **TUI File Managers**: broot for efficient navigation, yazi for rapid file access
-- **Terminal Emulator**: Alacritty for performance, Termux for Android environments
+- **Shell**: Zsh with the [starship](https://starship.rs/) prompt
+- **Editor**: [Neovim](https://github.com/neovim/neovim) configured via [LazyVim](https://www.lazyvim.org/)
+- **Terminal Multiplexers**: [tmux](https://github.com/tmux/tmux) for session management, [zellij](https://github.com/zellij-org/zellij) for workspace management
+- **TUI File Managers**: [broot](https://github.com/Canop/broot) for efficient navigation, [yazi](https://github.com/sxyazi/yazi) for rapid file access
+- **Terminal Emulator**: [Alacritty](https://github.com/alacritty/alacritty) for performance, [Termux](https://github.com/termux/termux-app) for Android environments
 
 ## 📗 Basic commands
 
@@ -166,29 +178,29 @@ The following apps can be installed individually from the `dots <package_name>` 
 
 #### >_ CLI/TUI Apps
 
-| Package Name    | Description                                 |
-| --------------- | ------------------------------------------- |
-| `docker`        | docker-ce (additional repository)           |
-| `fnm`           | latest FNM (Fast Node Manager) and Node.js  |
-| `fzf`           | fzf (fuzzy finder) from github              |
-| `lazydocker`    | LazyDocker                                  |
-| `lazygit`       | LazyGit                                     |
-| `lazyvim`       | LazyVim                                     |
-| `neovim`        | Neovim and LazyVim                          |
-| `starship`      | starship.rs                                 |
+| Package Name | Description                                |
+| ------------ | ------------------------------------------ |
+| `docker`     | docker-ce (additional repository)          |
+| `fnm`        | latest FNM (Fast Node Manager) and Node.js |
+| `fzf`        | fzf (fuzzy finder) from github             |
+| `lazydocker` | LazyDocker                                 |
+| `lazygit`    | LazyGit                                    |
+| `lazyvim`    | LazyVim                                    |
+| `neovim`     | Neovim and LazyVim                         |
+| `starship`   | starship.rs                                |
 
 #### 🖥️ GUI Apps
 
-| Package Name    | Description                                 |
-| --------------- | ------------------------------------------- |
-| `rustdesk`      | RustDesk on Ubuntu Desktop                  |
-| `zed`           | Zed editor on Linux Desktop                 |
+| Package Name | Description                 |
+| ------------ | --------------------------- |
+| `rustdesk`   | RustDesk on Ubuntu Desktop  |
+| `zed`        | Zed editor on Linux Desktop |
 
 #### 🪴 Others
 
-| Package Name    | Description                                 |
-| --------------- | ------------------------------------------- |
-| `hackgen`       | HackGen font (Nerd Font)                    |
+| Package Name | Description              |
+| ------------ | ------------------------ |
+| `hackgen`    | HackGen font (Nerd Font) |
 
 ### 🍺 Brew Apps
 
@@ -262,7 +274,7 @@ or install Homebrew with following command.
 dots all brew
 ```
 
-## Gallery
+## 🖼️ Gallery
 
 ### Neovim
 
@@ -287,7 +299,7 @@ dots all brew
 
 #### Reload .zshrc
 
-Quickly apply zshrc settings.
+Apply zshrc settings.
 
 ```bash
 .z # source ~/.config/zsh/.zshrc
@@ -351,35 +363,37 @@ v # fd --type f --hidden --exclude .git | fzf-tmux -p | xargs -o nvim
 
 Based on Emacs mode with `bindkey -e`, with some additional key bindings added.
 
-| Key                                         | Action                        |
-| ------------------------------------------- | ----------------------------- |
-| <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Undo / Redo                   |
-| <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Backward-word / Forward-word  |
+| Key                                         | Action                       |
+| ------------------------------------------- | ---------------------------- |
+| <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Undo / Redo                  |
+| <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Backward-word / Forward-word |
 
 ### Tmux
 
 #### prefix key
 
-The tmux prefix key is configured to `Ctrl + \` for easier access.
+> [!NOTE]  
+> The tmux prefix key is configured to `Ctrl + \` for easier access.
+> 
 
-| Key                             | Description                   |
-| ------------------------------- | ------------------------------|
-| <kbd>I</kbd>                    | Install tmux plugins with tpm |
-| <kbd>U</kbd>                    | Update tmux plugins with tpm  |
-| <kbd>Ctrl</kbd>+<kbd>s</kbd>    | Save tmux env                 |
-| <kbd>Ctrl</kbd>+<kbd>r</kbd>    | Restore tmux env              |
-| <kbd>d</kbd>                    | Detach the tmux session       |
-| <kbd>e</kbd>                    | Switch pane-synchronize mode  |
+| Key                          | Description                   |
+| ---------------------------- | ----------------------------- |
+| <kbd>I</kbd>                 | Install tmux plugins with tpm |
+| <kbd>U</kbd>                 | Update tmux plugins with tpm  |
+| <kbd>Ctrl</kbd>+<kbd>s</kbd> | Save tmux env                 |
+| <kbd>Ctrl</kbd>+<kbd>r</kbd> | Restore tmux env              |
+| <kbd>d</kbd>                 | Detach the tmux session       |
+| <kbd>e</kbd>                 | Switch pane-synchronize mode  |
 
 ##### tmux plugins
 
 The tmux plugins installed by default are as follows:
 
-- tpm
-- tmux-continuum
-- tmux-logging
-- tmux-resurrect
-- tmux-fingers
+- [tpm](https://github.com/tmux-plugins/tpm)
+- [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum)
+- [tmux-logging](https://github.com/tmux-plugins/tmux-logging)
+- [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
+- [tmux-fingers](https://github.com/Morantron/tmux-fingers)
 
 #### alt key shortcut
 
@@ -394,17 +408,17 @@ The tmux plugins installed by default are as follows:
 
 #### alt+shift key shortcut
 
-| Key                                                         | Description                         | Prefix key +                |
-| ----------------------------------------------------------- | ----------------------------------- | --------------------------- |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Create/delete a session             |                             |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Switch to the previous/next session | <kbd>(</kbd>/<kbd>)</kbd>   |
+| Key                                                         | Description                         | Prefix key +              |
+| ----------------------------------------------------------- | ----------------------------------- | ------------------------- |
+| <kbd>Alt</kbd>+<kbd>Shift</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Create/delete a session             |                           |
+| <kbd>Alt</kbd>+<kbd>Shift</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Switch to the previous/next session | <kbd>(</kbd>/<kbd>)</kbd> |
 
 ### Neovim
 
 Based on [LazyVim keymaps](https://www.lazyvim.org/keymaps), with some additional key bindings added.
 
 | Mode  | Key                                         | Description                                                             |
-| ----- | ------------------------------------------- | ----------------------------------------------------------------------- |
+| ----: | ------------------------------------------- | ----------------------------------------------------------------------- |
 | n,v   | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Move to (the end of the previous / the beginning of the next) paragraph |
 | n,v,i | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Backward word / Forward word                                            |
 | i     | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo                                                                    |

@@ -2,10 +2,13 @@
 
 # Dotfiles for Linux and Termux
 
-<!-- style=for-the-badge height="22" -->
+<!-- Badges -->
 <p>
+  <!-- CODE SIZE -->
   <img src="https://img.shields.io/github/languages/code-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub code size in bytes" height="22">
+  <!-- REPO SIZE -->
   <img src="https://img.shields.io/github/repo-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub repo size" height="22">
+  <!-- Tokei LOC -->
   <a href="https://github.com/irichu/dotfiles">
     <img src="https://tokei.rs/b1/github/irichu/dotfiles?category=lines&style=for-the-badge&logo=https://simpleicons.org/icons/github.svg&color=%2377aaff"
         alt="Tokei total line"
@@ -14,11 +17,15 @@
 </p>
 
 <p>
+  <!-- LICENSE -->
   <img src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub License" height="22">
+  <!-- CREATED AT -->
+  <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub Created At" height="22"> 
+  <!-- LAST COMMIT -->
   <img src="https://img.shields.io/github/last-commit/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub last commit" height="22">
+  <!-- STARS -->
   <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
 </p>
-<!-- style=flat-square height="20" -->
 
 [[English](../)] [日本語]
 
@@ -65,15 +72,21 @@ wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | ba
 
 2. パッケージの一括インストール
 
+> [!IMPORTANT] 
+>・Linux(Ubuntu/Fedora/Arch Linux)では `brew` による自動構築が可能です<br>
+>・Ubuntuでは `apt` または `snap` で高速なインストールが可能です<br>
+>・Termuxでは `pkg` によるセットアップが可能です
+>
+
+> [!NOTE]
+> Linuxでは `sudo` コマンドが使える必要があります<br>
+> `brew`ではHomebrew本体をインストールするために利用します<br>
+> `apt`, `snap`の場合もそのパッケージ管理のため使用します
+> 
+
 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
 `dots all [apt|brew|snap|pkg]`<br>
 具体的には `[apt|brew|snap|pkg]` の部分を置き換えて実行します
-
-> [!IMPORTANT] 
->・Linux(Ubuntu/Fedora/Arch Linux)では `dots all brew` コマンドによる自動構築が可能です<br>
->・Ubuntuでは `dots all apt` または `dots all snap` コマンドで高速なインストールが可能です<br>
->・Termuxでは `dots all pkg` によるセットアップが可能です
->
 
 Linux環境にて，brewでセットアップする場合は以下を実行します
 
@@ -107,6 +120,7 @@ exec -l $(which zsh)
 > [!NOTE] 
 > SSH接続のように，ログインシェルの場合はTmuxが自動起動します．<br>
 > Tmuxサーバーがすでに起動している場合は，セッション一覧から接続するセッションを選択できます.
+>
 
 ## ✅ サポートOS
 
@@ -155,8 +169,8 @@ dots list [apt|brew|snap|pkg]
 dots <package_name>
 ```
 
-| ヘルプ表示のイメージ |
-| :---: |
+|                                                ヘルプ表示のイメージ                                                |
+| :----------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/2be34e8d-4dfa-4c3e-9a85-6d3c9cfd6053" width="800" alt="help"> |
 
 ### 🖥️ 個別インストール可能なパッケージの例
@@ -179,10 +193,10 @@ The following apps can be installed individually from the `dots <package_name>` 
 
 #### 🖥️ GUI アプリ
 
-| パッケージ名 | 説明                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------ |
-| `rustdesk`   | Ubuntu Desktop向けにRustDeskをインストールします                                     |
-| `zed`        | Zedエディターをインストールします                                                    |
+| パッケージ名 | 説明                                             |
+| ------------ | ------------------------------------------------ |
+| `rustdesk`   | Ubuntu Desktop向けにRustDeskをインストールします |
+| `zed`        | Zedエディターをインストールします                |
 
 #### 🪴 その他
 
@@ -194,49 +208,48 @@ The following apps can be installed individually from the `dots <package_name>` 
 
 `dots all brew`コマンドでインストールする主なパッケージは次のとおりです
 
-| Package Name              | Description                                               |
-| ------------------------- | --------------------------------------------------------- |
-| `bat`                     | cat replacement                                           |
-| `bottom`                  | TUI system resource monitor                               |
-| `broot`                   | Interactive directory navigation tool                     |
-| `cloc`                    | Count lines of code in a project                          |
-| `duf`                     | df replacement with better visualization                  |
-| `dust`                    | du replacement with intuitive output                      |
-| `eza`                     | ls replacement with modern features                       |
-| `fastfetch`               | Fast system information fetcher                           |
-| `fd`                      | find replacement with simpler syntax                      |
-| `fnm`                     | Fast Node Manager for managing Node.js versions           |
-| `fzf`                     | Fuzzy finder for the command line                         |
-| `gh`                      | GitHub CLI tool for interacting with GitHub               |
-| `git-delta`               | Syntax-highlighting pager for git and diff output         |
-| `gping`                   | Graphical ping tool with live visualization               |
-| `jq`                      | Command-line JSON processor                               |
-| `just`                    | Handy command runner similar to Make                      |
-| `lazygit`                 | Simple TUI for Git repositories                           |
-| `ripgrep`                 | grep replacement with blazing fast search                 |
-| `ruff`                    | Fast Python linter and formatter                          |
-| `starship`                | Minimal and customizable shell prompt                     |
-| `tmux`                    | Terminal multiplexer for managing multiple panes          |
-| `tokei`                   | Code statistics tool for counting lines and files         |
-| `typst`                   | Modern markup-based typesetting system                    |
-| `uv`                      | Python version manager with seamless virtual environments |
-| `yazi`                    | TUI file manager inspired by ranger                       |
-| `zellij`                  | Rust-based terminal multiplexer with workspace support    |
-| `zoxide`                  | cd replacement with smart directory jumping               |
-| `zsh`                     | Powerful and customizable shell                           |
-| `zsh-autosuggestions`     | Fish-like command suggestions for zsh                     |
-| `zsh-completions`         | Additional completions for zsh commands                   |
-| `zsh-syntax-highlighting` | Syntax highlighting for zsh command line                  |
-
+| パッケージ名              | 説明                                                           |
+| ------------------------- | -------------------------------------------------------------- |
+| `bat`                     | `cat` の代替ツール                                             |
+| `bottom`                  | TUI のシステムリソースモニター                                 |
+| `broot`                   | 対話型のディレクトリナビゲーションツール                       |
+| `cloc`                    | プロジェクト内のコード行数をカウント                           |
+| `duf`                     | `df` の代替ツール（視覚的に見やすい）                          |
+| `dust`                    | `du` の代替ツール（直感的な出力）                              |
+| `eza`                     | `ls` の代替ツール（モダンな機能付き）                          |
+| `fastfetch`               | 高速なシステム情報取得ツール                                   |
+| `fd`                      | `find` の代替ツール（シンプルな構文）                          |
+| `fnm`                     | Node.js のバージョン管理ができる高速 Node マネージャー         |
+| `fzf`                     | コマンドライン用のファジーファインダー                         |
+| `gh`                      | GitHub の操作ができる CLI ツール                               |
+| `git-delta`               | Git や diff の出力をシンタックスハイライト付きで表示           |
+| `gping`                   | グラフィカルな ping ツール（リアルタイム可視化）               |
+| `jq`                      | コマンドライン用の JSON プロセッサ                             |
+| `just`                    | `Make` に似た便利なコマンドランナー                            |
+| `lazygit`                 | シンプルな TUI の Git クライアント                             |
+| `ripgrep`                 | `grep` の代替ツール（超高速検索）                              |
+| `ruff`                    | 高速な Python 用リンター＆フォーマッター                       |
+| `starship`                | 最小限でカスタマイズ可能なシェルプロンプト                     |
+| `tmux`                    | 複数のペインを管理できるターミナルマルチプレクサ               |
+| `tokei`                   | コード統計ツール（ファイルや行数をカウント）                   |
+| `typst`                   | モダンなマークアップベースの組版システム                       |
+| `uv`                      | 仮想環境をシームレスに管理できる Python バージョンマネージャー |
+| `yazi`                    | `ranger` にインスパイアされた TUI ファイルマネージャー         |
+| `zellij`                  | ワークスペース機能を備えた Rust 製ターミナルマルチプレクサ     |
+| `zoxide`                  | `cd` の代替ツール（スマートなディレクトリ移動）                |
+| `zsh`                     | 高機能でカスタマイズ性の高いシェル                             |
+| `zsh-autosuggestions`     | `fish` のようなコマンド補完機能（`zsh` 用）                    |
+| `zsh-completions`         | `zsh` コマンドの補完機能を追加                                 |
+| `zsh-syntax-highlighting` | `zsh` のコマンドライン用シンタックスハイライト                 |
 
 ### 😸 インストール対象アプリ
 
 パッケージマネージャごとにインストールするアプリは次のファイルを参照ください
 
-- [apt packages](assets/txt/apt-packages.txt)
-- [brew packages](Brewfile)
-- [snap packages](assets/txt/snap-packages.txt)
-- [pkg packages](assets/txt/pkg-packages.txt)
+- [apt packages](../assets/txt/apt-packages.txt)
+- [brew packages](../Brewfile)
+- [snap packages](../assets/txt/snap-packages.txt)
+- [pkg packages](../assets/txt/pkg-packages.txt)
 
 ## 🐳 Docker環境でのお試し
 
@@ -262,7 +275,7 @@ Homebrew をインストールして進める場合は以下のコマンドを�
 dots all brew
 ```
 
-## ギャラリー
+## 🖼️ ギャラリー
 
 ### Neovim
 
@@ -344,35 +357,37 @@ v # fd --type f --hidden --exclude .git | fzf-tmux -p | xargs -o nvim
 
 Emacsモード  `bindkey -e` に加えていくつかのバインドを追加しています．
 
-| キー                                        | 実行される操作                |
-| ------------------------------------------- | ----------------------------- |
-| <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | undo / redo                   |
-| <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | backward-word / forward-word  |
+| キー                                        | 実行される操作               |
+| ------------------------------------------- | ---------------------------- |
+| <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | undo / redo                  |
+| <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | backward-word / forward-word |
 
 ### Tmux
 
 #### プレフィックスキー
 
-プレフィックスキーは `Ctrl + \` に設定しています．
+> [!NOTE]
+> プレフィックスキーは `Ctrl + \` に設定しています．
+>
 
-| キー                            | 説明                                    |
-| ------------------------------- | --------------------------------------- |
-| <kbd>I</kbd>                    | tpmでプラグインをインストールします     |
-| <kbd>U</kbd>                    | tmuxプラグインのアップデートをします    |
-| <kbd>Ctrl</kbd>+<kbd>s</kbd>    | tmux環境を保存します                    |
-| <kbd>Ctrl</kbd>+<kbd>r</kbd>    | tmux環境を復元します                    |
-| <kbd>d</kbd>                    | tmuxセッションからデタッチします        |
-| <kbd>e</kbd>                    | ペインの同期モードON/OFFを切り替えます  |
+| キー                         | 説明                                   |
+| ---------------------------- | -------------------------------------- |
+| <kbd>I</kbd>                 | tpmでプラグインをインストールします    |
+| <kbd>U</kbd>                 | tmuxプラグインのアップデートをします   |
+| <kbd>Ctrl</kbd>+<kbd>s</kbd> | tmux環境を保存します                   |
+| <kbd>Ctrl</kbd>+<kbd>r</kbd> | tmux環境を復元します                   |
+| <kbd>d</kbd>                 | tmuxセッションからデタッチします       |
+| <kbd>e</kbd>                 | ペインの同期モードON/OFFを切り替えます |
 
 ##### tmux プラグイン
 
 デフォルトでインストールされる tmux プラグインは以下のとおりです．
 
-- tpm
-- tmux-continuum
-- tmux-logging
-- tmux-resurrect
-- tmux-fingers
+- [tpm](https://github.com/tmux-plugins/tpm)
+- [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum)
+- [tmux-logging](https://github.com/tmux-plugins/tmux-logging)
+- [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
+- [tmux-fingers](https://github.com/Morantron/tmux-fingers)
 
 #### Alt キーとの組み合わせによるショートカット
 
@@ -391,21 +406,21 @@ window と pane の操作を可能としています．
 
 主に session の操作を可能としています．
 
-| キー                                                        | 説明                             | プレフィックスキーでの操作  |
-| ----------------------------------------------------------- | -------------------------------- | --------------------------- |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | セッションを作成/削除します      |                             |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | 前・後のセッションに切り替えます | <kbd>(</kbd>/<kbd>)</kbd>   |
+| キー                                                        | 説明                             | プレフィックスキーでの操作 |
+| ----------------------------------------------------------- | -------------------------------- | -------------------------- |
+| <kbd>Alt</kbd>+<kbd>Shift</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | セッションを作成/削除します      |                            |
+| <kbd>Alt</kbd>+<kbd>Shift</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | 前・後のセッションに切り替えます | <kbd>(</kbd>/<kbd>)</kbd>  |
 
 ### Neovim
 
 [LazyVimのキーマップ](https://www.lazyvim.org/keymaps) をベースに，いくつかのキーバインドを追加しています.
 
-| モード | キー                                        | 説明                                                                    |
-| ------ | ------------------------------------------- | ----------------------------------------------------------------------- |
-| n,v    | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | 前のパラグラフの終端，後のパラグラフの先頭にカーソルを移動します        |
-| n,v,i  | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | 前の単語/次の単語にカーソルを移動します                                 |
-| i      | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo (操作を１回戻します)                                               |
-| i      | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo (操作を１回やり直します)                                           |
+| モード | キー                                        | 説明                                                             |
+| ------ | ------------------------------------------- | ---------------------------------------------------------------- |
+| n,v    | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | 前のパラグラフの終端，後のパラグラフの先頭にカーソルを移動します |
+| n,v,i  | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | 前の単語/次の単語にカーソルを移動します                          |
+| i      | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo (操作を１回戻します)                                        |
+| i      | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo (操作を１回やり直します)                                    |
 
 インサートモードで以下の Emacs ライクなショートカットを設定しています．詳細は[こちら](./neovim.md#emacs-like)を参照ください．
 
