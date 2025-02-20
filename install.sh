@@ -206,69 +206,6 @@ log_date_str() {
   date +'%Y-%m-%d %H:%M:%S.%3N'
 }
 
-echo_descriptions() {
-  data_path="$1"
-
-  #tail -n +2 "$data_path" | sort -t'	' -k1,1 | while IFS='	' read -r key value; do
-  tail -n +2 "$data_path" | while IFS='	' read -r key value; do
-    info -ny -cc "  $(printf "%-${2:-13}s" "$key")"
-    info -cn " $value"
-  done
-
-  return 0
-}
-
-echo_allcommand_usage() {
-
-  info -ny -cg "Usage: "
-  info -cc "./$(basename "$0") all <Command>"
-
-  info -cg "Commands: "
-  echo_descriptions "$SCRIPT_DIR"/assets/tsv/main-commands.tsv 5
-
-  # list command
-  info ""
-  info -ny -cg "Show package list: "
-  info -cc "./$(basename "$0") list(alias:ls) <Command>"
-  #echo_descriptions "$SCRIPT_DIR"/assets/package-managers.tsv
-
-  return 0
-}
-
-echo_each_command_usage() {
-
-  info ""
-  info -ny -cg "Individual installation: "
-  info -cc "./$(basename "$0") <Package>"
-
-  echo_descriptions "$SCRIPT_DIR"/assets/tsv/install-packages.tsv
-
-  info ""
-  info -ny -cg "Individual set up: "
-  info -cc "./$(basename "$0") <Setup>"
-
-  echo_descriptions "$SCRIPT_DIR"/assets/tsv/setup-packages.tsv
-
-  return 0
-}
-
-echo_completion_message() {
-
-  info ""
-  info "To reflect zsh settings immediately,"
-  info "relogin shell or run the following command:"
-  info ""
-
-  success "  exec -l \$(which zsh)"
-
-  info ""
-  info "If you like this repository even a little bit, please star it on GitHub as it will motivate our activities!"
-  success "https://github.com/irichu/dotfiles"
-  info ""
-
-  return 0
-}
-
 #--------------------------------------------------
 # backup
 #--------------------------------------------------
