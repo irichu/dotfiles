@@ -11,6 +11,18 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+check_command() {
+  if ! command -v "$1" &>/dev/null; then
+    echo "Error: $1 command not found."
+    exit 1
+  fi
+}
+
+# Check commands exist
+check_command "rg"
+check_command "sed"
+check_command "csview"
+
 # markdown table header
 echo '| alias | entity |'
 echo '| :- | :- |'

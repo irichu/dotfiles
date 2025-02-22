@@ -5,8 +5,8 @@ set -o pipefail
 
 export LC_ALL=C
 
-IMAGE_NAME="dotfiles-img"
-CONTAINER_NAME="dotfiles-con"
+IMAGE_NAME="dotfiles-img-test"
+CONTAINER_NAME="dotfiles-con-test"
 
 # delete
 # container
@@ -22,4 +22,4 @@ fi
 # create
 docker build -t "$IMAGE_NAME" .
 docker run -it -d --name "$CONTAINER_NAME" "$IMAGE_NAME"
-docker exec -it "$CONTAINER_NAME" /bin/zsh
+docker exec -it "$CONTAINER_NAME" /bin/zsh -c 'dots all brew'
