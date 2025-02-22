@@ -230,6 +230,7 @@ The `dots all brew` command mainly installs the following apps
 | `lazygit`                 | Simple TUI for Git repositories                           |
 | `ripgrep`                 | grep replacement with blazing fast search                 |
 | `ruff`                    | Fast Python linter and formatter                          |
+| `sd`                      | Simplified and faster replacement for sed                 |
 | `starship`                | Minimal and customizable shell prompt                     |
 | `tmux`                    | Terminal multiplexer for managing multiple panes          |
 | `tokei`                   | Code statistics tool for counting lines and files         |

@@ -38,6 +38,7 @@ p7zip
 ripgrep
 ruff
 rust
+sd
 starship
 tar
 termux-api

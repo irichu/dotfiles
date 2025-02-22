@@ -547,7 +547,18 @@ install_apt_package() {
 
   sudo apt-get update
   cat "$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt | xargs sudo apt-get install -y
-  cat "$SCRIPT_DIR"/assets/txt/apt-packages.txt | xargs sudo apt-get install -y
+
+  # Get the current Ubuntu version
+  ubuntu_version=$(lsb_release -r | awk '{print $2}')
+
+  # Check if the version is 24.04 or higher
+  if [[ "$(echo -e "$ubuntu_version\n24.04" | sort -V | head -n 1)" == "24.04" ]]; then
+    info "Ubuntu is 24.04 or higher."
+    cat "$SCRIPT_DIR"/assets/txt/apt-packages-latest.txt | xargs sudo apt-get install -y
+  else
+    info "Ubuntu is lower than 24.04."
+    cat "$SCRIPT_DIR"/assets/txt/apt-packages.txt | xargs sudo apt-get install -y
+  fi
 
   # .local install
   mkdir -p ~/.local/bin

@@ -231,6 +231,7 @@ The following apps can be installed individually from the `dots <package_name>` 
 | `lazygit`                 | シンプルな TUI の Git クライアント                             |
 | `ripgrep`                 | `grep` の代替ツール（超高速検索）                              |
 | `ruff`                    | 高速な Python 用リンター＆フォーマッター                       |
+| `sd`                      | シンプルで高速なsedの代替ツール                                |
 | `starship`                | 最小限でカスタマイズ可能なシェルプロンプト                     |
 | `tmux`                    | 複数のペインを管理できるターミナルマルチプレクサ               |
 | `tokei`                   | コード統計ツール（ファイルや行数をカウント）                   |

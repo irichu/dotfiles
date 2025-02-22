@@ -3,14 +3,17 @@ bat
 chafa
 cloc
 duf
+eza
 fd-find
 git
+git-delta
 htop
 hyperfine
 iproute2
 jq
 multitail
 openssh-server
+sd
 ripgrep
 tmux
 vim
