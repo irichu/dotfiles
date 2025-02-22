@@ -7,16 +7,16 @@ ENV TZ=Asia/Tokyo
 
 # Install apt packages
 RUN apt-get update && \
-  apt-get install -y \
-  curl \
-  git \
-  iproute2 \
-  locales \
-  sudo \
-  tar \
-  tzdata \
-  wget \
-  zsh
+	apt-get install -y \
+	curl \
+	git \
+	iproute2 \
+	locales \
+	sudo \
+	tar \
+	tzdata \
+	wget \
+	zsh
 
 # Locale
 RUN locale-gen ja_JP
@@ -32,9 +32,9 @@ ARG GID=2000
 ARG PASSWORD=user
 
 RUN groupadd -g $GID $GROUPNAME && \
-  useradd -m -s /bin/zsh -u $UID -g $GID -G sudo $USERNAME && \
-  echo $USERNAME:$PASSWORD | chpasswd && \
-  echo "$USERNAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+	useradd -m -s /bin/zsh -u $UID -g $GID -G sudo $USERNAME && \
+	echo $USERNAME:$PASSWORD | chpasswd && \
+	echo "$USERNAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER $USERNAME
 WORKDIR /home/$USERNAME/
 ENV HOME="/home/$USERNAME"
