@@ -27,7 +27,7 @@
   <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
 </p>
 
-[English] [[日本語](docs/README-ja.md)]
+[English] [[日本語]]
 
 ## 😸 Welcome
 
@@ -49,7 +49,7 @@ Welcome to my dotfiles. This repository helps easily set up a fast and intuitive
 
 1. Download and Install dotfiles
 
-Use the following git or curl or wget command:
+Use the following `git` or `curl` or `wget` command:
 
 - git (>=2.35.0 recomended)
 
@@ -75,6 +75,7 @@ wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | ba
 > On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `brew`.<br>
 > On Ubuntu, fast installation is possible with `apt` or `snap`.<br>
 > On Termux, setup can be done using `pkg`.
+> 
 
 > [!NOTE]
 > On Linux, `sudo` access is required for installation.<br>
@@ -85,7 +86,7 @@ Install all components using your preferred package manager:<br>
 `dots all [apt|brew|snap|pkg]`<br>
 Replace `[apt|brew|snap|pkg]` with your package manager of choice.
 
-Examples:
+**Examples:**
 
 To use brew on Linux:
 
@@ -102,6 +103,7 @@ dots all pkg
 > [!NOTE] 
 > If `dots` command not found,<br>
 > please run the following command to add the path to ~/.local/bin.
+> 
 
 ```
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
@@ -132,15 +134,16 @@ exec -l $(which zsh)
 
 > [!WARNING] 
 > The Google Play Store version of Termux may not work properly with some commands.<br>
-> It is recommended to install it from [F-Droid](https://f-droid.org/).
+> It is recommended to install it from [F-Droid].
+>
 
 ## ✨ Features
 
-- **Shell**: Zsh with the [starship](https://starship.rs/) prompt
-- **Editor**: [Neovim](https://github.com/neovim/neovim) configured via [LazyVim](https://www.lazyvim.org/)
-- **Terminal Multiplexers**: [tmux](https://github.com/tmux/tmux) for session management, [zellij](https://github.com/zellij-org/zellij) for workspace management
-- **TUI File Managers**: [broot](https://github.com/Canop/broot) for efficient navigation, [yazi](https://github.com/sxyazi/yazi) for rapid file access
-- **Terminal Emulator**: [Alacritty](https://github.com/alacritty/alacritty) for performance, [Termux](https://github.com/termux/termux-app) for Android environments
+- **Shell**: Zsh with the [starship] prompt
+- **Editor**: [Neovim] configured via [LazyVim]
+- **Terminal Multiplexers**: [tmux] for session management, [zellij] for workspace management
+- **TUI File Managers**: [broot] for efficient navigation, [yazi] for rapid file access
+- **Terminal Emulator**: [Alacritty] for performance, [Termux] for Android environments
 
 ## 📗 Basic commands
 
@@ -245,10 +248,10 @@ The `dots all brew` command mainly installs the following apps
 
 If you want to check all applications per package manager, please refer:
 
-- [apt packages](assets/txt/apt-packages.txt)
-- [brew packages](Brewfile)
-- [snap packages](assets/txt/snap-packages.txt)
-- [pkg packages](assets/txt/pkg-packages.txt)
+- [apt packages]
+- [brew packages]
+- [snap packages]
+- [pkg packages]
 
 ## 🐳 Docker
 
@@ -294,16 +297,6 @@ dots all brew
 | <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
 
 ## ⚡ Aliases for quick start
-
-### Zsh
-
-#### Reload .zshrc
-
-Apply zshrc settings.
-
-```bash
-.z # source ~/.config/zsh/.zshrc
-```
 
 ### Tmux
 
@@ -385,15 +378,26 @@ Based on Emacs mode with `bindkey -e`, with some additional key bindings added.
 | <kbd>d</kbd>                 | Detach the tmux session       |
 | <kbd>e</kbd>                 | Switch pane-synchronize mode  |
 
+> [!TIP]
+> In nested Tmux sessions, pressing the prefix key (`Ctrl-\`) multiple times
+> will send it to the innermost session.
+> The number of times you need to press it equals the depth of nesting.
+>
+> For example, if you are running Tmux inside another Tmux session (nested once),
+> pressing `Ctrl-\` twice will send the prefix key to the inner session. 
+> If you are three levels deep, you need to press `Ctrl-\` three times.
+> Additionally, pressing `Ctrl-\` sends the key input to the shell within the session.
+> 
+
 ##### tmux plugins
 
 The tmux plugins installed by default are as follows:
 
-- [tpm](https://github.com/tmux-plugins/tpm)
-- [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum)
-- [tmux-logging](https://github.com/tmux-plugins/tmux-logging)
-- [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
-- [tmux-fingers](https://github.com/Morantron/tmux-fingers)
+- [tpm]
+- [tmux-continuum]
+- [tmux-logging]
+- [tmux-resurrect]
+- [tmux-fingers]
 
 #### alt key shortcut
 
@@ -415,20 +419,45 @@ The tmux plugins installed by default are as follows:
 
 ### Neovim
 
-Based on [LazyVim keymaps](https://www.lazyvim.org/keymaps), with some additional key bindings added.
+Based on [LazyVim keymaps], with some additional key bindings added.
 
-| Mode  | Key                                         | Description                                                             |
+|  Mode | Key                                         | Description                                                             |
 | ----: | ------------------------------------------- | ----------------------------------------------------------------------- |
-| n,v   | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Move to (the end of the previous / the beginning of the next) paragraph |
+|   n,v | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Move to (the end of the previous / the beginning of the next) paragraph |
 | n,v,i | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Backward word / Forward word                                            |
-| i     | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo                                                                    |
-| i     | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo                                                                    |
+|     i | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo                                                                    |
+|     i | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo                                                                    |
 
-[Emacs-like shortcuts](docs/neovim.md#emacs-like) are configured in insert mode.
+[Emacs-like shortcuts] are configured in insert mode.
 
 - <kbd>Ctrl</kbd>+<kbd>[abdefnpuwy]</kbd>
 - <kbd>Alt</kbd>+<kbd>[bdf]</kbd>
 
 ## 📜 License
 
-This project is licensed under the [MIT License](LICENSE.md).
+This project is licensed under the [MIT License].
+
+<!-- Reference-style links -->
+[日本語]: docs/README-ja.md
+[F-Droid]: https://f-droid.org/
+[starship]: https://starship.rs/
+[Neovim]: https://github.com/neovim/neovim
+[LazyVim]: https://www.lazyvim.org/
+[tmux]: https://github.com/tmux/tmux
+[zellij]: https://github.com/zellij-org/zellij
+[broot]: https://github.com/Canop/broot
+[yazi]: https://github.com/sxyazi/yazi
+[Alacritty]: https://github.com/alacritty/alacritty
+[Termux]: https://github.com/termux/termux-app
+[apt packages]: assets/txt/apt-packages.txt
+[brew packages]: Brewfile
+[snap packages]: assets/txt/snap-packages.txt
+[pkg packages]: assets/txt/pkg-packages.txt
+[tpm]: https://github.com/tmux-plugins/tpm
+[tmux-continuum]: https://github.com/tmux-plugins/tmux-continuum
+[tmux-logging]: https://github.com/tmux-plugins/tmux-logging
+[tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
+[tmux-fingers]: https://github.com/Morantron/tmux-fingers
+[LazyVim keymaps]: https://www.lazyvim.org/keymaps
+[Emacs-like shortcuts]: docs/neovim.md#emacs-like
+[MIT License]: LICENSE.md

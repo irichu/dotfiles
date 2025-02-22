@@ -27,7 +27,7 @@
   <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
 </p>
 
-[[English](../)] [日本語]
+[[English]] [日本語]
 
 ## 😸 ようこそ
 
@@ -103,6 +103,7 @@ dots all pkg
 > [!NOTE] 
 > `dots`コマンドが見つからない場合は<br>
 > 以下のコマンドを実行して ~/.local/bin へのパスを通すようにしてみてください
+> 
 
 ```
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
@@ -133,15 +134,16 @@ exec -l $(which zsh)
 
 > [!WARNING] 
 > Google Playストア版のTermuxは一部のコマンドなどが正常に動作しないことがあるようです．<br>
-> [F-Droid](https://f-droid.org/)からインストールすることが推奨されています
+> [F-Droid]からインストールすることが推奨されています
+> 
 
 ## ✨ 特徴
 
-- **シェル**: Zsh + starship.rs
-- **エディター**: Neovim + LazyVim
-- **ターミナルマルチプレクサー**: tmux または zellij
-- **TUIファイラー**: broot または yazi
-- **ターミナルエミュレーター**: Alacritty, Termux
+- **シェル**: Zsh + [starship]
+- **エディター**: [Neovim] + [LazyVim]
+- **ターミナルマルチプレクサー**: [tmux] または [zellij]
+- **TUIファイラー**: [broot] または [yazi]
+- **ターミナルエミュレーター**: [Alacritty], [Termux]
 
 ## 📗 基本コマンド
 
@@ -246,10 +248,10 @@ The following apps can be installed individually from the `dots <package_name>` 
 
 パッケージマネージャごとにインストールするアプリは次のファイルを参照ください
 
-- [apt packages](../assets/txt/apt-packages.txt)
-- [brew packages](../Brewfile)
-- [snap packages](../assets/txt/snap-packages.txt)
-- [pkg packages](../assets/txt/pkg-packages.txt)
+- [apt packages]
+- [brew packages]
+- [snap packages]
+- [pkg packages]
 
 ## 🐳 Docker環境でのお試し
 
@@ -296,16 +298,6 @@ dots all brew
 | <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
 
 ## ⚡  エイリアスコマンド
-
-### Zsh
-
-#### .zshrcのリロード
-
-Zshの設定を読み込みます
-
-```bash
-.z # source ~/.config/zsh/.zshrc
-```
 
 ### Tmux
 
@@ -379,15 +371,27 @@ Emacsモード  `bindkey -e` に加えていくつかのバインドを追加し
 | <kbd>d</kbd>                 | tmuxセッションからデタッチします       |
 | <kbd>e</kbd>                 | ペインの同期モードON/OFFを切り替えます |
 
+> [!TIP]
+> Tmux のセッションをネストしている場合（Tmux の中でさらに Tmux を開いている場合），<br>
+> プレフィックスキー（例: Ctrl-b）をネストの数だけ押すと，
+> 最も内側のセッションにプレフィックスキーが送信されます．
+>
+> 例えば，Tmux を 2段階 ネストしている場合：
+> 最初の `Ctrl-\` は最も外側のセッションに処理されます．
+> 2回目の `Ctrl-\` で 1つ内側のセッションへ送信されます．
+> 3回目の `Ctrl-\` で最も内側のセッションへ送信されます．
+> さらに，`Ctrl-\` を押すと，そのキー入力がセッション内のシェルに送信されます．
+> 
+
 ##### tmux プラグイン
 
 デフォルトでインストールされる tmux プラグインは以下のとおりです．
 
-- [tpm](https://github.com/tmux-plugins/tpm)
-- [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum)
-- [tmux-logging](https://github.com/tmux-plugins/tmux-logging)
-- [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
-- [tmux-fingers](https://github.com/Morantron/tmux-fingers)
+- [tpm]
+- [tmux-continuum]
+- [tmux-logging]
+- [tmux-resurrect]
+- [tmux-fingers]
 
 #### Alt キーとの組み合わせによるショートカット
 
@@ -413,7 +417,7 @@ window と pane の操作を可能としています．
 
 ### Neovim
 
-[LazyVimのキーマップ](https://www.lazyvim.org/keymaps) をベースに，いくつかのキーバインドを追加しています.
+[LazyVimのキーマップ] をベースに，いくつかのキーバインドを追加しています.
 
 | モード | キー                                        | 説明                                                             |
 | ------ | ------------------------------------------- | ---------------------------------------------------------------- |
@@ -422,7 +426,7 @@ window と pane の操作を可能としています．
 | i      | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo (操作を１回戻します)                                        |
 | i      | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo (操作を１回やり直します)                                    |
 
-インサートモードで以下の Emacs ライクなショートカットを設定しています．詳細は[こちら](./neovim.md#emacs-like)を参照ください．
+インサートモードで以下の Emacs ライクなショートカットを設定しています．詳細は[こちら]を参照ください．
 
 - <kbd>Ctrl</kbd>+<kbd>[abdefnpuwy]</kbd>
 - <kbd>Alt</kbd>+<kbd>[bdf]</kbd>
@@ -430,3 +434,32 @@ window と pane の操作を可能としています．
 ## 📜 ライセンス
 
 このプロジェクトは [MIT License](../LICENSE.md) に基づいてライセンスされています．
+
+<!-- Reference-style links -->
+<!-- URL -->
+[starship]: https://starship.rs/
+[Neovim]: https://github.com/neovim/neovim
+[LazyVim]: https://www.lazyvim.org/
+[LazyVimのキーマップ]: https://www.lazyvim.org/keymaps
+[tmux]: https://github.com/tmux/tmux
+[zellij]: https://github.com/zellij-org/zellij
+[broot]: https://github.com/Canop/broot
+[yazi]: https://github.com/sxyazi/yazi
+[Alacritty]: https://github.com/alacritty/alacritty
+[Termux]: https://github.com/termux/termux-app
+[F-Droid]: https://f-droid.org/
+[tpm]: https://github.com/tmux-plugins/tpm
+[tmux-continuum]: https://github.com/tmux-plugins/tmux-continuum
+[tmux-logging]: https://github.com/tmux-plugins/tmux-logging
+[tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
+[tmux-fingers]: https://github.com/Morantron/tmux-fingers
+[XDG Base Directory]: https://specifications.freedesktop.org/basedir-spec/latest/
+
+<!-- relative link -->
+[English]: ../
+[apt packages]: ../assets/txt/apt-packages.txt
+[brew packages]: ../Brewfile
+[snap packages]: ../assets/txt/snap-packages.txt
+[pkg packages]: ../assets/txt/pkg-packages.txt
+[こちら]: ./neovim.md#emacs-like
+[MIT License]: ../LICENSE.md
