@@ -2,7 +2,7 @@
 
 このプロジェクトは [Contributor Covenant] に従います。この行動規範に従うことで、歓迎する環境を維持する手助けになります。
 
-[English version here](../.github/CODE_OF_CONDUCT.md)
+[English version here](CODE_OF_CONDUCT.md)
 
 ## 私たちの約束
 
