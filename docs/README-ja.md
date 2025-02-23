@@ -48,80 +48,80 @@
 
 ## 🚀 インストール方法
 
-1. ダウンロードとインストール
+**1. ダウンロードとインストール**
 
-   git, curl, wget のいずれかでインストールできます
+git, curl, wget のいずれかでインストールできます
 
-   - git (v2.35.0以上推奨)
+- git (v2.35.0以上推奨)
 
-   ```bash
-   git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
-   ```
+```bash
+git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
+```
 
-   - curl
+- curl
 
-   ```bash
-   curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
-   ```
+```bash
+curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
+```
 
-   - wget
+- wget
 
-   ```bash
-   wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
-   ```
+```bash
+wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
+```
 
-1. パッケージの一括インストール
+**2. パッケージの一括インストール**
 
-   > [!IMPORTANT] 
-   >・Linux(Ubuntu/Fedora/Arch Linux)では `brew` による自動構築が可能です<br>
-   >・Ubuntuでは `apt` または `snap` で高速なインストールが可能です<br>
-   >・Termuxでは `pkg` によるセットアップが可能です
-   >
+> [!IMPORTANT] 
+>・Linux(Ubuntu/Fedora/Arch Linux)では `brew` による自動構築が可能です<br>
+>・Ubuntuでは `apt` または `snap` で高速なインストールが可能です<br>
+>・Termuxでは `pkg` によるセットアップが可能です
+>
 
-   > [!NOTE]
-   > Linuxでは `sudo` コマンドが使える必要があります<br>
-   > `brew`ではHomebrew本体をインストールするために利用します<br>
-   > `apt`, `snap`の場合もそのパッケージ管理のため使用します
-   > 
+> [!NOTE]
+> Linuxでは `sudo` コマンドが使える必要があります<br>
+> `brew`ではHomebrew本体をインストールするために利用します<br>
+> `apt`, `snap`の場合もそのパッケージ管理のため使用します
+> 
 
-   利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
-   `dots all [apt|brew|snap|pkg]`<br>
-   具体的には `[apt|brew|snap|pkg]` の部分を置き換えて実行します
+利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
+`dots all [apt|brew|snap|pkg]`<br>
+具体的には `[apt|brew|snap|pkg]` の部分を置き換えて実行します
 
-   Linux環境にて，brewでセットアップする場合は以下を実行します
+Linux環境にて，brewでセットアップする場合は以下を実行します
 
-   ```bash
-   dots all brew
-   ```
+```bash
+dots all brew
+```
 
-   Termux にて pkg でセットアップする場合は以下の通りです
+Termux にて pkg でセットアップする場合は以下の通りです
 
-   ```bash
-   dots all pkg
-   ```
+```bash
+dots all pkg
+```
 
-   > [!NOTE] 
-   > `dots`コマンドが見つからない場合は<br>
-   > 以下のコマンドを実行して ~/.local/bin へのパスを通すようにしてみてください
-   > 
+> [!NOTE] 
+> `dots`コマンドが見つからない場合は<br>
+> 以下のコマンドを実行して ~/.local/bin へのパスを通すようにしてみてください
+> 
 
-   ```
-   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-   source ~/.bashrc
-   ```
+```
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
 
-1. スタート
+**3. スタート**
 
-   以下のコマンドで設定を読み込みます
+以下のコマンドで設定を読み込みます
 
-   ```bash
-   exec -l $(which zsh)
-   ```
+```bash
+exec -l $(which zsh)
+```
 
-   > [!NOTE] 
-   > SSH接続のように，ログインシェルの場合はTmuxが自動起動します．<br>
-   > Tmuxサーバーがすでに起動している場合は，セッション一覧から接続するセッションを選択できます.
-   >
+> [!NOTE] 
+> SSH接続のように，ログインシェルの場合はTmuxが自動起動します．<br>
+> Tmuxサーバーがすでに起動している場合は，セッション一覧から接続するセッションを選択できます.
+>
 
 ## ✅ サポートOS
 

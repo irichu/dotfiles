@@ -47,81 +47,81 @@ Welcome to my dotfiles. This repository helps easily set up a fast and intuitive
 
 ## 🚀 Installation
 
-1. Download and Install dotfiles
+**1. Download and Install dotfiles**
 
-   Use the following `git`, `curl`, or `wget` command:
+Use the following `git`, `curl`, or `wget` command:
 
-   - git (>=2.35.0 recommended)
+- git (>=2.35.0 recommended)
 
-    ```bash
-    git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
-    ```
+```bash
+git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
+```
 
-   - curl
+- curl
 
-    ```bash
-    curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
-    ```
+```bash
+curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
+```
 
-   - wget
+- wget
 
-    ```bash
-    wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
-    ```
+```bash
+wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
+```
 
-1. Bulk installation
+**2. Bulk installation**
 
-   > [!IMPORTANT]  
-   > On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `brew`.  
-   > On Ubuntu, fast installation is possible with `apt` or `snap`.  
-   > On Termux, setup can be done using `pkg`.
-   >
+> [!IMPORTANT]  
+> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `brew`.  
+> On Ubuntu, fast installation is possible with `apt` or `snap`.  
+> On Termux, setup can be done using `pkg`.
+> 
 
-   > [!NOTE]  
-   > On Linux, `sudo` access is required for installation.  
-   > This is needed to install Homebrew itself with `brew` and to install packages using `apt`, `snap`.
-   >
+> [!NOTE]  
+> On Linux, `sudo` access is required for installation.  
+> This is needed to install Homebrew itself with `brew` and to install packages using `apt`, `snap`.
+> 
 
-   Install all components using your preferred package manager:  
-   `dots all [apt|brew|snap|pkg]`  
-   Replace `[apt|brew|snap|pkg]` with your package manager of choice.
+Install all components using your preferred package manager:  
+`dots all [apt|brew|snap|pkg]`  
+Replace `[apt|brew|snap|pkg]` with your package manager of choice.
 
-   **Examples:**
+**Examples:**
 
-   - To use brew on Linux:
+- To use brew on Linux:
 
-    ```bash
-    dots all brew
-    ```
+```bash
+dots all brew
+```
 
-   - To use pkg on Termux:
+- To use pkg on Termux:
 
-    ```bash
-    dots all pkg
-    ```
+```bash
+dots all pkg
+```
 
-    > [!NOTE]  
-    > If `dots` command not found,  
-    > please run the following command to add the path to ~/.local/bin.
-    >
+> [!NOTE]  
+> If `dots` command not found,  
+> please run the following command to add the path to ~/.local/bin.
+> 
 
-    ```bash
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-    source ~/.bashrc
-    ```
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
 
-1. Start
+**3. Start**
 
-   Relogin or execute the following command:
+Relogin or execute the following command:
 
-   ```bash
-   exec -l $(which zsh)
-   ```
+```bash
+exec -l $(which zsh)
+```
 
-   > [!NOTE] 
-   > In a login shell, such as an SSH session, Tmux will start automatically.<br>
-   > If a Tmux server is already running, you can select a session to connect to.
-   >
+> [!NOTE] 
+> In a login shell, such as an SSH session, Tmux will start automatically.<br>
+> If a Tmux server is already running, you can select a session to connect to.
+>
 
 ## ✅ Supported OS
 
