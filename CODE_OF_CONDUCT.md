@@ -2,7 +2,7 @@
 
 This project adheres to the [Contributor Covenant]. Please follow this code of conduct to help maintain a welcoming environment.
 
-[日本語版はこちら](CODE_OF_CONDUCT-ja.md)
+[日本語版はこちら](docs/CODE_OF_CONDUCT-ja.md)
 
 ## Our Pledge
 

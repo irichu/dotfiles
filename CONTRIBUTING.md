@@ -38,7 +38,7 @@ If you find a bug or have a feature request, please open an issue:
 ## 🌐 Language Support
 
 - Comments and output messages should be written in **English**.
-- A Japanese version of this guideline is available [here](CONTRIBUTING-ja.md).
+- A Japanese version of this guideline is available [here](docs/CONTRIBUTING-ja.md).
 
 ## 💬 Communication
 

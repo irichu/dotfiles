@@ -1,6 +1,6 @@
 # Security Policy
 
-For the Japanese version of this security policy, please see [SECURITY-ja.md](SECURITY-ja.md).
+For the Japanese version of this security policy, please see [SECURITY-ja.md](docs/SECURITY-ja.md).
 
 ## Reporting a Vulnerability
 
