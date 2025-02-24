@@ -29,9 +29,9 @@
 
 [English] [[日本語]]
 
-## 😸 Welcome
+## 🎉 Welcome
 
-Welcome to my dotfiles. This repository helps easily set up a fast and intuitive terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. Grateful that you found this project and took a look!
+Welcome to my dotfiles. This repository helps easily set up a fast and intuitive terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
 ### Linux
 
@@ -245,7 +245,7 @@ The `dots all brew` command mainly installs the following apps
 | `zsh-syntax-highlighting` | Syntax highlighting for zsh command line                  |
 
 
-### 😸 Target apps
+### 📓 Target apps
 
 If you want to check all applications per package manager, please refer:
 
@@ -422,12 +422,12 @@ The tmux plugins installed by default are as follows:
 
 Based on [LazyVim keymaps], with some additional key bindings added.
 
-|  Mode | Key                                         | Description                                                             |
-| ----: | ------------------------------------------- | ----------------------------------------------------------------------- |
-|   n,v | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Move to (the end of the previous / the beginning of the next) paragraph |
+| Mode  | Key                                         | Description                                                             |
+| :---: | ------------------------------------------- | ----------------------------------------------------------------------- |
+|  n,v  | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Move to (the end of the previous / the beginning of the next) paragraph |
 | n,v,i | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Backward word / Forward word                                            |
-|     i | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo                                                                    |
-|     i | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo                                                                    |
+|   i   | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo                                                                    |
+|   i   | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo                                                                    |
 
 [Emacs-like shortcuts] are configured in insert mode.
 
