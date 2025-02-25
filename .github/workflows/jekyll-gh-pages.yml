@@ -21,22 +21,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.4'
 
-      - name: Install Ruby and Bundler globally
+      - name: Install Ruby and Bundler
         run: |
-          sudo apt-get update
-          sudo apt-get install ruby-full -y
           sudo gem install bundler
-
-      - name: Check Ruby environment
-        run: gem env
 
       - name: Create Gemfile
         run: |
           echo 'source "https://rubygems.org"' > Gemfile
-          echo 'gem "github-pages", group: :jekyll_plugins' >> Gemfile
+          echo 'gem "github-pages", "~> 227", group: :jekyll_plugins' >> Gemfile
 
       - name: Install dependencies
         run: bundle install
