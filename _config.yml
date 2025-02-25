@@ -1,5 +1,5 @@
 title: Dotfiles
-remote_theme: mmistakes/minimal-mistakes
-plugins:
-  - jekyll-include-cache
-minimal_mistakes_skin: "dark"
+# remote_theme: mmistakes/minimal-mistakes
+# plugins:
+#   - jekyll-include-cache
+# minimal_mistakes_skin: "dark"
