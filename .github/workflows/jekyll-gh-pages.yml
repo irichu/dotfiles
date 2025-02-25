@@ -33,7 +33,7 @@ jobs:
       - name: Install Ruby and Bundler
         run: |
           sudo apt-get install ruby-full -y
-          gem install bundler
+          gem install bundler --user-install
       - name: Copy README.md to index.md
         run: cp README.md index.md
       - name: Install dependencies
