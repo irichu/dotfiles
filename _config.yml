@@ -1,0 +1,4 @@
+title: My GitHub Pages Site
+remote_theme: mmistakes/minimal-mistakes
+plugins:
+  - jekyll-include-cache
