@@ -32,9 +32,6 @@ mkdir -p "$DATA_HOME"
 
 DATA_DIR="$DATA_HOME/dotfiles-main"
 
-#mkdir -p "$DATA_DIR"
-#echo $HOME/.{cache,config,local/state}/dotfiles | read cache_dir config_dir state_dir
-
 # add path
 LOCAL_PATH="$HOME/.local/bin"
 mkdir -p $LOCAL_PATH
@@ -56,15 +53,6 @@ COLOR_PURPLE='\033[0;35m'
 COLOR_CYAN='\033[0;36m'
 COLOR_WHITE='\033[1;37m'
 COLOR_NONE='\033[0m'
-
-#COLOR_DARKGRAY='\033[1;30m'
-#COLOR_LIGHTRED='\033[1;31m'
-#COLOR_LIGHTGREEN='\033[1;32m'
-#COLOR_BROWNORANGE='\033[0;33m'
-#COLOR_LIGHTBLUE='\033[1;34m'
-#COLOR_LIGHTPURPLE='\033[1;35m'
-#COLOR_LIGHTCYAN='\033[1;36m'
-#COLOR_LIGHTGRAY='\033[0;37m'
 
 COLOR_DEBUG=$COLOR_PURPLE
 COLOR_INFO=$COLOR_BLUE
@@ -248,15 +236,15 @@ backup_dir "$HOME/.local/share/dotfiles-main"
 touch "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
 mv -f dotfiles-main "$HOME/.local/share/"
 
-if [ -f "./main.sh" ]; then
+if [ -f "./assets/scripts/main.sh" ]; then
   # git repos
   if [ -d /data/data/com.termux/files/usr/bin ]; then
     # for termux
-    \cp -f "./main.sh" /data/data/com.termux/files/usr/bin/dots
+    \cp -f "./assets/scripts/main.sh" /data/data/com.termux/files/usr/bin/dots
   fi
 
   # install to .local/bin
-  \cp -f "./main.sh" "$HOME/.local/bin/dots"
+  \cp -f "./assets/scripts/main.sh" "$HOME/.local/bin/dots"
 
   # copy to .local/share/dotfiles
   mkdir -p "$DATA_DIR"
@@ -264,24 +252,24 @@ if [ -f "./main.sh" ]; then
 else
   # for termux
   if [ -d /data/data/com.termux/files/usr/bin ]; then
-    \cp -f "$HOME/.local/share/dotfiles-main/main.sh" /data/data/com.termux/files/usr/bin/dots
+    \cp -f "$HOME/.local/share/dotfiles-main/assets/scripts/main.sh" /data/data/com.termux/files/usr/bin/dots
   fi
 
   # install
-  \cp -f "$HOME/.local/share/dotfiles-main/main.sh" "$HOME/.local/bin/dots"
+  \cp -f "$HOME/.local/share/dotfiles-main/assets/scripts/main.sh" "$HOME/.local/bin/dots"
 fi
 
 # Remove
 rm ./main.tar.gz
 rm "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
 
-# ~/.bashrc が存在しない場合は作成
+# create ~/.bashrc if not exists
 if [ ! -f "$HOME/.bashrc" ]; then
   touch "$HOME/.bashrc"
   echo "# Created .bashrc" >> "$HOME/.bashrc"
 fi
 
-# ~/.bashrc に PATH を追加（重複チェックあり）
+# add to PATH 
 if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc; then
   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 fi

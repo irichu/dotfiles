@@ -47,7 +47,6 @@ RUN mkdir -p $DOTFILES_DIR/config
 COPY --chown=$USERNAME:$USERNAME config $DOTFILES_DIR/config
 COPY --chown=$USERNAME:$USERNAME assets $DOTFILES_DIR/assets
 COPY --chown=$USERNAME:$USERNAME install.sh $DOTFILES_DIR
-COPY --chown=$USERNAME:$USERNAME main.sh $DOTFILES_DIR
 COPY --chown=$USERNAME:$USERNAME Brewfile $DOTFILES_DIR
 
 # Install dots
