@@ -225,7 +225,7 @@ echo_descriptions() {
 echo_allcommand_usage() {
 
   info -ny -cg "Usage: "
-  info -cc "./$(basename "$0") all <Command>"
+  info -cc "dots all <Command>"
 
   info -cg "Commands: "
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/main-commands.tsv 5
@@ -233,7 +233,7 @@ echo_allcommand_usage() {
   # list command
   info ""
   info -ny -cg "Show package list: "
-  info -cc "./$(basename "$0") list(alias:ls) <Command>"
+  info -cc "dots list(alias:ls) <Command>"
   #echo_descriptions "$SCRIPT_DIR"/assets/package-managers.tsv
 
   return 0
@@ -243,15 +243,23 @@ echo_each_command_usage() {
 
   info ""
   info -ny -cg "Individual installation: "
-  info -cc "./$(basename "$0") <Package>"
+  info -cc "dots <Package>"
 
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/install-packages.tsv
 
   info ""
   info -ny -cg "Individual set up: "
-  info -cc "./$(basename "$0") <Setup>"
+  info -cc "dots <Setup>"
 
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/setup-packages.tsv
+
+  info ""
+  info -ny -cg "Update all package by package manager: "
+  info -cc "dots update"
+
+  info ""
+  info -ny -cg "Test on Docker: "
+  info -cc "dots docker test"
 
   return 0
 }
@@ -1117,6 +1125,33 @@ echo_list() {
 }
 
 ###################################################
+# dev
+###################################################
+
+update_packages() {
+  info "Start updating packages"
+
+  bash "$SCRIPT_DIR/assets/scripts/update-packages.sh"
+
+  info "End updating packages"
+  return 0
+}
+
+docker_test() {
+  info "Start docker testing"
+
+  if [! -f ./Dockerfile ]; then
+    error 'Dockerfile not found'
+    exit 2
+  fi
+
+  bash "$SCRIPT_DIR/assets/scripts/docker-test.sh"
+
+  info "End docker testing"
+  return 0
+}
+
+###################################################
 # main
 ###################################################
 
@@ -1195,6 +1230,48 @@ all)
     ;;
   esac
   ;;
+
+#--------------------------------------------------
+# update all
+#--------------------------------------------------
+up | update | upgrade)
+  if [ $# -le 1 ]; then
+    update_packages
+  fi
+
+  case "$2" in
+  all)
+    update_packages
+    ;;
+  *)
+    echo_allcommand_usage
+    exit 1
+    ;;
+  esac
+  ;;
+
+#--------------------------------------------------
+# docker
+#--------------------------------------------------
+docker)
+  if [ $# -le 1 ]; then
+    echo_allcommand_usage
+    exit 1
+  fi
+
+  case "$2" in
+  test)
+    check_command docker
+
+    docker_test
+    ;;
+  *)
+    echo_allcommand_usage
+    exit 1
+    ;;
+  esac
+  ;;
+
 #--------------------------------------------------
 # individual installation
 #--------------------------------------------------
