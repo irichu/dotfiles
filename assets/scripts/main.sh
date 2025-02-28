@@ -1239,7 +1239,7 @@ up | update | upgrade)
     update_packages
   fi
 
-  case "$2" in
+  case "${2:-}" in
   all)
     update_packages
     ;;
@@ -1259,7 +1259,7 @@ docker)
     exit 1
   fi
 
-  case "$2" in
+  case "${2:-}" in
   test)
     check_command docker
 
