@@ -266,13 +266,13 @@ echo_each_command_usage() {
   info -cc 'dots clean [backup|config|all]'
 
   info -ny -cc '  clean         '
-  info -cw 'remove cache (~/.local/cache/dotfiles/*)'
+  info -cn 'remove cache (~/.local/cache/dotfiles/*)'
   info -ny -cc '  clean backup  '
-  info -cw 'remove cache and backup (~/.local/dotfiles*.bak*)'
+  info -cn 'remove cache and backup (~/.local/dotfiles*.bak*)'
   info -ny -cc '  clean config  '
-  info -cw 'remove cache and config (~/.config/*.bak*)'
+  info -cn 'remove cache and config (~/.config/*.bak*)'
   info -ny -cc '  clean all     '
-  info -cw 'remove cache and backup and config'
+  info -cn 'remove cache and backup and config'
 
   return 0
 }
@@ -358,7 +358,7 @@ setup_zsh() {
 
   # create temp file
   histfile="$CONFIG_HOME/zsh/.zsh_history"
-  histfile_tmp=./.zsh_history.tmp
+  histfile_tmp="$CACHE_DIR/.zsh_history.tmp"
   if [ -f "$histfile" ]; then
     cp "$histfile" "$histfile_tmp"
   fi
@@ -370,15 +370,15 @@ setup_zsh() {
   ln -s "$SCRIPT_DIR/config/zsh" "$CONFIG_HOME/"
 
   # restore
-  if [ ! -f "$histfile" ]; then
+  if [ -f "$histfile_tmp" ]; then
 
-    if [ -f "$histfile_tmp" ]; then
+    if [ ! -f "$histfile" ]; then  
       info "restore .zsh_history"
       cp -f "$histfile_tmp" "$histfile"
-
-      # remove temp file
-      rm "$histfile_tmp"
     fi
+
+    # remove temp file
+    rm "$histfile_tmp"
   fi
 
   [ -f /bin/zsh ] && zsh_path=/bin/zsh

@@ -246,7 +246,7 @@ fi
 
 # current zsh history if exists
 histfile="$CONFIG_HOME/zsh/.zsh_history"
-histfile_tmp="./.zsh_history.tmp"
+histfile_tmp="$CACHE_DIR/.zsh_history.tmp"
 if [ -f "$histfile" ]; then
   info "$histfile found"
   cp "$histfile" "$histfile_tmp"
@@ -310,12 +310,15 @@ if cmd_exists git; then
 fi
 
 # restore zsh
-if [ ! -f "$histfile" ]; then
-  if [ -f "$histfile_tmp" ]; then
+
+if [ -f "$histfile_tmp" ]; then
+  if [ ! -f "$histfile" ]; then
     info "restore .zsh_history"
     mkdir -p "$CONFIG_HOME/zsh"
     cp -f "$histfile_tmp" "$histfile"
   fi
+
+  rm "$histfile_tmp"
 fi
 
 success 'The dots command installation has been completed!'
