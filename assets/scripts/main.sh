@@ -608,8 +608,13 @@ install_apt_package() {
   [ ! -f ~/.local/bin/bat ] && ln -s /usr/bin/batcat ~/.local/bin/bat
   [ ! -f ~/.local/bin/fd ] && ln -s /usr/bin/fdfind ~/.local/bin/fd
 
+  # bat config
   backup_dir "$CONFIG_HOME/bat"
   ln -s "$SCRIPT_DIR/config/bat" "$CONFIG_HOME/"
+
+  # ripgrep config
+  backup_dir "$CONFIG_HOME/ripgrep"
+  ln -s "$SCRIPT_DIR/config/ripgrep" "$CONFIG_HOME/"
 
   # dust (debian_revisionが -1 とは限らないが決め打ち。NGならsnapかbrewで)
   if ! cmd_exists snap && ! cmd_exists dust; then
@@ -718,6 +723,9 @@ install_homebrew() {
 
   backup_dir "$CONFIG_HOME/lazygit"
   ln -s "$SCRIPT_DIR/config/lazygit" "$CONFIG_HOME/"
+
+  backup_dir "$CONFIG_HOME/ripgrep"
+  ln -s "$SCRIPT_DIR/config/ripgrep" "$CONFIG_HOME/"
 
   backup_dir "$CONFIG_HOME/starship"
   ln -s "$SCRIPT_DIR/config/starship" "$CONFIG_HOME/"

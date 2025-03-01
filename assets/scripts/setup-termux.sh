@@ -41,6 +41,9 @@ TMUXCONF="$HOME/.config/tmux"
 mkdir -p "$TMUXCONF"
 cp -r "$DOTFILES_CONFIG"/tmux/* "$TMUXCONF"
 
+# ripgrep
+cp -r "$DOTFILES_CONFIG"/ripgrep "$HOME/.config/"
+
 # starship
 cp -r "$DOTFILES_CONFIG"/starship "$HOME/.config/"
 
