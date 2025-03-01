@@ -1323,17 +1323,17 @@ all)
 up | update | upgrade)
   if [ $# -le 1 ]; then
     update_packages
+  else
+    case "${2:-}" in
+    all)
+      update_packages
+      ;;
+    *)
+      echo_allcommand_usage
+      exit 1
+      ;;
+    esac
   fi
-
-  case "${2:-}" in
-  all)
-    update_packages
-    ;;
-  *)
-    echo_allcommand_usage
-    exit 1
-    ;;
-  esac
   ;;
 
 #--------------------------------------------------
