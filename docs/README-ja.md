@@ -159,6 +159,22 @@ $XDG_CONFIG_HOME ディレクトリのバックアップコピーを $XDG_DATA_H
 dots backup
 ```
 
+データを整理(削除)します:
+
+```bash
+# remove dotfiles cache
+dots clean
+
+# remove cache + dotfiles backup directories
+dots clean backup
+
+# remove cache + config directories
+dots clean config
+
+# remove cache + backup + config
+dots clean all
+```
+
 パッケージマネージャーごとにインストールする対象のパッケージ一覧を表示します
 
 ```bash

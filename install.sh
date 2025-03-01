@@ -195,6 +195,14 @@ log_date_str() {
 }
 
 #--------------------------------------------------
+# utils
+#--------------------------------------------------
+
+cmd_exists() {
+  command -v $1 &>/dev/null
+}
+
+#--------------------------------------------------
 # backup
 #--------------------------------------------------
 
@@ -229,6 +237,20 @@ backup_dir() {
 
 # download
 curl -OL https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
+
+# current git user
+if cmd_exists git; then
+  git_user_name="$(git config user.name || true)"
+  git_user_email="$(git config user.email || true)"
+fi
+
+# current zsh history if exists
+histfile="$CONFIG_HOME/zsh/.zsh_history"
+histfile_tmp="./.zsh_history.tmp"
+if [ -f "$histfile" ]; then
+  info "$histfile found"
+  cp "$histfile" "$histfile_tmp"
+fi
 
 # deploy
 tar xvf main.tar.gz
@@ -273,3 +295,33 @@ fi
 if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc; then
   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 fi
+
+# restore git user
+if cmd_exists git; then
+  # name
+  if [ -n "${git_user_name:-}" ]; then
+    git config -f ~/.config/git/config user.name "${git_user_name:-}"
+  fi
+
+  # email
+  if [ -n "${git_user_email:-}" ]; then
+    git config -f ~/.config/git/config user.email "${git_user_email:-}"
+  fi
+fi
+
+# restore zsh
+if [ ! -f "$histfile" ]; then
+  if [ -f "$histfile_tmp" ]; then
+    info "restore .zsh_history"
+    mkdir -p "$CONFIG_HOME/zsh"
+    cp -f "$histfile_tmp" "$histfile"
+  fi
+fi
+
+success 'The dots command installation has been completed!'
+success 'If the dots command is not found, use the ~/.local/bin/dots command during the installation process.'
+info ''
+
+success 'If you like it, please consider starring the repository.'
+success 'https://github.com/irichu/dotfiles'
+info ''

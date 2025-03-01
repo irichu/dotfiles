@@ -241,25 +241,38 @@ echo_allcommand_usage() {
 
 echo_each_command_usage() {
 
-  info ""
-  info -ny -cg "Individual installation: "
-  info -cc "dots <Package>"
+  info ''
+  info -ny -cg 'Individual installation: '
+  info -cc 'dots <Package>'
 
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/install-packages.tsv
 
-  info ""
-  info -ny -cg "Individual set up: "
-  info -cc "dots <Setup>"
+  info ''
+  info -ny -cg 'Individual set up: '
+  info -cc 'dots <Setup>'
 
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/setup-packages.tsv
 
-  info ""
-  info -ny -cg "Update all package by package manager: "
-  info -cc "dots update"
+  info ''
+  info -ny -cg 'Update all package by package manager: '
+  info -cc 'dots update'
 
-  info ""
-  info -ny -cg "Test on Docker: "
-  info -cc "dots docker test"
+  info ''
+  info -ny -cg 'Test on Docker: '
+  info -cc 'dots docker test'
+
+  info ''
+  info -ny -cg 'Clean up dotfiles [and backup, and config, and both]: '
+  info -cc 'dots clean [backup|config|all]'
+
+  info -ny -cc '  clean         '
+  info -cw 'remove cache (~/.local/cache/dotfiles/*)'
+  info -ny -cc '  clean backup  '
+  info -cw 'remove cache and backup (~/.local/dotfiles*.bak*)'
+  info -ny -cc '  clean config  '
+  info -cw 'remove cache and config (~/.config/*.bak*)'
+  info -ny -cc '  clean all     '
+  info -cw 'remove cache and backup and config'
 
   return 0
 }
@@ -274,7 +287,7 @@ echo_completion_message() {
   success "  exec -l \$(which zsh)"
 
   info ""
-  info "If you like this repository even a little bit, please star it on GitHub as it will motivate our activities!"
+  success "If you like this repository even a little bit, please star it on GitHub!"
   success "https://github.com/irichu/dotfiles"
   info ""
 
@@ -343,8 +356,30 @@ setup_zsh() {
   sudo sh -c "echo 'ZDOTDIR=\$HOME/.config/zsh' > /etc/zshenv"
   [ -f /etc/zsh/zshenv ] && ! grep 'ZDOTDIR=' /etc/zsh/zshenv &>/dev/null && sudo sh -c "echo 'ZDOTDIR=\$HOME/.config/zsh' >> /etc/zsh/zshenv"
 
+  # create temp file
+  histfile="$CONFIG_HOME/zsh/.zsh_history"
+  histfile_tmp=./.zsh_history.tmp
+  if [ -f "$histfile" ]; then
+    cp "$histfile" "$histfile_tmp"
+  fi
+
+  # create copy backup
   backup_dir "$CONFIG_HOME/zsh"
+
+  # apply setting
   ln -s "$SCRIPT_DIR/config/zsh" "$CONFIG_HOME/"
+
+  # restore
+  if [ ! -f "$histfile" ]; then
+
+    if [ -f "$histfile_tmp" ]; then
+      info "restore .zsh_history"
+      cp -f "$histfile_tmp" "$histfile"
+
+      # remove temp file
+      rm "$histfile_tmp"
+    fi
+  fi
 
   [ -f /bin/zsh ] && zsh_path=/bin/zsh
 
@@ -996,20 +1031,33 @@ setup_git() {
 
   info "setup git config"
 
+  check_command git
+
   #cp -r "$SCRIPT_DIR"/config/git "$CONFIG_HOME"
+  git_user_name="$(git config user.name || true)"
+  git_user_email="$(git config user.email || true)"
+
   backup_dir "$CONFIG_HOME/git"
   ln -s "$SCRIPT_DIR/config/git" "$CONFIG_HOME/"
 
-  current_name=$(git config user.name)
-  current_email=$(git config user.email)
-
   if [ -z "${GITHUB_ACTIONS:-}" ]; then
-    read -rp "git user.name [$current_name]:" name
-    read -rp "git user.email [$current_email]:" email
-  fi
+    #current_name=$(git config user.name)
+    #current_email=$(git config user.email)
 
-  git config -f ~/.config/git/config user.name "${name:-$current_name}"
-  git config -f ~/.config/git/config user.email "${email:-$current_email}"
+    #read -rp "git user.name [$current_name]:" name
+    #read -rp "git user.email [$current_email]:" email
+
+    #git config -f ~/.config/git/config user.name "${name:-$current_name}"
+    #git config -f ~/.config/git/config user.email "${email:-$current_email}"
+
+    if [ -n "$git_user_name" ]; then
+      git config -f ~/.config/git/config user.name "$git_user_name"
+    fi
+
+    if [ -n "$git_user_email" ]; then
+      git config -f ~/.config/git/config user.email "$git_user_email"
+    fi
+  fi
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1151,6 +1199,44 @@ docker_test() {
   return 0
 }
 
+clean() { 
+  info "Start clean up process"
+
+  local res
+
+  # Remove cache files
+  CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+  CACHE_DIR="$CACHE_HOME/dotfiles"
+  rm -rf "$CACHE_DIR"/*
+  success "Success: clean up $CACHE_DIR/*"
+
+  # Remove dotfiles backup files
+  if [[ "${1:-}" = "backup" || "${1:-}" = "all" ]]; then
+    res=$(find "$DATA_HOME" -maxdepth 1 -name 'dotfiles*.bak*' 2>/dev/null || true)
+    if [ -n "$res" ]; then
+      rm -rf "$DATA_HOME"/dotfiles*.bak*
+      success "Success: clean up $DATA_HOME/dotfiles*.bak*"
+    else
+      success "Success: $DATA_HOME/dotfiles*.bak* directories are not found."
+    fi
+  fi
+
+  # Remove config backup files
+  if [[ "${1:-}" = "config" || "${1:-}" = "all" ]]; then
+    res=$(find "$CONFIG_HOME" -maxdepth 1 -name '*.bak*' 2>/dev/null || true)
+    if [ -n "$res" ]; then
+      rm -rf "$CONFIG_HOME"/*.bak*
+      success "Success: clean up $CONFIG_HOME/*.bak*"
+    else
+      success "Success: $CONFIG_HOME/*.bak* directories are not found."
+    fi
+  fi
+
+  info "End clean up process"
+
+  return 0
+}
+
 ###################################################
 # main
 ###################################################
@@ -1264,6 +1350,27 @@ docker)
     check_command docker
 
     docker_test
+    ;;
+  *)
+    echo_allcommand_usage
+    exit 1
+    ;;
+  esac
+  ;;
+
+#--------------------------------------------------
+# clean
+#--------------------------------------------------
+clean)
+  if [ $# -le 1 ]; then
+    clean
+    exit 0
+  fi
+
+  case "${2:-}" in
+  backup | config | all)
+    clean "${2:-}"
+    exit 0
     ;;
   *)
     echo_allcommand_usage

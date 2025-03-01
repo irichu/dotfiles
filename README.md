@@ -159,6 +159,22 @@ Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir:
 dots backup
 ```
 
+Clean up directories:
+
+```bash
+# remove dotfiles cache
+dots clean
+
+# remove cache + dotfiles backup directories
+dots clean backup
+
+# remove cache + config directories
+dots clean config
+
+# remove cache + backup + config
+dots clean all
+```
+
 Show install target package list:
 
 ```bash
