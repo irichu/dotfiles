@@ -34,6 +34,8 @@ jobs:
         run: cp -r .github/pages/_includes ./
       - name: Copy favicon.ico to ./
         run: cp .github/pages/favicon.ico ./
+      - name: Copy _config.yml to ./
+        run: cp .github/pages/_config.yml ./
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
