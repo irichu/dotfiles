@@ -1,9 +1,10 @@
-<img src="https://github.com/user-attachments/assets/44037309-be0e-4cba-88a5-730dcac8cbda" alt="Dotfiles" height="32">
-
-# Dotfiles for Linux and Termux
+<!-- Logo -->
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/44037309-be0e-4cba-88a5-730dcac8cbda" alt="Dotfiles" height="40">
+</p>
 
 <!-- Badges -->
-<p>
+<p align="center">
   <!-- CODE SIZE -->
   <img src="https://img.shields.io/github/languages/code-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub code size in bytes" height="22">
   <!-- REPO SIZE -->
@@ -16,7 +17,7 @@
   </a>
 </p>
 
-<p>
+<p align="center">
   <!-- LICENSE -->
   <img src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub License" height="22">
   <!-- CREATED AT -->
@@ -27,7 +28,11 @@
   <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
 </p>
 
-[[English]] [日本語]
+<p align="center">
+[<a href="../">English</a>] [日本語]
+</p>
+
+# Dotfiles for Linux and Termux
 
 ## 🎉 ようこそ
 
@@ -50,13 +55,7 @@
 
 **1. ダウンロードとインストール**
 
-git, curl, wget のいずれかでインストールできます
-
-- git (v2.35.0以上推奨)
-
-```bash
-git clone https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
-```
+curl, wget, git のいずれかでインストールできます
 
 - curl
 
@@ -68,6 +67,12 @@ curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bas
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
+```
+
+- git (v2.35.0以上推奨)
+
+```bash
+git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
 ```
 
 **2. パッケージの一括インストール**
