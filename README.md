@@ -4,29 +4,32 @@
 </p>
 
 <!-- Badges -->
-<p align="center">
-  <!-- CODE SIZE -->
-  <img src="https://img.shields.io/github/languages/code-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub code size in bytes" height="22">
-  <!-- REPO SIZE -->
-  <img src="https://img.shields.io/github/repo-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub repo size" height="22">
-  <!-- Tokei LOC -->
-  <a href="https://github.com/irichu/dotfiles">
-    <img src="https://tokei.rs/b1/github/irichu/dotfiles?category=lines&style=for-the-badge&logo=https://simpleicons.org/icons/github.svg&color=%2377aaff"
-        alt="Tokei total line"
-        height="22">
-  </a>
-</p>
-
-<p align="center">
-  <!-- LICENSE -->
-  <img src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub License" height="22">
-  <!-- CREATED AT -->
-  <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub Created At" height="22"> 
-  <!-- LAST COMMIT -->
-  <img src="https://img.shields.io/github/last-commit/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub last commit" height="22">
-  <!-- STARS -->
-  <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
-</p>
+<div align="center">
+  <p style="width: 80%">
+    <!-- CODE SIZE -->
+    <img src="https://img.shields.io/github/languages/code-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub code size in bytes" height="22">
+    <!-- REPO SIZE -->
+    <img src="https://img.shields.io/github/repo-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub repo size" height="22">
+    <!-- Tokei LOC -->
+    <a href="https://github.com/irichu/dotfiles">
+      <img src="https://tokei.rs/b1/github/irichu/dotfiles?category=lines&style=for-the-badge&logo=https://simpleicons.org/icons/github.svg&color=%2377aaff"
+          alt="Tokei total line"
+          height="22">
+    </a>
+    <!-- CREATED AT -->
+    <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub Created At" height="22"> 
+    <!-- LAST COMMIT -->
+    <img src="https://img.shields.io/github/last-commit/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub last commit" height="22">
+    <!-- COMMIT ACTIVITY -->
+    <img src="https://img.shields.io/github/commit-activity/m/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub commit activity" height="22">
+    <!-- LICENSE -->
+    <img src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub License" height="22">
+    <!-- RELEASE VERSION -->
+    <img src="https://img.shields.io/github/v/release/irichu/dotfiles?category=lines&style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub Release" height="22">
+    <!-- STARS -->
+    <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
+  </p>
+</div>
 
 <p align="center">
 [English] [<a href="docs/README-ja.md">日本語</a>]
