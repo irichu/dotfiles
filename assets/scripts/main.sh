@@ -952,10 +952,14 @@ install_docker() {
     sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
   sudo apt update
 
-  sudo groupadd docker
+  if ! getent group docker > /dev/null; then
+    sudo groupadd docker
+  fi
+  
+  CURRENT_USER=$(id -u -n)
   sudo usermod -aG docker $CURRENT_USER
 
-  sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
   info 'docker --version'
   docker --version
@@ -1126,24 +1130,27 @@ apply_settings() {
 
   # cp "$SCRIPT_DIR"/config/bash/.bashrc "$HOME"
   # cp "$SCRIPT_DIR"/config/bash/.bash_aliases "$HOME"
-  for pn in {zsh,starship,alacritty,lazygit,tmux,zellij}; do
+  for pn in {alacritty,bat,lazygit,ripgrep,starship,tmux,zellij,zsh}; do
+    # mv directory or unlink
     backup_dir "$CONFIG_HOME/$pn"
+
+    # apply setting
+    ln -s "$SCRIPT_DIR/config/$pn" "$CONFIG_HOME/"
   done
 
-  cp -r "$SCRIPT_DIR/config/zsh" "$CONFIG_HOME/"
-
-  # cp -r "$SCRIPT_DIR"/config/terminator "$CONFIG_HOME"
-  cp -r "$SCRIPT_DIR"/config/starship "$CONFIG_HOME"
-  cp -r "$SCRIPT_DIR"/config/alacritty "$CONFIG_HOME"
-  cp -r "$SCRIPT_DIR"/config/lazygit "$CONFIG_HOME"
-
+  # nvim config
   cp "$SCRIPT_DIR"/config/nvim/lua/config/*.lua "$CONFIG_HOME/nvim/lua/config/"
   cp "$SCRIPT_DIR"/config/nvim/lua/plugins/*.lua "$CONFIG_HOME/nvim/lua/plugins/"
   cp "$SCRIPT_DIR"/config/nvim/lazy-lock.json "$CONFIG_HOME/nvim/"
   cp "$SCRIPT_DIR"/config/nvim/lazyvim.json "$CONFIG_HOME/nvim/"
 
-  cp -r "$SCRIPT_DIR"/config/tmux "$CONFIG_HOME"
-  cp -r "$SCRIPT_DIR/config/zellij" "$CONFIG_HOME"
+  # cp -r "$SCRIPT_DIR"/config/alacritty "$CONFIG_HOME"
+  # cp -r "$SCRIPT_DIR/config/zsh" "$CONFIG_HOME/"
+  # cp -r "$SCRIPT_DIR"/config/terminator "$CONFIG_HOME"
+  # cp -r "$SCRIPT_DIR"/config/starship "$CONFIG_HOME"
+  # cp -r "$SCRIPT_DIR"/config/lazygit "$CONFIG_HOME"
+  # cp -r "$SCRIPT_DIR"/config/tmux "$CONFIG_HOME"
+  # cp -r "$SCRIPT_DIR/config/zellij" "$CONFIG_HOME"
 
   info "End: ${FUNCNAME[0]}"
 }
@@ -1152,7 +1159,7 @@ echo_list() {
   target="$1"
 
   case "$1" in
-  apt)
+  apt | --apt)
     info '# Basic packages'
     cat "$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt | sort | xargs -i echo '- {}'
 
@@ -1160,15 +1167,15 @@ echo_list() {
     info '# Packages'
     cat "$SCRIPT_DIR"/assets/txt/apt-packages.txt | sort | xargs -i echo '- {}'
     ;;
-  brew)
+  brew | --brew)
     info '# Homebrew packages'
     grep -v ^# "$SCRIPT_DIR"/Brewfile | grep -o "\".*\"" | sort | xargs -i -n1 echo '- {}'
     ;;
-  snap)
+  snap | --snap)
     info '# Snap packages'
     cat "$SCRIPT_DIR"/assets/txt/snap-packages.txt | sort | xargs -i echo '- {}'
     ;;
-  pkg)
+  pkg | --pkg)
     info '# Termux pkg packages'
     cat "$SCRIPT_DIR"/assets/txt/pkg-packages.txt | sort | xargs -i echo '- {}'
     ;;
@@ -1196,7 +1203,7 @@ update_packages() {
 docker_test() {
   info "Start docker testing"
 
-  if [! -f ./Dockerfile ]; then
+  if [ ! -f ./Dockerfile ]; then
     error 'Dockerfile not found'
     exit 2
   fi
@@ -1260,13 +1267,14 @@ case "$1" in
 #--------------------------------------------------
 # batch installation
 #--------------------------------------------------
-all)
+i | install)
   if [ $# -le 1 ]; then
     echo_allcommand_usage
     exit 1
   fi
+
   case "$2" in
-  apt)
+  --apt)
     check_command apt
 
     info "Start installation with apt"
@@ -1284,7 +1292,7 @@ all)
     echo_completion_message
     info "End installation with apt"
     ;;
-  brew)
+  --brew)
     info "Start installation with homebrew"
     install_homebrew
     setup_zsh
@@ -1297,7 +1305,7 @@ all)
     echo_completion_message
     info "End installation with homebrew"
     ;;
-  snap)
+  --snap)
     check_command apt
     check_command snap
 
@@ -1315,9 +1323,90 @@ all)
     echo_completion_message
     info "End installation with apt and snap"
     ;;
-  pkg | termux)
+  --pkg)
     setup_termux
     ;;
+  #--------------------------------------------------
+  # individual installation
+  #--------------------------------------------------
+  apt-packages)
+    install_apt_package
+    ;;
+  fnm)
+    install_fnm
+    ;;
+  fzf)
+    install_fzf_via_git
+    ;;
+  hackgen)
+    install_hackgen
+    ;;
+  docker)
+    install_docker
+    ;;
+  lazydocker)
+    install_lazdocker
+    ;;
+  lazygit)
+    build_install_lazygit
+    ;;
+  lazyvim)
+    install_lazyvim
+    ;;
+  neovim)
+    build_install_neovim
+    install_lazyvim
+    ;;
+  # nvm)
+  #   install_nvm
+  #   ;;
+  rustdesk)
+    install_rustdesk
+    ;;
+  rustup)
+    install_rustup
+    ;;
+  snap-packages)
+    install_snap_package
+    ;;
+  starship)
+    install_or_update_starship
+    ;;
+  zed)
+    install_zed
+    ;;
+  *)
+    echo_allcommand_usage
+    exit 1
+    ;;
+  esac
+  ;;
+
+#--------------------------------------------------
+# setup
+#--------------------------------------------------
+setup)
+  if [ $# -le 1 ]; then
+    echo_allcommand_usage
+    exit 1
+  fi
+
+  case "$2" in
+  git)
+    setup_git
+    ;;
+  tmux)
+    setup_tmux
+    ;;
+  zellij)
+    setup_zellij
+    ;;
+  zsh)
+    setup_zsh
+    ;;
+# terminator)
+#   setup_terminator
+#   ;;
   *)
     echo_allcommand_usage
     exit 1
@@ -1387,81 +1476,14 @@ clean)
   esac
   ;;
 
-#--------------------------------------------------
-# individual installation
-#--------------------------------------------------
 apply)
   apply_settings
   ;;
-apt-packages)
-  install_apt_package
-  ;;
-fnm)
-  install_fnm
-  ;;
-fzf)
-  install_fzf_via_git
-  ;;
-hackgen)
-  install_hackgen
-  ;;
-docker)
-  install_docker
-  ;;
-lazydocker)
-  install_lazdocker
-  ;;
-lazygit)
-  build_install_lazygit
-  ;;
-lazyvim)
-  install_lazyvim
-  ;;
-neovim)
-  build_install_neovim
-  install_lazyvim
-  ;;
-# nvm)
-#   install_nvm
-#   ;;
-rustdesk)
-  install_rustdesk
-  ;;
-rustup)
-  install_rustup
-  ;;
-snap-packages)
-  install_snap_package
-  ;;
-starship)
-  install_or_update_starship
-  ;;
-zed)
-  install_zed
-  ;;
-#--------------------------------------------------
-# setup
-#--------------------------------------------------
 # bash)
 #   setup_bash
 #   ;;
 backup)
   backup_dotfiles
-  ;;
-git)
-  setup_git
-  ;;
-# terminator)
-#   setup_terminator
-#   ;;
-tmux)
-  setup_tmux
-  ;;
-zellij)
-  setup_zellij
-  ;;
-zsh)
-  setup_zsh
   ;;
 ls | list)
   echo_list "${2:-}"
@@ -1469,6 +1491,12 @@ ls | list)
 help | -h | --help)
   echo_allcommand_usage
   echo_each_command_usage
+  exit 0
+  ;;
+version | -v | --version)
+  VERSION=$(cat "$SCRIPT_DIR"/assets/txt/version.txt)
+  echo "dotfiles version: $VERSION"
+  echo "MIT License (c) 2025 irichu"
   exit 0
   ;;
 *)

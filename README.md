@@ -80,37 +80,38 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 **2. Bulk installation**
 
 > [!IMPORTANT]  
-> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `brew`.  
-> On Ubuntu, fast installation is possible with `apt` or `snap`.  
-> On Termux, setup can be done using `pkg`.
+> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `--brew`.  
+> On Ubuntu, fast installation is possible with `--apt` or `--snap`.  
+> On Termux, setup can be done using `--pkg`.
 > 
 
 > [!NOTE]  
 > On Linux, `sudo` access is required for installation.  
-> This is needed to install Homebrew itself with `brew` and to install packages using `apt`, `snap`.
+> This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--snap`.
 > 
 
 Install all components using your preferred package manager:  
-`dots all [apt|brew|snap|pkg]`  
-Replace `[apt|brew|snap|pkg]` with your package manager of choice.
+`dots install [--apt|--brew|--snap|--pkg]`  
+Replace `[--apt|--brew|--snap|--pkg]` with your package manager of choice.
 
 **Examples:**
 
 - To use brew on Linux:
 
 ```bash
-dots all brew
+dots install --brew
 ```
 
 - To use pkg on Termux:
 
 ```bash
-dots all pkg
+dots install --pkg
 ```
 
 > [!NOTE]  
 > If `dots` command not found,  
-> please run the following command to add the path to ~/.local/bin.
+> please run the following command to add the path to ~/.local/bin
+> or use `~/.local/bin/dots` command directly during the installation process
 > 
 
 ```bash
@@ -186,13 +187,13 @@ dots clean all
 Show install target package list:
 
 ```bash
-dots list [apt|brew|snap|pkg]
+dots list [--apt|--brew|--snap|--pkg]
 ```
 
 Install individual package:
 
 ```bash
-dots <package_name>
+dots install <package_name>
 ```
 
 |                                                     Help image                                                     |
@@ -231,7 +232,7 @@ The following apps can be installed individually from the `dots <package_name>` 
 
 ### 🍺 Brew Apps
 
-The `dots all brew` command mainly installs the following apps
+The `dots install --brew` command mainly installs the following apps
 
 | Package Name              | Description                                               |
 | ------------------------- | --------------------------------------------------------- |
@@ -293,13 +294,13 @@ docker exec -it dotfiles-con /bin/zsh
 In container, install apt packages
 
 ```bash
-dots all apt
+dots install --apt
 ```
 
 or install Homebrew with following command.
 
 ```bash
-dots all brew
+dots install --brew
 ```
 
 ## 🖼️ Gallery

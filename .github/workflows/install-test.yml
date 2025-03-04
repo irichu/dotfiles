@@ -20,7 +20,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y curl git iproute2 locales tar tzdata wget zsh
 
       - name: Install dotfiles
-        run: chmod +x install.sh && ./install.sh && dots all apt
+        run: chmod +x install.sh && ./install.sh && dots install --apt
 
   fedora:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
         run: dnf install -y git
 
       - name: Install dotfiles
-        run: chmod +x install.sh && ./install.sh && dots all brew
+        run: chmod +x install.sh && ./install.sh && dots install --brew
 
   arch:
     runs-on: ubuntu-latest
@@ -58,4 +58,4 @@ jobs:
         run: pacman -Syu --noconfirm git
 
       - name: Install dotfiles
-        run: chmod +x install.sh && ./install.sh && dots all brew
+        run: chmod +x install.sh && ./install.sh && dots install --brew

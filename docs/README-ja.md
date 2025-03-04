@@ -80,36 +80,37 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 **2. パッケージの一括インストール**
 
 > [!IMPORTANT] 
->・Linux(Ubuntu/Fedora/Arch Linux)では `brew` による自動構築が可能です<br>
->・Ubuntuでは `apt` または `snap` で高速なインストールが可能です<br>
->・Termuxでは `pkg` によるセットアップが可能です
+>・Linux(Ubuntu/Fedora/Arch Linux)では `--brew` による自動構築が可能です<br>
+>・Ubuntuでは `--apt` または `--snap` で高速なインストールが可能です<br>
+>・Termuxでは `--pkg` によるセットアップが可能です
 >
 
 > [!NOTE]
 > Linuxでは `sudo` コマンドが使える必要があります<br>
-> `brew`ではHomebrew本体をインストールするために利用します<br>
-> `apt`, `snap`の場合もそのパッケージ管理のため使用します
+> `--brew`ではHomebrew本体をインストールするために利用します<br>
+> `--apt`, `--snap`の場合もパッケージ管理のため使用します
 > 
 
 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
-`dots all [apt|brew|snap|pkg]`<br>
-具体的には `[apt|brew|snap|pkg]` の部分を置き換えて実行します
+`dots install [--apt|--brew|--snap|--pkg]`<br>
+具体的には `[--apt|--brew|--snap|--pkg]` の部分を置き換えて実行します
 
 Linux環境にて，brewでセットアップする場合は以下を実行します
 
 ```bash
-dots all brew
+dots install --brew
 ```
 
 Termux にて pkg でセットアップする場合は以下の通りです
 
 ```bash
-dots all pkg
+dots install --pkg
 ```
 
 > [!NOTE] 
 > `dots`コマンドが見つからない場合は<br>
 > 以下のコマンドを実行して ~/.local/bin へのパスを通すようにしてみてください
+> もしくは一括インストールが完了するまでは直接 `~/.local/bin/dots` で実行してください
 > 
 
 ```
@@ -185,7 +186,7 @@ dots clean all
 パッケージマネージャーごとにインストールする対象のパッケージ一覧を表示します
 
 ```bash
-dots list [apt|brew|snap|pkg]
+dots list [--apt|--brew|--snap|--pkg]
 ```
 
 個別パッケージのインストールを実行します
@@ -231,7 +232,7 @@ The following apps can be installed individually from the `dots <package_name>` 
 
 ### 🍺 Brewパッケージ
 
-`dots all brew`コマンドでインストールする主なパッケージは次のとおりです
+`dots install --brew`コマンドでインストールする主なパッケージは次のとおりです
 
 | パッケージ名              | 説明                                                           |
 | ------------------------- | -------------------------------------------------------------- |
@@ -292,13 +293,13 @@ docker exec -it dotfiles-con /bin/zsh
 コンテナでaptでインストールする場合は以下を実行します．
 
 ```bash
-dots all apt
+dots install --apt
 ```
 
 Homebrew をインストールして進める場合は以下のコマンドを実行します.
 
 ```bash
-dots all brew
+dots install --brew
 ```
 
 ## 🖼️ ギャラリー
