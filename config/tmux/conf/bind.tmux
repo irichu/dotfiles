@@ -78,6 +78,7 @@ bind -n M-7 select-window -t :=7
 bind -n M-8 select-window -t :=8
 bind -n M-9 select-window -t :=9
 bind -n M-0 select-window -t :=10
+#bind -n M-0 last-window
 
 # Move pane to window
 bind -n M-! join-pane -v -t :=1

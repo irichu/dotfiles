@@ -161,6 +161,24 @@ exec -l $(which zsh)
 dots --help
 ```
 
+現在のカラーテーマを出力します:
+
+```bash
+dots theme
+```
+
+指定のカラーテーマに設定します:
+
+```bash
+dots set-theme <theme_name>
+```
+
+利用可能なテーマ:
+  - developer | developer-textcolored | developer-colorful | developer-mono
+  - dark-turquoise | dark-turquoise-textcolored | dark-turquoise-colorful | dark-turquoise-mono
+  - dark-orange | dark-orange-textcolored | dark-orange-colorful | dark-orange-mono
+  - dark-skyblue | dark-skyblue-textcolored | dark-skyblue-colorful | dark-skyblue-mono
+
 $XDG_CONFIG_HOME ディレクトリのバックアップコピーを $XDG_DATA_HOME/dotfiles/backup に作成します
 
 ```bash

@@ -48,6 +48,29 @@ fi
 #exit 0
 
 #--------------------------------------------------
+# theme
+#--------------------------------------------------
+# available themes
+themes=(
+  "developer"
+  "developer-textcolored"
+  "developer-colorful"
+  "developer-mono"
+  "dark-turquoise"
+  "dark-turquoise-textcolored"
+  "dark-turquoise-colorful"
+  "dark-turquoise-mono"
+  "dark-orange"
+  "dark-orange-textcolored"
+  "dark-orange-colorful"
+  "dark-orange-mono"
+  "dark-skyblue"
+  "dark-skyblue-textcolored"
+  "dark-skyblue-colorful"
+  "dark-skyblue-mono"
+)
+
+#--------------------------------------------------
 # logger
 #--------------------------------------------------
 
@@ -256,6 +279,15 @@ echo_each_command_usage() {
   info ''
   info -ny -cg 'Update all package by package manager: '
   info -cc 'dots update'
+
+  info ''
+  info -ny -cg 'Get theme: '
+  info -cc 'dots theme'
+  info -ny -cg 'Set theme: '
+  info -cc 'dots set-theme <Theme Name>'
+  for theme in "${themes[@]}"; do
+    info -cc "  $theme"
+  done
 
   info ''
   info -ny -cg 'Test on Docker: '
@@ -1252,6 +1284,63 @@ clean() {
   return 0
 }
 
+get_theme() {
+  # get theme
+  CONFIG_FILE="$CONFIG_HOME/tmux/script/config.sh"
+
+  # check if config file exists
+  if [[ ! -f "$CONFIG_FILE" ]]; then
+      error "Error: Config file '$CONFIG_FILE' not found." >&2
+      exit 1
+  fi
+
+  # get theme value
+  theme=$(grep -E '^theme=' "$CONFIG_FILE" | grep -oE '".*"' || true)
+
+  # check if theme value exists
+  if [[ -z "$theme" ]]; then
+      error "Error: 'theme=' not found or has no value in '$CONFIG_FILE'." >&2
+      exit 1
+  fi
+
+  echo "$theme" | tr -d '"'
+
+  return 0
+}
+
+set_theme() {
+  value="${1:-}"
+
+  # check if value is in themes
+  if printf '%s\n' "${themes[@]}" | grep -qx "$value"; then
+
+    # set theme
+    sed -i "s/^theme=.*/theme=\"${value}\"/" "$CONFIG_HOME"/tmux/script/config.sh
+    success "Theme set to $value successfully."
+
+    # source tmux config
+    if tmux info &>/dev/null; then
+      info "tmux is running"
+      tmux source-file "$CONFIG_HOME"/tmux/tmux.conf
+    else
+      info "tmux is NOT running. done."
+    fi
+    
+    exit 0
+  else
+    # error message
+    error "Theme \"$value\" does not exist."
+
+    # error "Available themes: ${themes[*]}"
+    echo "Available themes:"
+    for theme in "${themes[@]}"; do
+      echo "  - $theme"
+    done
+
+    exit 1
+  fi
+}
+
 ###################################################
 # main
 ###################################################
@@ -1498,6 +1587,12 @@ version | -v | --version)
   echo "dotfiles version: $VERSION"
   echo "MIT License (c) 2025 irichu"
   exit 0
+  ;;
+theme)
+  get_theme
+  ;;
+set-theme)
+  set_theme "${2:-}"
   ;;
 *)
   info -cw "No parameter found."

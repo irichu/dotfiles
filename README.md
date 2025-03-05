@@ -162,6 +162,24 @@ Show help and available commands:
 dots --help
 ```
 
+Get the current color theme:
+
+```bash
+dots theme
+```
+
+Set the color theme:
+
+```bash
+dots set-theme <theme_name>
+```
+
+Available themes:
+  - developer | developer-textcolored | developer-colorful | developer-mono
+  - dark-turquoise | dark-turquoise-textcolored | dark-turquoise-colorful | dark-turquoise-mono
+  - dark-orange | dark-orange-textcolored | dark-orange-colorful | dark-orange-mono
+  - dark-skyblue | dark-skyblue-textcolored | dark-skyblue-colorful | dark-skyblue-mono
+
 Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir:
 
 ```bash

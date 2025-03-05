@@ -2,7 +2,6 @@
 # Base
 #--------------------------------------------------------------
 
-
 # Status bar
 set -g status on
 set -g status-interval 1
@@ -10,6 +9,7 @@ set -g status-position top
 
 # Upgrade $TERM
 set -g default-terminal "screen-256color"
+#set -g default-terminal "tmux-256color"
 
 set -g default-shell $SHELL
 set -g default-command $SHELL
