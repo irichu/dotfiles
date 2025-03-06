@@ -48,8 +48,8 @@ cp -r "$DOTFILES_CONFIG"/ripgrep "$HOME/.config/"
 cp -r "$DOTFILES_CONFIG"/starship "$HOME/.config/"
 
 # lazygit
-mkdir -p "$CONFIG_HOME/lazygit/"
-cp -r "$DOTFILES_CONFIG"/lazygit/* "$CONFIG_HOME/lazygit/"
+mkdir -p "$HOME/.config/lazygit/"
+cp -r "$DOTFILES_CONFIG"/lazygit/* "$HOME/.config/lazygit/"
 
 #--------------------------------------------------
 # install from github
