@@ -284,9 +284,18 @@ echo_each_command_usage() {
   info -ny -cg 'Get theme: '
   info -cc 'dots theme'
   info -ny -cg 'Set theme: '
-  info -cc 'dots set-theme <Theme Name>'
+  info -cc 'dots set-theme <NUMBER|NAME>'
+  
+  # show theme list
+  i=1
   for theme in "${themes[@]}"; do
-    info -cc "  $theme"
+    if (( i < 10 )); then
+      formatted_index="[$i]"
+    else
+      printf -v formatted_index "[%2d]" "$i"
+    fi
+    info -cc "$(printf "%6s" "$formatted_index") $theme"
+    ((i++))
   done
 
   info ''
@@ -1310,6 +1319,20 @@ get_theme() {
 
 set_theme() {
   value="${1:-}"
+
+  # check if value is a number
+  if [[ "$1" =~ ^[1-9][0-9]*$ ]]; then
+    index=$(( $1 - 1 ))  # 1-based → 0-based index
+
+    # check if index is in themes
+    if (( index >= 0 && index < ${#themes[@]} )); then
+      value="${themes[index]}"
+      info "Selected theme: $value."
+    else
+      error "Error: Invalid theme number." >&2
+      return 1
+    fi
+  fi
 
   # check if value is in themes
   if printf '%s\n' "${themes[@]}" | grep -qx "$value"; then

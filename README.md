@@ -171,14 +171,18 @@ dots theme
 Set the color theme:
 
 ```bash
-dots set-theme <theme_name>
+dots set-theme <NUMBER|NAME>
+
+# Example
+dots set-theme 4                 # Set by number
+dots set-theme "developer-mono"  # Set by name
 ```
 
 Available themes:
-  - developer | developer-textcolored | developer-colorful | developer-mono
-  - dark-turquoise | dark-turquoise-textcolored | dark-turquoise-colorful | dark-turquoise-mono
-  - dark-orange | dark-orange-textcolored | dark-orange-colorful | dark-orange-mono
-  - dark-skyblue | dark-skyblue-textcolored | dark-skyblue-colorful | dark-skyblue-mono
+  - 1. developer | 2. developer-textcolored | 3. developer-colorful | 4. developer-mono
+  - 5. dark-turquoise | 6. dark-turquoise-textcolored | 7. dark-turquoise-colorful | 8. dark-turquoise-mono
+  - 9. dark-orange | 10. dark-orange-textcolored | 11. dark-orange-colorful | 12. dark-orange-mono
+  - 13. dark-skyblue | 14. dark-skyblue-textcolored | 15. dark-skyblue-colorful | 16. dark-skyblue-mono
 
 Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir:
 
@@ -449,7 +453,7 @@ The tmux plugins installed by default are as follows:
 | ------------------------------------------ | ------------------------------------- | --------------------------------------------------- |
 | <kbd>Alt</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Create/delete the window              | <kbd>c</kbd>/<kbd>&</kbd>                           |
 | <kbd>Alt</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Switch to the previous/next window    | <kbd>p</kbd>/<kbd>n</kbd>                           |
-| <kbd>Alt</kbd>+<kbd>[0-9]</kbd>            | Switch to the 1-10 window             | <kbd>[0-9]</kbd>                                    |
+| <kbd>Alt</kbd>+<kbd>[1-9]</kbd>            | Switch to the 1-9 window             | <kbd>[1-9]</kbd>                                    |
 | <kbd>Alt</kbd>+<kbd>-</kbd>                | Split the window horizontally         | <kbd>-</kbd>                                        |
 | <kbd>Alt</kbd>+<kbd>\\</kbd>               | Split the window vertically           | <kbd>\\</kbd>                                       |
 | <kbd>Alt</kbd>+<kbd>[hjkl]</kbd>           | Switch to the left/down/up/right pane | <kbd>←</kbd>/<kbd>↓</kbd>/<kbd>↑</kbd>/<kbd>→</kbd> |

@@ -170,14 +170,18 @@ dots theme
 指定のカラーテーマに設定します:
 
 ```bash
-dots set-theme <theme_name>
+dots set-theme <NUMBER|NAME>
+
+# Example
+dots set-theme 4                 # Set by number
+dots set-theme "developer-mono"  # Set by name
 ```
 
 利用可能なテーマ:
-  - developer | developer-textcolored | developer-colorful | developer-mono
-  - dark-turquoise | dark-turquoise-textcolored | dark-turquoise-colorful | dark-turquoise-mono
-  - dark-orange | dark-orange-textcolored | dark-orange-colorful | dark-orange-mono
-  - dark-skyblue | dark-skyblue-textcolored | dark-skyblue-colorful | dark-skyblue-mono
+  - 1. developer | 2. developer-textcolored | 3. developer-colorful | 4. developer-mono
+  - 5. dark-turquoise | 6. dark-turquoise-textcolored | 7. dark-turquoise-colorful | 8. dark-turquoise-mono
+  - 9. dark-orange | 10. dark-orange-textcolored | 11. dark-orange-colorful | 12. dark-orange-mono
+  - 13. dark-skyblue | 14. dark-skyblue-textcolored | 15. dark-skyblue-colorful | 16. dark-skyblue-mono
 
 $XDG_CONFIG_HOME ディレクトリのバックアップコピーを $XDG_DATA_HOME/dotfiles/backup に作成します
 
@@ -444,7 +448,7 @@ window と pane の操作を可能としています．
 | ------------------------------------------ | --------------------------------------------- | --------------------------------------------------- |
 | <kbd>Alt</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | ウィンドウを作成/削除します                   | <kbd>c</kbd>/<kbd>&</kbd>                           |
 | <kbd>Alt</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | 前・後のウィンドウに切り替えます              | <kbd>p</kbd>/<kbd>n</kbd>                           |
-| <kbd>Alt</kbd>+<kbd>[1-9]</kbd>            | 番号1-10のウィンドウに切り替えます            | <kbd>[0-9]</kbd>                                    |
+| <kbd>Alt</kbd>+<kbd>[1-9]</kbd>            | 番号1-9のウィンドウに切り替えます             | <kbd>[1-9]</kbd>                                    |
 | <kbd>Alt</kbd>+<kbd>-</kbd>                | ウィンドウを水平に分割します                  | <kbd>-</kbd>                                        |
 | <kbd>Alt</kbd>+<kbd>\\</kbd>               | ウィンドウを垂直に分割します                  | <kbd>\\</kbd>                                       |
 | <kbd>Alt</kbd>+<kbd>[hjkl]</kbd>           | 左/下/上/右のペインにフォーカスを切り替えます | <kbd>←</kbd>/<kbd>↓</kbd>/<kbd>↑</kbd>/<kbd>→</kbd> |
