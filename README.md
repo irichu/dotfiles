@@ -180,22 +180,24 @@ dots set-theme "developer-mono"  # Set by name
 
 Available themes:
 
-1. developer
-2. developer-textcolored 
-3. developer-colorful 
-4. developer-mono
-5. dark-turquoise 
-6. dark-turquoise-textcolored 
-7. dark-turquoise-colorful 
-8. dark-turquoise-mono
-9. dark-orange 
-10. dark-orange-textcolored 
-11. dark-orange-colorful 
-12. dark-orange-mono
-13. dark-skyblue 
-14. dark-skyblue-textcolored 
-15. dark-skyblue-colorful 
-16. dark-skyblue-mono
+| NUMBER | NAME                       | IMAGE                                                                                     |
+| -----: | :------------------------- | :---------------------------------------------------------------------------------------- |
+|      1 | developer                  | ![Image](https://github.com/user-attachments/assets/b11d0239-654c-4bb8-8b00-053052bf6551) |
+|      2 | developer-textcolored      | ![Image](https://github.com/user-attachments/assets/eb263ac8-43a4-40b6-9416-d062500ce4db) |
+|      3 | developer-colorful         | ![Image](https://github.com/user-attachments/assets/bdf15c2c-fa79-482e-acc4-d5cff417ea26) |
+|      4 | developer-mono             | ![Image](https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6) |
+|      5 | dark-turquoise             | ![Image](https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c) |
+|      6 | dark-turquoise-textcolored | ![Image](https://github.com/user-attachments/assets/56cccb66-fb8f-4ca3-872b-16ec20abc619) |
+|      7 | dark-turquoise-colorful    | ![Image](https://github.com/user-attachments/assets/bb5f85de-c149-4ad1-a912-ce62c1b62580) |
+|      8 | dark-turquoise-mono        | ![Image](https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28) |
+|      9 | dark-orange                | ![Image](https://github.com/user-attachments/assets/e7a84520-94e6-44c9-ab0e-8c1358123e58) |
+|     10 | dark-orange-textcolored    | ![Image](https://github.com/user-attachments/assets/f9d520d0-8740-4538-ae4e-7e88d77aa10d) |
+|     11 | dark-orange-colorful       | ![Image](https://github.com/user-attachments/assets/5aebc5e0-bef7-451b-9cd0-0f22be945a76) |
+|     12 | dark-orange-mono           | ![Image](https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1) |
+|     13 | dark-skyblue               | ![Image](https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac) |
+|     14 | dark-skyblue-textcolored   | ![Image](https://github.com/user-attachments/assets/406430fe-ba61-4790-9b8a-0ea752d0fe4b) |
+|     15 | dark-skyblue-colorful      | ![Image](https://github.com/user-attachments/assets/5a3dfb75-9f9d-4324-ac70-fcb988e7c313) |
+|     16 | dark-skyblue-mono          | ![Image](https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a) |
 
 Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir:
 
@@ -466,7 +468,7 @@ The tmux plugins installed by default are as follows:
 | ------------------------------------------ | ------------------------------------- | --------------------------------------------------- |
 | <kbd>Alt</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | Create/delete the window              | <kbd>c</kbd>/<kbd>&</kbd>                           |
 | <kbd>Alt</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Switch to the previous/next window    | <kbd>p</kbd>/<kbd>n</kbd>                           |
-| <kbd>Alt</kbd>+<kbd>[1-9]</kbd>            | Switch to the 1-9 window             | <kbd>[1-9]</kbd>                                    |
+| <kbd>Alt</kbd>+<kbd>[1-9]</kbd>            | Switch to the 1-9 window              | <kbd>[1-9]</kbd>                                    |
 | <kbd>Alt</kbd>+<kbd>-</kbd>                | Split the window horizontally         | <kbd>-</kbd>                                        |
 | <kbd>Alt</kbd>+<kbd>\\</kbd>               | Split the window vertically           | <kbd>\\</kbd>                                       |
 | <kbd>Alt</kbd>+<kbd>[hjkl]</kbd>           | Switch to the left/down/up/right pane | <kbd>←</kbd>/<kbd>↓</kbd>/<kbd>↑</kbd>/<kbd>→</kbd> |
