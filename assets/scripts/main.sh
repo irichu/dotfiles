@@ -248,7 +248,7 @@ echo_descriptions() {
 echo_allcommand_usage() {
 
   info -ny -cg "Usage: "
-  info -cc "dots all <Command>"
+  info -cc "dots install <Command>"
 
   info -cg "Commands: "
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/main-commands.tsv 5
@@ -266,13 +266,13 @@ echo_each_command_usage() {
 
   info ''
   info -ny -cg 'Individual installation: '
-  info -cc 'dots <Package>'
+  info -cc 'dots install <Package>'
 
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/install-packages.tsv
 
   info ''
   info -ny -cg 'Individual set up: '
-  info -cc 'dots <Setup>'
+  info -cc 'dots setup <Setup>'
 
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/setup-packages.tsv
 
