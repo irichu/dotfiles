@@ -178,10 +178,23 @@ dots set-theme "developer-mono"  # Set by name
 ```
 
 利用可能なテーマ:
-  - 1. developer | 2. developer-textcolored | 3. developer-colorful | 4. developer-mono
-  - 5. dark-turquoise | 6. dark-turquoise-textcolored | 7. dark-turquoise-colorful | 8. dark-turquoise-mono
-  - 9. dark-orange | 10. dark-orange-textcolored | 11. dark-orange-colorful | 12. dark-orange-mono
-  - 13. dark-skyblue | 14. dark-skyblue-textcolored | 15. dark-skyblue-colorful | 16. dark-skyblue-mono
+
+1. developer
+2. developer-textcolored 
+3. developer-colorful 
+4. developer-mono
+5. dark-turquoise 
+6. dark-turquoise-textcolored 
+7. dark-turquoise-colorful 
+8. dark-turquoise-mono
+9. dark-orange 
+10. dark-orange-textcolored 
+11. dark-orange-colorful 
+12. dark-orange-mono
+13. dark-skyblue 
+14. dark-skyblue-textcolored 
+15. dark-skyblue-colorful 
+16. dark-skyblue-mono
 
 $XDG_CONFIG_HOME ディレクトリのバックアップコピーを $XDG_DATA_HOME/dotfiles/backup に作成します
 
