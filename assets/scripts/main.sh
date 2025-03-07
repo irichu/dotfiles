@@ -1067,7 +1067,7 @@ backup_dotfiles() {
 
   [ -f ~/.bashrc ] && cp ~/.bashrc "$backup_path"
   [ -f ~/.bash_aliases ] && cp ~/.bash_aliases "$backup_path"
-  cp -r "$CONFIG_HOME"/* "$backup_path"
+  cp -Lr "$CONFIG_HOME"/* "$backup_path"
 
   info -cn "copied to $backup_path"
 
