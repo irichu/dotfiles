@@ -49,6 +49,10 @@
 
 <img src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a" width="320">
 
+<img src="https://github.com/user-attachments/assets/d046bafe-5858-4515-890b-051ec5c4b64c" width="320">
+
+<img src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327" width="800">
+
 ### WSL2
 
 <img src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800" width="800" alt="wsl_zsh_nvim_startuptime">
@@ -275,7 +279,7 @@ dots list [--apt|--brew|--snap|--pkg]
 個別パッケージのインストールを実行します
 
 ```bash
-dots <package_name>
+dots install <package_name>
 ```
 
 |                                                ヘルプ表示のイメージ                                                |
@@ -284,7 +288,7 @@ dots <package_name>
 
 ### 🖥️ 個別インストール可能なパッケージの例
 
-The following apps can be installed individually from the `dots <package_name>` command
+The following apps can be installed individually from the `dots install <package_name>` command
 
 #### >_ CLI/TUI アプリ
 
