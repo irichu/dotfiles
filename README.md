@@ -406,8 +406,21 @@ dots install --brew
 
 |                                                        Tmux synchronize-panes mode                                                        |
 | :---------------------------------------------------------------------------------------------------------------------------------------: |
-|                     <span style="font-size:12px">alias tid='tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"'</span>                     |
 | <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
+
+### eza, lazygit, yazi
+
+|                                                  eza tree (eza -l -T)                                                  |
+| :--------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/34c2ae49-3a30-4401-b4c5-0ce308918b54" width="800" alt="eza tree"> |
+
+|                                                        lazygit                                                        |
+| :-------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/bdc012f2-f7fb-4405-b18d-01f73a5a90a9" width="800" alt="lazygit"> |
+
+|                                                        yazi                                                        |
+| :----------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/217ec320-463c-44c2-a4da-464f291eddcf" width="800" alt="yazi"> |
 
 ## ⚡ Aliases for quick start
 
@@ -443,6 +456,14 @@ Kill the entire tmux server and all running sessions.
 
 ```bash
 tks # tmux kill-server
+```
+
+#### Show tmux pane id
+
+Show tmux  pane id
+
+```bash
+tid # tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"
 ```
 
 #### Reload tmux config
