@@ -23,9 +23,39 @@
 #ffdd00 colour220 Gold1
 
 #--------------------------------------------------
+# themes
+#--------------------------------------------------
+# available themes
+themes=(
+  "developer"
+  "developer-textcolored"
+  "developer-colorful"
+  "developer-mono"
+  "dark-turquoise"
+  "dark-turquoise-textcolored"
+  "dark-turquoise-colorful"
+  "dark-turquoise-mono"
+  "dark-orange"
+  "dark-orange-textcolored"
+  "dark-orange-colorful"
+  "dark-orange-mono"
+  "dark-skyblue"
+  "dark-skyblue-textcolored"
+  "dark-skyblue-colorful"
+  "dark-skyblue-mono"
+)
+
+#--------------------------------------------------
 # load config file
 #--------------------------------------------------
 source "${TMUX_SCRIPT_DIR:-$HOME/.config/tmux/script}"/config.sh
+
+# set a random theme
+if [[ ${theme:-} == "random" ]]; then
+  # shuf -i 0-15 -n 1
+  n=$(((RANDOM + RANDOM + RANDOM) % 16))
+  theme="${themes[$n]}"
+fi
 
 # current window (default)
 #--------------------------------------------------

@@ -68,6 +68,7 @@ themes=(
   "dark-skyblue-textcolored"
   "dark-skyblue-colorful"
   "dark-skyblue-mono"
+  "random"
 )
 
 #--------------------------------------------------
@@ -1334,6 +1335,13 @@ set_theme() {
     fi
   fi
 
+  # set a random theme
+  #if [[ ${value:-} == "random" ]]; then
+  #  # shuf -i 0-15 -n 1
+  #  n=$(((RANDOM + RANDOM + RANDOM) % 16))
+  #  value="${themes[$n]}"
+  #fi
+
   # check if value is in themes
   if printf '%s\n' "${themes[@]}" | grep -qx "$value"; then
 
@@ -1354,10 +1362,16 @@ set_theme() {
     # error message
     error "Theme \"$value\" does not exist."
 
-    # error "Available themes: ${themes[*]}"
-    echo "Available themes:"
+    info "Available themes:"
+    i=1
     for theme in "${themes[@]}"; do
-      echo "  - $theme"
+      if (( i < 10 )); then
+        formatted_index="[$i]"
+      else
+        printf -v formatted_index "[%2d]" "$i"
+      fi
+      info -cn "$(printf "%6s" "$formatted_index") $theme"
+      ((i++))
     done
 
     exit 1
