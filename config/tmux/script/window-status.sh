@@ -53,7 +53,7 @@ source "${TMUX_SCRIPT_DIR:-$HOME/.config/tmux/script}"/config.sh
 # set a random theme
 if [[ ${theme:-} == "random" ]]; then
   # shuf -i 0-15 -n 1
-  n=$(((RANDOM + RANDOM + RANDOM) % 16))
+  n=$(((RANDOM + RANDOM + RANDOM) % ${#themes[@]}))
   theme="${themes[$n]}"
 fi
 
