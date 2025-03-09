@@ -19,7 +19,8 @@ RUN apt-get update && \
   zsh
 
 # Locale
-RUN locale-gen ja_JP
+RUN locale-gen en_US.UTF-8 && \
+    locale-gen ja_JP.UTF-8
 
 # TERM
 ENV TERM=xterm-256color

@@ -17,7 +17,8 @@ RUN dnf install -y \
 
 # Timezone & Locale
 ENV TZ=Asia/Tokyo
-RUN localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
+RUN localedef -f UTF-8 -i en_US en_US.UTF-8 && \
+    localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
 
 # TERM
 ENV TERM=xterm-256color
