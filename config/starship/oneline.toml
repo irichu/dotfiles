@@ -29,14 +29,16 @@ style = 'yellow bold'
 
 [directory]
 read_only = " 󰌾"
-style = 'grey'
-truncation_length = 5
+#style = 'grey'
+style = 'white dimmed'
+truncation_length = 8
 truncation_symbol = '…/'
 
 [time]
 style = 'blue'
 disabled = false
 format = '[$time]($style)'
+
 [aws]
 symbol = "  "
 
