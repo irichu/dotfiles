@@ -1,3 +1,25 @@
+# Alacritty Configuration File
+#
+
+live_config_reload = true
+working_directory = "None"
+
+#--------------------------------------------------
+# import
+#--------------------------------------------------
+
+import = ["~/.config/alacritty/keybindings.toml"]
+
+[debug]
+log_level = "Warn"
+persistent_logging = false
+print_events = false
+render_timer = false
+
+#--------------------------------------------------
+# colors
+#--------------------------------------------------
+
 [colors.bright]
 black = "0x3a3a3a"
 blue = "0x77aaff"
@@ -25,57 +47,238 @@ foreground = "0xffffff"
 [env]
 TERM = "xterm-256color"
 
+#--------------------------------------------------
+# font
+#--------------------------------------------------
+
 [font]
-size = 13.0
+#size = 10.0
+#size = 10.5
+size = 11.0
+#size = 13.0
 
 [font.offset]
+x = 0
 y = 1
 
+# [font.bold]
+# family = "HackGen Console NF"
+# style = "Bold"
+#
+# [font.bold_italic]
+# family = "HackGen Console NF"
+# style = "Bold Italic"
+#
+# [font.italic]
+# family = "HackGen Console NF"
+# style = "Italic"
+#
+# [font.normal]
+# family = "HackGen Console NF"
+# style = "Regular"
+
 [font.bold]
-family = "HackGen Console NF"
+family = "HackGen35 Console NF"
 style = "Bold"
 
 [font.bold_italic]
-family = "HackGen Console NF"
+family = "HackGen35 Console NF"
 style = "Bold Italic"
 
 [font.italic]
-family = "HackGen Console NF"
+family = "HackGen35 Console NF"
 style = "Italic"
 
 [font.normal]
-family = "HackGen Console NF"
+family = "HackGen35 Console NF"
 style = "Regular"
+
+#--------------------------------------------------
+# mouse
+#--------------------------------------------------
+
+[mouse]
+hide_when_typing = false
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
 
 [scrolling]
 history = 10000
 multiplier = 3
 
-# [terminal.shell]
-# args = ["-l", "-c", 'tmux a -t default || tmux new -s default']
-# program = "/bin/bash"
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",.`|'\" ()[]{}<>="
 
-# [terminal.shell]
-# args = ["-l", "-c", 'zellij attach default || zellij --session=default']
-# program = "/bin/bash"
+#--------------------------------------------------
+# terminal
+#--------------------------------------------------
 
 [terminal]
 osc52 = "CopyPaste"
 
+[shell]
+args = ["-l", "-c", 'tmux a -t default || tmux new -s default']
+program = "/bin/zsh"
+
+# [shell]
+# args = ["-l", "-c", 'zellij attach default || zellij --session=default']
+# program = "/bin/bash"
+
+#--------------------------------------------------
+# window
+#--------------------------------------------------
+
 [window]
 decorations = "Full" #"None"
+# decorations = "None"
+dynamic_padding = false
+dynamic_title = true
 opacity = 0.95
+startup_mode = "Windowed"
 
 [window.dimensions]
 columns = 200
 lines = 60
 
 [window.padding]
-x = 8
-y = 8
+x = 4
+y = 4
 
-[keyboard]
-bindings = [
-  { key = "V", mods = "Control", action = "Paste" },
-  { key = "C", mods = "Control", action = "Copy" },
-]
+#--------------------------------------------------
+# keyboard
+#--------------------------------------------------
+
+#[[keyboard.bindings]]
+#chars = ""
+#key = ""
+#mods = "Shift"
+
+# Alacritty キーバインド設定
+
+# コピー
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+# 貼り付け
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+# ページアップ（Shiftキーを押しながら）
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key = "PageUp"
+mods = "Shift"
+
+# ページダウン（Shiftキーを押しながら）
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key = "PageDown"
+mods = "Shift"
+
+# フォントサイズを大きくする
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Control"
+
+# フォントサイズを小さくする
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+# フォントサイズをリセットする
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Control"
+
+# フルスクリーンの切り替え
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F11"
+mods = "None"
+
+# 最大化の切り替え
+[[keyboard.bindings]]
+action = "ToggleMaximized"
+key = "F12"
+mods = "None"
+
+# ウィンドウを閉じる
+[[keyboard.bindings]]
+action = "Quit"
+key = "Q"
+mods = "Control|Shift"
+
+# 新しいウィンドウを開く
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Control|Shift"
+
+# Viモードの切り替え
+#[[keyboard.bindings]]
+#action = "ToggleViMode"
+#key = "Escape"
+#mods = "None"
+
+# 検索バーを表示
+[[keyboard.bindings]]
+action = "SearchForward"
+key = "Slash"
+mods = "Control|Shift"
+
+# 検索バーを表示（逆方向）
+[[keyboard.bindings]]
+action = "SearchBackward"
+key = "Left"
+mods = "Control|Shift"
+
+# 検索結果の次を表示
+[[keyboard.bindings]]
+action = "SearchNext"
+key = "N"
+mods = "Control|Shift"
+
+# 検索結果の前を表示
+[[keyboard.bindings]]
+action = "SearchPrevious"
+key = "P"
+mods = "Control|Shift"
+
+# URLを開く
+[[keyboard.bindings]]
+action = "Open"
+key = "U"
+mods = "Control|Shift"
+
+# テキスト選択範囲をコピー
+[[keyboard.bindings]]
+action = "CopySelection"
+key = "C"
+mods = "Control|Shift"
+
+# クリップボードから選択範囲を貼り付け
+[[keyboard.bindings]]
+action = "PasteSelection"
+key = "V"
+mods = "Control|Shift"
+
+# Alacritty をリセット（スクロールバッファをクリア）
+[[keyboard.bindings]]
+action = "ClearHistory"
+key = "L"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "dots up\n"
+key = "F1"
+mods = "Shift"
