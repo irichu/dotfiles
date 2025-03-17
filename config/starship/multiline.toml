@@ -1,16 +1,15 @@
-format = """
-$python\
-$git_branch\
-$git_status\
-$character
-"""
+# format = """
+# $python\
+# $git_branch\
+# $git_status\
+# $character
+# """
 
 right_format = """
-$directory\
 $time
 """
 
-add_newline = false
+#add_newline = false
 
 [git_branch]
 # symbol = " "
@@ -29,7 +28,7 @@ style = 'yellow bold'
 
 [directory]
 read_only = " 󰌾"
-style = 'grey'
+#style = 'grey'
 truncation_length = 5
 truncation_symbol = '…/'
 
