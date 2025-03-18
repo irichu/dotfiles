@@ -116,6 +116,7 @@ alias wh='which'
 alias x='xargs'
 alias {xc,:q}='exit'
 alias yf='ssh-keygen -yf'
+alias yz='yazi'
 #z
 
 # system
