@@ -1,5 +1,8 @@
 format = """
+$container\
 $python\
+$golang\
+$nodejs\
 $git_branch\
 $git_status\
 $character
@@ -10,16 +13,14 @@ $directory\
 $time
 """
 
+# right_format = """
+# $time
+# """
+
 add_newline = false
 
-[git_branch]
-# symbol = " "
-format = '[$symbol$branch(:$remote_branch)]($style) '
-
-[character]
-format = '$symbol '
-success_symbol = '[➜](bold green)'
-error_symbol = '[!](bold red)'
+[container]
+format = '[$symbol\[$name\]]($style)'
 
 [python]
 symbol = ' '
@@ -27,9 +28,39 @@ format = '[(\($virtualenv\) )]($style)'
 version_format = '${raw}'
 style = 'yellow bold'
 
+[golang]
+symbol = " "
+format = '[$symbol($version )($mod_version )]($style)'
+
+[nodejs]
+symbol = " "
+format = '[$symbol($version )](bold green)'
+
+[git_branch]
+# symbol = " "
+format = '[$symbol$branch(:$remote_branch)]($style) '
+
+[git_status]
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+#windows_starship = '/mnt/c/Users/user/scoop/apps/starship/current/starship.exe'
+
+[character]
+format = '$symbol '
+success_symbol = '[➜](bold green)'
+error_symbol = '[!](bold red)'
+vimcmd_symbol = '[V](bold green) '
+
+[memory_usage]
+symbol = "󰍛 "
+disabled = false
+threshold = -1
+style = 'bold dimmed green'
+format = '[$symbol${ram}( | ${swap})]($style) '
+
 [directory]
 read_only = " 󰌾"
-#style = 'grey'
 style = 'white dimmed'
 truncation_length = 8
 truncation_symbol = '…/'
@@ -78,9 +109,6 @@ symbol = " "
 [git_commit]
 tag_symbol = '  '
 
-[golang]
-symbol = " "
-
 [guix_shell]
 symbol = " "
 
@@ -108,9 +136,6 @@ symbol = " "
 [lua]
 symbol = " "
 
-[memory_usage]
-symbol = "󰍛 "
-
 [meson]
 symbol = "󰔷 "
 
@@ -119,9 +144,6 @@ symbol = "󰆥 "
 
 [nix_shell]
 symbol = " "
-
-[nodejs]
-symbol = " "
 
 [ocaml]
 symbol = " "
