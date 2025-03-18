@@ -261,16 +261,16 @@ key = "U"
 mods = "Control|Shift"
 
 # テキスト選択範囲をコピー
-[[keyboard.bindings]]
-action = "CopySelection"
-key = "C"
-mods = "Control|Shift"
+# [[keyboard.bindings]]
+# action = "CopySelection"
+# key = "C"
+# mods = "Control|Shift"
 
 # クリップボードから選択範囲を貼り付け
-[[keyboard.bindings]]
-action = "PasteSelection"
-key = "V"
-mods = "Control|Shift"
+# [[keyboard.bindings]]
+# action = "PasteSelection"
+# key = "V"
+# mods = "Control|Shift"
 
 # Alacritty をリセット（スクロールバッファをクリア）
 [[keyboard.bindings]]
@@ -282,3 +282,4 @@ mods = "Control|Shift"
 chars = "dots up\n"
 key = "F1"
 mods = "Shift"
+
