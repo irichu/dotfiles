@@ -7,7 +7,6 @@ RUN pacman -Sy --noconfirm --needed \
   base-devel \
   curl \
   git \
-  glibc \
   iproute2 \
   sudo \
   tar \
@@ -20,10 +19,13 @@ RUN pacman -Sy --noconfirm --needed \
 ENV TZ=Asia/Tokyo
 
 # Gen ja_JP.UTF-8
-RUN mkdir -p glibc && tar xvf /var/cache/pacman/pkg/glibc-*.tar.zst -C ./glibc && sudo cp ./glibc/usr/share/i18n/locales/ja_JP /usr/share/i18n/locales/ && \
-echo 'en_US.UTF-8 UTF-8' | sudo tee -a /etc/locale.gen && \
-echo 'ja_JP.UTF-8 UTF-8' | sudo tee -a /etc/locale.gen && \
-locale-gen
+RUN pacman -Sy --noconfirm glibc && \
+  mkdir -p glibc && tar xvf /var/cache/pacman/pkg/glibc-*.tar.zst -C ./glibc && \
+  cp ./glibc/usr/share/i18n/locales/en_US /usr/share/i18n/locales/ && \
+  cp ./glibc/usr/share/i18n/locales/ja_JP /usr/share/i18n/locales/ && \
+  echo 'en_US.UTF-8 UTF-8' | tee -a /etc/locale.gen && \
+  echo 'ja_JP.UTF-8 UTF-8' | tee -a /etc/locale.gen && \
+  locale-gen
 
 #localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
 #ENV LANG=ja_JP.UTF-8
