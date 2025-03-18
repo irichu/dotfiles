@@ -18,6 +18,7 @@ file
 fzf
 git-delta
 git
+golang
 gping
 htop
 hyperfine
