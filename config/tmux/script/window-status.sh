@@ -3,6 +3,8 @@
 #--------------------------------------------------
 # color palette
 #--------------------------------------------------
+#ffffff colour15 White
+#ffffff colour231 Grey100
 #1c1c1c colour234 Grey11
 #3a3a3a colour237 Grey23
 #4e4e4e colour239 Grey30
@@ -51,10 +53,10 @@ themes=(
 source "${TMUX_SCRIPT_DIR:-$HOME/.config/tmux/script}"/config.sh
 
 # set a random theme
-if [[ ${theme:-} == "random" ]]; then
+if [[ ${THEME:-} == "random" ]]; then
   # shuf -i 0-15 -n 1
   n=$(((RANDOM + RANDOM + RANDOM) % ${#themes[@]}))
-  theme="${themes[$n]}"
+  THEME="${themes[$n]}"
 fi
 
 # current window (default)
@@ -64,6 +66,7 @@ fi
 
 # current window status
 base_color="colour105"
+white_color="colour231"
 black_color="colour234"
 black_gray_color="colour237"
 gray_color="colour239"
@@ -76,6 +79,7 @@ orange_color="colour214"
 skyblue_color="colour117"
 skyblue2_color="colour111"
 light_white_color="colour254"
+indianred1_color='colour201'
 
 # DarkTurquoise
 darkturquoise_color="colour44"
@@ -127,17 +131,29 @@ pane_synchronized_bg=$seagreen_color
 
 # weekday
 weekday=$(date +%w)
-weekday_color="colour231"
-if [[ $weekday == 6 ]]; then
-  weekday_color=$skyblue2_color
-elif [[ $weekday == 0 ]]; then
-  weekday_color="colour204"
-fi
+# weekday_color="$DEFAULT_WEEKDAY_COLOR"
+# if [[ $weekday == 6 ]]; then
+#   weekday_color=${WEEKDAY_SAT_COLOR:-$skyblue2_color}
+# elif [[ $weekday == 0 ]]; then
+#   weekday_color=${WEEKDAY_SUN_COLOR:-$indianred1_color}
+# fi
+
+weekday_color="$DEFAULT_WEEKDAY_COLOR"
+case "$weekday" in
+  0)
+    weekday_color=${WEEKDAY_SUN_COLOR:-$indianred1_color}
+    ;;
+  6)
+    weekday_color=${WEEKDAY_SAT_COLOR:-$skyblue2_color}
+    ;;
+  *)
+  ;;
+esac
 
 #--------------------------------------------------
 # theme: dark-turquoise
 #--------------------------------------------------
-if [[ ${theme:-} =~ ^dark-turquoise ]]; then
+if [[ ${THEME:-} =~ ^dark-turquoise ]]; then
   # current window (DarkTurquoise)
   base_color=$darkturquoise_color
 
@@ -155,7 +171,7 @@ if [[ ${theme:-} =~ ^dark-turquoise ]]; then
 #--------------------------------------------------
 # theme: dark-orange
 #--------------------------------------------------
-elif [[ ${theme:-} =~ ^dark-orange ]]; then
+elif [[ ${THEME:-} =~ ^dark-orange ]]; then
   # current window (Orange1)
   base_color=$orange_color
 
@@ -173,7 +189,7 @@ elif [[ ${theme:-} =~ ^dark-orange ]]; then
 #--------------------------------------------------
 # theme: skyblue
 #--------------------------------------------------
-elif [[ ${theme:-} =~ ^dark-skyblue ]]; then
+elif [[ ${THEME:-} =~ ^dark-skyblue ]]; then
   # current window (Orange1)
   base_color=$skyblue2_color
 
@@ -190,13 +206,13 @@ elif [[ ${theme:-} =~ ^dark-skyblue ]]; then
 fi
 
 # text color
-if [[ ${theme:-} =~ textcolored$ ]]; then
+if [[ ${THEME:-} =~ textcolored$ ]]; then
   status_right_str_fg=$seagreen_color
   status_right_str_fg2=$palegreen_color
   status_right_str_fg3=$orange_color
   status_right_str_fg4=$skyblue2_color
   status_right_str_fg5=$light_white_color
-elif [[ ${theme:-} =~ -mono$ ]]; then
+elif [[ ${THEME:-} =~ -mono$ ]]; then
   status_right_str_fg=$current_window_bg
   status_right_str_fg2=$current_window_bg
   status_right_str_fg3=$current_window_bg
@@ -212,8 +228,8 @@ fi
 
 # weekday
 weekday_str=""
-if [[ ${show_weekday:-} == "true" ]]; then
-  if [[ ${theme:-} =~ -mono$ ]]; then
+if [[ ${SHOW_WEEKDAY:-} == "true" ]]; then
+  if [[ ${THEME:-} =~ -mono$ ]]; then
     weekday_str="(%a)"
   else
     weekday_str="(#[fg=$weekday_color]%a#[bg=$status_right_str_bg5 fg=$status_right_str_fg5])"
@@ -235,11 +251,11 @@ if [ "$WINDOW_WIDTH" -lt 80 ]; then
   tmux setw -g window-status-format "#[bg=$not_selected_window_bg fg=$not_selected_window_fg] #I "
 
   # status-right
-  if [[ ${theme:-} =~ -colorful$ ]]; then
+  if [[ ${THEME:-} =~ -colorful$ ]]; then
     tmux set -g status-right "#[bg=$seagreen_color fg=$black_color]  #S \
 #[bg=$skyblue_color fg=$black_color]  #(id -un)@#h \
 #[bg=$skyblue2_color fg=$black_color] 󰃰 %H:%M:%S "
-  else    
+  else
     tmux set -g status-right "#[bg=$current_window_bg fg=$current_window_fg]  \
 #[bg=$status_right_str_bg fg=$status_right_str_fg] #S \
 #[bg=$current_window_bg fg=$current_window_fg]  \
@@ -257,19 +273,19 @@ else
 #[bg=$current_window_bg fg=$current_window_fg] 󰓩 #I \
 #[bg=$current_window_app_bg fg=$current_window_app_fg none] #W "
 
-  #if [[ ${theme:-} =~ \#[0-9a-zA-Z]{6} || ${theme:-} =~ \#[0-9a-zA-Z]{3} ]]; then
-  #  tmux setw -g window-status-current-format "#[bg=${theme} fg=colour234] 󰓩 #I #[bg=colour240 fg=${theme} none] #{s/#{HOME}/~/:#{pane_current_path}} "
+  #if [[ ${THEME:-} =~ \#[0-9a-zA-Z]{6} || ${THEME:-} =~ \#[0-9a-zA-Z]{3} ]]; then
+  #  tmux setw -g window-status-current-format "#[bg=${THEME} fg=colour234] 󰓩 #I #[bg=colour240 fg=${THEME} none] #{s/#{HOME}/~/:#{pane_current_path}} "
   #fi
 
   # not selected window
   tmux setw -g window-status-format "\
 #[bg=$not_selected_window_bg fg=$not_selected_window_fg] #I \
 #[bg=$not_selected_window_str_bg fg=$not_selected_window_str_fg] #W "
-# directory path
-# #{=/8/…:#{?#{m:#{pane_current_path},#{HOME}},~,#{b:pane_current_path}}} 
+  # directory path
+  # #{=/8/…:#{?#{m:#{pane_current_path},#{HOME}},~,#{b:pane_current_path}}}
 
   # status-right
-  if [[ ${theme:-} =~ -colorful$ ]]; then
+  if [[ ${THEME:-} =~ -colorful$ ]]; then
     current_window_bg=$darkturquoise_color
     current_window_fg=$black_color
     not_selected_window_bg=$skyblue2_color
@@ -287,9 +303,20 @@ else
 #[bg=$status_right_bg2 fg=$status_right_fg2]  #(id -un) \
 #[bg=$status_right_bg3 fg=$status_right_fg3] 󰒋 #h \
 #[bg=$status_right_bg4 fg=$status_right_fg4] 󰲋 #W \
-#[bg=$status_right_bg5 fg=$status_right_fg5] 󰃰 %H:%M:%S %m/%d(%a) "
+#[bg=$status_right_bg5 fg=$status_right_fg5] 󰃰 %m/%d(%a) %H:%M:%S "
 
   else
+    # datetime
+    datetime_format="${DATE_FORMAT:-} ${TIME_FORMAT:-}"
+    if [[ ${DATETIME_FORMAT_TYPE:-} == 1 ]]; then
+      datetime_format="${DATE_FORMAT:-}${weekday_str:-} ${TIME_FORMAT:-}"
+    fi
+
+    if [[ ${DATETIME_FORMAT_TYPE:-} == 2 ]]; then
+      datetime_format="${TIME_FORMAT:-} ${DATE_FORMAT$weekday_str:-}"
+    fi
+
+    # status-right
     tmux set -g status-right "\
 #[bg=$status_right_bg fg=$status_right_fg]  \
 #[bg=$status_right_str_bg fg=$status_right_str_fg] #S \
@@ -300,7 +327,7 @@ else
 #[bg=$status_right_bg4 fg=$status_right_fg4]  \
 #[bg=$status_right_str_bg4 fg=$status_right_str_fg4] #{s/#{HOME}/~/:#{pane_current_path}} \
 #[bg=$status_right_bg5 fg=$status_right_fg5] 󰃰 \
-#[bg=$status_right_str_bg5 fg=$status_right_str_fg5] $datetime_format$weekday_str "
+#[bg=$status_right_str_bg5 fg=$status_right_str_fg5] $datetime_format "
   fi
 
 fi

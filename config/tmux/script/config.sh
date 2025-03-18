@@ -1,35 +1,47 @@
 #!/bin/bash
 
 # date format
-date_format="%m/%d"
-#date_format=""%Y-%m-%d" # iso date
+#date_format="%m/%d"
+DATE_FORMAT="%Y-%m-%d" # iso date
 
 # time format
-time_format="%H:%M:%S"
+TIME_FORMAT="%H:%M:%S"
 
 # datetime format
-datetime_format="$time_format $date_format"
+#datetime_format_type=0 # "$date_format $time_format"
+DATETIME_FORMAT_TYPE=1 # "$date_format(weekday) $time_format"
+#datetime_format_type=2 # "$time_format $date_format(weekday)"
 
 # weekday
-show_weekday="true"
+SHOW_WEEKDAY="true"
 
-theme="developer-textcolored" # default
-#theme="developer"
-#theme="developer-textcolored"
-#theme="developer-colorful"
-#theme="developer-mono"
+# weekday color
+DEFAULT_WEEKDAY_COLOR="colour231"
+WEEKDAY_SUN_COLOR="colour204"
+WEEKDAY_MON_COLOR=$default_weekday_color
+WEEKDAY_TUE_COLOR=$default_weekday_color
+WEEKDAY_WED_COLOR=$default_weekday_color
+WEEKDAY_THU_COLOR=$default_weekday_color
+WEEKDAY_FRI_COLOR=$default_weekday_color
+WEEKDAY_SAT_COLOR="colour111"
 
-#theme="dark-turquoise"
-#theme="dark-turquoise-textcolored"
-#theme="dark-turquoise-colorful"
-#theme="dark-turquoise-mono"
+THEME="developer-textcolored" # default
+#THEME="developer"
+#THEME="developer-textcolored"
+#THEME="developer-colorful"
+#THEME="developer-mono"
 
-#theme="dark-orange"
-#theme="dark-orange-textcolored"
-#theme="dark-orange-colorful"
-#theme="dark-orange-mono"
+#THEME="dark-turquoise"
+#THEME="dark-turquoise-textcolored"
+#THEME="dark-turquoise-colorful"
+#THEME="dark-turquoise-mono"
 
-#theme="dark-skyblue"
-#theme="dark-skyblue-textcolored"
-#theme="dark-skyblue-colorful"
-#theme="dark-skyblue-mono"
+#THEME="dark-orange"
+#THEME="dark-orange-textcolored"
+#THEME="dark-orange-colorful"
+#THEME="dark-orange-mono"
+
+#THEME="dark-skyblue"
+#THEME="dark-skyblue-textcolored"
+#THEME="dark-skyblue-colorful"
+#THEME="dark-skyblue-mono"
