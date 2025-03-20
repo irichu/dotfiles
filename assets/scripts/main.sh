@@ -286,11 +286,11 @@ echo_each_command_usage() {
   info -cc 'dots theme'
   info -ny -cg 'Set theme: '
   info -cc 'dots set-theme <NUMBER|NAME>'
-  
+
   # show theme list
   i=1
   for theme in "${themes[@]}"; do
-    if (( i < 10 )); then
+    if ((i < 10)); then
       formatted_index="[$i]"
     else
       printf -v formatted_index "[%2d]" "$i"
@@ -414,7 +414,7 @@ setup_zsh() {
   # restore
   if [ -f "$histfile_tmp" ]; then
 
-    if [ ! -f "$histfile" ]; then  
+    if [ ! -f "$histfile" ]; then
       info "restore .zsh_history"
       cp -f "$histfile_tmp" "$histfile"
     fi
@@ -873,7 +873,14 @@ install_cargo_packages() {
   info "Start: ${FUNCNAME[0]}"
 
   # cargo install
+  # alacritty
+  sudo apt install pkg-config libfreetype6-dev libfontconfig1-dev
+  cargo install alacritty
+
+  # typst
   cargo install --locked typst-cli
+
+  # yazi
   cargo install --locked yazi-fm yazi-cli
 
   info "End: ${FUNCNAME[0]}"
@@ -994,10 +1001,10 @@ install_docker() {
     sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
   sudo apt update
 
-  if ! getent group docker > /dev/null; then
+  if ! getent group docker >/dev/null; then
     sudo groupadd docker
   fi
-  
+
   CURRENT_USER=$(id -u -n)
   sudo usermod -aG docker $CURRENT_USER
 
@@ -1256,7 +1263,7 @@ docker_test() {
   return 0
 }
 
-clean() { 
+clean() {
   info "Start clean up process"
 
   local res
@@ -1300,8 +1307,8 @@ get_theme() {
 
   # check if config file exists
   if [[ ! -f "$CONFIG_FILE" ]]; then
-      error "Error: Config file '$CONFIG_FILE' not found." >&2
-      exit 1
+    error "Error: Config file '$CONFIG_FILE' not found." >&2
+    exit 1
   fi
 
   # get theme value
@@ -1309,8 +1316,8 @@ get_theme() {
 
   # check if theme value exists
   if [[ -z "$theme" ]]; then
-      error "Error: 'theme=' not found or has no value in '$CONFIG_FILE'." >&2
-      exit 1
+    error "Error: 'theme=' not found or has no value in '$CONFIG_FILE'." >&2
+    exit 1
   fi
 
   echo "$theme" | tr -d '"'
@@ -1323,10 +1330,10 @@ set_theme() {
 
   # check if value is a number
   if [[ "$1" =~ ^[1-9][0-9]*$ ]]; then
-    index=$(( $1 - 1 ))  # 1-based → 0-based index
+    index=$(($1 - 1)) # 1-based → 0-based index
 
     # check if index is in themes
-    if (( index >= 0 && index < ${#themes[@]} )); then
+    if ((index >= 0 && index < ${#themes[@]})); then
       value="${themes[index]}"
       info "Selected theme: $value."
     else
@@ -1356,7 +1363,7 @@ set_theme() {
     else
       info "tmux is NOT running. done."
     fi
-    
+
     exit 0
   else
     # error message
@@ -1365,7 +1372,7 @@ set_theme() {
     info "Available themes:"
     i=1
     for theme in "${themes[@]}"; do
-      if (( i < 10 )); then
+      if ((i < 10)); then
         formatted_index="[$i]"
       else
         printf -v formatted_index "[%2d]" "$i"
@@ -1530,9 +1537,9 @@ setup)
   zsh)
     setup_zsh
     ;;
-# terminator)
-#   setup_terminator
-#   ;;
+    # terminator)
+    #   setup_terminator
+    #   ;;
   *)
     echo_allcommand_usage
     exit 1
