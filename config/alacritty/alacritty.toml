@@ -1,14 +1,15 @@
 # Alacritty Configuration File
 #
 
-live_config_reload = true
-working_directory = "None"
-
 #--------------------------------------------------
 # import
 #--------------------------------------------------
 
+[general]
 import = ["~/.config/alacritty/keybindings.toml"]
+live_config_reload = true
+working_directory = "None"
+
 
 [debug]
 log_level = "Warn"
@@ -119,7 +120,7 @@ semantic_escape_chars = ",.`|'\" ()[]{}<>="
 [terminal]
 osc52 = "CopyPaste"
 
-[shell]
+[terminal.shell]
 args = ["-l", "-c", 'tmux a -t default || tmux new -s default']
 program = "/bin/zsh"
 
@@ -282,4 +283,3 @@ mods = "Control|Shift"
 chars = "dots up\n"
 key = "F1"
 mods = "Shift"
-
