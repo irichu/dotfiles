@@ -873,8 +873,12 @@ install_cargo_packages() {
   info "Start: ${FUNCNAME[0]}"
 
   # cargo install
+
   # alacritty
-  sudo apt install pkg-config libfreetype6-dev libfontconfig1-dev
+  if cmd_exists apt; then
+    sudo apt install pkg-config libfreetype6-dev libfontconfig1-dev
+  fi
+
   cargo install alacritty
 
   # typst
