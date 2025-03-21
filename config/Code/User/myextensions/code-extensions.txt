@@ -1,0 +1,10 @@
+alefragnani.bookmarks
+christian-kohler.path-intellisense
+eamodio.gitlens
+fabiospampinato.vscode-monokai-night
+github.copilot
+github.copilot-chat
+gruntfuggly.todo-tree
+mechatroner.rainbow-csv
+mhutchie.git-graph
+pkief.material-icon-theme

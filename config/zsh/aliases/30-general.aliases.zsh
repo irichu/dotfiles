@@ -64,6 +64,10 @@ alias pre='pkg reinstall'
 alias pse='pkg search'
 alias psh='pkg show'
 
+# Code
+alias cle='code --list-extensions > code-extensions.txt'
+alias cie='cat code-extensions.txt | while read extension; do code --install-extension "$extension"; done'
+
 alias ba='nvim ~/.bash_aliases'
 alias bb='bottom -b || btm -b'
 alias cl='clear'
