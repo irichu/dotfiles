@@ -51,6 +51,10 @@ cp -r "$DOTFILES_CONFIG"/starship "$HOME/.config/"
 mkdir -p "$HOME/.config/lazygit/"
 cp -r "$DOTFILES_CONFIG"/lazygit/* "$HOME/.config/lazygit/"
 
+# yazi
+mkdir -p "$HOME/.config/yazi/"
+cp -r "$DOTFILES_CONFIG"/yazi/* "$HOME/.config/yazi/"
+
 #--------------------------------------------------
 # install from github
 #--------------------------------------------------

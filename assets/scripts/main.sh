@@ -772,6 +772,9 @@ install_homebrew() {
   backup_dir "$CONFIG_HOME/starship"
   ln -s "$SCRIPT_DIR/config/starship" "$CONFIG_HOME/"
 
+  backup_dir "$CONFIG_HOME/yazi"
+  ln -s "$SCRIPT_DIR/config/yazi" "$CONFIG_HOME/"
+
   starship preset nerd-font-symbols -o "$CONFIG_HOME"/starship/nerd.toml
 
   info "End: ${FUNCNAME[0]}"
@@ -881,11 +884,17 @@ install_cargo_packages() {
 
   cargo install alacritty
 
+  backup_dir "$CONFIG_HOME/alacritty"
+  ln -s "$SCRIPT_DIR/config/alacritty" "$CONFIG_HOME/"
+
   # typst
   cargo install --locked typst-cli
 
   # yazi
   cargo install --locked yazi-fm yazi-cli
+
+  backup_dir "$CONFIG_HOME/yazi"
+  ln -s "$SCRIPT_DIR/config/yazi" "$CONFIG_HOME/"
 
   info "End: ${FUNCNAME[0]}"
   return 0
