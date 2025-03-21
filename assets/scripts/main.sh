@@ -301,7 +301,7 @@ echo_each_command_usage() {
 
   info ''
   info -ny -cg 'Test on Docker: '
-  info -cc 'dots docker test'
+  info -cc 'dots docker test {ubuntu|ubuntu-22.04|arch|fedora}'
 
   info ''
   info -ny -cg 'Clean up dotfiles [and backup, and config, and both]: '
@@ -1265,12 +1265,14 @@ update_packages() {
 docker_test() {
   info "Start docker testing"
 
-  if [ ! -f ./Dockerfile ]; then
-    error 'Dockerfile not found'
-    exit 2
+  if [ ! -f ./Dockerfile ] || [ ! -d assets ]; then
+    info 'Dockerfile not found'
+    cd "$SCRIPT_DIR"
+
+    info "cd $SCRIPT_DIR"
   fi
 
-  bash "$SCRIPT_DIR/assets/scripts/docker-test.sh"
+  bash "$SCRIPT_DIR/assets/scripts/docker-test.sh" "${1:-}"
 
   info "End docker testing"
   return 0
@@ -1592,7 +1594,8 @@ docker)
   test)
     check_command docker
 
-    docker_test
+    docker_test "${3:-}"
+    #exit 0
     ;;
   *)
     echo_allcommand_usage
