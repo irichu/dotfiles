@@ -1327,11 +1327,11 @@ get_theme() {
   fi
 
   # get theme value
-  theme=$(grep -E '^theme=' "$CONFIG_FILE" | grep -oE '".*"' || true)
+  theme=$(grep -E '^THEME=' "$CONFIG_FILE" | grep -oE '".*"' || true)
 
   # check if theme value exists
   if [[ -z "$theme" ]]; then
-    error "Error: 'theme=' not found or has no value in '$CONFIG_FILE'." >&2
+    error "Error: 'THEME=' not found or has no value in '$CONFIG_FILE'." >&2
     exit 1
   fi
 
@@ -1368,7 +1368,7 @@ set_theme() {
   if printf '%s\n' "${themes[@]}" | grep -qx "$value"; then
 
     # set theme
-    sed -i "s/^theme=.*/theme=\"${value}\"/" "$CONFIG_HOME"/tmux/script/config.sh
+    sed -i "s/^THEME=.*/THEME=\"${value}\"/" "$CONFIG_HOME"/tmux/script/config.sh
     success "Theme set to $value successfully."
 
     # source tmux config
