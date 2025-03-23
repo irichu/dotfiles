@@ -1343,6 +1343,10 @@ get_theme() {
 set_theme() {
   value="${1:-}"
 
+  current_theme=$(get_theme)
+  info -ny -cb "Current theme: "
+  info -cn "$current_theme"
+
   # check if value is a number
   if [[ "$1" =~ ^[1-9][0-9]*$ ]]; then
     index=$(($1 - 1)) # 1-based → 0-based index
@@ -1350,7 +1354,8 @@ set_theme() {
     # check if index is in themes
     if ((index >= 0 && index < ${#themes[@]})); then
       value="${themes[index]}"
-      info "Selected theme: $value."
+      info -ny -cb "Selected theme: "
+      info -cn "$value\n"
     else
       error "Error: Invalid theme number." >&2
       return 1
@@ -1369,12 +1374,17 @@ set_theme() {
 
     # set theme
     sed -i "s/^THEME=.*/THEME=\"${value}\"/" "$CONFIG_HOME"/tmux/script/config.sh
-    success "Theme set to $value successfully."
+
+    success -ny "Theme set to "
+    info -ny -cn "$value"
+    success " successfully.\n"
 
     # source tmux config
     if tmux info &>/dev/null; then
       info "tmux is running"
+      info "source tmux config..."
       tmux source-file "$CONFIG_HOME"/tmux/tmux.conf
+      success "done!"
     else
       info "tmux is NOT running. done."
     fi
@@ -1650,6 +1660,7 @@ version | -v | --version)
   ;;
 theme)
   get_theme
+  exit 0
   ;;
 set-theme)
   set_theme "${2:-}"
