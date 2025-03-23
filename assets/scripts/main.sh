@@ -1365,7 +1365,7 @@ set_theme() {
   #fi
 
   # check if value is in themes
-  if printf '%s\n' "${themes[@]}" | grep -qx "$value"; then
+  if printf '%s\n' "${themes[@]}" | grep -qx -- "$value"; then
 
     # set theme
     sed -i "s/^THEME=.*/THEME=\"${value}\"/" "$CONFIG_HOME"/tmux/script/config.sh
