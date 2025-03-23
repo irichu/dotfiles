@@ -1,4 +1,5 @@
 alefragnani.bookmarks
+charliermarsh.ruff
 christian-kohler.path-intellisense
 davidanson.vscode-markdownlint
 donjayamanne.githistory
@@ -6,6 +7,7 @@ eamodio.gitlens
 esbenp.prettier-vscode
 fabiospampinato.vscode-monokai-night
 formulahendry.auto-rename-tag
+foxundermoon.shell-format
 github.copilot
 github.copilot-chat
 glenn2223.live-sass

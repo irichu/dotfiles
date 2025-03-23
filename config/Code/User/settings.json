@@ -18,6 +18,8 @@
     "editor.fontLigatures": true,
     "editor.fontSize": 15,
     "editor.formatOnPaste": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": false,
     "editor.guides.bracketPairs": true,
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 80,
