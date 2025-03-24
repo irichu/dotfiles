@@ -1262,6 +1262,10 @@ update_packages() {
   return 0
 }
 
+#--------------------------------------------------
+# Docker
+#--------------------------------------------------
+
 docker_test() {
   info "Start docker testing"
 
@@ -1277,6 +1281,10 @@ docker_test() {
   info "End docker testing"
   return 0
 }
+
+#--------------------------------------------------
+# clean
+#--------------------------------------------------
 
 clean() {
   info "Start clean up process"
@@ -1315,6 +1323,10 @@ clean() {
 
   return 0
 }
+
+#--------------------------------------------------
+# THEME
+#--------------------------------------------------
 
 get_theme() {
   # get theme
@@ -1408,6 +1420,50 @@ set_theme() {
 
     exit 1
   fi
+}
+
+#--------------------------------------------------
+# LANG
+#--------------------------------------------------
+ZSH_ENV_CONFIG_FILE="$HOME/.config/zsh/rc/02-env.zsh"
+
+set_lang() {
+  local mode="$1"
+  local new_lang=""
+
+  case "$mode" in
+  0)
+    new_lang="C"
+    ;;
+  1)
+    # en_US.UTF-8 | en_US.utf8
+    new_lang=$(locale -a | rg -i "en_US.UTF-?8" | head -n 1 | sed 's/\(en_US\)\.utf8/\1.UTF-8/I')
+    ;;
+  2)
+    # ja_JP.UTF-8 | ja_JP.utf8
+    new_lang=$(locale -a | rg -i "ja_JP.UTF-?8" | head -n 1 | sed 's/\(ja_JP\)\.utf8/\1.UTF-8/I')
+    ;;
+  *)
+    error "Invalid mode: $mode (expected 0, 1, or 2)"
+    return 1
+    ;;
+  esac
+
+  # locale not found
+  if [[ -z "$new_lang" ]]; then
+    error "No matching locale found for mode $mode."
+    return 1
+  fi
+
+  # check if config file exists
+  if [[ ! -f "$ZSH_ENV_CONFIG_FILE" ]]; then
+    error "Config file not found: $ZSH_ENV_CONFIG_FILE"
+    return 1
+  fi
+
+  # set LANG
+  sed -i "s|^export LANG=[^#]*|export LANG=$new_lang|" "$ZSH_ENV_CONFIG_FILE"
+  echo "Updated LANG in $ZSH_ENV_CONFIG_FILE to \"$new_lang\""
 }
 
 ###################################################
@@ -1664,6 +1720,23 @@ theme)
   ;;
 set-theme)
   set_theme "${2:-}"
+  ;;
+set-lang)
+  case "${2:-}" in
+  en_US | en)
+    set_lang 1
+    ;;
+  ja_JP | ja)
+    set_lang 2
+    ;;
+  C)
+    set_lang 0
+    ;;
+  *)
+    echo "Usage: dots set-lang {en|ja|C}"
+    exit 1
+    ;;
+  esac
   ;;
 *)
   info -cw "No parameter found."
