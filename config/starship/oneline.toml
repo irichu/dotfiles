@@ -1,3 +1,6 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
 format = """
 $container\
 $python\
@@ -13,11 +16,33 @@ $directory\
 $time
 """
 
-# right_format = """
-# $time
-# """
-
+command_timeout = 1000
+scan_timeout = 50
 add_newline = false
+follow_symlinks = true
+
+palette = 'dots'
+
+# https://starship.rs/advanced-config/#style-strings
+# black, red, green, blue, yellow, purple, cyan, white
+
+[palettes.dots]
+black = '#1C1C1C'
+red = '#FF5588'
+green = '#55FF99'
+blue = '#77AAFF'
+yellow = '#FFDD33'
+purple = '#9988FF'
+cyan = '#66EEFF'
+white = '#FFFFFF'
+bright-black = '#1C1C1C'
+bright-red = '#FF5588'
+bright-green = '#55FF99'
+bright-blue = '#77AAFF'
+bright-yellow = '#FFDD33'
+bright-purple = '#9988FF'
+bright-cyan = '#66EEFF'
+bright-white = '#FFFFFF'
 
 [container]
 format = '[$symbol\[$name\]]($style)'

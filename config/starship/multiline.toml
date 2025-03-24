@@ -1,21 +1,48 @@
-# format = """
-# $python\
-# $git_branch\
-# $git_status\
-# $character
-# """
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$all\
+$character
+"""
 
 right_format = """
 $time
 """
 
-#add_newline = false
+command_timeout = 1000
+scan_timeout = 50
+add_newline = true
+follow_symlinks = true
+
+palette = 'dots'
+
+# https://starship.rs/advanced-config/#style-strings
+# black, red, green, blue, yellow, purple, cyan, white
+
+[palettes.dots]
+black = '#1C1C1C'
+red = '#FF5588'
+green = '#55FF99'
+blue = '#77AAFF'
+yellow = '#FFDD33'
+purple = '#9988FF'
+cyan = '#66EEFF'
+white = '#FFFFFF'
+bright-black = '#1C1C1C'
+bright-red = '#FF5588'
+bright-green = '#55FF99'
+bright-blue = '#77AAFF'
+bright-yellow = '#FFDD33'
+bright-purple = '#9988FF'
+bright-cyan = '#66EEFF'
+bright-white = '#FFFFFF'
 
 [python]
 symbol = ' '
-format = '[(\($virtualenv\) )]($style)'
-version_format = '${raw}'
-style = 'yellow bold'
+# format = '[(\($virtualenv\) )]($style)'
+# version_format = '${raw}'
+# style = 'yellow bold'
 
 # [golang]
 # symbol = " "
@@ -26,8 +53,8 @@ style = 'yellow bold'
 # format = '[$symbol($version )](bold green)'
 
 [git_branch]
-# symbol = " "
-format = '[$symbol$branch(:$remote_branch)]($style) '
+symbol = " "
+# format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [git_status]
 ahead = '⇡${count}'
@@ -42,14 +69,15 @@ error_symbol = '[!](bold red)'
 
 [directory]
 read_only = " 󰌾"
-#style = 'grey'
-truncation_length = 5
-truncation_symbol = '…/'
+##style = 'grey'
+#truncation_length = 5
+#truncation_symbol = '…/'
 
 [time]
 style = 'blue'
 disabled = false
 format = '[$time]($style)'
+
 [aws]
 symbol = "  "
 
