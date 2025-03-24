@@ -154,6 +154,7 @@ alias tls='tmux ls'
 alias tks='tmux kill-server'
 alias tkst='tmux kill-session -t'
 alias {tid,tidx}='tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"'
+
 # reconnect to session
 alias ta0='tmux a -t 0'
 alias ta1='tmux a -t 1'
@@ -166,6 +167,7 @@ alias ta7='tmux a -t 7'
 alias ta8='tmux a -t 8'
 alias ta9='tmux a -t 9'
 alias tad='tmux a -t default'
+
 # select session
 alias s0='tmux switch-client -t 0'
 alias s1='tmux switch-client -t 1'
@@ -177,6 +179,7 @@ alias s6='tmux switch-client -t 6'
 alias s7='tmux switch-client -t 7'
 alias s8='tmux switch-client -t 8'
 alias s9='tmux switch-client -t 9'
+
 # select window
 alias w1='tmux select-window -t 1'
 alias w2='tmux select-window -t 2'
@@ -187,6 +190,7 @@ alias w6='tmux select-window -t 6'
 alias w7='tmux select-window -t 7'
 alias w8='tmux select-window -t 8'
 alias w9='tmux select-window -t 9'
+
 # select pane
 alias p1='tmux select-pane -t 1'
 alias p2='tmux select-pane -t 2'
@@ -214,10 +218,17 @@ alias snn='starship preset no-nerd-font -o ~/.config/starship.toml'
 # git
 alias g='git'
 alias gi='git init'
+
 # git log
 alias gl='git log'
 alias glg='git log --graph --oneline --all'
 alias {gl10,gln10}='git log --oneline -n 10'
+alias glo='git log --pretty=format:"%C(auto)%h %C(cyan)%<(8,trunc)%an%C(reset) %C(yellow)%ad%C(reset) %s" --date=format:"%Y-%m-%d %H:%M"'
+alias glo5='glo -n 5'
+alias glo10='glo -n 10'
+alias glo15='glo -n 15'
+alias glo20='glo -n 20'
+
 # git switch
 alias gsw='git switch'
 alias gswm='git switch main'
@@ -225,8 +236,10 @@ alias gswd='git switch develop'
 alias gswf='git switch feature'
 alias gswh='git switch hotfix'
 alias gswr='git switch release'
+
 # git status
 alias gst='git status'
+
 # git branch
 alias gb='git branch'
 alias gbv='git branch -vv'
@@ -235,15 +248,18 @@ alias gbD='git branch -D'
 alias gba='git branch -a'
 alias gbm='git branch --merged'
 alias gbnm='git branch --no-merged'
+
 # git diff
 alias gd='git diff'
 alias gdh='git diff HEAD'
 alias gdc='git diff --cached'
 alias gds='git diff --staged'
+
 # git clone
 alias gcl='git clone'
 alias gcl1='git clone --max-depth=1'
 alias gcp='git cherry-pick'
+
 # git add
 alias ga='git add'
 alias ga.='git add .'
@@ -259,12 +275,14 @@ alias gam='git add --modified'
 alias gam.='git add --modified .'
 alias gac='git add --change'
 alias gac.='git add --change .'
+
 # git commit
 alias gci='git commit'
 alias gcim='git commit -m'
 alias gcif='git commit --fixup'
 alias gcis='git commit --squash'
 alias gcia='git commit --amend'
+
 # git checkout
 alias gco='git checkout'
 alias gcom='git checkout main'
@@ -275,12 +293,15 @@ alias gcor='git checkout release'
 alias gco.='git checkout .'
 alias gcos='git checkout -'
 alias gcob='git checkout -b'
+
 # git mv
 alias gmv='git mv'
+
 # git fetch
 alias gf='git fetch'
 alias gfom='git fetch origin main'
 alias gfod='git fetch origin develop'
+
 # git merge
 alias gm='git merge'
 alias gmff='git merge --ff'
@@ -288,26 +309,32 @@ alias gma='git merge --abort'
 alias gmc='git merge --continue'
 alias gmt='git merge --no-ff'
 alias gmn='git merge --no-ff'
+
 # git pull
 alias gpl='git pull'
+
 # git push
 alias gps='git push'
 alias gpsf='git push --force'
 alias gpsu='git push --set-upstream origin'
 alias gpsom='git push origin main'
 alias gpsod='git push origin develop'
+
 # git rm
 alias grm='git rm'
+
 # git remote
 alias grao='git remote add origin'
 alias gurl='git remote get-url origin'
 alias grv='git remote -v'
+
 # git config
 alias gcnf='git config --global -e'
 alias gcnl='git config --list'
 alias gcn='git config --name'
 alias gname='git config user.name'
 alias gemail='git config user.email'
+
 # git reset
 alias grs='git reset'
 alias grsh='git reset --hard'
@@ -334,14 +361,23 @@ alias grssH~6='git reset --soft HEAD~6'
 alias grssH~7='git reset --soft HEAD~7'
 alias grssH~8='git reset --soft HEAD~8'
 alias grssH~9='git reset --soft HEAD~9'
+
+# git show
+alias gsh='git show'
+alias gsh1='git show -1'
+alias gsh2='git show -2'
+alias gsh3='git show -3'
+
 # git restore
 alias grst='git restore'
+
 # git rebase
 alias grb='git rebase'
 alias grbi='git rebase -i'
 alias grbc='git rebase --continue'
 alias grba='git rebase --abort'
 alias grbs='git rebase --skip'
+
 # git tag
 alias gt='git tag'
 alias gta='git tag -a' # annotated tag
@@ -350,10 +386,12 @@ alias gtl='git tag -l' # list tags
 alias gtp='git tag -p' # show tag
 alias gts='git tag -s' # signed tag
 alias gtv='git tag -v' # verify tag
+
 # git help
 alias gh='git help'
 alias gha='git help -a'
 alias ghd='git help -g'
+
 # git stash
 alias gsta='git stash'
 alias gstp='git stash pop'
@@ -424,6 +462,25 @@ alias upip='uv pip'
 alias lzd='lazydocker'
 alias lzg='lazygit'
 
+# fnm
+alias fnls='fnm ls'
+alias fnlsr='fnm ls-remote'
+alias fnu='fnm use'
+alias fnuL='fnm use --lts'
+alias fnd='fnm default'
+alias fndL='fnm default --lts'
+alias fni='fnm install'
+alias fniL='fnm install --lts'
+alias fnun='fnm uninstall'
+
+# npm
+alias ni='npm install'
+alias nu='npm update'
+alias nr='npm run'
+alias nrd='npm run dev'
+alias nrt='npm run test'
+alias nrb='npm run build'
+
 # neovim
 alias n='nvim'
 alias ns='nvim --startuptime ~/.local/state/nvim/startuptime.log +q; tail -n2 ~/.local/state/nvim/startuptime.log | cut -d " " -f1 | head -n1 | read s; echo "neovim startuptime: $s ms"'
@@ -438,13 +495,13 @@ alias vn='vim -u NONE -N' # -N: -c "set nocompatible"
 
 # find
 alias f='find ./ -name'
-! command -v fd > /dev/null && alias fd='fdfind'
+! command -v fd >/dev/null && alias fd='fdfind'
 alias r='rg'
 alias rgu='rg -u'
 alias rguu='rg -uu'
 
 # bat
-! command -v bat > /dev/null && alias bat='batcat'
+! command -v bat >/dev/null && alias bat='batcat'
 alias b='bat'
 alias bathelp='bat --plain --language=help'
 
