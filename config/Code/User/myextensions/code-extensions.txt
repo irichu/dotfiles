@@ -28,10 +28,12 @@ ms-vscode-remote.remote-wsl
 ms-vscode-remote.vscode-remote-extensionpack
 ms-vscode.remote-explorer
 ms-vscode.remote-server
+naumovs.color-highlight
 oderwat.indent-rainbow
 pkief.material-icon-theme
 ritwickdey.liveserver
 shd101wyy.markdown-preview-enhanced
 sibiraj-s.vscode-scss-formatter
+tamasfe.even-better-toml
 yzane.markdown-pdf
 yzhang.markdown-all-in-one
