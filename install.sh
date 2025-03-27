@@ -368,6 +368,12 @@ fi
 
 # restore git user
 if cmd_exists git; then
+
+  if [ ! -f ~/.config/git/config ]; then
+    mkdir -p ~/.config/git
+    touch ~/.config/git/config
+  fi
+
   # name
   if [ -n "${git_user_name:-}" ]; then
     git config -f ~/.config/git/config user.name "${git_user_name:-}"
