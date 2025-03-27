@@ -235,6 +235,69 @@ backup_dir() {
 # intall
 #--------------------------------------------------
 
+# Function to install the 'gum' utility, which is used for interactive shell scripts.
+install_gum() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists gum; then
+    info "gum already installed."
+    return 0
+  fi
+
+  if cmd_exists apt; then
+    if [ -n "${TERMUX_VERSION:-}" ]; then
+      # termux
+      pkg install gum -y
+    else
+      # ubuntu debian
+      sudo mkdir -p /etc/apt/keyrings
+      curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+      echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+      sudo apt update && sudo apt install gum -y
+    fi
+
+  elif cmd_exists dnf; then
+    # fedora
+    echo '[charm]
+    name=Charm
+    baseurl=https://repo.charm.sh/yum/
+    enabled=1
+    gpgcheck=1
+    gpgkey=https://repo.charm.sh/yum/gpg.key' | sudo tee /etc/yum.repos.d/charm.repo >/dev/null
+
+    sudo rpm --import https://repo.charm.sh/yum/gpg.key
+
+    sudo dnf install gum
+
+  elif cmd_exists pacman; then
+    # arch
+    sudo pacman -S gum --noconfirm
+  fi
+
+  # zsh completions
+  if cmd_exists gum; then
+    info "gum installation completed."
+
+    info "Install zsh completions."
+
+    mkdir -p "$CONFIG_HOME/zsh/completions"
+    gum completion zsh >"$CONFIG_HOME/zsh/completions/_gum"
+
+    info "Installed zsh completions."
+  else
+    error "gum installation failed."
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+case "${1:-}" in
+--gum)
+  install_gum
+  ;;
+esac
+
 # download
 curl -OL https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
 
@@ -251,6 +314,13 @@ if [ -f "$histfile" ]; then
   info "$histfile found"
   cp "$histfile" "$histfile_tmp"
 fi
+
+# create completions directory
+zsh_completions_dir="$CONFIG_HOME/zsh/completions"
+zsh_completions_cache_dir="$CACHE_DIR/"
+mkdir -p "$zsh_completions_dir"
+mkdir -p "$zsh_completions_cache_dir"
+cp -rf "$zsh_completions_dir" "$zsh_completions_cache_dir"
 
 # deploy
 tar xvf main.tar.gz
@@ -288,12 +358,12 @@ rm "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
 # create ~/.bashrc if not exists
 if [ ! -f "$HOME/.bashrc" ]; then
   touch "$HOME/.bashrc"
-  echo "# Created .bashrc" >> "$HOME/.bashrc"
+  echo "# Created .bashrc" >>"$HOME/.bashrc"
 fi
 
-# add to PATH 
+# add to PATH
 if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc; then
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >>~/.bashrc
 fi
 
 # restore git user
@@ -320,6 +390,10 @@ if [ -f "$histfile_tmp" ]; then
 
   rm "$histfile_tmp"
 fi
+
+# restore completions
+mkdir -p "$zsh_completions_cache_dir"
+cp -rf "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
 
 success 'The dots command installation has been completed!'
 success 'If the dots command is not found, use the ~/.local/bin/dots command during the installation process.'

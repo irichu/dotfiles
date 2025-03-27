@@ -18,7 +18,7 @@ readonly ARCH="$(uname -m)"
 #--------------------------------------------------
 
 SCRIPT_DIR=$(
-  cd $(dirname $BASH_SOURCE)
+  cd "$(dirname "${BASH_SOURCE:-$0}")"
   pwd
 )
 
@@ -361,6 +361,85 @@ get_github_latest_version() {
   return 0
 }
 
+# Function to install the 'gum' utility, which is used for interactive shell scripts.
+install_gum() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists gum; then
+    info "gum already installed."
+
+    if [ ! -f "$CONFIG_HOME/zsh/completions/_gum" ]; then
+      info "Install zsh completions."
+      mkdir -p "$CONFIG_HOME/zsh/completions"
+      gum completion zsh >"$CONFIG_HOME/zsh/completions/_gum"
+    fi
+
+    return 0
+  fi
+
+  if cmd_exists apt; then
+    if [ -n "${TERMUX_VERSION:-}" ]; then
+      # termux
+      pkg install gum -y
+    else
+      # ubuntu debian
+      sudo mkdir -p /etc/apt/keyrings
+      curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+      echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+      sudo apt update && sudo apt install gum -y
+    fi
+
+  elif cmd_exists dnf; then
+    # fedora
+    echo '[charm]
+    name=Charm
+    baseurl=https://repo.charm.sh/yum/
+    enabled=1
+    gpgcheck=1
+    gpgkey=https://repo.charm.sh/yum/gpg.key' | sudo tee /etc/yum.repos.d/charm.repo >/dev/null
+
+    sudo rpm --import https://repo.charm.sh/yum/gpg.key
+
+    sudo dnf install gum
+
+  elif cmd_exists pacman; then
+    # arch
+    sudo pacman -S gum --noconfirm
+  fi
+
+  # zsh completions
+  if cmd_exists gum; then
+    info "gum installation completed."
+
+    info "Install zsh completions."
+
+    mkdir -p "$CONFIG_HOME/zsh/completions"
+    gum completion zsh >"$CONFIG_HOME/zsh/completions/_gum"
+
+    info "Installed zsh completions."
+  else
+    error "gum installation failed."
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+remove_zcompdump() {
+  info "Start: ${FUNCNAME[0]}"
+
+  ZCOMPDUMP_FILE="$CONFIG_HOME/zsh/.zcompdump"
+  if [ -f "$ZCOMPDUMP_FILE" ]; then
+    rm "$ZCOMPDUMP_FILE"
+    info "removed .zcompdump file"
+  else
+    info "no .zcompdump file found."
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
 ###################################################
 # shells
 ###################################################
@@ -405,6 +484,13 @@ setup_zsh() {
     cp "$histfile" "$histfile_tmp"
   fi
 
+  # create completions directory
+  zsh_completions_dir="$CONFIG_HOME/zsh/completions"
+  zsh_completions_cache_dir="$CACHE_DIR/"
+  mkdir -p "$zsh_completions_dir"
+  mkdir -p "$zsh_completions_cache_dir"
+  cp -rf "$zsh_completions_dir" "$zsh_completions_cache_dir"
+
   # create copy backup
   backup_dir "$CONFIG_HOME/zsh"
 
@@ -422,6 +508,10 @@ setup_zsh() {
     # remove temp file
     rm "$histfile_tmp"
   fi
+
+  # restore completions
+  mkdir -p "$zsh_completions_cache_dir"
+  cp -rf "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
 
   [ -f /bin/zsh ] && zsh_path=/bin/zsh
 
@@ -1000,34 +1090,99 @@ install_lazyvim() {
 install_docker() {
   info "Start: ${FUNCNAME[0]}"
 
-  sudo apt update
-  sudo apt install ca-certificates curl gnupg
-
-  sudo install -m 0755 -d /etc/apt/keyrings
-  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-  sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-  # Add the repository to apt sources:
-  echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
-    sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-  sudo apt update
-
-  if ! getent group docker >/dev/null; then
-    sudo groupadd docker
+  # check docker command
+  if cmd_exists docker; then
+    info "docker already installed."
+    return 0
   fi
 
-  CURRENT_USER=$(id -u -n)
-  sudo usermod -aG docker $CURRENT_USER
+  if cmd_exists apt; then
+    if [ -n "${TERMUX_VERSION:-}" ]; then
+      # termux
+      echo "termux not supported."
+    else
+      # ubuntu debian
+      sudo apt update
+      sudo apt install ca-certificates curl gnupg
 
-  sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      sudo install -m 0755 -d /etc/apt/keyrings
+      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+      sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-  info 'docker --version'
-  docker --version
+      # Add the repository to apt sources:
+      echo \
+        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+        $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
+        sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+      sudo apt update
 
-  info 'docker compose version'
-  docker compose version
+      # add docker group
+      if ! getent group docker >/dev/null; then
+        sudo groupadd docker
+      fi
+
+      CURRENT_USER=$(id -u -n)
+      sudo usermod -aG docker "$CURRENT_USER"
+
+      # install docker
+      sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      sudo systemctl enable docker
+      sudo systemctl start docker
+    fi
+  elif cmd_exists dnf; then
+    # fedora
+
+    #sudo dnf remove docker \
+    #  docker-client \
+    #  docker-client-latest \
+    #  docker-common \
+    #  docker-latest \
+    #  docker-latest-logrotate \
+    #  docker-logrotate \
+    #  docker-selinux \
+    #  docker-engine-selinux \
+    #  docker-engine
+
+    # add docker group
+    if ! getent group docker >/dev/null; then
+      sudo groupadd docker
+    fi
+
+    CURRENT_USER=$(id -u -n)
+    sudo usermod -aG docker "$CURRENT_USER"
+
+    sudo dnf -y install dnf-plugins-core
+
+    #sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+    sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+
+    sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    sudo systemctl enable docker
+    sudo systemctl start docker
+  elif cmd_exists pacman; then
+    # arch
+
+    # add docker group
+    if ! getent group docker >/dev/null; then
+      sudo groupadd docker
+    fi
+
+    CURRENT_USER=$(id -u -n)
+
+    sudo usermod -aG docker "$CURRENT_USER"
+    sudo pacman -S docker docker-compose --noconfirm
+    sudo systemctl enable docker
+    sudo systemctl start docker
+  fi
+
+  # print version
+  if cmd_exists docker; then
+    info 'docker --version'
+    docker --version
+
+    info 'docker compose version'
+    docker compose version
+  fi
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1218,9 +1373,21 @@ apply_settings() {
 }
 
 echo_list() {
-  target="$1"
+  package_manager="${1:-none}"
 
-  case "$1" in
+  local package_managers=("--apt" "--brew" "--pkg" "--snap")
+  if printf '%s\n' "${package_managers[@]}" | grep -qx -- "$package_manager"; then
+    info "$package_manager option found."
+  else
+    if cmd_exists gum; then
+      package_manager=$(gum choose -- "${package_managers[@]}")
+    else
+      echo_allcommand_usage
+      exit 1
+    fi
+  fi
+
+  case "$package_manager" in
   apt | --apt)
     info '# Basic packages'
     cat "$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt | sort | xargs -i echo '- {}'
@@ -1242,7 +1409,7 @@ echo_list() {
     cat "$SCRIPT_DIR"/assets/txt/pkg-packages.txt | sort | xargs -i echo '- {}'
     ;;
   *)
-    error 'No list found. Usage: ./install.sh list (apt|brew|snap)'
+    error 'No list found. Usage: dots list {--apt|--brew|--pkg|--snap}'
     ;;
   esac
 
@@ -1269,6 +1436,8 @@ update_packages() {
 docker_test() {
   info "Start docker testing"
 
+  distribution="${1:-}"
+
   if [ ! -f ./Dockerfile ] || [ ! -d assets ]; then
     info 'Dockerfile not found'
     cd "$SCRIPT_DIR"
@@ -1276,7 +1445,16 @@ docker_test() {
     info "cd $SCRIPT_DIR"
   fi
 
-  bash "$SCRIPT_DIR/assets/scripts/docker-test.sh" "${1:-}"
+  if [ -z "$distribution" ]; then
+    if cmd_exists gum; then
+      distribution=$(gum choose ubuntu ubuntu-22.04 arch fedora)
+    else
+      info "No distribution found."
+      exit 1
+    fi
+  fi
+
+  bash "$SCRIPT_DIR/assets/scripts/docker-test.sh" "$distribution"
 
   info "End docker testing"
   return 0
@@ -1383,43 +1561,54 @@ set_theme() {
 
   # check if value is in themes
   if printf '%s\n' "${themes[@]}" | grep -qx -- "$value"; then
-
-    # set theme
-    sed -i "s/^THEME=.*/THEME=\"${value}\"/" "$CONFIG_HOME"/tmux/script/config.sh
-
-    success -ny "Theme set to "
-    info -ny -cn "$value"
-    success " successfully.\n"
-
-    # source tmux config
-    if tmux info &>/dev/null; then
-      info "tmux is running"
-      info "source tmux config..."
-      tmux source-file "$CONFIG_HOME"/tmux/tmux.conf
-      success "done!"
+    info "$value found."
+  else
+    if cmd_exists gum; then
+      value=$(gum choose "${themes[@]}")
     else
-      info "tmux is NOT running. done."
+      # error message
+      error "Theme \"$value\" does not exist."
+
+      info "Available themes:"
+      i=1
+      for theme in "${themes[@]}"; do
+        if ((i < 10)); then
+          formatted_index="[$i]"
+        else
+          printf -v formatted_index "[%2d]" "$i"
+        fi
+        info -cn "$(printf "%6s" "$formatted_index") $theme"
+        ((i++))
+      done
+
+      exit 1
+    fi
+  fi
+
+  # set theme
+  sed -i "s/^THEME=.*/THEME=\"${value}\"/" "$CONFIG_HOME"/tmux/script/config.sh
+
+  success -ny "Theme set to "
+  info -ny -cn "$value"
+  success " successfully.\n"
+
+  # source tmux config
+  if tmux info &>/dev/null; then
+    info "tmux is running"
+    info "source tmux config..."
+
+    if cmd_exists gum; then
+      gum spin -- tmux source-file "$CONFIG_HOME"/tmux/tmux.conf
+    else
+      tmux source-file "$CONFIG_HOME"/tmux/tmux.conf
     fi
 
-    exit 0
+    success "done!"
   else
-    # error message
-    error "Theme \"$value\" does not exist."
-
-    info "Available themes:"
-    i=1
-    for theme in "${themes[@]}"; do
-      if ((i < 10)); then
-        formatted_index="[$i]"
-      else
-        printf -v formatted_index "[%2d]" "$i"
-      fi
-      info -cn "$(printf "%6s" "$formatted_index") $theme"
-      ((i++))
-    done
-
-    exit 1
+    info "tmux is NOT running. done."
   fi
+
+  exit 0
 }
 
 #--------------------------------------------------
@@ -1428,8 +1617,42 @@ set_theme() {
 ZSH_ENV_CONFIG_FILE="$HOME/.config/zsh/rc/02-env.zsh"
 
 set_lang() {
-  local mode="$1"
+  info -ny -cb "Current LANG: "
+  info -cn "$LANG"
+
+  local mode=1
   local new_lang=""
+
+  case "${1:-}" in
+  en_US | en_US.UTF-8 | en)
+    mode=1
+    ;;
+  ja_JP | ja_JP.UTF-8 | ja)
+    mode=2
+    ;;
+  C)
+    mode=0
+    ;;
+  *)
+    if cmd_exists gum; then
+      value=$(gum choose "en_US.UTF-8" "ja_JP.UTF-8" "C") # TODO: locale -a
+      case "${value:-}" in
+      "en_US.UTF-8")
+        mode=1
+        ;;
+      "ja_JP.UTF-8")
+        mode=2
+        ;;
+      "C")
+        mode=0
+        ;;
+      esac
+    else
+      echo "Usage: dots set-lang {en|ja|C}"
+      exit 1
+    fi
+    ;;
+  esac
 
   case "$mode" in
   0)
@@ -1448,6 +1671,9 @@ set_lang() {
     return 1
     ;;
   esac
+
+  info -ny -cb "Selected LANG: "
+  info -cn "$new_lang\n"
 
   # locale not found
   if [[ -z "$new_lang" ]]; then
@@ -1482,17 +1708,30 @@ case "$1" in
 # batch installation
 #--------------------------------------------------
 i | install)
+  package_manager="${2:-}"
+
   if [ $# -le 1 ]; then
-    echo_allcommand_usage
-    exit 1
+    if cmd_exists gum; then
+      package_managers=("--apt" "--brew" "--pkg" "--snap" "cancel")
+      package_manager=$(gum choose --header="Please select a package manager for batch installation" -- "${package_managers[@]}")
+
+      if package_manager="cancel"; then
+        info "Canceled."
+        exit 0
+      fi
+    else
+      echo_allcommand_usage
+      exit 1
+    fi
   fi
 
-  case "$2" in
+  case "$package_manager" in
   --apt)
     check_command apt
 
     info "Start installation with apt"
     install_apt_package
+    install_gum
     setup_zsh
     install_fnm
     build_install_neovim
@@ -1503,6 +1742,7 @@ i | install)
     install_hackgen
     install_rustup
     setup_git
+    remove_zcompdump
     echo_completion_message
     info "End installation with apt"
     ;;
@@ -1516,10 +1756,12 @@ i | install)
     setup_zellij
     install_hackgen
     setup_git
+    remove_zcompdump
     echo_completion_message
     info "End installation with homebrew"
     ;;
   --snap)
+    info "Start installation with apt and snap"
     check_command apt
     check_command snap
 
@@ -1534,11 +1776,13 @@ i | install)
     setup_tmux
     install_hackgen
     setup_git
+    remove_zcompdump
     echo_completion_message
     info "End installation with apt and snap"
     ;;
   --pkg)
     setup_termux
+    remove_zcompdump
     ;;
   #--------------------------------------------------
   # individual installation
@@ -1551,6 +1795,9 @@ i | install)
     ;;
   fzf)
     install_fzf_via_git
+    ;;
+  gum)
+    install_gum
     ;;
   hackgen)
     install_hackgen
@@ -1722,21 +1969,7 @@ set-theme)
   set_theme "${2:-}"
   ;;
 set-lang)
-  case "${2:-}" in
-  en_US | en)
-    set_lang 1
-    ;;
-  ja_JP | ja)
-    set_lang 2
-    ;;
-  C)
-    set_lang 0
-    ;;
-  *)
-    echo "Usage: dots set-lang {en|ja|C}"
-    exit 1
-    ;;
-  esac
+  set_lang "${2:-}"
   ;;
 *)
   info -cw "No parameter found."

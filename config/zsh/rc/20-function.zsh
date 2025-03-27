@@ -77,9 +77,50 @@ function tvim() {
   fdfind --type f --hidden --exclude .git | fzf-tmux -p | xargs -o nvim
 }
 
+get_theme() {
+  # get theme
+  CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+  CONFIG_FILE="$CONFIG_HOME/tmux/script/config.sh"
+
+  # check if config file exists
+  if [[ ! -f "$CONFIG_FILE" ]]; then
+    error "Error: Config file '$CONFIG_FILE' not found." >&2
+    exit 1
+  fi
+
+  # get theme value
+  theme=$(grep -E '^THEME=' "$CONFIG_FILE" | grep -oE '".*"' || true)
+
+  # check if theme value exists
+  if [[ -z "$theme" ]]; then
+    error "Error: 'THEME=' not found or has no value in '$CONFIG_FILE'." >&2
+    exit 1
+  fi
+
+  echo "$theme" | tr -d '"'
+
+  return 0
+}
+
+function get_theme_color() {
+  theme=$(get_theme)
+  case "${theme:-}" in
+  *developer*) echo "#8787ff" ;;
+  *turquoise*) echo "#00d7d7" ;;
+  *orange*) echo "#ffaf00" ;;
+  *blue*) echo "#87afff" ;;
+  *) echo "#8787ff" ;;
+  esac
+}
+
 function confirm {
-  echo -n "$1 [y/N]: "
-  read -q
+  if command -v gum &>/dev/null; then
+    gum confirm --selected.background=$(get_theme_color || echo "#8787ff") "$1"
+  else
+    echo -n "$1 [y/N]: "
+    read -q
+  fi
+
   return $?
 }
 
