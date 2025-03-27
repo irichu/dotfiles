@@ -17,7 +17,7 @@
           height="22">
     </a>
     <!-- CREATED AT -->
-    <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub Created At" height="22"> 
+    <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub Created At" height="22">
     <!-- LAST COMMIT -->
     <img src="https://img.shields.io/github/last-commit/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub last commit" height="22">
     <!-- COMMIT ACTIVITY -->
@@ -83,19 +83,19 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 
 **2. Bulk installation**
 
-> [!IMPORTANT]  
-> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `--brew`.  
-> On Ubuntu, fast installation is possible with `--apt` or `--snap`.  
+> [!IMPORTANT]
+> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `--brew`.
+> On Ubuntu, fast installation is possible with `--apt` or `--snap`.
 > On Termux, setup can be done using `--pkg`.
-> 
+>
 
-> [!NOTE]  
-> On Linux, `sudo` access is required for installation.  
+> [!NOTE]
+> On Linux, `sudo` access is required for installation.
 > This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--snap`.
-> 
+>
 
-Install all components using your preferred package manager:  
-`dots install [--apt|--brew|--snap|--pkg]`  
+Install all components using your preferred package manager:
+`dots install [--apt|--brew|--snap|--pkg]`
 Replace `[--apt|--brew|--snap|--pkg]` with your package manager of choice.
 
 **Examples:**
@@ -112,11 +112,11 @@ dots install --brew
 dots install --pkg
 ```
 
-> [!NOTE]  
-> If `dots` command not found,  
+> [!NOTE]
+> If `dots` command not found,
 > please run the following command to add the path to ~/.local/bin
 > or use `~/.local/bin/dots` command directly during the installation process
-> 
+>
 
 ```bash
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
@@ -131,7 +131,7 @@ Relogin or execute the following command:
 exec -l $(which zsh)
 ```
 
-> [!NOTE] 
+> [!NOTE]
 > In a login shell, such as an SSH session, Tmux will start automatically.<br>
 > If a Tmux server is already running, you can select a session to connect to.
 >
@@ -145,7 +145,7 @@ exec -l $(which zsh)
 - Android 📱
   - The latest version of Termux
 
-> [!WARNING] 
+> [!WARNING]
 > The Google Play Store version of Termux may not work properly with some commands.<br>
 > It is recommended to install it from [F-Droid].
 >
@@ -337,6 +337,7 @@ The `dots install --brew` command mainly installs the following apps
 | `gh`                      | GitHub CLI tool for interacting with GitHub               |
 | `git-delta`               | Syntax-highlighting pager for git and diff output         |
 | `gping`                   | Graphical ping tool with live visualization               |
+| `gum`                     | A tool for enhancing shell scripts with interactive UI    |
 | `jq`                      | Command-line JSON processor                               |
 | `just`                    | Handy command runner similar to Make                      |
 | `lazygit`                 | Simple TUI for Git repositories                           |
@@ -476,7 +477,7 @@ Reload .tmux.conf
 
 ### Neovim
 
-#### Search and Open 
+#### Search and Open
 
 Search and open files by fd and fzf.
 
@@ -499,9 +500,9 @@ Based on Emacs mode with `bindkey -e`, with some additional key bindings added.
 
 #### prefix key
 
-> [!NOTE]  
+> [!NOTE]
 > The tmux prefix key is configured to `Ctrl + \` for easier access.
-> 
+>
 
 | Key                          | Description                   |
 | ---------------------------- | ----------------------------- |
@@ -518,10 +519,10 @@ Based on Emacs mode with `bindkey -e`, with some additional key bindings added.
 > The number of times you need to press it equals the depth of nesting.
 >
 > For example, if you are running Tmux inside another Tmux session (nested once),
-> pressing `Ctrl-\` twice will send the prefix key to the inner session. 
+> pressing `Ctrl-\` twice will send the prefix key to the inner session.
 > If you are three levels deep, you need to press `Ctrl-\` three times.
 > Additionally, pressing `Ctrl-\` sends the key input to the shell within the session.
-> 
+>
 
 ##### tmux plugins
 

@@ -17,7 +17,7 @@
           height="22">
     </a>
     <!-- CREATED AT -->
-    <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub Created At" height="22"> 
+    <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub Created At" height="22">
     <!-- LAST COMMIT -->
     <img src="https://img.shields.io/github/last-commit/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub last commit" height="22">
     <!-- COMMIT ACTIVITY -->
@@ -83,7 +83,7 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 
 **2. パッケージの一括インストール**
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 >・Linux(Ubuntu/Fedora/Arch Linux)では `--brew` による自動構築が可能です<br>
 >・Ubuntuでは `--apt` または `--snap` で高速なインストールが可能です<br>
 >・Termuxでは `--pkg` によるセットアップが可能です
@@ -93,7 +93,7 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 > Linuxでは `sudo` コマンドが使える必要があります<br>
 > `--brew`ではHomebrew本体をインストールするために利用します<br>
 > `--apt`, `--snap`の場合もパッケージ管理のため使用します
-> 
+>
 
 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
 `dots install [--apt|--brew|--snap|--pkg]`<br>
@@ -111,11 +111,11 @@ Termux にて pkg でセットアップする場合は以下の通りです
 dots install --pkg
 ```
 
-> [!NOTE] 
+> [!NOTE]
 > `dots`コマンドが見つからない場合は<br>
 > 以下のコマンドを実行して ~/.local/bin へのパスを通すようにしてみてください
 > もしくは一括インストールが完了するまでは直接 `~/.local/bin/dots` で実行してください
-> 
+>
 
 ```
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
@@ -130,7 +130,7 @@ source ~/.bashrc
 exec -l $(which zsh)
 ```
 
-> [!NOTE] 
+> [!NOTE]
 > SSH接続のように，ログインシェルの場合はTmuxが自動起動します．<br>
 > Tmuxサーバーがすでに起動している場合は，セッション一覧から接続するセッションを選択できます.
 >
@@ -144,10 +144,10 @@ exec -l $(which zsh)
 - Android 📱
   - 最新版の Termux
 
-> [!WARNING] 
+> [!WARNING]
 > Google Playストア版のTermuxは一部のコマンドなどが正常に動作しないことがあるようです．<br>
 > [F-Droid]からインストールすることが推奨されています
-> 
+>
 
 ## ✨ 特徴
 
@@ -336,6 +336,7 @@ The following apps can be installed individually from the `dots install <package
 | `gh`                      | GitHub の操作ができる CLI ツール                               |
 | `git-delta`               | Git や diff の出力をシンタックスハイライト付きで表示           |
 | `gping`                   | グラフィカルな ping ツール（リアルタイム可視化）               |
+| `gum`                     | インタラクティブな UI を可能とするシェルスクリプト拡張         |
 | `jq`                      | コマンドライン用の JSON プロセッサ                             |
 | `just`                    | `Make` に似た便利なコマンドランナー                            |
 | `lazygit`                 | シンプルな TUI の Git クライアント                             |
@@ -513,7 +514,7 @@ Emacsモード  `bindkey -e` に加えていくつかのバインドを追加し
 > 2回目の `Ctrl-\` で 1つ内側のセッションへ送信されます．
 > 3回目の `Ctrl-\` で最も内側のセッションへ送信されます．
 > さらに，`Ctrl-\` を押すと，そのキー入力がセッション内のシェルに送信されます．
-> 
+>
 
 ##### tmux プラグイン
 

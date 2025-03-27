@@ -20,6 +20,7 @@ git-delta
 git
 golang
 gping
+gum
 htop
 hyperfine
 imagemagick
