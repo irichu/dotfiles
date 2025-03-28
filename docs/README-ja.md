@@ -31,7 +31,7 @@
   </p>
 </div>
 <p align="center">
-[<a href="../">English</a>] [日本語]
+[<a href="../">English</a>] [Japanese(日本語)]
 </p>
 
 # Dotfiles for Linux and Termux

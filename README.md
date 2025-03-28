@@ -32,7 +32,7 @@
 </div>
 
 <p align="center">
-[English] [<a href="docs/README-ja.md">日本語</a>]
+[English] [<a href="docs/README-ja.md">Japanese(日本語)</a>]
 </p>
 
 # Dotfiles for Linux and Termux
@@ -84,14 +84,14 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 **2. Bulk installation**
 
 > [!IMPORTANT]
-> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `--brew`.
-> On Ubuntu, fast installation is possible with `--apt` or `--snap`.
+> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `--brew`.<br>
+> On Ubuntu, fast installation is possible with `--apt` or `--snap`.<br>
 > On Termux, setup can be done using `--pkg`.
 >
 
 > [!NOTE]
-> On Linux, `sudo` access is required for installation.
-> This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--snap`.
+> On Linux, `sudo` access is required for installation.<br>
+> This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--snap`.<br>
 >
 
 Install all components using your preferred package manager:
@@ -113,8 +113,8 @@ dots install --pkg
 ```
 
 > [!NOTE]
-> If `dots` command not found,
-> please run the following command to add the path to ~/.local/bin
+> If `dots` command not found,<br>
+> please run the following command to add the path to ~/.local/bin<br>
 > or use `~/.local/bin/dots` command directly during the installation process
 >
 
