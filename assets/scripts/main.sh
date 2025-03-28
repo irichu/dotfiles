@@ -365,7 +365,7 @@ get_github_latest_version() {
 install_gum() {
   info "Start: ${FUNCNAME[0]}"
 
-  if cmd_exists gum; then
+  if is_gum_available; then
     info "gum already installed."
 
     if [ ! -f "$CONFIG_HOME/zsh/completions/_gum" ]; then
@@ -408,7 +408,7 @@ install_gum() {
   fi
 
   # zsh completions
-  if cmd_exists gum; then
+  if is_gum_available; then
     info "gum installation completed."
 
     info "Install zsh completions."
@@ -423,6 +423,10 @@ install_gum() {
 
   info "End: ${FUNCNAME[0]}"
   return 0
+}
+
+is_gum_available() {
+  [[ "${TERMUX_VERSION:-}" != *googleplay* ]] && command -v gum &> /dev/null
 }
 
 remove_zcompdump() {
@@ -681,7 +685,7 @@ install_hackgen() {
   [ ! -f "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}.zip" ] &&
     curl -Lo "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}.zip" "https://github.com/yuru7/HackGen/releases/download/v${LATEST_VERSION}/HackGen_NF_v${LATEST_VERSION}.zip"
 
-  unzip "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}.zip" -d $CACHE_DIR
+  unzip -o "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}.zip" -d $CACHE_DIR
 
   [ ! -d "$CACHE_DIR/HackGen_NF" ] &&
     mv "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}" "$CACHE_DIR/HackGen_NF"
@@ -1379,7 +1383,7 @@ echo_list() {
   if printf '%s\n' "${package_managers[@]}" | grep -qx -- "$package_manager"; then
     info "$package_manager option found."
   else
-    if cmd_exists gum; then
+    if is_gum_available; then
       package_manager=$(gum choose -- "${package_managers[@]}")
     else
       echo_allcommand_usage
@@ -1446,7 +1450,7 @@ docker_test() {
   fi
 
   if [ -z "$distribution" ]; then
-    if cmd_exists gum; then
+    if is_gum_available; then
       distribution=$(gum choose ubuntu ubuntu-22.04 arch fedora)
     else
       info "No distribution found."
@@ -1563,7 +1567,7 @@ set_theme() {
   if printf '%s\n' "${themes[@]}" | grep -qx -- "$value"; then
     info "$value found."
   else
-    if cmd_exists gum; then
+    if is_gum_available; then
       value=$(gum choose "${themes[@]}")
     else
       # error message
@@ -1597,7 +1601,7 @@ set_theme() {
     info "tmux is running"
     info "source tmux config..."
 
-    if cmd_exists gum; then
+    if is_gum_available; then
       gum spin -- tmux source-file "$CONFIG_HOME"/tmux/tmux.conf
     else
       tmux source-file "$CONFIG_HOME"/tmux/tmux.conf
@@ -1634,7 +1638,7 @@ set_lang() {
     mode=0
     ;;
   *)
-    if cmd_exists gum; then
+    if is_gum_available; then
       value=$(gum choose "en_US.UTF-8" "ja_JP.UTF-8" "C") # TODO: locale -a
       case "${value:-}" in
       "en_US.UTF-8")
@@ -1711,7 +1715,7 @@ i | install)
   package_manager="${2:-}"
 
   if [ $# -le 1 ]; then
-    if cmd_exists gum; then
+    if is_gum_available; then
       package_managers=("--apt" "--brew" "--pkg" "--snap" "cancel")
       package_manager=$(gum choose --header="Please select a package manager for batch installation" -- "${package_managers[@]}")
 

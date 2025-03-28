@@ -202,6 +202,10 @@ cmd_exists() {
   command -v $1 &>/dev/null
 }
 
+is_gum_available() {
+  [[ "${TERMUX_VERSION:-}" != *googleplay* ]] && command -v gum &> /dev/null
+}
+
 #--------------------------------------------------
 # backup
 #--------------------------------------------------
@@ -239,7 +243,7 @@ backup_dir() {
 install_gum() {
   info "Start: ${FUNCNAME[0]}"
 
-  if cmd_exists gum; then
+  if is_gum_available; then
     info "gum already installed."
     return 0
   fi
@@ -275,7 +279,7 @@ install_gum() {
   fi
 
   # zsh completions
-  if cmd_exists gum; then
+  if is_gum_available; then
     info "gum installation completed."
 
     info "Install zsh completions."
@@ -285,7 +289,7 @@ install_gum() {
 
     info "Installed zsh completions."
   else
-    error "gum installation failed."
+    warning "gum installation failed."
   fi
 
   info "End: ${FUNCNAME[0]}"
