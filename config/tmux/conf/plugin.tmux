@@ -1,12 +1,15 @@
 #--------------------------------------------------
-# Plugins 
+# Plugins
 #--------------------------------------------------
 
 set -g @plugin "tmux-plugins/tpm"
 set -g @plugin "tmux-plugins/tmux-continuum"
 set -g @plugin "tmux-plugins/tmux-logging"
 set -g @plugin "tmux-plugins/tmux-resurrect"
-set -g @plugin 'Morantron/tmux-fingers'
+
+if "[ $(uname -m) = x86_64 ]" \
+  "set -g @plugin 'Morantron/tmux-fingers'"
+
 # set -g @plugin 'fcsonline/tmux-thumbs'
 # set -g @plugin "tmux-plugins/tmux-sensible"
 # set -g @plugin "catppuccin/tmux#v0.3.0"
