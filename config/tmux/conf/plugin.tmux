@@ -8,7 +8,7 @@ set -g @plugin "tmux-plugins/tmux-logging"
 set -g @plugin "tmux-plugins/tmux-resurrect"
 
 if "[ $(uname -m) = x86_64 ]" \
-  "set -g @plugin 'Morantron/tmux-fingers'"
+  set -g @plugin 'Morantron/tmux-fingers'
 
 # set -g @plugin 'fcsonline/tmux-thumbs'
 # set -g @plugin "tmux-plugins/tmux-sensible"
