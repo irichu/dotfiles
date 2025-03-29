@@ -124,6 +124,27 @@ function confirm {
   return $?
 }
 
+# markdown
+function pmd() {
+  gum format -t markdown <"${1:-}"
+  echo ''
+}
+
+# csv
+function gcsv() {
+  gum table <"${1:-}" | cut -d ',' -f "${2:-1}"
+}
+
+# tsv
+function gtsv() {
+  gum table --separator='	' <"${1:-}" | cut -d '	' -f "${2:-1}"
+}
+
+# pager
+function gpager() {
+  gum pager <"${1:-}"
+}
+
 # yazi shell wrappers
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
