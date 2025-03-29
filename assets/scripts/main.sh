@@ -426,7 +426,7 @@ install_gum() {
 }
 
 is_gum_available() {
-  [[ "${TERMUX_VERSION:-}" != *googleplay* ]] && command -v gum &> /dev/null
+  [[ "${TERMUX_VERSION:-}" != *googleplay* ]] && command -v gum &>/dev/null
 }
 
 remove_zcompdump() {
@@ -1319,6 +1319,18 @@ setup_tmux() {
   #cp -r "$SCRIPT_DIR"/config/tmux "$CONFIG_HOME"
   backup_dir "$CONFIG_HOME/tmux"
   ln -s "$SCRIPT_DIR/config/tmux" "$CONFIG_HOME/"
+
+  # tmux plugin
+  TMUX_CONF="$CONFIG_HOME/tmux/conf/plugin.tmux"
+  PLUGIN_LINE='set -g @plugin "Morantron/tmux-fingers"'
+
+  if [ "$ARCH" != "x86_64" ]; then
+    # commentout
+    sed -i.bak "s|^\($PLUGIN_LINE\)|# \1|" "$TMUX_CONF"
+  else
+    # uncomment
+    sed -i.bak "s|^# \(.*$PLUGIN_LINE.*\)|\1|" "$TMUX_CONF"
+  fi
 
   info "End: ${FUNCNAME[0]}"
   return 0
