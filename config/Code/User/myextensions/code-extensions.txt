@@ -1,3 +1,4 @@
+aaron-bond.better-comments
 alefragnani.bookmarks
 charliermarsh.ruff
 christian-kohler.path-intellisense
@@ -10,6 +11,7 @@ formulahendry.auto-rename-tag
 foxundermoon.shell-format
 github.copilot
 github.copilot-chat
+github.vscode-pull-request-github
 glenn2223.live-sass
 golang.go
 gruntfuggly.todo-tree
@@ -32,8 +34,11 @@ naumovs.color-highlight
 oderwat.indent-rainbow
 pkief.material-icon-theme
 ritwickdey.liveserver
+shardulm94.trailing-spaces
 shd101wyy.markdown-preview-enhanced
 sibiraj-s.vscode-scss-formatter
 tamasfe.even-better-toml
+timonwong.shellcheck
+xabikos.javascriptsnippets
 yzane.markdown-pdf
 yzhang.markdown-all-in-one

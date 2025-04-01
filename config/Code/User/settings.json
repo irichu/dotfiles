@@ -1,68 +1,168 @@
 {
-    // BreadCrumbs
-    "breadcrumbs.filePath": "on",
-    "breadcrumbs.enabled": true,
+  // * General
 
-    // DiffEditor
-    "diffEditor.ignoreTrimWhitespace": false,
-    "diffEditor.renderSideBySide": false,
-    "diffEditor.experimental.useTrueInlineView": false,
+  // BreadCrumbs
+  "breadcrumbs.filePath": "on",
+  "breadcrumbs.enabled": true,
 
-    // Editor
-    "editor.bracketPairColorization.enabled": true,
-    "editor.cursorBlinking": "solid", // "blink", "smooth", "phase", "expand", "solid"
-    "editor.cursorSmoothCaretAnimation": "on",
-    "editor.cursorStyle": "line", // "line", "block", "underline", "line-thin", "block-outline", "underline-thin"
-    "editor.dragAndDrop": false,
-    "editor.fontFamily": "'HackGen35 Console NF', Consolas, 'Courier New', monospace",
-    "editor.fontLigatures": true,
-    "editor.fontSize": 15,
-    "editor.formatOnPaste": false,
-    "editor.formatOnSave": true,
-    "editor.formatOnType": false,
-    "editor.guides.bracketPairs": true,
-    "editor.minimap.enabled": true,
-    "editor.minimap.maxColumn": 80,
-    "editor.minimap.showSlider": "always",
-    "editor.mouseWheelZoom": true,
-    "editor.multiCursorModifier": "ctrlCmd",
-    "editor.renderControlCharacters": true,
-    "editor.renderLineHighlight": "all",
-    "editor.renderWhitespace": "all",
-    //"editor.rulers": [80, 120],
-    "editor.showFoldingControls": "always",
-    //"editor.smoothScrolling": true,
-    "editor.snippetSuggestions": "top",
-    "editor.suggestSelection": "first",
-    "editor.wordSegmenterLocales": "ja",
-    "editor.wrappingIndent": "indent",
+  // DiffEditor
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.experimental.useTrueInlineView": false,
 
-    // Explorer
-    "explorer.compactFolders": false,
-    "explorer.confirmDelete": true,
-    "explorer.confirmDragAndDrop": true,
-    "explorer.excludeGitIgnore": true,
+  // Editor
+  "editor.bracketPairColorization.enabled": true,
+  "editor.cursorBlinking": "solid", // "blink", "smooth", "phase", "expand", "solid"
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorStyle": "line", // "line", "block", "underline", "line-thin", "block-outline", "underline-thin"
+  "editor.dragAndDrop": false,
+  "editor.fontFamily": "'HackGen35 Console NF', Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 15,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.guides.bracketPairs": true,
+  "editor.minimap.enabled": true,
+  "editor.minimap.maxColumn": 80,
+  "editor.minimap.showSlider": "always",
+  "editor.mouseWheelZoom": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.renderControlCharacters": true,
+  "editor.renderLineHighlight": "all",
+  "editor.renderWhitespace": "all",
+  //"editor.rulers": [80, 120],
+  "editor.showFoldingControls": "always",
+  //"editor.smoothScrolling": true,
+  "editor.snippetSuggestions": "top",
+  "editor.suggestSelection": "first",
+  "editor.wordSegmenterLocales": "ja",
+  "editor.wrappingIndent": "indent",
 
-    // Files
-    "files.autoGuessEncoding": true,
-    //"files.autoSave": "afterDelay", // "off", "afterDelay", "onFocusChange", "onWindowChange"
-    "files.autoSaveDelay": 500,
-    "files.candidateGuessEncodings": ["utf8", "shiftjis"],
-    "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
+  // Formatting
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
 
-    // Git
-    "git.autofetch": "all",
-    "git.confirmSync": true,
-    "git.pruneOnFetch": true,
-    "git.suggestSmartCommit": false,
+  // Explorer
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": true,
+  "explorer.confirmDragAndDrop": true,
+  "explorer.excludeGitIgnore": true,
 
-    // Live server
-    "liveServer.settings.CustomBrowser": "chrome",
-    "liveServer.settings.donotShowInfoMsg": true,
-    "liveServer.settings.root": "/",
-    "liveServer.settings.port": 81,
-    /*
+  // Files
+  "files.autoGuessEncoding": true,
+  //"files.autoSave": "afterDelay", // "off", "afterDelay", "onFocusChange", "onWindowChange"
+  "files.autoSaveDelay": 500,
+  "files.candidateGuessEncodings": ["utf8", "shiftjis"],
+  //"files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  // Git
+  "git.autofetch": "all",
+  "git.confirmSync": true,
+  "git.pruneOnFetch": true,
+  "git.openRepositoryInParentFolders": "never",
+  "git.suggestSmartCommit": false,
+
+  // SCM (Source Control)
+  "scm.alwaysShowRepositories": true,
+  "scm.compactFolders": false,
+  "scm.diffDecorations": "all",
+  "scm.defaultViewMode": "tree",
+  "scm.diffDecorationsGutterWidth": 5,
+  "scm.graph.badges": "all",
+  "scm.inputFontFamily": "editor",
+  "scm.inputFontSize": 15,
+
+  // Search
+  "search.showLineNumbers": true,
+
+  // Terminal
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.enableImages": true,
+  "terminal.integrated.enableVisualBell": true,
+  "terminal.integrated.mouseWheelZoom": true,
+  "terminal.integrated.smoothScrolling": true,
+
+  // Workbench
+  "workbench.colorTheme": "Monokai Night",
+  "workbench.editor.closeOnFileDelete": false,
+  "workbench.editor.pinnedTabsOnSeparateRow": true,
+  "workbench.editor.scrollToSwitchTabs": true,
+  "workbench.editor.wrapTabs": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.list.smoothScrolling": true,
+  "workbench.view.alwaysShowHeaderActions": true,
+
+  // Window
+  "window.zoomLevel": 0,
+  //"window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
+  //"window.menuBarVisibility": "classic",
+  "window.newWindowDimensions": "inherit",
+  "window.openFoldersInNewWindow": "default",
+  "window.openWithoutArgumentsInNewWindow": "on",
+  "window.restoreWindows": "all",
+  "window.restoreFullscreen": true,
+
+  // * Extensions
+
+  // Better Comments
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF5588",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "?",
+      "color": "#77AAFF",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8700",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "*",
+      "color": "#55FF99",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    }
+  ],
+
+  // Live server
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.root": "/",
+  "liveServer.settings.port": 81,
+  /*
     "liveServer.settings.useWebExt": true,
     "liveServer.settings.proxy": {
         "enable": true,
@@ -70,48 +170,6 @@
         "proxyUri": "http://192.168.x.y:80" // actual address
     },
     */
-
-    // Remote SSH
-    "remote.SSH.showLoginTerminal": true,
-
-    // SCM (Source Control)
-    "scm.alwaysShowRepositories": true,
-    "scm.compactFolders": false,
-    "scm.diffDecorations": "all",
-    "scm.defaultViewMode": "tree",
-    "scm.diffDecorationsGutterWidth": 5,
-    "scm.graph.badges": "all",
-    "scm.inputFontFamily": "editor",
-    "scm.inputFontSize": 15,
-
-    // Search
-    "search.showLineNumbers": true,
-
-    // Terminal
-    "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.enableImages": true,
-    "terminal.integrated.enableVisualBell": true,
-    "terminal.integrated.mouseWheelZoom": true,
-    "terminal.integrated.smoothScrolling": true,
-
-    // Workbench
-    "workbench.colorTheme": "Monokai Night",
-    "workbench.editor.closeOnFileDelete": false,
-    "workbench.editor.pinnedTabsOnSeparateRow": true,
-    "workbench.editor.scrollToSwitchTabs": true,
-    "workbench.editor.wrapTabs": true,
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.list.smoothScrolling": true,
-    "workbench.view.alwaysShowHeaderActions": true,
-
-    // Window
-    "window.zoomLevel": 0,
-    //"window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
-    //"window.menuBarVisibility": "classic",
-    "window.newWindowDimensions": "inherit",
-    "window.openFoldersInNewWindow": "default",
-    "window.openWithoutArgumentsInNewWindow": "on",
-    "window.restoreWindows": "all",
-    "window.restoreFullscreen": true,
+  // Remote SSH
+  "remote.SSH.showLoginTerminal": true,
 }
