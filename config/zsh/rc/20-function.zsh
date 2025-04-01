@@ -126,23 +126,31 @@ function confirm {
 
 # markdown
 function pmd() {
-  gum format -t markdown <"${1:-}"
-  echo ''
+  if [ -f "${1:-}" ]; then
+    gum format -t markdown <"${1:-}"
+    echo ''
+  fi
 }
 
 # csv
 function gcsv() {
-  gum table <"${1:-}" | cut -d ',' -f "${2:-1}"
+  if [ -f "${1:-}" ]; then
+    gum table <"${1:-}" | cut -d ',' -f "${2:-1}"
+  fi
 }
 
 # tsv
 function gtsv() {
-  gum table --separator='	' <"${1:-}" | cut -d '	' -f "${2:-1}"
+  if [ -f "${1:-}" ]; then
+    gum table --separator='	' <"${1:-}" | cut -d '	' -f "${2:-1}"
+  fi
 }
 
 # pager
 function gpager() {
-  gum pager <"${1:-}"
+  if [ -f "${1:-}" ]; then
+    gum pager <"${1:-}"
+  fi
 }
 
 # yazi shell wrappers
