@@ -34,7 +34,7 @@
 [<a href="../">English</a>] [Japanese(日本語)]
 </p>
 
-# Dotfiles for Linux and Termux
+# Dotfiles for Linux, macOS, and Termux
 
 ## 🎉 ようこそ
 
@@ -84,13 +84,13 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 **2. パッケージの一括インストール**
 
 > [!IMPORTANT]
->・Linux(Ubuntu/Fedora/Arch Linux)では `--brew` による自動構築が可能です<br>
+>・Linux(Ubuntu/Fedora/Arch Linux)またはmacOSでは `--brew` による自動構築が可能です<br>
 >・Ubuntuでは `--apt` または `--snap` で高速なインストールが可能です<br>
 >・Termuxでは `--pkg` によるセットアップが可能です
 >
 
 > [!NOTE]
-> Linuxでは `sudo` コマンドが使える必要があります<br>
+> LinuxまたはmacOSでは `sudo` コマンドが使える必要があります<br>
 > `--brew`ではHomebrew本体をインストールするために利用します<br>
 > `--apt`, `--snap`の場合もパッケージ管理のため使用します
 >
@@ -99,7 +99,7 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 `dots install [--apt|--brew|--snap|--pkg]`<br>
 具体的には `[--apt|--brew|--snap|--pkg]` の部分を置き換えて実行します
 
-Linux環境にて，brewでセットアップする場合は以下を実行します
+LinuxまたはmacOS環境にて，brewでセットアップする場合は以下を実行します
 
 ```bash
 dots install --brew
@@ -141,6 +141,8 @@ exec -l $(which zsh)
   - Ubuntu 22.04以降 (推奨)
   - Arch Linux
   - Fedora
+- Mac 🍎
+  - macOS
 - Android 📱
   - 最新版の Termux
 
@@ -247,7 +249,6 @@ dots set-theme "developer-mono"  # Set by name
 
 ![Image](https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a)
 
-
 $XDG_CONFIG_HOME ディレクトリのバックアップコピーを $XDG_DATA_HOME/dotfiles/backup に作成します
 
 ```bash
@@ -319,6 +320,19 @@ The following apps can be installed individually from the `dots install <package
 ### 🍺 Brewパッケージ
 
 `dots install --brew`コマンドでインストールする主なパッケージは次のとおりです
+
+#### macOS cask
+
+| パッケージ名              | 説明                                                         |
+| ------------------------- | ------------------------------------------------------------ |
+| `alacritty`               | 高速でGPU対応のターミナルエミュレータ。                     |
+| `clipy`                   | 履歴機能付きのmacOS用クリップボードマネージャ。              |
+| `docker`                  | コンテナの開発・配布・実行を行うためのプラットフォーム。       |
+| `ghostty`                 | macOS向けのミニマルでGPUベースのターミナルエミュレータ。       |
+| `rectangle`               | キーボード操作でウィンドウを整理できるウィンドウ管理アプリ。   |
+| `visual-studio-code`      | 軽量で高機能なソースコードエディタ。                           |
+
+#### 共通(Linux/macOS)
 
 | パッケージ名              | 説明                                                           |
 | ------------------------- | -------------------------------------------------------------- |
@@ -396,7 +410,6 @@ dots install --brew
 |                                          LazyVim tokyonight.nvim style=night                                          |
 | :-------------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/53567c2d-8bf2-4f4b-81d8-c6f126895606" width="800" alt="LazyVim"> |
-
 
 ### Tmux
 
@@ -586,13 +599,10 @@ window と pane の操作を可能としています．
 [tmux-logging]: https://github.com/tmux-plugins/tmux-logging
 [tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
 [tmux-fingers]: https://github.com/Morantron/tmux-fingers
-[XDG Base Directory]: https://specifications.freedesktop.org/basedir-spec/latest/
 
 <!-- relative link -->
-[English]: ../
 [apt packages]: ../assets/txt/apt-packages.txt
 [brew packages]: ../Brewfile
 [snap packages]: ../assets/txt/snap-packages.txt
 [pkg packages]: ../assets/txt/pkg-packages.txt
 [こちら]: ./neovim.md#emacs-like
-[MIT License]: ../LICENSE.md

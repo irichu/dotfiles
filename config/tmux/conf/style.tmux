@@ -1,5 +1,5 @@
 #--------------------------------------------------
-# Style 
+# Style
 #--------------------------------------------------
 
 # Grey11 colour234 #1c1c1c
@@ -17,7 +17,8 @@ set -g pane-border-style "fg=default"
 set -g pane-active-border-style "fg=default"
 
 # Status bar background colour
-setw -g status-style "fg=default,bg=colour234"
+# setw -g status-style "fg=default,bg=colour234"
+setw -g status-style "fg=default,bg=#222222"
 
 # Status left
 setw -g status-left ""
@@ -29,7 +30,7 @@ setw -g status-left ""
 # window status
 # ../scripts/tmux-window-status.sh
 
-# right status bar 
+# right status bar
 setw -g status-right-length 200
 
 # change window status when attached

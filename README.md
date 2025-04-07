@@ -35,7 +35,7 @@
 [English] [<a href="docs/README-ja.md">Japanese(日本語)</a>]
 </p>
 
-# Dotfiles for Linux and Termux
+# Dotfiles for Linux, macOS, and Termux
 
 ## 🎉 Welcome
 
@@ -84,13 +84,13 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 **2. Bulk installation**
 
 > [!IMPORTANT]
-> On Linux (Ubuntu/Fedora/Arch Linux), automatic setup is available using `--brew`.<br>
+> On Linux (Ubuntu/Fedora/Arch Linux) or macOS, automatic setup is available using `--brew`.<br>
 > On Ubuntu, fast installation is possible with `--apt` or `--snap`.<br>
 > On Termux, setup can be done using `--pkg`.
 >
 
 > [!NOTE]
-> On Linux, `sudo` access is required for installation.<br>
+> On Linux or macOS, `sudo` access is required for installation.<br>
 > This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--snap`.<br>
 >
 
@@ -100,7 +100,7 @@ Replace `[--apt|--brew|--snap|--pkg]` with your package manager of choice.
 
 **Examples:**
 
-- To use brew on Linux:
+- To use brew on Linux or macOS:
 
 ```bash
 dots install --brew
@@ -142,6 +142,8 @@ exec -l $(which zsh)
   - Ubuntu 22.04 and newer (recommended)
   - Arch Linux
   - Fedora
+- Mac 🍎
+  - macOS
 - Android 📱
   - The latest version of Termux
 
@@ -248,7 +250,6 @@ Available themes:
 
 ![Image](https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a)
 
-
 Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir:
 
 ```bash
@@ -321,6 +322,19 @@ The following apps can be installed individually from the `dots install <package
 
 The `dots install --brew` command mainly installs the following apps
 
+#### macOS (cask)
+
+| Package Name              | Description                                               |
+| ------------------------- | --------------------------------------------------------- |
+| `alacritty`               | A fast, GPU-accelerated terminal emulator.                |
+| `clipy`                   | Clipboard manager for macOS with history support.         |
+| `docker`                  | Platform for developing, shipping, and running containers.|
+| `ghostty`                 | Minimal, GPU-based terminal emulator for macOS.           |
+| `rectangle`               | Window management app using keyboard shortcuts.           |
+| `visual-studio-code`      | Lightweight yet powerful source code editor.              |
+
+#### Common (Linux, macOS)
+
 | Package Name              | Description                                               |
 | ------------------------- | --------------------------------------------------------- |
 | `bat`                     | cat replacement                                           |
@@ -356,7 +370,6 @@ The `dots install --brew` command mainly installs the following apps
 | `zsh-autosuggestions`     | Fish-like command suggestions for zsh                     |
 | `zsh-completions`         | Additional completions for zsh commands                   |
 | `zsh-syntax-highlighting` | Syntax highlighting for zsh command line                  |
-
 
 ### 📓 Target apps
 
@@ -573,7 +586,6 @@ Based on [LazyVim keymaps], with some additional key bindings added.
 This project is licensed under the [MIT License].
 
 <!-- Reference-style links -->
-[日本語]: docs/README-ja.md
 [F-Droid]: https://f-droid.org/
 [starship]: https://starship.rs/
 [Neovim]: https://github.com/neovim/neovim

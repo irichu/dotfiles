@@ -1,0 +1,64 @@
+# Background
+background-opacity = 0.95
+background-blur-radius = 20
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+cursor-invert-fg-bg = true
+cursor-opacity = 0.5
+
+# Font
+font-family = HackGen35 Console NF
+font-feature = -dlig
+font-size = 15
+
+font-style-bold = false
+font-style-italic = false
+font-style-bold-italic = false
+
+font-thicken = true
+font-thicken-strength = 1
+
+alpha-blending = linear
+
+adjust-cell-width = -1
+adjust-cell-height = 2
+
+# macOS
+macos-titlebar-style = tabs
+#macos-titlebar-style = hidden
+#macos-titlebar-style = transparent
+macos-window-shadow = false
+macos-icon = custom-style
+macos-icon-ghost-color = 010101
+macos-icon-screen-color = EE77EE
+macos-option-as-alt = left
+macos-non-native-fullscreen = true
+
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+
+# Quick terminal
+quick-terminal-position = center
+quick-terminal-screen = main
+quick-terminal-animation-duration = 0.1
+keybind = "global:ctrl+shift+g=toggle_quick_terminal"
+keybind = "global:ctrl+grave_accent=toggle_quick_terminal"
+keybind = "global:cmd+shift+grave_accent=toggle_quick_terminal"
+
+# Shell
+shell-integration-features = no-cursor
+
+# Theme
+theme = dots
+
+# Window
+window-padding-x = 5
+window-padding-y = 5
+window-padding-balance = true
+window-theme = ghostty
+
+# Other
+mouse-hide-while-typing = true
+resize-overlay = never

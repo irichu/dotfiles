@@ -42,7 +42,7 @@ white = "0xffffff"
 yellow = "0xffee44"
 
 [colors.primary]
-background = "0x1c1c1c"
+background = "0x222222"
 foreground = "0xffffff"
 
 [env]
@@ -55,8 +55,9 @@ TERM = "xterm-256color"
 [font]
 #size = 10.0
 #size = 10.5
-size = 11.0
+#size = 11.0
 #size = 13.0
+size = 15.0
 
 [font.offset]
 x = 0
@@ -124,9 +125,9 @@ semantic_escape_chars = ",.`|'\" ()[]{}<>="
 [terminal]
 osc52 = "CopyPaste"
 
-[terminal.shell]
-args = ["-l", "-c", 'tmux a -t default || tmux new -s default']
-program = "/bin/zsh"
+# [terminal.shell]
+# args = ["-l", "-c", 'tmux a -t default || tmux new -s default']
+# program = "/bin/zsh"
 
 # [shell]
 # args = ["-l", "-c", 'zellij attach default || zellij --session=default']
@@ -179,6 +180,7 @@ decorations = "Full" #"None"
 dynamic_padding = false
 dynamic_title = true
 opacity = 0.95
+option_as_alt = "both"
 startup_mode = "Windowed"
 
 [window.dimensions]

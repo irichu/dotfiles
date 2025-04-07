@@ -1,7 +1,10 @@
 # complete in case-insensitive
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=1
-eval `dircolors`
+
+if command -v dircolors > /dev/null; then
+  eval `dircolors`
+fi
 export ZLS_COLORS=$LS_COLORS
 #zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}

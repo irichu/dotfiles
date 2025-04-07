@@ -478,6 +478,8 @@ remove_zcompdump() {
 setup_zsh() {
   info "Start: ${FUNCNAME[0]}"
 
+  info 'sudo required'
+  info "echo 'ZDOTDIR=\$HOME/.config/zsh' > /etc/zshenv"
   sudo sh -c "echo 'ZDOTDIR=\$HOME/.config/zsh' > /etc/zshenv"
   [ -f /etc/zsh/zshenv ] && ! grep 'ZDOTDIR=' /etc/zsh/zshenv &>/dev/null && sudo sh -c "echo 'ZDOTDIR=\$HOME/.config/zsh' >> /etc/zsh/zshenv"
 
@@ -517,22 +519,38 @@ setup_zsh() {
   mkdir -p "$zsh_completions_cache_dir"
   cp -rf "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
 
+  # zsh-completions
+  zcpath="$DATA_HOME/zsh-completions"
+  [ ! -d "$zcpath" ] && git clone https://github.com/zsh-users/zsh-completions.git "$zcpath"
+
+  # shell environment
   [ -f /bin/zsh ] && zsh_path=/bin/zsh
 
   if cmd_exists brew; then
     zsh_path="$(brew --prefix)/bin/zsh"
   fi
+
   if ! grep "$zsh_path" /etc/shells &>/dev/null; then
     echo "$zsh_path" | sudo tee -a /etc/shells
   fi
 
   echo "zsh_path: $zsh_path"
   CURRENT_USER=$(id -u -n)
-  sudo -i chsh "$CURRENT_USER" -s "$zsh_path"
 
-  # zsh-completions
-  zcpath="$DATA_HOME/zsh-completions"
-  [ ! -d "$zcpath" ] && git clone https://github.com/zsh-users/zsh-completions.git "$zcpath"
+  # check if zsh is already set as the default shell
+  if [ "$SHELL" = "$zsh_path" ]; then
+    info "Already set to zsh"
+    return 0
+  fi
+
+  # macOS
+  if [ "$(uname)" == "Darwin" ] && [ "$SHELL" = /bin/zsh ]; then
+    info "Already set to zsh (macOS default)"
+    return 0
+  fi
+
+  info "Change shell to zsh"
+  sudo -i chsh "$CURRENT_USER" -s "$zsh_path"
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -828,12 +846,20 @@ install_homebrew() {
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 
+  # Linux
   if [ "$(uname)" == "Linux" ]; then
-    test -f /home/linuxbrew/.linuxbrew/bin/brew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    brew_bin=/home/linuxbrew/.linuxbrew/bin/brew
+    test -f $brew_bin && eval "$($brew_bin shellenv)"
     # test -r ~/.bashrc && ! grep 'eval "\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' ~/.bashrc &>/dev/null && (
     #   echo
     #   echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\""
     # ) >>~/.bashrc
+  fi
+
+  # macOS
+  if [ "$(uname)" == "Darwin" ]; then
+    brew_bin=/opt/homebrew/bin/brew
+    test -f $brew_bin && eval "$($brew_bin shellenv)"
   fi
 
   cd "$SCRIPT_DIR"
@@ -846,28 +872,43 @@ install_homebrew() {
     brew bundle --file=assets/ci/Brewfile
   fi
 
+  # setup apps
+  hb_bp="$(brew --prefix)"
+
   # fzf set up
-  "$(brew --prefix)"/opt/fzf/install --key-bindings --completion --no-update-rc --no-fish
+  if [ -f "$hb_bp"/bin/fzf ]; then
+    "$hb_bp"/opt/fzf/install --key-bindings --completion --no-update-rc --no-fish
+  else
+    install_fzf_via_git
+  fi
 
-  #cp -r "$SCRIPT_DIR"/config/lazygit "$CONFIG_HOME"
-  #cp -r "$SCRIPT_DIR"/config/starship "$CONFIG_HOME"/
-  backup_dir "$CONFIG_HOME/bat"
-  ln -s "$SCRIPT_DIR/config/bat" "$CONFIG_HOME/"
+  # macOS
+  if [ "$(uname)" == "Darwin" ]; then
+    apps=(
+      alacritty
+      ghostty
+    )
 
-  backup_dir "$CONFIG_HOME/eza"
-  ln -s "$SCRIPT_DIR/config/eza" "$CONFIG_HOME/"
+    for app in "${apps[@]}"; do
+      backup_dir "$CONFIG_HOME/$app"
+      ln -s "$SCRIPT_DIR/config/$app" "$CONFIG_HOME/"
+    done
+  fi
 
-  backup_dir "$CONFIG_HOME/lazygit"
-  ln -s "$SCRIPT_DIR/config/lazygit" "$CONFIG_HOME/"
+  # setup config
+  apps=(
+    bat
+    eza
+    lazygit
+    ripgrep
+    starship
+    yazi
+  )
 
-  backup_dir "$CONFIG_HOME/ripgrep"
-  ln -s "$SCRIPT_DIR/config/ripgrep" "$CONFIG_HOME/"
-
-  backup_dir "$CONFIG_HOME/starship"
-  ln -s "$SCRIPT_DIR/config/starship" "$CONFIG_HOME/"
-
-  backup_dir "$CONFIG_HOME/yazi"
-  ln -s "$SCRIPT_DIR/config/yazi" "$CONFIG_HOME/"
+  for app in "${apps[@]}"; do
+    backup_dir "$CONFIG_HOME/$app"
+    ln -s "$SCRIPT_DIR/config/$app" "$CONFIG_HOME/"
+  done
 
   starship preset nerd-font-symbols -o "$CONFIG_HOME"/starship/nerd.toml
 
@@ -1602,7 +1643,11 @@ set_theme() {
   fi
 
   # set theme
-  sed -i "s/^THEME=.*/THEME=\"${value}\"/" "$CONFIG_HOME"/tmux/script/config.sh
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i "" -e "s/^THEME=.*/THEME=\"${value}\"/" "$CONFIG_HOME/tmux/script/config.sh"
+  else
+    sed -i "s/^THEME=.*/THEME=\"${value}\"/" "$CONFIG_HOME/tmux/script/config.sh"
+  fi
 
   success -ny "Theme set to "
   info -ny -cn "$value"

@@ -1,3 +1,15 @@
+if OS.mac?
+  cask "alacritty"
+  cask "clipy"
+  cask "docker"
+  cask "ghostty"
+  cask "rectangle"
+  cask "visual-studio-code"
+  brew "lazydocker"
+elsif OS.linux?
+  brew "xclip"
+end
+
 brew "bat"
 brew "bottom"
 brew "broot"
