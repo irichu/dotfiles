@@ -1,4 +1,6 @@
-FROM fedora:latest
+FROM --platform=linux/amd64 fedora:latest
+# amd64, arm64v8, ppc64le, s390x
+# https://hub.docker.com/_/fedora
 
 SHELL [ "/bin/bash", "-c" ]
 

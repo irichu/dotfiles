@@ -1,4 +1,7 @@
 FROM ubuntu:22.04
+# FROM --platform=linux/amd64 ubuntu:latest
+# amd64, arm32v7, arm64v8, ppc64le, riscv64, s390x
+# https://hub.docker.com/_/ubuntu
 
 SHELL [ "/bin/bash", "-c" ]
 

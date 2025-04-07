@@ -1,4 +1,6 @@
-FROM archlinux:latest
+FROM --platform=linux/amd64 archlinux:latest
+# amd64 only
+# https://hub.docker.com/_/archlinux/
 
 SHELL [ "/bin/bash", "-c" ]
 
