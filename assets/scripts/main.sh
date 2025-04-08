@@ -158,6 +158,7 @@ log_color() {
   shift $((OPTIND - 1))
 
   echo -e ${OPT:-} "$LOG_COLOR""$@""$COLOR_NONE"
+  #echo "$@"
 
   $DEBUG && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/debug.log"
   [ $LOG_LEVEL = 'ERROR' ] && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/errors.log"
@@ -361,6 +362,21 @@ get_github_latest_version() {
   return 0
 }
 
+# link to config home
+set_config() {
+  info "Start: ${FUNCNAME[0]}"
+
+  package_name="${1:-}"
+
+  backup_dir "$CONFIG_HOME/$package_name"
+
+  info "Link $package_name config"
+  ln -s "$SCRIPT_DIR/config/$package_name" "$CONFIG_HOME/"
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
 # Function to install the 'gum' utility, which is used for interactive shell scripts.
 install_gum() {
   info "Start: ${FUNCNAME[0]}"
@@ -497,11 +513,8 @@ setup_zsh() {
   mkdir -p "$zsh_completions_cache_dir"
   cp -rf "$zsh_completions_dir" "$zsh_completions_cache_dir"
 
-  # create copy backup
-  backup_dir "$CONFIG_HOME/zsh"
-
-  # apply setting
-  ln -s "$SCRIPT_DIR/config/zsh" "$CONFIG_HOME/"
+  # config
+  set_config zsh
 
   # restore
   if [ -f "$histfile_tmp" ]; then
@@ -569,9 +582,7 @@ install_or_update_starship() {
   mkdir -p "$HOME/.local/bin"
   curl -sS https://starship.rs/install.sh | sh -s -- -b "$HOME/.local/bin" -y
 
-  #cp -r "$SCRIPT_DIR"/config/starship "$CONFIG_HOME"
-  backup_dir "$CONFIG_HOME/starship"
-  ln -s "$SCRIPT_DIR/config/starship" "$CONFIG_HOME/"
+  set_config starship
 
   "$HOME"/.local/bin/starship preset nerd-font-symbols -o "$CONFIG_HOME"/starship/nerd.toml
 
@@ -762,14 +773,6 @@ install_apt_package() {
   [ ! -f ~/.local/bin/bat ] && ln -s /usr/bin/batcat ~/.local/bin/bat
   [ ! -f ~/.local/bin/fd ] && ln -s /usr/bin/fdfind ~/.local/bin/fd
 
-  # bat config
-  backup_dir "$CONFIG_HOME/bat"
-  ln -s "$SCRIPT_DIR/config/bat" "$CONFIG_HOME/"
-
-  # ripgrep config
-  backup_dir "$CONFIG_HOME/ripgrep"
-  ln -s "$SCRIPT_DIR/config/ripgrep" "$CONFIG_HOME/"
-
   # dust (debian_revisionが -1 とは限らないが決め打ち。NGならsnapかbrewで)
   if ! cmd_exists snap && ! cmd_exists dust; then
     notice 'snap command not found. Install dust by deb file.'
@@ -800,9 +803,6 @@ install_apt_package() {
     sudo apt-get install -y eza
   fi
 
-  backup_dir "$CONFIG_HOME/eza"
-  ln -s "$SCRIPT_DIR/config/eza" "$CONFIG_HOME/"
-
   # git-delta
   if ! cmd_exists delta; then
     info 'install git-delta'
@@ -812,6 +812,17 @@ install_apt_package() {
       curl -Lo "$CACHE_DIR/git-delta_amd64.deb" "https://github.com/dandavison/delta/releases/latest/download/git-delta_${LATEST_VERSION}_amd64.deb"
     sudo dpkg -i "$CACHE_DIR/git-delta_amd64.deb"
   fi
+
+  # set config
+  apps=(
+    bat
+    eza
+    ripgrep
+  )
+
+  for app in "${apps[@]}"; do
+    set_config "$app"
+  done
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -951,14 +962,15 @@ install_snap_package() {
   /snap/bin/cargo install --locked typst-cli
   #/snap/bin/cargo install --locked yazi-fm yazi-cli
 
-  #cp -r "$SCRIPT_DIR"/config/alacritty "$CONFIG_HOME"
-  #cp -r "$SCRIPT_DIR"/config/lazygit "$CONFIG_HOME"
+  apps=(
+    alacritty
+    ghostty
+    lazygit
+  )
 
-  backup_dir "$CONFIG_HOME/alacritty"
-  ln -s "$SCRIPT_DIR/config/alacritty" "$CONFIG_HOME/"
-
-  backup_dir "$CONFIG_HOME/lazygit"
-  ln -s "$SCRIPT_DIR/config/lazygit" "$CONFIG_HOME/"
+  for app in "${apps[@]}"; do
+    set_config "$app"
+  done
 
   setup_zellij
 
@@ -1019,17 +1031,21 @@ install_cargo_packages() {
 
   cargo install alacritty
 
-  backup_dir "$CONFIG_HOME/alacritty"
-  ln -s "$SCRIPT_DIR/config/alacritty" "$CONFIG_HOME/"
-
   # typst
   cargo install --locked typst-cli
 
   # yazi
   cargo install --locked yazi-fm yazi-cli
 
-  backup_dir "$CONFIG_HOME/yazi"
-  ln -s "$SCRIPT_DIR/config/yazi" "$CONFIG_HOME/"
+  # config
+  apps=(
+    alacritty
+    yazi
+  )
+
+  for app in "${apps[@]}"; do
+    set_config "$app"
+  done
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1062,9 +1078,8 @@ build_install_neovim() {
   sudo install lazygit /usr/local/bin
   rm lazygit lazygit.tar.gz
 
-  #cp -r "$SCRIPT_DIR"/config/lazygit "$CONFIG_HOME"
-  backup_dir "$CONFIG_HOME/lazygit"
-  ln -s "$SCRIPT_DIR/config/lazygit" "$CONFIG_HOME/"
+  # lazygit config
+  set_config lazygit
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1085,9 +1100,8 @@ build_install_lazygit() {
   sudo install lazygit /usr/local/bin
   rm lazygit lazygit.tar.gz
 
-  #cp -r "$SCRIPT_DIR"/config/lazygit "$CONFIG_HOME"
-  backup_dir "$CONFIG_HOME/lazygit"
-  ln -s "$SCRIPT_DIR/config/lazygit" "$CONFIG_HOME/"
+  # config
+  set_config lazygit
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1311,8 +1325,8 @@ setup_git() {
   git_user_name="$(git config user.name || true)"
   git_user_email="$(git config user.email || true)"
 
-  backup_dir "$CONFIG_HOME/git"
-  ln -s "$SCRIPT_DIR/config/git" "$CONFIG_HOME/"
+  # config
+  set_config git
 
   if [ -z "${GITHUB_ACTIONS:-}" ]; then
     #current_name=$(git config user.name)
@@ -1357,9 +1371,8 @@ setup_termux() {
 setup_tmux() {
   info "Start: ${FUNCNAME[0]}"
 
-  #cp -r "$SCRIPT_DIR"/config/tmux "$CONFIG_HOME"
-  backup_dir "$CONFIG_HOME/tmux"
-  ln -s "$SCRIPT_DIR/config/tmux" "$CONFIG_HOME/"
+  # config
+  set_config tmux
 
   # tmux plugin
   TMUX_CONF="$CONFIG_HOME/tmux/conf/plugin.tmux"
@@ -1384,12 +1397,12 @@ setup_tmux() {
 setup_zellij() {
   info "Start: ${FUNCNAME[0]}"
 
+  # completions
   mkdir -p "$CONFIG_HOME/zsh/completions"
   zellij setup --generate-completion zsh >"$CONFIG_HOME/zsh/completions/_zellij"
 
-  #cp -r "$SCRIPT_DIR/config/zellij" "$CONFIG_HOME"
-  backup_dir "$CONFIG_HOME/zellij"
-  ln -s "$SCRIPT_DIR/config/zellij" "$CONFIG_HOME/"
+  # config
+  set_config zellij
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1402,14 +1415,23 @@ setup_zellij() {
 apply_settings() {
   info "Start: ${FUNCNAME[0]}"
 
-  # cp "$SCRIPT_DIR"/config/bash/.bashrc "$HOME"
-  # cp "$SCRIPT_DIR"/config/bash/.bash_aliases "$HOME"
-  for pn in {alacritty,bat,lazygit,ripgrep,starship,tmux,zellij,zsh}; do
-    # mv directory or unlink
-    backup_dir "$CONFIG_HOME/$pn"
+  # config
+  apps=(
+    alacritty
+    bat
+    eza
+    ghostty
+    git
+    lazygit
+    ripgrep
+    starship
+    tmux
+    zellij
+    zsh
+  )
 
-    # apply setting
-    ln -s "$SCRIPT_DIR/config/$pn" "$CONFIG_HOME/"
+  for app in "${apps[@]}"; do
+    set_config "$app"
   done
 
   # nvim config
@@ -1417,14 +1439,6 @@ apply_settings() {
   cp "$SCRIPT_DIR"/config/nvim/lua/plugins/*.lua "$CONFIG_HOME/nvim/lua/plugins/"
   cp "$SCRIPT_DIR"/config/nvim/lazy-lock.json "$CONFIG_HOME/nvim/"
   cp "$SCRIPT_DIR"/config/nvim/lazyvim.json "$CONFIG_HOME/nvim/"
-
-  # cp -r "$SCRIPT_DIR"/config/alacritty "$CONFIG_HOME"
-  # cp -r "$SCRIPT_DIR/config/zsh" "$CONFIG_HOME/"
-  # cp -r "$SCRIPT_DIR"/config/terminator "$CONFIG_HOME"
-  # cp -r "$SCRIPT_DIR"/config/starship "$CONFIG_HOME"
-  # cp -r "$SCRIPT_DIR"/config/lazygit "$CONFIG_HOME"
-  # cp -r "$SCRIPT_DIR"/config/tmux "$CONFIG_HOME"
-  # cp -r "$SCRIPT_DIR/config/zellij" "$CONFIG_HOME"
 
   info "End: ${FUNCNAME[0]}"
 }
@@ -1434,7 +1448,8 @@ echo_list() {
 
   local package_managers=("--apt" "--brew" "--pkg" "--snap")
   if printf '%s\n' "${package_managers[@]}" | grep -qx -- "$package_manager"; then
-    info "$package_manager option found."
+    # option found
+    :
   else
     if is_gum_available; then
       package_manager=$(gum choose -- "${package_managers[@]}")
@@ -1447,11 +1462,11 @@ echo_list() {
   case "$package_manager" in
   apt | --apt)
     info '# Basic packages'
-    cat "$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt | sort | xargs -i echo '- {}'
+    sort "$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt | xargs -i echo '- {}'
 
     info ""
     info '# Packages'
-    cat "$SCRIPT_DIR"/assets/txt/apt-packages.txt | sort | xargs -i echo '- {}'
+    sort "$SCRIPT_DIR"/assets/txt/apt-packages.txt | xargs -i echo '- {}'
     ;;
   brew | --brew)
     info '# Homebrew packages'
@@ -1459,11 +1474,11 @@ echo_list() {
     ;;
   snap | --snap)
     info '# Snap packages'
-    cat "$SCRIPT_DIR"/assets/txt/snap-packages.txt | sort | xargs -i echo '- {}'
+    sort "$SCRIPT_DIR"/assets/txt/snap-packages.txt | xargs -i echo '- {}'
     ;;
   pkg | --pkg)
     info '# Termux pkg packages'
-    cat "$SCRIPT_DIR"/assets/txt/pkg-packages.txt | sort | xargs -i echo '- {}'
+    sort "$SCRIPT_DIR"/assets/txt/pkg-packages.txt | xargs -i echo '- {}'
     ;;
   *)
     error 'No list found. Usage: dots list {--apt|--brew|--pkg|--snap}'
