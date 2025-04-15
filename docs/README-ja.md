@@ -295,6 +295,7 @@ The following apps can be installed individually from the `dots install <package
 
 | パッケージ名 | 説明                                                                                 |
 | ------------ | ------------------------------------------------------------------------------------ |
+| `copyq`      | CopyQをインストールします                                                           |
 | `docker`     | 追加のaptリポジトリからDockerをインストールします                                    |
 | `fnm`        | 最新版のFNM(Fast Node Manager)と最新版LTSのNode.jsをインストールします               |
 | `fzf`        | fzf(fuzzy finder)をgithubからインストールします                                      |

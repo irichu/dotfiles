@@ -572,6 +572,35 @@ setup_zsh() {
 ###################################################
 # installation
 ###################################################
+
+#--------------------------------------------------
+# CopyQ
+#--------------------------------------------------
+
+install_copyq() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # check already installed
+  if cmd_exists copyq; then
+    info "copyq already installed."
+    return 0
+  fi
+
+  # install
+  if cmd_exists apt; then
+    sudo add-apt-repository --yes ppa:hluk/copyq
+    sudo apt update
+    sudo apt install copyq -y
+  elif cmd_exists dnf; then
+    sudo dnf install copyq -y
+  elif cmd_exists pacman; then
+    sudo pacman -S copyq --noconfirm
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
 #--------------------------------------------------
 # starship.rs
 #--------------------------------------------------
@@ -1865,6 +1894,9 @@ i | install)
   #--------------------------------------------------
   apt-packages)
     install_apt_package
+    ;;
+  copyq)
+    install_copyq
     ;;
   fnm)
     install_fnm

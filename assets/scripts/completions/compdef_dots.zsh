@@ -9,6 +9,7 @@ _dots_install() {
 
   _values "package" \
     "apt-packages[Apt packages]" \
+    "copyq[CopyQ]" \
     "docker[Docker on Ubuntu Desktop]" \
     "fnm[fnm(Fast Node Maneger)]" \
     "fzf[fzf]" \
