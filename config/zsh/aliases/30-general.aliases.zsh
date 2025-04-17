@@ -342,6 +342,9 @@ alias gcnl='git config --list'
 alias gcn='git config --name'
 alias gname='git config user.name'
 alias gemail='git config user.email'
+alias gcue='git config get user.email'
+alias gcun='git config get user.name'
+alias ng='n ~/.config/git/config'
 
 # git reset
 alias grs='git reset'
