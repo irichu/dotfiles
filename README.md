@@ -296,7 +296,6 @@ The following apps can be installed individually from the `dots install <package
 
 | Package Name | Description                                |
 | ------------ | ------------------------------------------ |
-| `copyq`      | CopyQ                                      |
 | `docker`     | docker-ce (additional repository)          |
 | `fnm`        | latest FNM (Fast Node Manager) and Node.js |
 | `fzf`        | fzf (fuzzy finder) from github             |
@@ -310,6 +309,7 @@ The following apps can be installed individually from the `dots install <package
 
 | Package Name | Description                 |
 | ------------ | --------------------------- |
+| `copyq`      | CopyQ                       |
 | `rustdesk`   | RustDesk on Ubuntu Desktop  |
 | `zed`        | Zed editor on Linux Desktop |
 
