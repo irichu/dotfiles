@@ -11,7 +11,10 @@ cursor-opacity = 0.5
 # Font
 font-family = HackGen35 Console NF
 font-feature = -dlig
-font-size = 15
+# Linux
+font-size = 12
+# macOS
+#font-size = 15
 
 font-style-bold = false
 font-style-italic = false
