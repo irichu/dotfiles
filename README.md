@@ -41,6 +41,8 @@
 
 Welcome to my dotfiles. This repository helps easily set up a fast and intuitive terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
+<img src="https://github.com/user-attachments/assets/9a893a48-f090-4a6b-be98-abdcf938668f" width="800">
+
 ### Linux
 
 <img src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911" width="800">

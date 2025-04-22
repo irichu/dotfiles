@@ -41,6 +41,8 @@
 わたしの Dotfiles へようこそ．数多くのプロジェクトの中から見つけてくれてありがとうございます！<br>
 このリポジトリを利用することで，直感的なターミナル環境を簡単に構築できます．高速に起動・動作する Go言語 と Rust 製のコマンドラインツールを中心に構成しています．何か一つでも新しい知識や考え方との出会いになれば幸甚です．
 
+<img src="https://github.com/user-attachments/assets/9a893a48-f090-4a6b-be98-abdcf938668f" width="800">
+
 ### Linux
 
 <img src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911" width="800">
