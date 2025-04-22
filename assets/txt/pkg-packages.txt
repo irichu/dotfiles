@@ -50,6 +50,7 @@ typst
 unzip
 vim
 wget
+wol
 yazi
 zellij
 zoxide

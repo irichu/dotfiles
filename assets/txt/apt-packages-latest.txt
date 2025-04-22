@@ -17,6 +17,7 @@ sd
 ripgrep
 tmux
 vim
+wakeonlan
 xsel
 zsh
 zsh-autosuggestions
