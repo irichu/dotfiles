@@ -18,3 +18,7 @@ if [[ ! -e $ZDOTDIR/.zcompdump || $(find $ZDOTDIR/.zcompdump -mtime 1 2>/dev/nul
 fi
 compinit -C
 
+autoload -Uz _dots _gum
+compdef _dots dots
+compdef _gum gum
+
