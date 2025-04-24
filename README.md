@@ -1,6 +1,8 @@
 <!-- Logo -->
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/44037309-be0e-4cba-88a5-730dcac8cbda" alt="Dotfiles" height="40">
+  <a href="https://github.com/irichu/dotfiles">
+    <img src="https://github.com/user-attachments/assets/44037309-be0e-4cba-88a5-730dcac8cbda" alt="Dotfiles" height="40">
+  </a>
 </p>
 
 <!-- Badges -->
@@ -39,9 +41,9 @@
 
 ## 🎉 Welcome
 
-Welcome to my dotfiles. This repository helps easily set up a fast and intuitive terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
+Welcome to my dotfiles. [This repository](https://github.com/irichu/dotfiles) helps easily set up a fast and intuitive terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
-<img src="https://github.com/user-attachments/assets/9a893a48-f090-4a6b-be98-abdcf938668f" width="800">
+<img src="https://github.com/irichu/dotfiles/releases/download/v0.4.0/ss001-v0.4.0.png" width="800">
 
 ### Linux
 
@@ -51,7 +53,7 @@ Welcome to my dotfiles. This repository helps easily set up a fast and intuitive
 
 <img src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a" width="320">
 
-<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">
+<!--<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">-->
 
 <img src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327" width="800">
 
@@ -153,6 +155,12 @@ exec -l $(which zsh)
 > The Google Play Store version of Termux may not work properly with some commands.<br>
 > It is recommended to install it from [F-Droid].
 >
+
+<!--
+> [!Note]
+> Some behavior may vary slightly between platforms due to system differences.<br>
+>
+-->
 
 ## ✨ Features
 

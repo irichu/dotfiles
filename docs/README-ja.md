@@ -1,6 +1,8 @@
 <!-- Logo -->
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/44037309-be0e-4cba-88a5-730dcac8cbda" alt="Dotfiles" height="40">
+  <a href="https://github.com/irichu/dotfiles">
+    <img src="https://github.com/user-attachments/assets/44037309-be0e-4cba-88a5-730dcac8cbda" alt="Dotfiles" height="40">
+  </a>
 </p>
 
 <!-- Badges -->
@@ -39,9 +41,9 @@
 ## 🎉 ようこそ
 
 わたしの Dotfiles へようこそ．数多くのプロジェクトの中から見つけてくれてありがとうございます！<br>
-このリポジトリを利用することで，直感的なターミナル環境を簡単に構築できます．高速に起動・動作する Go言語 と Rust 製のコマンドラインツールを中心に構成しています．何か一つでも新しい知識や考え方との出会いになれば幸甚です．
+この[リポジトリ](https://github.com/irichu/dotfiles)を利用することで，直感的なターミナル環境を簡単に構築できます．高速に起動・動作する Go言語 と Rust 製のコマンドラインツールを中心に構成しています．何か一つでも新しい知識や考え方との出会いになれば幸甚です．
 
-<img src="https://github.com/user-attachments/assets/9a893a48-f090-4a6b-be98-abdcf938668f" width="800">
+<img src="https://github.com/irichu/dotfiles/releases/download/v0.4.0/ss001-v0.4.0.png" width="800">
 
 ### Linux
 
@@ -51,7 +53,7 @@
 
 <img src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a" width="320">
 
-<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">
+<!--<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">-->
 
 <img src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327" width="800">
 
@@ -152,6 +154,12 @@ exec -l $(which zsh)
 > Google Playストア版のTermuxは一部のコマンドなどが正常に動作しないことがあるようです．<br>
 > [F-Droid]からインストールすることが推奨されています
 >
+
+<!--
+> [!Note]
+> OSごとに多少動作が異なることがあります<br>
+>
+-->
 
 ## ✨ 特徴
 
