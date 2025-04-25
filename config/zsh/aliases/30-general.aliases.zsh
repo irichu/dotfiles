@@ -328,6 +328,7 @@ alias gpl='git pull'
 alias gps='git push'
 alias gpsf='git push --force'
 alias gpsu='git push --set-upstream origin'
+alias gpso='git push origin'
 alias gpsom='git push origin main'
 alias gpsod='git push origin develop'
 
@@ -400,6 +401,8 @@ alias gtl='git tag -l' # list tags
 alias gtp='git tag -p' # show tag
 alias gts='git tag -s' # signed tag
 alias gtv='git tag -v' # verify tag
+alias {gtlatest,git_latest_tag}='git describe --tags $(git rev-list --tags --max-count=1)'
+alias {gtrlatest,git_remote_latest_tag}='git -c "versionsort.suffix=-" ls-remote --exit-code --refs --sort="version:refname" --tags https://github.com/irichu/dotfiles.git/ "*.*.*" | tail -n1 | cut -d/ -f3'
 
 # git help
 alias gh='git help'

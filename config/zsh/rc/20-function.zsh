@@ -167,3 +167,15 @@ function y() {
 help() {
   "$@" --help 2>&1 | bathelp
 }
+
+# git
+function git_remote_latest_tag_by_url() {
+  local url="$1"
+
+  if [[ -z "$url" ]]; then
+    echo "Usage: git_romote_latest_tag_by_url <url>"
+    return 1
+  fi
+
+  git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --sort='version:refname' --tags "$url" '*.*.*' | tail -n1 | cut -d/ -f3
+}
