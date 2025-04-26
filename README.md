@@ -45,6 +45,11 @@ Welcome to my dotfiles. [This repository](https://github.com/irichu/dotfiles) he
 
 <img src="https://github.com/irichu/dotfiles/releases/download/v0.4.0/ss001-v0.4.0.png" width="800">
 
+This dotfiles repository is also available on GitHub Pages.
+
+- View on GitHub Pages 👉 [https://irichu.github.io/dotfiles/](https://irichu.github.io/dotfiles/)
+- View on GitHub 👉 [https://github.com/irichu/dotfiles](https://github.com/irichu/dotfiles)
+
 ### Linux
 
 <img src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911" width="800">
