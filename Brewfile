@@ -2,6 +2,7 @@ if OS.mac?
   cask "alacritty"
   cask "clipy"
   cask "docker"
+  cask "flameshot"
   cask "ghostty"
   cask "rectangle"
   cask "visual-studio-code"

@@ -5,6 +5,7 @@ cloc
 duf
 eza
 fd-find
+flameshot
 git
 git-delta
 htop
