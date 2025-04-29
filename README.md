@@ -345,6 +345,7 @@ The `dots install --brew` command mainly installs the following apps
 | `alacritty`               | A fast, GPU-accelerated terminal emulator.                |
 | `clipy`                   | Clipboard manager for macOS with history support.         |
 | `docker`                  | Platform for developing, shipping, and running containers.|
+| `flameshot`               | Powerful and easy-to-use screenshot tool.                 |
 | `ghostty`                 | Minimal, GPU-based terminal emulator for macOS.           |
 | `rectangle`               | Window management app using keyboard shortcuts.           |
 | `visual-studio-code`      | Lightweight yet powerful source code editor.              |

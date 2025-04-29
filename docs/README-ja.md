@@ -344,6 +344,7 @@ The following apps can be installed individually from the `dots install <package
 | `alacritty`               | 高速でGPU対応のターミナルエミュレータ。                     |
 | `clipy`                   | 履歴機能付きのmacOS用クリップボードマネージャ。              |
 | `docker`                  | コンテナの開発・配布・実行を行うためのプラットフォーム。       |
+| `flameshot`               | 高機能で使いやすいスクリーンショットツール。                 |
 | `ghostty`                 | macOS向けのミニマルでGPUベースのターミナルエミュレータ。       |
 | `rectangle`               | キーボード操作でウィンドウを整理できるウィンドウ管理アプリ。   |
 | `visual-studio-code`      | 軽量で高機能なソースコードエディタ。                           |
