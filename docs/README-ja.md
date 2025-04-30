@@ -618,6 +618,7 @@ window と pane の操作を可能としています．
 [tmux-fingers]: https://github.com/Morantron/tmux-fingers
 
 <!-- relative link -->
+[English]: ../
 [apt packages]: ../assets/txt/apt-packages.txt
 [brew packages]: ../Brewfile
 [snap packages]: ../assets/txt/snap-packages.txt
