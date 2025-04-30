@@ -33,9 +33,12 @@
   </p>
 </div>
 
-<p align="center">
-[English] [<a href="docs/README-ja.md">Japanese(日本語)</a>]
-</p>
+<!-- Languages -->
+<div align="center">
+
+[English] [[Japanese(日本語)](docs/README-ja.md)]
+
+</div>
 
 # Dotfiles for Linux, macOS, and Termux
 

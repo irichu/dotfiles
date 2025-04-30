@@ -32,9 +32,13 @@
     <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
   </p>
 </div>
-<p align="center">
-[<a href="../">English</a>] [Japanese(日本語)]
-</p>
+
+<!-- Languages -->
+<div align="center">
+
+[[English](../)] [Japanese(日本語)]
+
+</div>
 
 # Dotfiles for Linux, macOS, and Termux
 
