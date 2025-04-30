@@ -1,3 +1,6 @@
+<!-- Languages -->
+[English] / Japanese(日本語)
+
 <!-- Logo -->
 <p align="center">
   <a href="https://github.com/irichu/dotfiles">
@@ -31,13 +34,6 @@
     <!-- STARS -->
     <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
   </p>
-</div>
-
-<!-- Languages -->
-<div align="center">
-
-[English] / Japanese(日本語)
-
 </div>
 
 # Dotfiles for Linux, macOS, and Termux
@@ -622,7 +618,6 @@ window と pane の操作を可能としています．
 [tmux-fingers]: https://github.com/Morantron/tmux-fingers
 
 <!-- relative link -->
-[English]: ../
 [apt packages]: ../assets/txt/apt-packages.txt
 [brew packages]: ../Brewfile
 [snap packages]: ../assets/txt/snap-packages.txt
