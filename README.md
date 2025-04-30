@@ -36,7 +36,7 @@
 <!-- Languages -->
 <div align="center">
 
-[English] [[Japanese(日本語)]]
+[English] \[[Japanese(日本語)]\]
 
 </div>
 
