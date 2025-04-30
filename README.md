@@ -36,7 +36,7 @@
 <!-- Languages -->
 <div align="center">
 
-[English] [[Japanese(日本語)](docs/README-ja.md)]
+[English] [[Japanese(日本語)]]
 
 </div>
 
@@ -606,6 +606,7 @@ Based on [LazyVim keymaps], with some additional key bindings added.
 This project is licensed under the [MIT License].
 
 <!-- Reference-style links -->
+[Japanese(日本語)]: docs/README-ja.md
 [F-Droid]: https://f-droid.org/
 [starship]: https://starship.rs/
 [Neovim]: https://github.com/neovim/neovim
