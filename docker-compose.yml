@@ -1,0 +1,23 @@
+# docker-compose file for dotfiles
+
+# comand to build the image and run the container in the background
+# $ docker compose up -d --build
+
+# command to enter the container
+# $ docker compose exec dotfiles zsh
+# or
+# $ docker exec -it irichu-dotfiles zsh
+
+services:
+  dotfiles: # service name
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: irichu/dotfiles
+    container_name: irichu-dotfiles
+    working_dir: /home/user
+    stdin_open: true
+    tty: true
+    # if you want to use the dotfiles in your host machine, uncomment the volumes line below
+    #volumes:
+    #  - .:/home/user/dotfiles
