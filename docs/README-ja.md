@@ -4,7 +4,11 @@
 <!-- Logo -->
 <p align="center">
   <a href="https://github.com/irichu/dotfiles">
-    <img src="https://github.com/user-attachments/assets/44037309-be0e-4cba-88a5-730dcac8cbda" alt="Dotfiles" height="40">
+    <img
+      src="https://github.com/user-attachments/assets/44037309-be0e-4cba-88a5-730dcac8cbda"
+      alt="Dotfiles logo image"
+      height="40"
+    >
   </a>
 </p>
 
@@ -12,27 +16,61 @@
 <div align="center">
   <p style="width: 80%">
     <!-- CODE SIZE -->
-    <img src="https://img.shields.io/github/languages/code-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub code size in bytes" height="22">
+    <img
+      src="https://img.shields.io/github/languages/code-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff"
+      alt="GitHub code size in bytes"
+      height="22"
+    >
     <!-- REPO SIZE -->
-    <img src="https://img.shields.io/github/repo-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff" alt="GitHub repo size" height="22">
+    <img
+      src="https://img.shields.io/github/repo-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff"
+      alt="GitHub repo size"
+      height="22"
+    >
     <!-- Tokei LOC -->
     <a href="https://github.com/irichu/dotfiles">
-      <img src="https://tokei.rs/b1/github/irichu/dotfiles?category=lines&style=for-the-badge&logo=https://simpleicons.org/icons/github.svg&color=%2377aaff"
-          alt="Tokei total line"
-          height="22">
+      <img
+        src="https://tokei.rs/b1/github/irichu/dotfiles?category=lines&style=for-the-badge&logo=https://simpleicons.org/icons/github.svg&color=%2377aaff"
+        alt="Tokei total line"
+        height="22"
+      >
     </a>
     <!-- CREATED AT -->
-    <img src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub Created At" height="22">
+    <img
+      src="https://img.shields.io/github/created-at/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF"
+      alt="GitHub Created At"
+      height="22"
+    >
     <!-- LAST COMMIT -->
-    <img src="https://img.shields.io/github/last-commit/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub last commit" height="22">
+    <img
+      src="https://img.shields.io/github/last-commit/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF"
+      alt="GitHub last commit"
+      height="22"
+    >
     <!-- COMMIT ACTIVITY -->
-    <img src="https://img.shields.io/github/commit-activity/m/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF" alt="GitHub commit activity" height="22">
+    <img
+      src="https://img.shields.io/github/commit-activity/m/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF"
+      alt="GitHub commit activity"
+      height="22"
+    >
     <!-- LICENSE -->
-    <img src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub License" height="22">
+    <img
+      src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99"
+      alt="GitHub License"
+      height="22"
+    >
     <!-- RELEASE VERSION -->
-    <img src="https://img.shields.io/github/v/release/irichu/dotfiles?category=lines&style=for-the-badge&logo=github&color=%2355ff99" alt="GitHub Release" height="22">
+    <img
+      src="https://img.shields.io/github/v/release/irichu/dotfiles?category=lines&style=for-the-badge&logo=github&color=%2355ff99"
+      alt="GitHub Release"
+      height="22"
+    >
     <!-- STARS -->
-    <img src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33" alt="GitHub Repo stars" height="22">
+    <img
+      src="https://img.shields.io/github/stars/irichu/dotfiles?style=for-the-badge&logo=github&color=%23ffdd33"
+      alt="GitHub Repo stars"
+      height="22"
+    >
   </p>
 </div>
 
@@ -43,28 +81,44 @@
 わたしの Dotfiles へようこそ．数多くのプロジェクトの中から見つけてくれてありがとうございます！<br>
 この[リポジトリ](https://github.com/irichu/dotfiles)を利用することで，直感的なターミナル環境を簡単に構築できます．高速に起動・動作する Go言語 と Rust 製のコマンドラインツールを中心に構成しています．何か一つでも新しい知識や考え方との出会いになれば幸甚です．
 
-<img src="https://github.com/irichu/dotfiles/releases/download/v0.4.0/ss001-v0.4.0.png" width="800">
+<img
+  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_main_screenshot.png"
+  width="800"
+  alt="irichu dotfiles main screenshot">
 
 このDotfilesリポジトリの内容は、GitHub Pagesでもご覧いただけます。
 
-- GitHub Pages版 👉 [https://irichu.github.io/dotfiles/](https://irichu.github.io/dotfiles/)
-- GitHubリポジトリ版 👉 [https://github.com/irichu/dotfiles](https://github.com/irichu/dotfiles)
+- GitHubリポジトリ版 [https://github.com/irichu/dotfiles](https://github.com/irichu/dotfiles)
+
+- GitHub Pages版 [https://irichu.github.io/dotfiles/](https://irichu.github.io/dotfiles/)
 
 ### Linux
 
-<img src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911" width="800">
+<img
+  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
+  width="800"
+  alt="ubuntu screenshot">
 
 ### Android Termux
 
-<img src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a" width="320">
+<img
+  src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a"
+  width="320"
+  alt="Android smartphone screenshot">
 
 <!--<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">-->
 
-<img src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327" width="800">
+<img
+  src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327"
+  width="800"
+  alt="Android tablet screenshot">
 
 ### WSL2
 
-<img src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800" width="800" alt="wsl_zsh_nvim_startuptime">
+<img
+  src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800"
+  width="800"
+  alt="wsl_zsh_nvim_startuptime">
 
 ## 🚀 インストール方法
 

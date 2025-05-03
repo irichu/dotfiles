@@ -30,10 +30,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Download image from GitHub Releases
-        run: |
-          mkdir -p assets/images
-          curl -L -o assets/images/irichu_dotfiles_main_screenshot.png https://github.com/irichu/dotfiles/releases/download/v0.4.0/ss001-v0.4.0.png
       - name: Copy _includes to ./
         run: cp -r .github/pages/_includes ./
       - name: Copy favicon.ico to ./
