@@ -78,7 +78,7 @@ English / [Japanese(日本語)]
 
 ## 🎉 Welcome
 
-Welcome to my dotfiles. [This repository](https://github.com/irichu/dotfiles) helps easily set up a fast and intuitive terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
+Welcome to my dotfiles. [This GitHub repository](https://github.com/irichu/dotfiles) helps easily set up a fast and intuitive terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
 <img
   src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_main_screenshot.png"
@@ -87,9 +87,9 @@ Welcome to my dotfiles. [This repository](https://github.com/irichu/dotfiles) he
 
 This dotfiles repository is also available on GitHub Pages.
 
-- View on GitHub [https://github.com/irichu/dotfiles](https://github.com/irichu/dotfiles)
+- <a href="https://github.com/irichu/dotfiles" rel="me">View on GitHub</a>
 
-- View on GitHub Pages [https://irichu.github.io/dotfiles/](https://irichu.github.io/dotfiles/)
+- <a href="https://irichu.github.io/dotfiles/">View on GitHub Pages</a>
 
 ### Linux
 

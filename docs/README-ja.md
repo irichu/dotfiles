@@ -88,9 +88,9 @@
 
 このDotfilesリポジトリの内容は、GitHub Pagesでもご覧いただけます。
 
-- GitHubリポジトリ版 [https://github.com/irichu/dotfiles](https://github.com/irichu/dotfiles)
+- <a href="https://github.com/irichu/dotfiles" rel="me">GitHubリポジトリ版</a>
 
-- GitHub Pages版 [https://irichu.github.io/dotfiles/](https://irichu.github.io/dotfiles/)
+- <a href="https://irichu.github.io/dotfiles/">GitHub Pages版</a>
 
 ### Linux
 
