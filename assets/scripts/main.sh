@@ -1060,6 +1060,12 @@ install_cargo_packages() {
 
   cargo install alacritty
 
+  # gitui
+  if cmd_exists apt; then
+    sudo apt install cmake
+  fi
+  cargo install gitui --locked
+
   # typst
   cargo install --locked typst-cli
 
