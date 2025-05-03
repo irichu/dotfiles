@@ -1,0 +1,14 @@
+// Note:
+// If the default key layout is lower case,
+// and you want to use `Shift + q` to trigger the exit event,
+// the setting should like this `exit: Some(( code: Char('Q'), modifiers: "SHIFT")),`
+// The Char should be upper case, and the modifier should be set to "SHIFT".
+//
+// Note:
+// find `KeysList` type in src/keys/key_list.rs for all possible keys.
+// every key not overwritten via the config file will use the default specified there
+(
+    home: Some(( code: Char('g'), modifiers: "")),
+    end: Some(( code: Char('G'), modifiers: "SHIFT")),
+    edit_file: Some(( code: Char('I'), modifiers: "SHIFT")),
+)
