@@ -114,6 +114,14 @@ _dots_set-lang() {
   _values "LANG env value" $langs
 }
 
+_dots_set-starship() {
+  local themes=(
+    'simple'
+    'default'
+  )
+  _values "starship theme value" $themes
+}
+
 _dots() {
 
   local line state
@@ -136,6 +144,8 @@ _dots() {
       "theme[Show current theme name]" \
       "set-theme[Set theme]" \
       "set-lang[Set LANG environment value]" \
+      "starship[Show current starship config]" \
+      "set-starship[Set starship theme]" \
       "help[Print help information]" \
       "version[Print dots version information]"
     ;;
@@ -161,6 +171,9 @@ _dots() {
       ;;
     set-lang)
       _dots_set-lang
+      ;;
+    set-starship)
+      _dots_set-starship
       ;;
     esac
     ;;

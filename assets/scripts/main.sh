@@ -1803,6 +1803,87 @@ set_lang() {
   echo "Updated LANG in $ZSH_ENV_CONFIG_FILE to \"$new_lang\""
 }
 
+#--------------------------------------------------
+# Starship
+#--------------------------------------------------
+
+get_starship() {
+  # get starship theme
+  CONFIG_FILE="$CONFIG_HOME/starship/config.toml"
+
+  # check if config file exists
+  if [[ ! -f "$CONFIG_FILE" ]]; then
+    error "Error: Config file '$CONFIG_FILE' not found." >&2
+    exit 1
+  fi
+
+  # get theme value
+  theme=$(ls -la "$CONFIG_FILE" | grep -E -o "oneline" || echo 'multiline')
+
+  case "$theme" in
+  oneline)
+    newname=simple
+    ;;
+  multiline)
+    newname=default
+    ;;
+  *)
+    error "Error: config file was not found or has no value in '$CONFIG_FILE'." >&2
+    exit 1
+    ;;
+  esac
+
+  echo "$newname" | tr -d '"'
+
+  return 0
+}
+
+set_starship() {
+  value="${1:-}"
+  newname="multiline"
+
+  current_theme=$(get_starship)
+  info -ny -cb "Current theme: "
+  info -cn "$current_theme"
+
+  starship_config_dir="$CONFIG_HOME/starship/"
+  cd "$starship_config_dir"
+
+  case "$value" in
+  simple)
+    newname=oneline
+    ;;
+  default)
+    newname=multiline
+    ;;
+  *)
+    if is_gum_available; then
+      _value=$(gum choose simple default)
+      if [[ "$_value" == "simple" ]]; then
+        newname=oneline
+      elif [[ "$_value" == "default" ]]; then
+        newname=multiline
+      else
+        error "Invalid value: $_value"
+        return 1
+      fi
+    else
+      echo "Usage: dots set-starship {simple|default}"
+      exit 1
+    fi
+    ;;
+  esac
+
+  if [ -z "$newname" ]; then
+    echo "Usage: dots set-starship {simple|default}"
+    exit 1
+  fi
+
+  ln -sf "$newname.toml" "$starship_config_dir/config.toml"
+
+  exit 0
+}
+
 ###################################################
 # main
 ###################################################
@@ -2084,6 +2165,13 @@ set-theme)
   ;;
 set-lang)
   set_lang "${2:-}"
+  ;;
+starship)
+  get_starship
+  exit 0
+  ;;
+set-starship)
+  set_starship "${2:-}"
   ;;
 *)
   info -cw "No parameter found."

@@ -203,7 +203,7 @@ cmd_exists() {
 }
 
 is_gum_available() {
-  [[ "${TERMUX_VERSION:-}" != *googleplay* ]] && command -v gum &> /dev/null
+  [[ "${TERMUX_VERSION:-}" != *googleplay* ]] && command -v gum &>/dev/null
 }
 
 #--------------------------------------------------
@@ -403,7 +403,7 @@ fi
 
 # restore completions
 mkdir -p "$zsh_completions_cache_dir"
-cp -rf "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
+cp -rn "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
 
 success 'The dots command installation has been completed!'
 success 'If the dots command is not found, use the ~/.local/bin/dots command during the installation process.'
