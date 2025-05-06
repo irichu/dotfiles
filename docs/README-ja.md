@@ -318,9 +318,23 @@ dots set-theme "developer-mono"  # Set by name
 
 ![Image](https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a)
 
-$XDG_CONFIG_HOME ディレクトリのバックアップコピーを $XDG_DATA_HOME/dotfiles/backup に作成します
+現在の starship テーマを表示します:
 
 ```bash
+dots starship
+```
+
+指定した starship テーマを設定します:
+
+```bash
+dots set-starship simple   # oneline
+dots set-starship default  # multiline
+```
+
+バックアップを作成します:
+
+```bash
+# $XDG_CONFIG_HOME ディレクトリのバックアップコピーを $XDG_DATA_HOME/dotfiles/backup に作成します
 dots backup
 ```
 
@@ -456,7 +470,18 @@ The following apps can be installed individually from the `dots install <package
 
 ```bash
 cd ~/.local/share/dotfiles-main
+```
 
+`docker compose` で実行します．
+
+```bash
+docker compose up -d --build
+docker compose exec dotfiles zsh
+```
+
+もしくは `docker` コマンドで作成・実行します．
+
+```bash
 docker build -t dotfiles-img .
 docker run -it -d --name dotfiles-con dotfiles-img
 docker exec -it dotfiles-con /bin/zsh

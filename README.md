@@ -318,9 +318,23 @@ Available themes:
 
 ![Image](https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a)
 
-Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir:
+Get the starship theme:
 
 ```bash
+dots starship
+```
+
+Set the starship theme:
+
+```bash
+dots set-starship simple   # oneline
+dots set-starship default  # multiline
+```
+
+Backup a dotfiles directory:
+
+```bash
+# Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir
 dots backup
 ```
 
@@ -456,7 +470,18 @@ You can build and enter a container with the following commands.
 
 ```bash
 cd ~/.local/share/dotfiles-main
+```
 
+docker compose command:
+
+```bash
+docker compose up -d --build
+docker compose exec dotfiles zsh
+```
+
+or docker command:
+
+```bash
 docker build -t dotfiles-img .
 docker run -it -d --name dotfiles-con dotfiles-img
 docker exec -it dotfiles-con /bin/zsh
