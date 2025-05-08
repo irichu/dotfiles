@@ -1,5 +1,6 @@
 title: Dotfiles
 # remote_theme: mmistakes/minimal-mistakes
-# plugins:
+plugins:
+  - jekyll-sitemap
 #   - jekyll-include-cache
 # minimal_mistakes_skin: "dark"
