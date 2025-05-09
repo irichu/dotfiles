@@ -497,6 +497,9 @@ alias nr='npm run'
 alias nrd='npm run dev'
 alias nrt='npm run test'
 alias nrb='npm run build'
+alias na='npm audit'
+alias naf='npm audit fix'
+alias naff='npm audit fix --force'
 
 # neovim
 alias n='nvim'
@@ -574,6 +577,108 @@ alias dtca='dots clean all'
 alias dtdt='dots docker test'
 alias dtt='dots theme'
 alias dtst='dots set-theme'
+alias dtss='dots set-starship'
+#alias dtstar='dots starship'
+alias dtss1='dots set-starship simple'
+alias dtss2='dots set-starship default'
+
+# ufw
+alias ufw='sudo ufw'
+alias ufws='sudo ufw status'
+alias ufwsv='sudo ufw status verbose'
+alias ufwen='sudo ufw enable'
+alias ufwdis='sudo ufw disable'
+alias ufwdef='sudo ufw default'
+alias ufwdefal='sudo ufw default allow'
+alias ufwdefden='sudo ufw default deny' # whitelist(default)
+alias ufwal='sudo ufw allow'
+alias ufwden='sudo ufw deny'
+alias ufwdel='sudo ufw delete'
+alias ufwdelal='sudo ufw delete allow'
+alias ufwdelden='sudo ufw delete deny'
+alias ufwr='sudo ufw reload'
+alias ufwl='sudo ufw logging'
+alias ufwals='sudo ufw app list'
+alias ufwai='sudo ufw app info'
+alias ufwau='sudo ufw app update'
+alias ufwad='sudo ufw app default'
+
+# firewall-cmd
+alias fc='sudo firewall-cmd'
+alias fcr='sudo firewall-cmd --reload'
+
+# get
+alias fcgz='sudo firewall-cmd --get-zones'
+alias fcgaz='sudo firewall-cmd --get-active-zones'
+alias fcgzoi='sudo firewall-cmd --get-zone-of-interface'
+alias fcgdz='sudo firewall-cmd --get-default-zone'
+
+# list-all
+alias {fcl,fcla}='sudo firewall-cmd --list-all'
+alias {fclzp,fclazp}='sudo firewall-cmd --list-all --zone=public'
+alias {fclzt,fclazt}='sudo firewall-cmd --list-all --zone=trusted'
+
+# list
+alias fclz='sudo firewall-cmd --list-zones'
+alias fclzv='sudo firewall-cmd --list-zones --verbose'
+alias fclaz='sudo firewall-cmd --list-all-zones'
+alias fclzv='sudo firewall-cmd --list-all-zones --verbose'
+
+# port
+alias fclp='sudo firewall-cmd --list-ports'
+# add-port
+alias fca='sudo firewall-cmd --add-port'
+alias fcae='sudo firewall-cmd --add-port --permanent'
+# remove-port
+alias fcrp='sudo firewall-cmd --remove-port'
+alias fcrp='sudo firewall-cmd --remove-port --permanent'
+
+# service
+alias fcls='sudo firewall-cmd --list-services'
+# add-service
+alias fcac='sudo firewall-cmd --add-service'
+alias fcacp='sudo firewall-cmd --add-service --permanent'
+# remove-service
+alias fcrc='sudo firewall-cmd --remove-service'
+alias fcrcp='sudo firewall-cmd --remove-service --permanent'
+
+# rich-rule
+alias fclrr='sudo firewall-cmd --list-rich-rules'
+# add-rich-rule
+alias fcarr='sudo firewall-cmd --add-rich-rule'
+alias fcarrp='sudo firewall-cmd --add-rich-rule --permanent'
+# remove-rich-rule
+alias fcrrr='sudo firewall-cmd --remove-rich-rule'
+alias fcrrrp='sudo firewall-cmd --remove-rich-rule --permanent'
+
+# AppArmor
+alias aa='sudo aa-status' # apparmor_status
+alias aas='sudo apparmor_status'
+alias aac='sudo aa-complain'
+alias aaf='sudo aa-enforce'
+alias aap='sudo aa-parse'
+alias aapr='sudo aa-parse -r'
+alias aapR='sudo aa-parse -R'
+alias aae='sudo aa-enable'
+alias aad='sudo aa-disable'
+alias aadr='sudo aa-disable -r'
+alias aadR='sudo aa-disable -R'
+alias aag='sudo aa-genprof'
+alias aal='sudo aa-logprof'
+
+# SELinux
+# getenforce
+# setenforce 1
+# setenforce 0
+# sestatus
+# sestatus -v
+# semanage port -a -t http_port_t -p tcp 8080
+# semanage fcontext -a -t httpd_sys_rw_content_t /var/www/html
+# restorecon -Rv /var/www/html
+# chcon -R -t httpd_sys_rw_content_t /var/www/html
+# setsebool -P httpd_can_network_connect on
+# setsebool -P httpd_can_network_connect_db on
+# semanage fcontext -l | grep /var/www/html
 
 if [ -n $TERMUX_VERSION ]; then
   alias pki='pkg i'

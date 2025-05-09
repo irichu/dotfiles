@@ -179,3 +179,80 @@ function git_remote_latest_tag_by_url() {
 
   git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --sort='version:refname' --tags "$url" '*.*.*' | tail -n1 | cut -d/ -f3
 }
+
+# ufw
+function allow_from_ip_to_port() {
+  local ip="$1" # IP address or CIDR range
+  local port="$2"
+
+  if [[ -z "$ip" ]]; then
+    echo "Usage: allow_from_ip_to_port <ip> <port>"
+    return 1
+  fi
+
+  if [[ -z "$port" ]]; then
+    echo "Usage: allow_from_ip_to_port <ip> <port>"
+    return 1
+  fi
+
+  sudo ufw allow from "$ip" to any port "$port"
+}
+
+# pip-audit
+# https://pypi.org/project/pip-audit/
+pip_audit() {
+  local requirements_file="$1"
+
+  if [[ -z "$requirements_file" ]]; then
+    echo "Usage: pip_audit <requirements_file>"
+    return 1
+  fi
+
+  local pip_audit_venv_dir="$HOME/.local/share/.pip-audit"
+
+  # Create the virtual environment directory if it doesn't exist
+  if [[ ! -d "$pip_audit_venv_dir" ]]; then
+    python3 -m venv "$pip_audit_venv_dir"
+  fi
+
+  # Activate the virtual environment
+  source "$pip_audit_venv_dir"/bin/activate
+
+  # Upgrade pip
+  if [[ ! -f "$pip_audit_venv_dir"/bin/pip ]]; then
+    echo "pip installation failed."
+    return 1
+  fi
+  pip install --upgrade pip
+
+  # Install pip-audit if not already installed
+  if [[ ! -f "$pip_audit_venv_dir"/bin/pip-audit ]]; then
+    pip install pip-audit
+  else
+    pip install --upgrade pip-audit
+  fi
+
+  # Check if pip-audit is installed
+  if [[ ! -f "$pip_audit_venv_dir"/bin/pip-audit ]]; then
+    echo "pip-audit installation failed."
+    return 1
+  fi
+
+  # Check if the requirements file exists and is readable
+  if [[ ! -f "$requirements_file" ]]; then
+    echo "Requirements file '$requirements_file' not found."
+    return 1
+  fi
+
+  # Check if the requirements file is empty
+  if [[ ! -s "$requirements_file" ]]; then
+    echo "Requirements file '$requirements_file' is empty."
+    return 1
+  fi
+
+  # Run pip-audit
+  "$pip_audit_venv_dir"/bin/pip-audit -r "$requirements_file"
+
+  # Deactivate the virtual environment
+  deactivate
+}
