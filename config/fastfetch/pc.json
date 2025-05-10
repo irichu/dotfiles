@@ -1,0 +1,191 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  /*
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    //"packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    //"swap",
+    "disk",
+    //"localip",
+    "battery",
+    "poweradapter",
+    "locale",
+    "break",
+    "colors"
+  ],
+  */
+  "modules": [
+    "break",
+    /*
+     * OS
+     */
+    {
+      "type": "os",
+      "key": "OS   ",
+      "keyColor": "red"
+    },
+    {
+      "type": "kernel",
+      "key": " ├  ",
+      "keyColor": "red"
+    },
+    {
+      "type": "packages",
+      "key": " └ 󰏖 ",
+      "keyColor": "red"
+    },
+    "break",
+    /*
+     * Terminal Emulator
+     */
+    {
+      "type": "terminal",
+      "key": "TE   ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "terminalfont",
+      "key": " ├  ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "shell",
+      "key": " └  ",
+      "keyColor": "magenta"
+    },
+    "break",
+    /*
+     * Desktop Environment
+     */
+    {
+      "type": "de",
+      "key": "DE   ",
+      "keyColor": "green"
+    },
+    {
+      "type": "wm",
+      "key": " ├  ",
+      "keyColor": "green"
+    },
+    {
+      "type": "wmtheme",
+      "key": " ├ 󰓸 ",
+      "keyColor": "green"
+    },
+    {
+      "type": "icons",
+      "key": " ├ 󰀻 ",
+      "keyColor": "green"
+    },
+    {
+      "type": "cursor",
+      "key": " └ 󰆿 ",
+      "keyColor": "green"
+    },
+    "break",
+    /*
+     * PC
+     */
+    {
+      "type": "host",
+      "format": "{2}",
+      "key": "PC   ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "cpu",
+      "format": "{1} ({3}) @ {7} GHz",
+      "key": " ├  ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "gpu",
+      "format": "{1} {2} @ {12} GHz",
+      "key": " ├ 󰢮 ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "memory",
+      "key": " ├  ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "swap",
+      "key": " ├ 󰓡 ",
+      "keyColor": "yellow"
+    },
+    /*{
+        "type": "battery",
+        "key": " ├  ",
+        "keyColor": "yellow"
+    },
+    {
+        "type": "poweradapter",
+        "key": " ├  ",
+        "keyColor": "yellow"
+    },
+    {
+        "type": "localip",
+        "key": " ├ 󰩟 ",
+        "keyColor": "yellow"
+    },
+    {
+        "type": "locale",
+        "key": " ├  ",
+        "keyColor": "yellow"
+    },*/
+    {
+      "type": "disk",
+      "key": " ├  ", // 󰋊
+      "keyColor": "yellow",
+      "showReadOnly": false,
+      "showExternal": true,
+      "showSubvolumes": false
+    },
+    {
+      "type": "monitor",
+      "key": " └  ",
+      "keyColor": "yellow"
+    },
+    "break",
+    "colors"
+  ],
+  "display": {
+    "separator": " ➜  ", // Separator between keys and values
+    "key": {
+      "type": "string" // string, icon, both, or none
+    },
+    "bar": {
+      "width": 10, // Width of percentage bars
+      "charElapsed": "■", // Character for elapsed portion
+      "charTotal": "-" // Character for total portion
+    },
+    "percent": {
+      "type": 9 // 1=number, 2=bar, 3=both, 9=colored number
+      /*, "color": {
+        "green": "green",
+        "yellow": "light_yellow",
+        "red": "light_red"
+      }*/
+    }
+  }
+}
