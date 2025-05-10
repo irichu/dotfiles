@@ -846,6 +846,7 @@ install_apt_package() {
   apps=(
     bat
     eza
+    fastfetch
     ripgrep
   )
 
@@ -930,8 +931,7 @@ install_homebrew() {
     )
 
     for app in "${apps[@]}"; do
-      backup_dir "$CONFIG_HOME/$app"
-      ln -s "$SCRIPT_DIR/config/$app" "$CONFIG_HOME/"
+      set_config "$app"
     done
   fi
 
@@ -939,6 +939,7 @@ install_homebrew() {
   apps=(
     bat
     eza
+    fastfetch
     lazygit
     ripgrep
     starship
@@ -946,8 +947,7 @@ install_homebrew() {
   )
 
   for app in "${apps[@]}"; do
-    backup_dir "$CONFIG_HOME/$app"
-    ln -s "$SCRIPT_DIR/config/$app" "$CONFIG_HOME/"
+    set_config "$app"
   done
 
   starship preset nerd-font-symbols -o "$CONFIG_HOME"/starship/nerd.toml
@@ -1455,6 +1455,7 @@ apply_settings() {
     alacritty
     bat
     eza
+    fastfetch
     ghostty
     git
     lazygit
