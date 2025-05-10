@@ -211,7 +211,7 @@ pip_audit() {
   local pip_audit_venv_dir="$HOME/.local/share/.pip-audit"
 
   # Create the virtual environment directory if it doesn't exist
-  if [[ ! -d "$pip_audit_venv_dir" ]]; then
+  if [[ ! -f "$pip_audit_venv_dir"/bin/activate ]]; then
     python3 -m venv "$pip_audit_venv_dir"
   fi
 
