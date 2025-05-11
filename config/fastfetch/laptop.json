@@ -8,36 +8,74 @@
     {
       "type": "os",
       "key": "OS   ",
-      "keyColor": "green"
+      "keyColor": "red"
     },
     {
       "type": "kernel",
       "key": " ├  ",
-      "keyColor": "green"
+      "keyColor": "red"
     },
     {
       "type": "packages",
-      "key": " ├ 󰏖 ",
-      "keyColor": "green"
+      "key": " └ 󰏖 ",
+      "keyColor": "red"
     },
-    // {
-    //   "type": "locale",
-    //   "key": " ├  ",
-    //   "keyColor": "yellow"
-    // },
+    "break",
+    /*
+     * Terminal Emulator
+     */
+    {
+      "type": "terminal",
+      "key": "TE   ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "terminalfont",
+      "key": " ├  ",
+      "keyColor": "magenta"
+    },
     {
       "type": "shell",
       "key": " └  ",
+      "keyColor": "magenta"
+    },
+    "break",
+    /*
+     * Desktop Environment
+     */
+    {
+      "type": "de",
+      "key": "DE   ",
+      "keyColor": "green"
+    },
+    {
+      "type": "wm",
+      "key": " ├  ",
+      "keyColor": "green"
+    },
+    {
+      "type": "wmtheme",
+      "key": " ├ 󰓸 ",
+      "keyColor": "green"
+    },
+    {
+      "type": "icons",
+      "key": " ├ 󰀻 ",
+      "keyColor": "green"
+    },
+    {
+      "type": "cursor",
+      "key": " └ 󰆿 ",
       "keyColor": "green"
     },
     "break",
     /*
-     * Device
+     * PC
      */
     {
       "type": "host",
       "format": "{2}",
-      "key": "Device",
+      "key": "PC   ",
       "keyColor": "yellow"
     },
     {
@@ -62,23 +100,28 @@
       "key": " ├ 󰓡 ",
       "keyColor": "yellow"
     },
-    // {
-    //   "type": "battery",
-    //   "key": " ├  ",
-    //   "keyColor": "yellow"
-    // },
-    // {
-    //   "type": "poweradapter",
-    //   "key": " ├  ",
-    //   "keyColor": "yellow"
-    // },
+    {
+      "type": "battery",
+      "key": " ├  ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "poweradapter",
+      "key": " ├  ",
+      "keyColor": "yellow"
+    },
     {
       "type": "disk",
-      "key": " └  ", // 󰋊
+      "key": " ├  ", // 󰋊
       "keyColor": "yellow",
       "showReadOnly": false,
       "showExternal": true,
       "showSubvolumes": false
+    },
+    {
+      "type": "monitor",
+      "key": " └  ",
+      "keyColor": "yellow"
     },
     "break",
     "colors"
@@ -95,6 +138,11 @@
     },
     "percent": {
       "type": 9 // 1=number, 2=bar, 3=both, 9=colored number
+      /*, "color": {
+        "green": "green",
+        "yellow": "light_yellow",
+        "red": "light_red"
+      }*/
     }
   }
 }

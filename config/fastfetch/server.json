@@ -8,36 +8,45 @@
     {
       "type": "os",
       "key": "OS   ",
-      "keyColor": "green"
+      "keyColor": "red"
     },
     {
       "type": "kernel",
       "key": " ├  ",
-      "keyColor": "green"
+      "keyColor": "red"
     },
     {
       "type": "packages",
-      "key": " ├ 󰏖 ",
-      "keyColor": "green"
-    },
-    // {
-    //   "type": "locale",
-    //   "key": " ├  ",
-    //   "keyColor": "yellow"
-    // },
-    {
-      "type": "shell",
-      "key": " └  ",
-      "keyColor": "green"
+      "key": " └ 󰏖 ",
+      "keyColor": "red"
     },
     "break",
     /*
-     * Device
+     * Terminal Emulator
+     */
+    {
+      "type": "terminal",
+      "key": "TE   ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "terminalfont",
+      "key": " ├  ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "shell",
+      "key": " └  ",
+      "keyColor": "magenta"
+    },
+    "break",
+    /*
+     * PC
      */
     {
       "type": "host",
       "format": "{2}",
-      "key": "Device",
+      "key": "PC   ",
       "keyColor": "yellow"
     },
     {
@@ -62,16 +71,6 @@
       "key": " ├ 󰓡 ",
       "keyColor": "yellow"
     },
-    // {
-    //   "type": "battery",
-    //   "key": " ├  ",
-    //   "keyColor": "yellow"
-    // },
-    // {
-    //   "type": "poweradapter",
-    //   "key": " ├  ",
-    //   "keyColor": "yellow"
-    // },
     {
       "type": "disk",
       "key": " └  ", // 󰋊
