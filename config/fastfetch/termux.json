@@ -96,5 +96,16 @@
     "percent": {
       "type": 9 // 1=number, 2=bar, 3=both, 9=colored number
     }
-  }
+  },
+  "logo": {
+    //"source": "~/.config/fastfetch/logo.png",
+    "type": "small",
+    "position": "left",
+    "width": 20,
+    "padding": {
+      "top": 1,
+      "left": 1,
+      "right": 1,
+    },
+  },
 }

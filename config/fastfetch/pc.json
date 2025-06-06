@@ -187,5 +187,16 @@
         "red": "light_red"
       }*/
     }
-  }
+  },
+  "logo": {
+    //"source": "~/.config/fastfetch/logo.png",
+    "type": "auto",
+    "position": "left",
+    "width": 20,
+    "padding": {
+      "top": 1,
+      "left": 0,
+      "right": 2,
+    },
+  },
 }
