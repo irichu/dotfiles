@@ -146,6 +146,8 @@ _dots() {
       "set-lang[Set LANG environment value]" \
       "starship[Show current starship config]" \
       "set-starship[Set starship theme]" \
+      "opacity[Show current terminal opacity]" \
+      "set-opacity[Set terminal opacity (0.00 - 1.00)]" \
       "help[Print help information]" \
       "version[Print dots version information]"
     ;;

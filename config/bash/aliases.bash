@@ -581,6 +581,18 @@ alias dtss='dots set-starship'
 #alias dtstar='dots starship'
 alias dtss1='dots set-starship simple'
 alias dtss2='dots set-starship default'
+alias dtso='dots set-opacity'
+alias dtso0='dots set-opacity 0.0'
+alias dtso1='dots set-opacity 0.1'
+alias dtso2='dots set-opacity 0.2'
+alias dtso3='dots set-opacity 0.3'
+alias dtso4='dots set-opacity 0.4'
+alias dtso5='dots set-opacity 0.5'
+alias dtso6='dots set-opacity 0.6'
+alias dtso7='dots set-opacity 0.7'
+alias dtso8='dots set-opacity 0.8'
+alias dtso9='dots set-opacity 0.9'
+alias dtso10='dots set-opacity 1.0'
 
 # ufw
 alias ufw='sudo ufw'
@@ -680,7 +692,7 @@ alias aal='sudo aa-logprof'
 # setsebool -P httpd_can_network_connect_db on
 # semanage fcontext -l | grep /var/www/html
 
-if [ -n $TERMUX_VERSION ]; then
+if [ -n "$TERMUX_VERSION" ]; then
   alias pki='pkg i'
   alias pku='pkg up'
   alias pkr='pkg uninstall'

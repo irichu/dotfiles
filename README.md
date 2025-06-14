@@ -236,15 +236,26 @@ Show help and available commands:
 dots --help
 ```
 
-Get the current color theme:
+Get/Set the terminal window opacity:
+
+```bash
+# get current opacity
+dots opacity
+```
+
+```bash
+# set current opacity
+dots set-theme
+```
+
+Get/Set the current color theme:
 
 ```bash
 dots theme
 ```
 
-Set the color theme:
-
 ```bash
+# Set opacity
 dots set-theme <NUMBER|NAME>
 
 # Example
@@ -318,13 +329,11 @@ Available themes:
 
 ![Image](https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a)
 
-Get the starship theme:
+Get/Set the starship theme:
 
 ```bash
 dots starship
 ```
-
-Set the starship theme:
 
 ```bash
 dots set-starship simple   # oneline

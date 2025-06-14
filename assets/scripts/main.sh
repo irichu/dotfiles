@@ -1885,6 +1885,105 @@ set_starship() {
   exit 0
 }
 
+#--------------------------------------------------
+# Color.opacity
+#--------------------------------------------------
+
+get_opacity() {
+  # get alacritty config
+  ARACRITTY_CONFIG_FILE="$CONFIG_HOME/alacritty/window-opacity.toml"
+
+  # check if config file exists
+  if [[ ! -f "$ARACRITTY_CONFIG_FILE" ]]; then
+    error "Error: Config file '$ARACRITTY_CONFIG_FILE' not found." >&2
+    exit 1
+  fi
+
+  alacritty_opacity=$(grep -E '^\s*opacity\s*=' "$ARACRITTY_CONFIG_FILE" | sed -E 's/^\s*opacity\s*=\s*([0-9.]+)/\1/')
+  if [[ -z "$alacritty_opacity" ]]; then
+    error "Error: 'opacity' not found or has no value in '$ARACRITTY_CONFIG_FILE'." >&2
+    exit 1
+  fi
+
+  echo "$alacritty_opacity"
+
+  return 0
+}
+
+set_opacity() {
+  # info "Start: ${FUNCNAME[0]}"
+
+  # Parameter: new opacity value
+  local NEW_OPACITY="${1:-}"
+
+  # TTY config file paths
+  local ARACRITTY_CONFIG_FILE="$CONFIG_HOME/alacritty/window-opacity.toml"
+  local GHOSTTY_CONFIG_FILE="$CONFIG_HOME/ghostty/opacity.conf"
+
+  # Current opacity
+  local CURRENT_OPACITY
+  CURRENT_OPACITY=$(get_opacity)
+  info -ny -cb "Current opacity: "
+  info -cn "$CURRENT_OPACITY"
+  echo ""
+
+  # validate opacity value
+  if [[ "$NEW_OPACITY" =~ ^0(\.[0-0]*[0-9][0-9]*)?$|^1(\.0*)?$ ]]; then
+    success "Valid opacity: $NEW_OPACITY"
+  else
+    if [[ -n "$NEW_OPACITY" ]]; then
+      error "Error: Invalid opacity value '$NEW_OPACITY'. Must be between 0.0 and 1.0." >&2
+      exit 1
+    fi
+
+    # opacity の候補（0.00 ~ 1.00）
+    choices=$(
+      printf "opacity = %s\n" "$CURRENT_OPACITY"
+      seq 1.0 -0.05 0.00 | awk '{ printf "opacity = %.2f\n", $1 }'
+    )
+
+    # fzf で選択
+    selected_line=$(printf "%s\n" "$choices" | fzf \
+      --prompt="Select opacity: " \
+      --layout=reverse \
+      --border \
+      --height=40% \
+      --preview="echo '{} will be set as opacity';
+echo '[window]\n{}' > \"$ARACRITTY_CONFIG_FILE\";
+echo '# background\nbackground-{}' > \"$GHOSTTY_CONFIG_FILE\";" \
+      --preview-window=right:50%)
+
+    # 値だけ取り出す
+    NEW_OPACITY=$(echo "$selected_line" | awk -F'=' '{print $2}' | xargs)
+
+    # チェック
+    if [[ -z "$NEW_OPACITY" ]]; then
+      echo "❌ No opacity selected."
+      echo "[window]
+opacity = ${CURRENT_OPACITY:-0.60}" >"$ARACRITTY_CONFIG_FILE"
+      echo "# background
+background-opacity = ${CURRENT_OPACITY:-0.60}" >"$GHOSTTY_CONFIG_FILE"
+      exit 1
+    fi
+  fi
+
+  # OSごとの sed 書き換え（バックアップなし）
+  if [[ "$(uname)" == "Darwin" ]]; then
+    sed -i '' "s/^\s*opacity\s*=\s*[0-9.]\+/opacity = $NEW_OPACITY/" "$ARACRITTY_CONFIG_FILE"
+    sed -i '' "s/^\s*background-opacity\s*=\s*[0-9.]\+/background-opacity = $NEW_OPACITY/" "$GHOSTTY_CONFIG_FILE"
+  else
+    sed -i "s/^\s*opacity\s*=\s*[0-9.]\+/opacity = $NEW_OPACITY/" "$ARACRITTY_CONFIG_FILE"
+    sed -i "s/^\s*background-opacity\s*=\s*[0-9.]\+/background-opacity = $NEW_OPACITY/" "$GHOSTTY_CONFIG_FILE"
+  fi
+
+  success "✅ opacity set to $NEW_OPACITY in $ARACRITTY_CONFIG_FILE, $GHOSTTY_CONFIG_FILE"
+  info "Restart or reload (Ctrl + Shift + R) ghostty to apply the new opacity."
+
+  # info "End: ${FUNCNAME[0]}"
+
+  return 0
+}
+
 ###################################################
 # main
 ###################################################
@@ -2173,6 +2272,18 @@ starship)
   ;;
 set-starship)
   set_starship "${2:-}"
+  ;;
+opacity)
+  if [ -z "${2:-}" ]; then
+    get_opacity
+  else
+    set_opacity "${2:-}"
+  fi
+  exit 0
+  ;;
+set-opacity)
+  set_opacity "${2:-}"
+  exit 0
   ;;
 *)
   info -cw "No parameter found."

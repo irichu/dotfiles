@@ -236,7 +236,19 @@ exec -l $(which zsh)
 dots --help
 ```
 
-現在のカラーテーマを出力します:
+ターミナルウィンドウの背景透過度を取得/設定します
+
+```bash
+# get current opacity
+dots opacity
+```
+
+```bash
+# set current opacity
+dots set-theme
+```
+
+現在のカラーテーマを取得します:
 
 ```bash
 dots theme
