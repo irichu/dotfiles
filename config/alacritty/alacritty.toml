@@ -8,7 +8,7 @@
 [general]
 import = [
   "~/.config/alacritty/keybindings.toml",
-  "~/.config/alacritty/window.toml",
+  "~/.config/alacritty/window-opacity.toml",
 ]
 live_config_reload = true
 working_directory = "None"
@@ -50,6 +50,27 @@ foreground = "0xffffff"
 
 [env]
 TERM = "xterm-256color"
+
+#--------------------------------------------------
+# window
+#--------------------------------------------------
+
+[window]
+decorations = "Full" #"None"
+# decorations = "None"
+dynamic_padding = false
+dynamic_title = true
+#opacity = 0.80
+option_as_alt = "both"
+startup_mode = "Windowed"
+
+[window.dimensions]
+columns = 200
+lines = 60
+
+[window.padding]
+x = 4
+y = 4
 
 #--------------------------------------------------
 # font
