@@ -1,5 +1,8 @@
+# import
+config-file = ~/.config/ghostty/opacity.conf
+
 # Background
-background-opacity = 0.95
+# background-opacity = 0.60
 background-blur-radius = 20
 
 # Cursor
