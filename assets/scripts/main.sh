@@ -283,6 +283,18 @@ echo_each_command_usage() {
   info -cc 'dots update'
 
   info ''
+  info -ny -cg 'Get starship theme: '
+  info -cc 'dots starship'
+  info -ny -cg 'Set starship theme: '
+  info -cc 'dots set-starship {default|simple}'
+
+  info ''
+  info -ny -cg 'Get opacity: '
+  info -cc 'dots opacity'
+  info -ny -cg 'Set opacity: '
+  info -cc 'dots set-opacity [0.0-1.0]'
+
+  info ''
   info -ny -cg 'Get theme: '
   info -cc 'dots theme'
   info -ny -cg 'Set theme: '
