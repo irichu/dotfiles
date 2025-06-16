@@ -245,7 +245,7 @@ dots opacity
 
 ```bash
 # set current opacity
-dots set-theme
+dots set-opacity
 ```
 
 現在のカラーテーマを取得します:

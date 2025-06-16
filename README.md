@@ -245,7 +245,7 @@ dots opacity
 
 ```bash
 # set current opacity
-dots set-theme
+dots set-opacity
 ```
 
 Get/Set the current color theme:
