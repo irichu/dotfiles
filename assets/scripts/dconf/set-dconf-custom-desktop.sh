@@ -1,8 +1,15 @@
 #!/bin/bash
 
 # Interface
+dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
 dconf write /org/gnome/desktop/interface/icon-theme "'Yaru-purple'"
 dconf write /org/gnome/desktop/interface/gtk-theme "'Yaru-purple-dark'"
+# dconf write /org/gnome/desktop/interface/font-name "'Ubuntu Sans 10.5'"
+# dconf write /org/gnome/desktop/interface/monospace-font-name "'Ubuntu Sans Mono 12'"
+# dconf write /org/gnome/desktop/interface/font-name "'HackGen35 Console NF 11'"
+# dconf write /org/gnome/desktop/interface/monospace-font-name "'HackGen Console NF 11'"
+dconf write /org/gnome/desktop/interface/font-name "'Noto Sans CJK JP 10.5'"
+dconf write /org/gnome/desktop/interface/monospace-font-name "'Noto Sans CJK JP 12'"
 
 # Workspace
 dconf write /org/gnome/mutter/dynamic-workspaces false
@@ -11,6 +18,9 @@ dconf write /org/gnome/desktop/wm/preferences/num-workspaces 6
 # Background
 [ -f /usr/share/backgrounds/Mirror_by_Uday_Nakade.jpg ] &&
   dconf write /org/gnome/desktop/background/picture-uri-dark "'file:///usr/share/backgrounds/Mirror_by_Uday_Nakade.jpg'"
+
+[ -f /usr/share/backgrounds/Northan_lights_by_mizuno.webp ] &&
+  dconf write /org/gnome/desktop/background/picture-uri-dark "'file:///usr/share/backgrounds/Northan_lights_by_mizuno.webp'"
 
 # Dock
 dconf write /org/gnome/shell/extensions/dash-to-dock/dock-fixed true

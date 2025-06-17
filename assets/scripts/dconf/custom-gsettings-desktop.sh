@@ -1,8 +1,11 @@
 #!/bin/bash
 
 # Interface
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Yaru-purple'
 gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-purple-dark'
+gsettings set org.gnome.desktop.interface font-name 'Ubuntu Sans 11'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Ubuntu Sans Mono 13'
 
 # Background
 [ -f /usr/share/backgrounds/Mirror_by_Uday_Nakade.jpg ] &&
