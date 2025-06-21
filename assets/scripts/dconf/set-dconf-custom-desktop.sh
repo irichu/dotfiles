@@ -4,12 +4,21 @@
 dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
 dconf write /org/gnome/desktop/interface/icon-theme "'Yaru-purple'"
 dconf write /org/gnome/desktop/interface/gtk-theme "'Yaru-purple-dark'"
+
+# Font
+# 22.04 LTS
+# dconf write /org/gnome/desktop/interface/font-name "'Ubuntu 11'"
+# dconf write /org/gnome/desktop/interface/monospace-font-name "'Ubuntu Mono 12'"
+
+# 24.04 LTS
 # dconf write /org/gnome/desktop/interface/font-name "'Ubuntu Sans 10.5'"
 # dconf write /org/gnome/desktop/interface/monospace-font-name "'Ubuntu Sans Mono 12'"
+# dconf write /org/gnome/desktop/interface/font-name "'Noto Sans CJK JP 10'"
+# dconf write /org/gnome/desktop/interface/monospace-font-name "'Noto Sans Mono CJK JP 12'"
+
+# Custom
 # dconf write /org/gnome/desktop/interface/font-name "'HackGen35 Console NF 11'"
-# dconf write /org/gnome/desktop/interface/monospace-font-name "'HackGen Console NF 11'"
-dconf write /org/gnome/desktop/interface/font-name "'Noto Sans CJK JP 10.5'"
-dconf write /org/gnome/desktop/interface/monospace-font-name "'Noto Sans CJK JP 12'"
+# dconf write /org/gnome/desktop/interface/monospace-font-name "'HackGen35 Console NF 11'"
 
 # Workspace
 dconf write /org/gnome/mutter/dynamic-workspaces false

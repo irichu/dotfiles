@@ -1,5 +1,10 @@
 #!/bin/bash
 
+sudo apt install -y gnome-shell-extension-manager pipx
+#
+# gir1.2-gtop-2.0 for Tophat
+# sudo apt install -y gir1.2-gtop-2.0
+
 # Install gnome extensions
 EXT_IDS=(
   AlphabeticalAppGrid@stuarthayhurst
@@ -15,14 +20,28 @@ EXT_IDS=(
 
 # Install gnome-extensions-cli
 if [ ! -f "$HOME/.local/bin/gext" ]; then
-  pip install gnome-extensions-cli
+  pipx install gnome-extensions-cli --system-site-packages
 fi
 
-# Install and enable extensions
+# Install extensions
 for ext in "${EXT_IDS[@]}"; do
   "$HOME/.local/bin/"gext install "$ext"
-  gnome-extensions enable "$ext"
+
+  SCHEMA_PATH="$HOME/.local/share/gnome-shell/extensions/$ext/schemas"
+  if [ -d "$SCHEMA_PATH" ]; then
+    glib-compile-schemas "$SCHEMA_PATH"
+  fi
 done
 
 # Ubuntu Dock
 gnome-extensions enable ubuntu-dock@ubuntu.com
+
+# Enable extensions
+for ext in "${EXT_IDS[@]}"; do
+  EXTENSION_DIR="$HOME/.local/share/gnome-shell/extensions/$ext"
+  if [ ! -d "$EXTENSION_DIR" ]; then
+    echo "Extension $ext not found in $EXTENSION_DIR"
+    continue
+  fi
+  gnome-extensions enable "$ext"
+done
