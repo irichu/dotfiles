@@ -2,8 +2,11 @@ alacritty --classic
 bottom
 dog
 dust
+gimp
 go --classic
 ghostty --classic
 nvim --classic
 rustup --classic
+thunderbird
 zellij --classic
+zoom-client
