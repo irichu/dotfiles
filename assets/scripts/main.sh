@@ -1000,7 +1000,7 @@ install_snap_package() {
   #rustup update stable
 
   # cargo install
-  /snap/bin/cargo install --locked typst-cli
+  #/snap/bin/cargo install --locked typst-cli
   #/snap/bin/cargo install --locked yazi-fm yazi-cli
 
   apps=(
