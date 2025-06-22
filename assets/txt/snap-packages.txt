@@ -1,5 +1,7 @@
 alacritty --classic
 bottom
+code --classic
+code-insiders --classic
 dog
 dust
 gimp
