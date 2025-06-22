@@ -5,7 +5,8 @@ _dots_install() {
     "--apt[Install using apt]" \
     "--brew[Install Homebrew and packages]" \
     "--pkg[Install using pkg on Termux]" \
-    "--snap[Install using snap on Ubuntu Desktop]"
+    "--snap[Install using snap on Ubuntu]"
+    "--ubuntu-desktop[Install Ubuntu Desktop apps and setup GNOME Desktop]"
 
   _values "package" \
     "apt-packages[Apt packages]" \
@@ -27,6 +28,7 @@ _dots_install() {
 
 _dots_setup() {
   _values "setup subcommand" \
+    "desktop[Setup gnome-desktop]" \
     "git[Setup git]" \
     "tmux[Setup tmux]" \
     "zellij[Setup zellij]" \

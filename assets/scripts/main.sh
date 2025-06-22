@@ -1020,6 +1020,21 @@ install_snap_package() {
 }
 
 #--------------------------------------------------
+# gnome-desktop
+#--------------------------------------------------
+
+setup_desktop() {
+  info "Start: ${FUNCNAME[0]}"
+
+  "$SCRIPT_DIR"/config/Code/User/apply.sh
+
+  "$SCRIPT_DIR"/assets/scripts/dconf/set-gnome-desktop.sh
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
 # rustdesk
 #--------------------------------------------------
 
@@ -2088,6 +2103,27 @@ i | install)
     setup_termux
     remove_zcompdump
     ;;
+  --ubuntu-desktop)
+    info "Start installation with apt and snap"
+    check_command apt
+    check_command snap
+
+    info "Start installation with apt and snap"
+    install_apt_package
+    install_snap_package
+    setup_zsh
+    install_fnm
+    install_lazyvim
+    install_or_update_starship
+    install_fzf_via_git
+    setup_tmux
+    install_hackgen
+    setup_git
+    remove_zcompdump
+    setup_desktop
+    echo_completion_message
+    info "End installation with apt and snap"
+    ;;
   #--------------------------------------------------
   # individual installation
   #--------------------------------------------------
@@ -2160,6 +2196,9 @@ setup)
   fi
 
   case "$2" in
+  desktop)
+    setup_desktop
+    ;;
   git)
     setup_git
     ;;
