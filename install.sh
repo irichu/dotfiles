@@ -344,7 +344,7 @@ if [ -f "./assets/scripts/main.sh" ]; then
 
   # copy to .local/share/dotfiles
   mkdir -p "$DATA_DIR"
-  \cp -rf ./* "$DATA_DIR"/
+  \cp -a ./* "$DATA_DIR"/
 else
   # for termux
   if [ -d /data/data/com.termux/files/usr/bin ]; then

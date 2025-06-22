@@ -5,7 +5,7 @@ _dots_install() {
     "--apt[Install using apt]" \
     "--brew[Install Homebrew and packages]" \
     "--pkg[Install using pkg on Termux]" \
-    "--snap[Install using snap on Ubuntu]"
+    "--snap[Install using snap on Ubuntu]" \
     "--ubuntu-desktop[Install Ubuntu Desktop apps and setup GNOME Desktop]"
 
   _values "package" \
