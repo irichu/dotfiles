@@ -22,7 +22,12 @@
 # dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command "'gnome-calculator'"
 # dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name "'Launch Calculator'"
 
-keybindings_file="shortcuts.ini"
+SCRIPT_DIR=$(
+  cd "$(dirname "${BASH_SOURCE:-$0}")"
+  pwd
+)
+
+keybindings_file="$SCRIPT_DIR/shortcuts.ini"
 
 # Parse the INI file and apply the keybindings
 custom_keybindings=()
