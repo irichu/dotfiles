@@ -31,4 +31,9 @@ gsettings set org.gnome.shell.extensions.dash-to-dock show-trash true
 # gsettings get org.gnome.mutter dynamic-workspaces
 # gsettings get org.gnome.desktop.wm.preferences num-workspaces
 
+# Favorite apps
 gsettings set org.gnome.shell favorite-apps ['google-chrome.desktop', 'firefox_firefox.desktop', 'thunderbird_thunderbird.desktop', 'org.gnome.Nautilus.desktop', 'gimp_gimp.desktop', 'code.desktop', 'alacritty_alacritty.desktop', 'zoom-client_zoom-client.desktop', 'gnome-control-center.desktop']
+
+# Mouse
+gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
+gsettings set org.gnome.desktop.peripherals.mouse speed 1.0

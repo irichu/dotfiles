@@ -40,7 +40,7 @@ gsettings set org.gnome.shell.extensions.ncom.github.hermes83.compiz-alike-magic
 
 gsettings set org.gnome.shell.extensions.com.github.hermes83.compiz-windows-effect friction 7.5
 gsettings set org.gnome.shell.extensions.com.github.hermes83.compiz-windows-effect spring-k 7.5
-gsettings set org.gnome.shell.extensions.com.github.hermes83.compiz-windows-effect speedup-factor-divider 12.5
+gsettings set org.gnome.shell.extensions.com.github.hermes83.compiz-windows-effect speedup-factor-divider 6.0
 gsettings set org.gnome.shell.extensions.com.github.hermes83.compiz-windows-effect mass 70.0
 
 gsettings set org.gnome.shell.extensions.com.github.hermes83.compiz-windows-effect x-tiles 5.0

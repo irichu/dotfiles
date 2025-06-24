@@ -55,3 +55,7 @@ dconf write /org/gnome/shell/favorite-apps "@as [\
   'zoom-client_zoom-client.desktop',\
   'gnome-control-center.desktop'\
 ]"
+
+# Mouse
+# dconf write /org/gnome/desktop/peripherals/mouse/natural-scroll false
+dconf write /org/gnome/desktop/peripherals/mouse/speed 1.0

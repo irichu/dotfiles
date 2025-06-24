@@ -40,7 +40,7 @@ dconf write /org/gnome/shell/extensions/ncom/github/hermes83/compiz-alike-magic-
 
 dconf write /org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect/friction 7.5
 dconf write /org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect/spring-k 7.5
-dconf write /org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect/speedup-factor-divider 12.5
+dconf write /org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect/speedup-factor-divider 6.0
 dconf write /org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect/mass 70.0
 
 dconf write /org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect/x-tiles 5.0
