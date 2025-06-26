@@ -79,7 +79,12 @@
 ## 🎉 ようこそ
 
 わたしの Dotfiles へようこそ．数多くのプロジェクトの中から見つけてくれてありがとうございます！<br>
-この[リポジトリ](https://github.com/irichu/dotfiles)を利用することで，直感的なターミナル環境を簡単に構築できます．高速に起動・動作する Go言語 と Rust 製のコマンドラインツールを中心に構成しています．何か一つでも新しい知識や考え方との出会いになれば幸甚です．
+この[リポジトリ](https://github.com/irichu/dotfiles)を利用することで，直感的なデスクトップとターミナル環境を簡単に構築できます．高速に起動・動作する Go言語 と Rust 製のコマンドラインツールを中心に構成しています．何か一つでも新しい知識や考え方との出会いになれば幸甚です．
+
+<img
+  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_ubuntu_desktop.png"
+  width="800"
+  alt="irichu dotfiles ubuntu desktop">
 
 <img
   src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_main_screenshot.png"
@@ -148,7 +153,8 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 
 > [!IMPORTANT]
 >・Linux(Ubuntu/Fedora/Arch Linux)またはmacOSでは `--brew` による自動構築が可能です<br>
->・Ubuntuでは `--apt` または `--snap` で高速なインストールが可能です<br>
+>・Ubuntuデスクトップでは `--ubuntu-desktop` で自動セットアップが可能です<br>
+>・Ubuntuターミナルでは `--apt` または `--snap` で高速なインストールが可能です<br>
 >・Termuxでは `--pkg` によるセットアップが可能です
 >
 
@@ -161,6 +167,12 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
 `dots install [--apt|--brew|--snap|--pkg]`<br>
 具体的には `[--apt|--brew|--snap|--pkg]` の部分を置き換えて実行します
+
+Ubuntu デスクトップで自動セットアップする場合は以下を実行します:
+
+```bash
+dots install --ubuntu-desktop
+```
 
 LinuxまたはmacOS環境にて，brewでセットアップする場合は以下を実行します
 

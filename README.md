@@ -78,25 +78,29 @@ English / [Japanese(日本語)]
 
 ## 🎉 Welcome
 
-Welcome to my dotfiles. [This GitHub repository](https://github.com/irichu/dotfiles) helps easily set up a fast and intuitive terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
+Welcome to my dotfiles. [This GitHub repository](https://github.com/irichu/dotfiles) helps easily set up a fast and intuitive desktop and terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_main_screenshot.png"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_ubuntu_desktop.png"
   width="800"
-  alt="irichu dotfiles main screenshot">
-
-This dotfiles repository is also available on GitHub Pages.
-
-- <a href="https://github.com/irichu/dotfiles" rel="me">View on GitHub</a>
-
-- <a href="https://irichu.github.io/dotfiles/">View on GitHub Pages</a>
-
-### Linux
+  alt="irichu dotfiles ubuntu desktop">
 
 <img
   src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
   width="800"
   alt="ubuntu screenshot">
+
+This dotfiles repository is also available on GitHub Pages.
+
+- <a href="https://github.com/irichu/dotfiles" rel="me">View on GitHub</a>
+- <a href="https://irichu.github.io/dotfiles/">View on GitHub Pages</a>
+
+### Linux
+
+<img
+  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_main_screenshot.png"
+  width="800"
+  alt="irichu dotfiles main screenshot">
 
 ### Android Termux
 
@@ -148,6 +152,7 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 > [!IMPORTANT]
 > On Linux (Ubuntu/Fedora/Arch Linux) or macOS, automatic setup is available using `--brew`.<br>
 > On Ubuntu, fast installation is possible with `--apt` or `--snap`.<br>
+> On Ubuntu Desktop, automatic setup is possible `--ubuntu-desktop`.<br>
 > On Termux, setup can be done using `--pkg`.
 >
 
@@ -161,6 +166,12 @@ Install all components using your preferred package manager:
 Replace `[--apt|--brew|--snap|--pkg]` with your package manager of choice.
 
 **Examples:**
+
+- To install on Ubuntu Desktop (New):
+
+```bash
+dots install --ubuntu-desktop
+```
 
 - To use brew on Linux or macOS:
 
