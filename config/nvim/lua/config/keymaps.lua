@@ -27,10 +27,29 @@ map("v", "<C-Left>", "B")
 map("i", "<C-Left>", "<S-Left>")
 
 -- Jump paragraph
-map("n", "<C-Up>", "{")
+-- map("n", "<C-Up>", "{")
+-- map("n", "<C-Down>", "}")
 map("v", "<C-Up>", "{")
-map("n", "<C-Down>", "}")
 map("v", "<C-Down>", "}")
+
+map("n", "<C-Up>", function()
+  vim.cmd("normal! {")
+  while vim.fn.getline(".") == "" and vim.fn.line(".") < vim.fn.line("$") do
+    vim.cmd("normal! k")
+  end
+  vim.cmd("normal! ^")
+end, { noremap = true, silent = true })
+
+map("n", "<C-Down>", function()
+  vim.cmd("normal! }")
+  while vim.fn.getline(".") == "" and vim.fn.line(".") < vim.fn.line("$") do
+    vim.cmd("normal! j")
+  end
+  vim.cmd("normal! ^")
+end, { noremap = true, silent = true })
+
+-- Esc quickly
+map("i", "jj", "<Esc>", { noremap = true, silent = true })
 
 -- Make some Ctrl keys in insert mode Emacs-like
 map("i", "<C-a>", "<C-o>^")
@@ -46,29 +65,27 @@ map("i", "<M-b>", "<S-Left>")
 map("i", "<M-f>", "<S-Right>")
 map("i", "<C-u>", "<C-o>^<C-o>d$", { noremap = true, silent = true })
 map("i", "<C-y>", "<C-o>p", { noremap = true, silent = true })
-map('i', '<C-w>', function()
-  return vim.fn.col('.') > 1 and
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-\\><C-o>db', true, false, true), 'n', true) or ''
+map("i", "<C-w>", function()
+  return vim.fn.col(".") > 1
+      and vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-o>db", true, false, true), "n", true)
+    or ""
 end, { expr = true })
 
-map('i', '<M-w>', function()
-  local col = vim.fn.col('.')
-  if col == 1 then return '' end
+map("i", "<M-w>", function()
+  local col = vim.fn.col(".")
+  if col == 1 then
+    return ""
+  end
 
-  local line = vim.fn.getline('.')
+  local line = vim.fn.getline(".")
   local before_cursor = line:sub(1, col - 1)
 
-  local last_boundary = before_cursor:find('%s[^%s]+%s*$') or 0
+  local last_boundary = before_cursor:find("%s[^%s]+%s*$") or 0
   local delete_length = col - last_boundary - 1
 
   return vim.api.nvim_feedkeys(
-    vim.api.nvim_replace_termcodes(
-      '<C-\\><C-o>' .. delete_length .. 'X',
-      true,
-      false,
-      true
-    ),
-    'n',
+    vim.api.nvim_replace_termcodes("<C-\\><C-o>" .. delete_length .. "X", true, false, true),
+    "n",
     true
   )
 end, { expr = true })
