@@ -86,9 +86,9 @@ Welcome to my dotfiles. [This GitHub repository](https://github.com/irichu/dotfi
   alt="irichu dotfiles ubuntu desktop">
 
 <img
-  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_main_screenshot.png"
   width="800"
-  alt="ubuntu screenshot">
+  alt="irichu dotfiles main screenshot">
 
 This dotfiles repository is also available on GitHub Pages.
 
@@ -98,9 +98,9 @@ This dotfiles repository is also available on GitHub Pages.
 ### Linux
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_main_screenshot.png"
+  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
   width="800"
-  alt="irichu dotfiles main screenshot">
+  alt="ubuntu screenshot">
 
 ### Android Termux
 
