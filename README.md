@@ -81,12 +81,12 @@ English / [Japanese(日本語)]
 Welcome to my dotfiles. [This GitHub repository](https://github.com/irichu/dotfiles) helps easily set up a fast and intuitive desktop and terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_ubuntu_desktop.png"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop.png"
   width="800"
   alt="irichu dotfiles ubuntu desktop">
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu_dotfiles_main_screenshot.png"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
   width="800"
   alt="irichu dotfiles main screenshot">
 
