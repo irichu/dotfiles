@@ -34,7 +34,8 @@ jobs:
         run: |
           mkdir -p assets/images
           curl -L -o assets/images/irichu_dotfiles_main_screenshot.png https://github.com/irichu/dotfiles/releases/download/v0.4.0/ss001-v0.4.0.png
-          curl -L -o assets/images/irichu_dotfiles_ubuntu_desktop.png https://github.com/irichu/dotfiles/releases/download/v0.5.0/ubuntu_desktop2.png
+      - name: download ubuntu desktop image
+        run: curl -L -o assets/images/irichu_dotfiles_ubuntu_desktop.png https://github.com/irichu/dotfiles/releases/download/v0.5.0/ubuntu_desktop2.png
       - name: Copy _includes to ./
         run: cp -r .github/pages/_includes ./
       - name: Copy favicon.ico to ./
