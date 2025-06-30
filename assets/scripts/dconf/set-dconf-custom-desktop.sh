@@ -20,6 +20,9 @@ dconf write /org/gnome/desktop/interface/gtk-theme "'Yaru-purple-dark'"
 # dconf write /org/gnome/desktop/interface/font-name "'HackGen35 Console NF 11'"
 # dconf write /org/gnome/desktop/interface/monospace-font-name "'HackGen35 Console NF 11'"
 
+# Window
+dconf write /org/gnome/desktop/wm/preferences/button-layout "'appmenu:minimize,maximize,close'"
+
 # Workspace
 dconf write /org/gnome/mutter/dynamic-workspaces false
 dconf write /org/gnome/desktop/wm/preferences/num-workspaces 6
@@ -59,3 +62,8 @@ dconf write /org/gnome/shell/favorite-apps "@as [\
 # Mouse
 # dconf write /org/gnome/desktop/peripherals/mouse/natural-scroll false
 dconf write /org/gnome/desktop/peripherals/mouse/speed 1.0
+
+# Files
+dconf write /org/gtk/Settings/FileChooser/sort-directories-first true
+dconf write /org/gtk/Settings/FileChooser/sort-order 'ascending'
+dconf write /org/gtk/Settings/FileChooser/show-hidden true

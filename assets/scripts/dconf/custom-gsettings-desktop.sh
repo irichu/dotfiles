@@ -11,6 +11,12 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'Ubuntu Sans Mono 
 [ -f /usr/share/backgrounds/Mirror_by_Uday_Nakade.jpg ] &&
   gsettings set org.gnome.desktop.background picture-uri-dark 'file:///usr/share/backgrounds/Mirror_by_Uday_Nakade.jpg'
 
+[ -f /usr/share/backgrounds/Northan_lights_by_mizuno.webp ] &&
+  gsettings set org.gnome.desktop.background picture-uri-dark 'file:///usr/share/backgrounds/Northan_lights_by_mizuno.webp'
+
+# Window
+gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+
 # Workspace
 gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 6
@@ -37,3 +43,8 @@ gsettings set org.gnome.shell favorite-apps ['google-chrome.desktop', 'firefox_f
 # Mouse
 gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
 gsettings set org.gnome.desktop.peripherals.mouse speed 1.0
+
+# Files
+gsettings set org.gtk.Settings.FileChooser sort-directories-first true
+gsettings set org.gtk.Settings.FileChooser sort-order 'ascending'
+gsettings set org.gtk.Settings.FileChooser show-hidden true
