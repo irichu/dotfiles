@@ -65,5 +65,5 @@ dconf write /org/gnome/desktop/peripherals/mouse/speed 1.0
 
 # Files
 dconf write /org/gtk/Settings/FileChooser/sort-directories-first true
-dconf write /org/gtk/Settings/FileChooser/sort-order 'ascending'
+dconf write /org/gtk/Settings/FileChooser/sort-order "'ascending'"
 dconf write /org/gtk/Settings/FileChooser/show-hidden true
