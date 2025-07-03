@@ -224,11 +224,11 @@ exec -l $(which zsh)
 
 - Desktop
   - **Gnome Extensions**: [Blur my Shell], [Just Perfection], [Space Bar], [Tactile], etc.
-  - **Editor**: [VSCode] (Shortcut: Ctrl+Super+Alt+V)
+  - **Editor**: [VSCode] (Shortcut: Ctrl+Super+Alt+V), preconfigured with ~50 awesome extensions
   - **Remote Desktop**: [RustDesk] for simple and secure remote access
   - **Clipboard Manager**: [CopyQ] (Shortcut: Ctrl+Shift+V)
   - **Screenshot Tool**: [Flameshot] (Shortcut: Ctrl+Super+Alt+F)
-  - **Image Editor**: [GIMP] for advanced image manipulation
+<!--- **Image Editor**: [GIMP] for advanced image manipulation-->
 - Terminal
   - **Shell**: Zsh with the [starship] prompt
   - **Editor**: [Neovim] configured via [LazyVim]
@@ -264,19 +264,19 @@ dots set-theme "developer-mono"  # Set by name
 
 **1. developer**
 
-![Image](https://github.com/user-attachments/assets/b11d0239-654c-4bb8-8b00-053052bf6551)
+<img src="https://github.com/user-attachments/assets/b11d0239-654c-4bb8-8b00-053052bf6551" alt="tmux status image">
 
 **2. developer-textcolored**
 
-![Image](https://github.com/user-attachments/assets/eb263ac8-43a4-40b6-9416-d062500ce4db)
+<img src="https://github.com/user-attachments/assets/eb263ac8-43a4-40b6-9416-d062500ce4db" alt="tmux status image">
 
 **3. developer-colorful**
 
-![Image](https://github.com/user-attachments/assets/bdf15c2c-fa79-482e-acc4-d5cff417ea26)
+<img src="https://github.com/user-attachments/assets/bdf15c2c-fa79-482e-acc4-d5cff417ea26" alt="tmux status image">
 
 **4. developer-mono**
 
-![Image](https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6)
+<img src="https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6" alt="tmux status image">
 
 </details>
 
@@ -285,19 +285,19 @@ dots set-theme "developer-mono"  # Set by name
 
 **5. dark-turquoise**
 
-![Image](https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c)
+<img src="https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c" alt="tmux status image">
 
 **6. dark-turquoise-textcolored**
 
-![Image](https://github.com/user-attachments/assets/56cccb66-fb8f-4ca3-872b-16ec20abc619)
+<img src="https://github.com/user-attachments/assets/56cccb66-fb8f-4ca3-872b-16ec20abc619" alt="tmux status image">
 
 **7. dark-turquoise-colorful**
 
-![Image](https://github.com/user-attachments/assets/bb5f85de-c149-4ad1-a912-ce62c1b62580)
+<img src="https://github.com/user-attachments/assets/bb5f85de-c149-4ad1-a912-ce62c1b62580" alt="tmux status image">
 
 **8. dark-turquoise-mono**
 
-![Image](https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28)
+<img src="https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28" alt="tmux status image">
 
 </details>
 
@@ -306,19 +306,19 @@ dots set-theme "developer-mono"  # Set by name
 
 **9. dark-orange**
 
-![Image](https://github.com/user-attachments/assets/e7a84520-94e6-44c9-ab0e-8c1358123e58)
+<img src="https://github.com/user-attachments/assets/e7a84520-94e6-44c9-ab0e-8c1358123e58" alt="tmux status image">
 
 **10. dark-orange-textcolored**
 
-![Image](https://github.com/user-attachments/assets/f9d520d0-8740-4538-ae4e-7e88d77aa10d)
+<img src="https://github.com/user-attachments/assets/f9d520d0-8740-4538-ae4e-7e88d77aa10d" alt="tmux status image">
 
 **11. dark-orange-colorful**
 
-![Image](https://github.com/user-attachments/assets/5aebc5e0-bef7-451b-9cd0-0f22be945a76)
+<img src="https://github.com/user-attachments/assets/5aebc5e0-bef7-451b-9cd0-0f22be945a76" alt="tmux status image">
 
 **12. dark-orange-mono**
 
-![Image](https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1)
+<img src="https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1" alt="tmux status image">
 
 </details>
 
@@ -327,19 +327,19 @@ dots set-theme "developer-mono"  # Set by name
 
 **13. dark-skyblue**
 
-![Image](https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac)
+<img src="https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac" alt="tmux status image">
 
 **14. dark-skyblue-textcolored**
 
-![Image](https://github.com/user-attachments/assets/406430fe-ba61-4790-9b8a-0ea752d0fe4b)
+<img src="https://github.com/user-attachments/assets/406430fe-ba61-4790-9b8a-0ea752d0fe4b" alt="tmux status image">
 
 **15. dark-skyblue-colorful**
 
-![Image](https://github.com/user-attachments/assets/5a3dfb75-9f9d-4324-ac70-fcb988e7c313)
+<img src="https://github.com/user-attachments/assets/5a3dfb75-9f9d-4324-ac70-fcb988e7c313" alt="tmux status image">
 
 **16. dark-skyblue-mono**
 
-![Image](https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a)
+<img src="https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a" alt="tmux status image">
 
 </details>
 <br>
@@ -438,11 +438,11 @@ dots --version
 dots --help
 ```
 
+</details>
+
 |                                                     Help image                                                     |
 | :----------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/2be34e8d-4dfa-4c3e-9a85-6d3c9cfd6053" width="800" alt="help"> |
-
-</details>
 
 ### 🖥️ Install individual package
 
@@ -798,7 +798,6 @@ This project is licensed under the [MIT License].
 [RustDesk]: https://rustdesk.com/
 [CopyQ]: https://hluk.github.io/CopyQ/
 [Flameshot]: https://flameshot.org/
-[GIMP]: https://www.gimp.org
 [starship]: https://starship.rs/
 [Neovim]: https://github.com/neovim/neovim
 [LazyVim]: https://www.lazyvim.org/
