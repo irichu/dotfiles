@@ -86,42 +86,20 @@ Welcome to my dotfiles. [This GitHub repository](https://github.com/irichu/dotfi
   alt="irichu dotfiles ubuntu desktop">
 
 <img
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-tv.png"
+  width="800"
+  alt="irichu dotfiles ubuntu desktop vscode">
+
+<img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
   width="800"
   alt="irichu dotfiles main screenshot">
 
+<!--
 This dotfiles repository is also available on GitHub Pages.
-
 - <a href="https://github.com/irichu/dotfiles" rel="me">View on GitHub</a>
 - <a href="https://irichu.github.io/dotfiles/">View on GitHub Pages</a>
-
-### Linux
-
-<img
-  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
-  width="800"
-  alt="ubuntu screenshot">
-
-### Android Termux
-
-<img
-  src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a"
-  width="320"
-  alt="Android smartphone screenshot">
-
-<!--<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">-->
-
-<img
-  src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327"
-  width="800"
-  alt="Android tablet screenshot">
-
-### WSL2
-
-<img
-  src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800"
-  width="800"
-  alt="wsl_zsh_nvim_startuptime">
+-->
 
 ## 🚀 Installation
 
@@ -255,26 +233,30 @@ dots opacity
 ```
 
 ```bash
-# set current opacity
+# set opacity
 dots set-opacity
 ```
 
 Get/Set the current color theme:
 
 ```bash
+# get theme
 dots theme
 ```
 
 ```bash
-# Set opacity
+# set theme
 dots set-theme <NUMBER|NAME>
 
-# Example
+# example
 dots set-theme 4                 # Set by number
 dots set-theme "developer-mono"  # Set by name
 ```
 
 Available themes:
+
+<details open="">
+<summary><b>Developer (purple base)</b></summary>
 
 **1. developer**
 
@@ -292,6 +274,11 @@ Available themes:
 
 ![Image](https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6)
 
+</details>
+
+<details>
+<summary><b>Turquoise</b></summary>
+
 **5. dark-turquoise**
 
 ![Image](https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c)
@@ -307,6 +294,11 @@ Available themes:
 **8. dark-turquoise-mono**
 
 ![Image](https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28)
+
+</details>
+
+<details>
+<summary><b>Orange</b></summary>
 
 **9. dark-orange**
 
@@ -324,6 +316,11 @@ Available themes:
 
 ![Image](https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1)
 
+</details>
+
+<details>
+<summary><b>Skyblue</b></summary>
+
 **13. dark-skyblue**
 
 ![Image](https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac)
@@ -340,25 +337,34 @@ Available themes:
 
 ![Image](https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a)
 
+</details>
+<br>
+
 Get/Set the starship theme:
 
 ```bash
+# get current starship theme
 dots starship
 ```
 
 ```bash
+# set starship theme
 dots set-starship simple   # oneline
 dots set-starship default  # multiline
 ```
 
-Backup a dotfiles directory:
+<details>
+<summary><b>Backup a dotfiles directory</b></summary>
 
 ```bash
 # Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir
 dots backup
 ```
 
-Clean up directories:
+</details>
+
+<details>
+<summary><b>Clean up directories</b></summary>
 
 ```bash
 # remove dotfiles cache
@@ -374,17 +380,25 @@ dots clean config
 dots clean all
 ```
 
-Show install target package list:
+</details>
+
+<details>
+<summary><b>Show install target package list</b></summary>
 
 ```bash
 dots list [--apt|--brew|--snap|--pkg]
 ```
 
-Install individual package:
+</details>
+
+<details>
+<summary><b>Install individual package</b></summary>
 
 ```bash
 dots install <package_name>
 ```
+
+</details>
 
 |                                                     Help image                                                     |
 | :----------------------------------------------------------------------------------------------------------------: |
@@ -520,6 +534,38 @@ dots install --brew
 ```
 
 ## 🖼️ Gallery
+
+<!--
+### Linux
+
+<img
+  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
+  width="800"
+  alt="ubuntu screenshot">
+-->
+
+### Android Termux
+
+<img
+  src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a"
+  width="320"
+  alt="Android smartphone screenshot">
+
+<!--<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">-->
+
+<img
+  src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327"
+  width="800"
+  alt="Android tablet screenshot">
+
+### WSL2
+
+<img
+  src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800"
+  width="800"
+  alt="wsl_zsh_nvim_startuptime">
+
+</details>
 
 ### Neovim
 
