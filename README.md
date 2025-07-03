@@ -130,6 +130,7 @@ Use the following `curl`, `wget`, or `git` command:
 
 <pre>
 <code class="language-bash">git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh</code>
+</pre>
 
 </details>
 
@@ -240,19 +241,19 @@ exec -l $(which zsh)
 <details open="">
 <summary><b>Get/Set the current color theme</b></summary>
 
-```bash
-# get theme
-dots theme
-```
+<pre>
+<code class="language-bash"># get theme
+dots theme</code>
+</pre>
 
-```bash
-# set theme
+<pre>
+<code class="language-bash"># set theme
 dots set-theme <NUMBER|NAME>
 
 # example
 dots set-theme 4                 # Set by number
-dots set-theme "developer-mono"  # Set by name
-```
+dots set-theme "developer-mono"  # Set by name</code>
+</pre>
 
 </details>
 
@@ -261,19 +262,19 @@ dots set-theme "developer-mono"  # Set by name
 <details open="">
 <summary>Developer (purple base)</summary>
 
-**1. developer**
+1. developer
 
 <img src="https://github.com/user-attachments/assets/b11d0239-654c-4bb8-8b00-053052bf6551" alt="tmux status image">
 
-**2. developer-textcolored**
+2. developer-textcolored
 
 <img src="https://github.com/user-attachments/assets/eb263ac8-43a4-40b6-9416-d062500ce4db" alt="tmux status image">
 
-**3. developer-colorful**
+3. developer-colorful
 
 <img src="https://github.com/user-attachments/assets/bdf15c2c-fa79-482e-acc4-d5cff417ea26" alt="tmux status image">
 
-**4. developer-mono**
+4. developer-mono
 
 <img src="https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6" alt="tmux status image">
 
@@ -282,19 +283,19 @@ dots set-theme "developer-mono"  # Set by name
 <details>
 <summary>Turquoise</summary>
 
-**5. dark-turquoise**
+5. dark-turquoise
 
 <img src="https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c" alt="tmux status image">
 
-**6. dark-turquoise-textcolored**
+6. dark-turquoise-textcolored
 
 <img src="https://github.com/user-attachments/assets/56cccb66-fb8f-4ca3-872b-16ec20abc619" alt="tmux status image">
 
-**7. dark-turquoise-colorful**
+7. dark-turquoise-colorful
 
 <img src="https://github.com/user-attachments/assets/bb5f85de-c149-4ad1-a912-ce62c1b62580" alt="tmux status image">
 
-**8. dark-turquoise-mono**
+8. dark-turquoise-mono
 
 <img src="https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28" alt="tmux status image">
 
@@ -303,19 +304,19 @@ dots set-theme "developer-mono"  # Set by name
 <details>
 <summary>Orange</summary>
 
-**9. dark-orange**
+9. dark-orange
 
 <img src="https://github.com/user-attachments/assets/e7a84520-94e6-44c9-ab0e-8c1358123e58" alt="tmux status image">
 
-**10. dark-orange-textcolored**
+10. dark-orange-textcolored
 
 <img src="https://github.com/user-attachments/assets/f9d520d0-8740-4538-ae4e-7e88d77aa10d" alt="tmux status image">
 
-**11. dark-orange-colorful**
+11. dark-orange-colorful
 
 <img src="https://github.com/user-attachments/assets/5aebc5e0-bef7-451b-9cd0-0f22be945a76" alt="tmux status image">
 
-**12. dark-orange-mono**
+12. dark-orange-mono
 
 <img src="https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1" alt="tmux status image">
 
@@ -324,19 +325,19 @@ dots set-theme "developer-mono"  # Set by name
 <details>
 <summary>Skyblue</summary>
 
-**13. dark-skyblue**
+13. dark-skyblue
 
 <img src="https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac" alt="tmux status image">
 
-**14. dark-skyblue-textcolored**
+14. dark-skyblue-textcolored
 
 <img src="https://github.com/user-attachments/assets/406430fe-ba61-4790-9b8a-0ea752d0fe4b" alt="tmux status image">
 
-**15. dark-skyblue-colorful**
+15. dark-skyblue-colorful
 
 <img src="https://github.com/user-attachments/assets/5a3dfb75-9f9d-4324-ac70-fcb988e7c313" alt="tmux status image">
 
-**16. dark-skyblue-mono**
+16. dark-skyblue-mono
 
 <img src="https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a" alt="tmux status image">
 
@@ -346,49 +347,49 @@ dots set-theme "developer-mono"  # Set by name
 <details>
 <summary><b>Get/Set the starship theme</b></summary>
 
-```bash
-# get current starship theme
-dots starship
-```
+<pre>
+<code class="language-bash"># get current starship theme
+dots starship</code>
+</pre>
 
-```bash
-# set starship theme
+<pre>
+<code class="language-bash"># set starship theme
 dots set-starship simple   # oneline
-dots set-starship default  # multiline
-```
+dots set-starship default  # multiline</code>
+</pre>
 
 </details>
 
 <details>
 <summary><b>Get/Set the terminal window opacity</b></summary>
 
-```bash
-# get current opacity
-dots opacity
-```
+<pre>
+<code class="language-bash"># get current opacity
+dots opacity</code>
+</pre>
 
-```bash
-# set opacity
-dots set-opacity
-```
+<pre>
+<code class="language-bash"># set opacity
+dots set-opacity</code>
+</pre>
 
 </details>
 
 <details>
 <summary><b>Backup a dotfiles directory</b></summary>
 
-```bash
-# Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir
-dots backup
-```
+<pre>
+<code class="language-bash"># Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir
+dots backup</code>
+</pre>
 
 </details>
 
 <details>
 <summary><b>Clean up directories</b></summary>
 
-```bash
-# remove dotfiles cache
+<pre>
+<code class="language-bash"># remove dotfiles cache
 dots clean
 
 # remove cache + dotfiles backup directories
@@ -398,44 +399,44 @@ dots clean backup
 dots clean config
 
 # remove cache + backup + config
-dots clean all
-```
+dots clean all</code>
+</pre>
 
 </details>
 
 <details>
 <summary><b>Show install target package list</b></summary>
 
-```bash
-dots list [--apt|--brew|--snap|--pkg]
-```
+<pre>
+<code class="language-bash">dots list [--apt|--brew|--snap|--pkg]</code>
+</pre>
 
 </details>
 
 <details>
 <summary><b>Install individual package</b></summary>
 
-```bash
-dots install <package_name>
-```
+<pre>
+<code class="language-bash">dots install {package_name}</code>
+</pre>
 
 </details>
 
 <details>
 <summary><b>Print dotfiles version</b></summary>
 
-```bash
-dots --version
-```
+<pre>
+<code class="language-bash">dots --version</code>
+</pre>
 
 </details>
 
 <details>
 <summary><b>Show help and available commands</b></summary>
 
-```bash
-dots --help
-```
+<pre>
+<code class="language-bash">dots --help</code>
+</pre>
 
 </details>
 
