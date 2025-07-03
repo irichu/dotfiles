@@ -265,18 +265,22 @@ dots set-theme "developer-mono"  # Set by name</code>
 1. developer
 
 <img src="https://github.com/user-attachments/assets/b11d0239-654c-4bb8-8b00-053052bf6551" alt="tmux status image">
+<br>
 
 2. developer-textcolored
 
 <img src="https://github.com/user-attachments/assets/eb263ac8-43a4-40b6-9416-d062500ce4db" alt="tmux status image">
+<br>
 
 3. developer-colorful
 
 <img src="https://github.com/user-attachments/assets/bdf15c2c-fa79-482e-acc4-d5cff417ea26" alt="tmux status image">
+<br>
 
 4. developer-mono
 
 <img src="https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6" alt="tmux status image">
+<br>
 
 </details>
 
@@ -286,18 +290,22 @@ dots set-theme "developer-mono"  # Set by name</code>
 5. dark-turquoise
 
 <img src="https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c" alt="tmux status image">
+<br>
 
 6. dark-turquoise-textcolored
 
 <img src="https://github.com/user-attachments/assets/56cccb66-fb8f-4ca3-872b-16ec20abc619" alt="tmux status image">
+<br>
 
 7. dark-turquoise-colorful
 
 <img src="https://github.com/user-attachments/assets/bb5f85de-c149-4ad1-a912-ce62c1b62580" alt="tmux status image">
+<br>
 
 8. dark-turquoise-mono
 
 <img src="https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28" alt="tmux status image">
+<br>
 
 </details>
 
@@ -307,18 +315,22 @@ dots set-theme "developer-mono"  # Set by name</code>
 9. dark-orange
 
 <img src="https://github.com/user-attachments/assets/e7a84520-94e6-44c9-ab0e-8c1358123e58" alt="tmux status image">
+<br>
 
 10. dark-orange-textcolored
 
 <img src="https://github.com/user-attachments/assets/f9d520d0-8740-4538-ae4e-7e88d77aa10d" alt="tmux status image">
+<br>
 
 11. dark-orange-colorful
 
 <img src="https://github.com/user-attachments/assets/5aebc5e0-bef7-451b-9cd0-0f22be945a76" alt="tmux status image">
+<br>
 
 12. dark-orange-mono
 
 <img src="https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1" alt="tmux status image">
+<br>
 
 </details>
 
@@ -328,18 +340,22 @@ dots set-theme "developer-mono"  # Set by name</code>
 13. dark-skyblue
 
 <img src="https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac" alt="tmux status image">
+<br>
 
 14. dark-skyblue-textcolored
 
 <img src="https://github.com/user-attachments/assets/406430fe-ba61-4790-9b8a-0ea752d0fe4b" alt="tmux status image">
+<br>
 
 15. dark-skyblue-colorful
 
 <img src="https://github.com/user-attachments/assets/5a3dfb75-9f9d-4324-ac70-fcb988e7c313" alt="tmux status image">
+<br>
 
 16. dark-skyblue-mono
 
 <img src="https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a" alt="tmux status image">
+<br>
 
 </details>
 <br>
@@ -604,8 +620,6 @@ dots install --brew
   src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800"
   width="800"
   alt="wsl_zsh_nvim_startuptime">
-
-</details>
 
 ### Neovim
 
