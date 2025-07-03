@@ -4,12 +4,19 @@
 # init
 ###################################################
 
-set -ue
+readonly DEBUG=${DEBUG:-false}
+
+if [ "$DEBUG" = true ]; then
+  echo 'DEBUG mode started.'
+  set -ue
+else
+  set +ue
+fi
+
 set -o pipefail
 
 export LC_ALL=C
 
-readonly DEBUG=true
 readonly ARCH="$(uname -m)"
 #readonly GITHUB_ACTIONS=1
 
