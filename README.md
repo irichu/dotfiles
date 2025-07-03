@@ -110,33 +110,26 @@ Use the following `curl`, `wget`, or `git` command:
 <details open="">
 <summary><b>curl</b></summary>
 
-<br>
-
-```bash
-curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
-```
+<pre>
+<code class="language-bash">curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash</code>
+</pre>
 
 </details>
 
 <details open="">
 <summary><b>wget</b></summary>
 
-<br>
-
-```bash
-wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
-```
+<pre>
+<code class="language-bash">wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash</code>
+</pre>
 
 </details>
 
 <details>
 <summary><b>git (>=2.35.0 recommended)</b></summary>
 
-<br>
-
-```bash
-git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
-```
+<pre>
+<code class="language-bash">git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh</code>
 
 </details>
 
