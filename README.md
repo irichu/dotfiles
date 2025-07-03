@@ -78,7 +78,7 @@ English / [Japanese(日本語)]
 
 ## 🎉 Welcome
 
-Welcome to my dotfiles. [This GitHub repository](https://github.com/irichu/dotfiles) helps easily set up a fast and intuitive desktop and terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
+Welcome to my dotfiles. [This GitHub repository] helps easily set up a fast and intuitive desktop and terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
 <img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop.png"
@@ -107,23 +107,32 @@ This dotfiles repository is also available on GitHub Pages.
 
 Use the following `curl`, `wget`, or `git` command:
 
-- curl
+<details open="">
+<summary><b>curl</b></summary>
 
 ```bash
 curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
-- wget
+</details>
+
+<details open="">
+<summary><b>wget</b></summary>
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
-- git (>=2.35.0 recommended)
+</details>
+
+<details>
+<summary><b>git (>=2.35.0 recommended)</b></summary>
 
 ```bash
 git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh
 ```
+
+</details>
 
 **2. Bulk installation**
 
@@ -141,7 +150,9 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 
 Install all components using your preferred package manager:
 `dots install [--apt|--brew|--snap|--pkg]`
+<!--
 Replace `[--apt|--brew|--snap|--pkg]` with your package manager of choice.
+-->
 
 **Examples:**
 
@@ -211,33 +222,24 @@ exec -l $(which zsh)
 
 ## ✨ Features
 
-- **Shell**: Zsh with the [starship] prompt
-- **Editor**: [Neovim] configured via [LazyVim]
-- **Terminal Multiplexers**: [tmux] for session management, [zellij] for workspace management
-- **TUI File Managers**: [broot] for efficient navigation, [yazi] for rapid file access
-- **Terminal Emulator**: [Alacritty] for performance, [Termux] for Android environments
+- Desktop
+  - **Gnome Extensions**: [Blur my Shell], [Just Perfection], [Space Bar], [Tactile], etc.
+  - **Editor**: [VSCode] (Shortcut: Ctrl+Super+Alt+V)
+  - **Remote Desktop**: [RustDesk] for simple and secure remote access
+  - **Clipboard Manager**: [CopyQ] (Shortcut: Ctrl+Shift+V)
+  - **Screenshot Tool**: [Flameshot] (Shortcut: Ctrl+Super+Alt+F)
+  - **Image Editor**: [GIMP] for advanced image manipulation
+- Terminal
+  - **Shell**: Zsh with the [starship] prompt
+  - **Editor**: [Neovim] configured via [LazyVim]
+  - **Terminal Multiplexers**: [tmux] for session management, [zellij] for workspace management
+  - **TUI File Managers**: [broot] for efficient navigation, [yazi] for rapid file access
+  - **Terminal Emulator**: [Alacritty] for performance, [Termux] for Android environments
 
 ## 📗 Basic commands
 
-Show help and available commands:
-
-```bash
-dots --help
-```
-
-Get/Set the terminal window opacity:
-
-```bash
-# get current opacity
-dots opacity
-```
-
-```bash
-# set opacity
-dots set-opacity
-```
-
-Get/Set the current color theme:
+<details open="">
+<summary><b>Get/Set the current color theme</b></summary>
 
 ```bash
 # get theme
@@ -253,10 +255,12 @@ dots set-theme 4                 # Set by number
 dots set-theme "developer-mono"  # Set by name
 ```
 
-Available themes:
+</details>
+
+  Available themes:
 
 <details open="">
-<summary><b>Developer (purple base)</b></summary>
+<summary>Developer (purple base)</summary>
 
 **1. developer**
 
@@ -277,7 +281,7 @@ Available themes:
 </details>
 
 <details>
-<summary><b>Turquoise</b></summary>
+<summary>Turquoise</summary>
 
 **5. dark-turquoise**
 
@@ -298,7 +302,7 @@ Available themes:
 </details>
 
 <details>
-<summary><b>Orange</b></summary>
+<summary>Orange</summary>
 
 **9. dark-orange**
 
@@ -319,7 +323,7 @@ Available themes:
 </details>
 
 <details>
-<summary><b>Skyblue</b></summary>
+<summary>Skyblue</summary>
 
 **13. dark-skyblue**
 
@@ -340,7 +344,8 @@ Available themes:
 </details>
 <br>
 
-Get/Set the starship theme:
+<details>
+<summary><b>Get/Set the starship theme</b></summary>
 
 ```bash
 # get current starship theme
@@ -352,6 +357,23 @@ dots starship
 dots set-starship simple   # oneline
 dots set-starship default  # multiline
 ```
+
+</details>
+
+<details>
+<summary><b>Get/Set the terminal window opacity</b></summary>
+
+```bash
+# get current opacity
+dots opacity
+```
+
+```bash
+# set opacity
+dots set-opacity
+```
+
+</details>
 
 <details>
 <summary><b>Backup a dotfiles directory</b></summary>
@@ -400,9 +422,27 @@ dots install <package_name>
 
 </details>
 
+<details>
+<summary><b>Print dotfiles version</b></summary>
+
+```bash
+dots --version
+```
+
+</details>
+
+<details>
+<summary><b>Show help and available commands</b></summary>
+
+```bash
+dots --help
+```
+
 |                                                     Help image                                                     |
 | :----------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/2be34e8d-4dfa-4c3e-9a85-6d3c9cfd6053" width="800" alt="help"> |
+
+</details>
 
 ### 🖥️ Install individual package
 
@@ -748,7 +788,17 @@ This project is licensed under the [MIT License].
 
 <!-- Reference-style links -->
 [Japanese(日本語)]: docs/README-ja.md
+[This GitHub repository]: https://github.com/irichu/dotfiles
 [F-Droid]: https://f-droid.org/
+[Blur my Shell]: https://extensions.gnome.org/extension/3193/blur-my-shell/
+[Just Perfection]: https://extensions.gnome.org/extension/3843/just-perfection/
+[Space Bar]: https://extensions.gnome.org/extension/5090/space-bar/
+[Tactile]: https://extensions.gnome.org/extension/4548/tactile/
+[VSCode]: https://code.visualstudio.com/
+[RustDesk]: https://rustdesk.com/
+[CopyQ]: https://hluk.github.io/CopyQ/
+[Flameshot]: https://flameshot.org/
+[GIMP]: https://www.gimp.org
 [starship]: https://starship.rs/
 [Neovim]: https://github.com/neovim/neovim
 [LazyVim]: https://www.lazyvim.org/
