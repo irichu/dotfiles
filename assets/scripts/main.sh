@@ -1037,6 +1037,8 @@ setup_desktop() {
 
   "$SCRIPT_DIR"/assets/scripts/dconf/set-gnome-desktop.sh
 
+  set_config gtk-3.0
+
   info "End: ${FUNCNAME[0]}"
   return 0
 }
