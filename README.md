@@ -108,7 +108,7 @@ This dotfiles repository is also available on GitHub Pages.
 Use the following `curl`, `wget`, or `git` command:
 
 <details open="">
-<summary><b>curl</b></summary>
+<summary>curl</summary>
 
 <pre>
 <code class="language-bash">curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash</code>
@@ -117,7 +117,7 @@ Use the following `curl`, `wget`, or `git` command:
 </details>
 
 <details open="">
-<summary><b>wget</b></summary>
+<summary>wget</summary>
 
 <pre>
 <code class="language-bash">wget -qO- https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash</code>
@@ -126,13 +126,14 @@ Use the following `curl`, `wget`, or `git` command:
 </details>
 
 <details>
-<summary><b>git (>=2.35.0 recommended)</b></summary>
+<summary>git (>=2.35.0 recommended)</summary>
 
 <pre>
 <code class="language-bash">git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh</code>
 </pre>
 
 </details>
+<br>
 
 **2. Bulk installation**
 
@@ -225,9 +226,9 @@ exec -l $(which zsh)
 - Desktop
   - **Gnome Extensions**: [Blur my Shell], [Just Perfection], [Space Bar], [Tactile], etc.
   - **Editor**: [VSCode] (Shortcut: Ctrl+Super+Alt+V), preconfigured with ~50 awesome extensions
-  - **Remote Desktop**: [RustDesk] for simple and secure remote access
   - **Clipboard Manager**: [CopyQ] (Shortcut: Ctrl+Shift+V)
   - **Screenshot Tool**: [Flameshot] (Shortcut: Ctrl+Super+Alt+F)
+  - **Remote Desktop**: [RustDesk] for simple and secure remote access
 <!--- **Image Editor**: [GIMP] for advanced image manipulation-->
 - Terminal
   - **Shell**: Zsh with the [starship] prompt
@@ -236,10 +237,45 @@ exec -l $(which zsh)
   - **TUI File Managers**: [broot] for efficient navigation, [yazi] for rapid file access
   - **Terminal Emulator**: [Alacritty] for performance, [Termux] for Android environments
 
+## 🐳 Docker
+
+You can build and enter a container with the following commands.
+
+```bash
+cd ~/.local/share/dotfiles-main
+```
+
+docker compose command:
+
+```bash
+docker compose up -d --build
+docker compose exec dotfiles zsh
+```
+
+or docker command:
+
+```bash
+docker build -t dotfiles-img .
+docker run -it -d --name dotfiles-con dotfiles-img
+docker exec -it dotfiles-con /bin/zsh
+```
+
+In container, install apt packages
+
+```bash
+dots install --apt
+```
+
+or install Homebrew with following command.
+
+```bash
+dots install --brew
+```
+
 ## 📗 Basic commands
 
 <details open="">
-<summary><b>Get/Set the current color theme</b></summary>
+<summary>Get/Set the current color theme</summary>
 
 <pre>
 <code class="language-bash"># get theme
@@ -248,120 +284,120 @@ dots theme</code>
 
 <pre>
 <code class="language-bash"># set theme
-dots set-theme <NUMBER|NAME>
+dots set-theme
 
 # example
 dots set-theme 4                 # Set by number
 dots set-theme "developer-mono"  # Set by name</code>
 </pre>
 
-</details>
-
   Available themes:
 
-<details open="">
-<summary>Developer (purple base)</summary>
+  <details open="">
+  <summary>Developer (purple base)</summary>
 
-1. developer
+  1. developer
 
-<img src="https://github.com/user-attachments/assets/b11d0239-654c-4bb8-8b00-053052bf6551" alt="tmux status image">
-<br>
+  <img src="https://github.com/user-attachments/assets/b11d0239-654c-4bb8-8b00-053052bf6551" alt="tmux status image" style="padding-left:30px;">
+  <br>
 
-2. developer-textcolored
+  2. developer-textcolored
 
-<img src="https://github.com/user-attachments/assets/eb263ac8-43a4-40b6-9416-d062500ce4db" alt="tmux status image">
-<br>
+  <img src="https://github.com/user-attachments/assets/eb263ac8-43a4-40b6-9416-d062500ce4db" alt="tmux status image" style="padding-left:30px;">
+  <br>
 
-3. developer-colorful
+  3. developer-colorful
 
-<img src="https://github.com/user-attachments/assets/bdf15c2c-fa79-482e-acc4-d5cff417ea26" alt="tmux status image">
-<br>
+  <img src="https://github.com/user-attachments/assets/bdf15c2c-fa79-482e-acc4-d5cff417ea26" alt="tmux status image" style="padding-left:30px;">
+  <br>
 
-4. developer-mono
+  4. developer-mono
 
-<img src="https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6" alt="tmux status image">
-<br>
+  <img src="https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  </details>
+
+  <details>
+  <summary>Turquoise</summary>
+
+  5. dark-turquoise
+
+  <img src="https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  6. dark-turquoise-textcolored
+
+  <img src="https://github.com/user-attachments/assets/56cccb66-fb8f-4ca3-872b-16ec20abc619" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  7. dark-turquoise-colorful
+
+  <img src="https://github.com/user-attachments/assets/bb5f85de-c149-4ad1-a912-ce62c1b62580" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  8. dark-turquoise-mono
+
+  <img src="https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  </details>
+
+  <details>
+  <summary>Orange</summary>
+
+  9. dark-orange
+
+  <img src="https://github.com/user-attachments/assets/e7a84520-94e6-44c9-ab0e-8c1358123e58" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  10. dark-orange-textcolored
+
+  <img src="https://github.com/user-attachments/assets/f9d520d0-8740-4538-ae4e-7e88d77aa10d" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  11. dark-orange-colorful
+
+  <img src="https://github.com/user-attachments/assets/5aebc5e0-bef7-451b-9cd0-0f22be945a76" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  12. dark-orange-mono
+
+  <img src="https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  </details>
+
+  <details>
+  <summary>Skyblue</summary>
+
+  13. dark-skyblue
+
+  <img src="https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  14. dark-skyblue-textcolored
+
+  <img src="https://github.com/user-attachments/assets/406430fe-ba61-4790-9b8a-0ea752d0fe4b" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  15. dark-skyblue-colorful
+
+  <img src="https://github.com/user-attachments/assets/5a3dfb75-9f9d-4324-ac70-fcb988e7c313" alt="tmux status image" style="padding-left:30px;">
+  <br>
+
+  16. dark-skyblue-mono
+
+  <img src="https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a" alt="tmux status image" style="padding-left:30px;">
+
+  </details>
 
 </details>
 
-<details>
-<summary>Turquoise</summary>
-
-5. dark-turquoise
-
-<img src="https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c" alt="tmux status image">
-<br>
-
-6. dark-turquoise-textcolored
-
-<img src="https://github.com/user-attachments/assets/56cccb66-fb8f-4ca3-872b-16ec20abc619" alt="tmux status image">
-<br>
-
-7. dark-turquoise-colorful
-
-<img src="https://github.com/user-attachments/assets/bb5f85de-c149-4ad1-a912-ce62c1b62580" alt="tmux status image">
-<br>
-
-8. dark-turquoise-mono
-
-<img src="https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28" alt="tmux status image">
-<br>
-
-</details>
-
-<details>
-<summary>Orange</summary>
-
-9. dark-orange
-
-<img src="https://github.com/user-attachments/assets/e7a84520-94e6-44c9-ab0e-8c1358123e58" alt="tmux status image">
-<br>
-
-10. dark-orange-textcolored
-
-<img src="https://github.com/user-attachments/assets/f9d520d0-8740-4538-ae4e-7e88d77aa10d" alt="tmux status image">
-<br>
-
-11. dark-orange-colorful
-
-<img src="https://github.com/user-attachments/assets/5aebc5e0-bef7-451b-9cd0-0f22be945a76" alt="tmux status image">
-<br>
-
-12. dark-orange-mono
-
-<img src="https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1" alt="tmux status image">
-<br>
-
-</details>
-
-<details>
-<summary>Skyblue</summary>
-
-13. dark-skyblue
-
-<img src="https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac" alt="tmux status image">
-<br>
-
-14. dark-skyblue-textcolored
-
-<img src="https://github.com/user-attachments/assets/406430fe-ba61-4790-9b8a-0ea752d0fe4b" alt="tmux status image">
-<br>
-
-15. dark-skyblue-colorful
-
-<img src="https://github.com/user-attachments/assets/5a3dfb75-9f9d-4324-ac70-fcb988e7c313" alt="tmux status image">
-<br>
-
-16. dark-skyblue-mono
-
-<img src="https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a" alt="tmux status image">
-<br>
-
-</details>
 <br>
 
 <details>
-<summary><b>Get/Set the starship theme</b></summary>
+<summary>Get/Set the starship theme</summary>
 
 <pre>
 <code class="language-bash"># get current starship theme
@@ -377,7 +413,7 @@ dots set-starship default  # multiline</code>
 </details>
 
 <details>
-<summary><b>Get/Set the terminal window opacity</b></summary>
+<summary>Get/Set the terminal window opacity</summary>
 
 <pre>
 <code class="language-bash"># get current opacity
@@ -392,7 +428,7 @@ dots set-opacity</code>
 </details>
 
 <details>
-<summary><b>Backup a dotfiles directory</b></summary>
+<summary>Backup a dotfiles directory</summary>
 
 <pre>
 <code class="language-bash"># Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir
@@ -402,7 +438,7 @@ dots backup</code>
 </details>
 
 <details>
-<summary><b>Clean up directories</b></summary>
+<summary>Clean up directories</summary>
 
 <pre>
 <code class="language-bash"># remove dotfiles cache
@@ -421,7 +457,7 @@ dots clean all</code>
 </details>
 
 <details>
-<summary><b>Show install target package list</b></summary>
+<summary>Show install target package list</summary>
 
 <pre>
 <code class="language-bash">dots list [--apt|--brew|--snap|--pkg]</code>
@@ -430,7 +466,7 @@ dots clean all</code>
 </details>
 
 <details>
-<summary><b>Install individual package</b></summary>
+<summary>Install individual package</summary>
 
 <pre>
 <code class="language-bash">dots install {package_name}</code>
@@ -439,7 +475,7 @@ dots clean all</code>
 </details>
 
 <details>
-<summary><b>Print dotfiles version</b></summary>
+<summary>Print dotfiles version</summary>
 
 <pre>
 <code class="language-bash">dots --version</code>
@@ -448,7 +484,7 @@ dots clean all</code>
 </details>
 
 <details>
-<summary><b>Show help and available commands</b></summary>
+<summary>Show help and available commands</summary>
 
 <pre>
 <code class="language-bash">dots --help</code>
@@ -459,6 +495,68 @@ dots clean all</code>
 |                                                     Help image                                                     |
 | :----------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/2be34e8d-4dfa-4c3e-9a85-6d3c9cfd6053" width="800" alt="help"> |
+
+## 🖼️ Gallery
+
+<!--
+### Linux
+
+<img
+  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
+  width="800"
+  alt="ubuntu screenshot">
+-->
+
+### Android Termux
+
+<img
+  src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a"
+  width="320"
+  alt="Android smartphone screenshot">
+
+<!--<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">-->
+
+<img
+  src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327"
+  width="800"
+  alt="Android tablet screenshot">
+
+### WSL2
+
+<img
+  src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800"
+  width="800"
+  alt="wsl_zsh_nvim_startuptime">
+
+### Neovim
+
+|                                          LazyVim tokyonight.nvim style=night                                          |
+| :-------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/53567c2d-8bf2-4f4b-81d8-c6f126895606" width="800" alt="LazyVim"> |
+
+### Tmux
+
+|                                                        Tmux split window                                                        |
+| :-----------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/2be4ac55-e412-4fa4-a8c8-ec517c70dec0" width="800" alt="Tmux split window"> |
+
+|                                                        Tmux synchronize-panes mode                                                        |
+| :---------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
+
+### eza, lazygit, yazi
+
+|                                                  eza tree (eza -l -T)                                                  |
+| :--------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/34c2ae49-3a30-4401-b4c5-0ce308918b54" width="800" alt="eza tree"> |
+
+|                                                        lazygit                                                        |
+| :-------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/bdc012f2-f7fb-4405-b18d-01f73a5a90a9" width="800" alt="lazygit"> |
+
+|                                                        yazi                                                        |
+| :----------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/user-attachments/assets/217ec320-463c-44c2-a4da-464f291eddcf" width="800" alt="yazi"> |
 
 ### 🖥️ Install individual package
 
@@ -479,17 +577,17 @@ The following apps can be installed individually from the `dots install <package
 
 #### 🖥️ GUI Apps
 
-| Package Name | Description                 |
-| ------------ | --------------------------- |
-| `copyq`      | CopyQ                       |
-| `rustdesk`   | RustDesk on Ubuntu Desktop  |
-| `zed`        | Zed editor on Linux Desktop |
+| Package Name | Description                   |
+| ------------ | ----------------------------- |
+| `copyq`      | [CopyQ]                       |
+| `rustdesk`   | [RustDesk] on Ubuntu Desktop  |
+| `zed`        | [Zed] editor on Linux Desktop |
 
 #### 🪴 Others
 
-| Package Name | Description              |
-| ------------ | ------------------------ |
-| `hackgen`    | HackGen font (Nerd Font) |
+| Package Name | Description                |
+| ------------ | -------------------------- |
+| `hackgen`    | [HackGen] font (Nerd Font) |
 
 ### 🍺 Brew Apps
 
@@ -553,103 +651,6 @@ If you want to check all applications per package manager, please refer:
 - [brew packages]
 - [snap packages]
 - [pkg packages]
-
-## 🐳 Docker
-
-You can build and enter a container with the following commands.
-
-```bash
-cd ~/.local/share/dotfiles-main
-```
-
-docker compose command:
-
-```bash
-docker compose up -d --build
-docker compose exec dotfiles zsh
-```
-
-or docker command:
-
-```bash
-docker build -t dotfiles-img .
-docker run -it -d --name dotfiles-con dotfiles-img
-docker exec -it dotfiles-con /bin/zsh
-```
-
-In container, install apt packages
-
-```bash
-dots install --apt
-```
-
-or install Homebrew with following command.
-
-```bash
-dots install --brew
-```
-
-## 🖼️ Gallery
-
-<!--
-### Linux
-
-<img
-  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
-  width="800"
-  alt="ubuntu screenshot">
--->
-
-### Android Termux
-
-<img
-  src="https://github.com/user-attachments/assets/4f64bb0f-6e57-4fd7-8318-8d92da2b109a"
-  width="320"
-  alt="Android smartphone screenshot">
-
-<!--<img src="https://github.com/user-attachments/assets/6b8e9f05-5542-430f-9cac-1f38769ed66f" width="320">-->
-
-<img
-  src="https://github.com/user-attachments/assets/8b40390a-61b7-4317-a01e-9b6121743327"
-  width="800"
-  alt="Android tablet screenshot">
-
-### WSL2
-
-<img
-  src="https://github.com/user-attachments/assets/3c3860f3-f184-4a50-8c5d-15aaa8079800"
-  width="800"
-  alt="wsl_zsh_nvim_startuptime">
-
-### Neovim
-
-|                                          LazyVim tokyonight.nvim style=night                                          |
-| :-------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/53567c2d-8bf2-4f4b-81d8-c6f126895606" width="800" alt="LazyVim"> |
-
-### Tmux
-
-|                                                        Tmux split window                                                        |
-| :-----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/2be4ac55-e412-4fa4-a8c8-ec517c70dec0" width="800" alt="Tmux split window"> |
-
-|                                                        Tmux synchronize-panes mode                                                        |
-| :---------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/7effb2bf-b3c8-47bb-91e9-e80e73090d3a" width="800" alt="Tmux synchronize-panes mode"> |
-
-### eza, lazygit, yazi
-
-|                                                  eza tree (eza -l -T)                                                  |
-| :--------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/34c2ae49-3a30-4401-b4c5-0ce308918b54" width="800" alt="eza tree"> |
-
-|                                                        lazygit                                                        |
-| :-------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/bdc012f2-f7fb-4405-b18d-01f73a5a90a9" width="800" alt="lazygit"> |
-
-|                                                        yazi                                                        |
-| :----------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/217ec320-463c-44c2-a4da-464f291eddcf" width="800" alt="yazi"> |
 
 ## ⚡ Aliases for quick start
 
@@ -817,6 +818,8 @@ This project is licensed under the [MIT License].
 [LazyVim]: https://www.lazyvim.org/
 [tmux]: https://github.com/tmux/tmux
 [zellij]: https://github.com/zellij-org/zellij
+[Zed]: https://zed.dev/
+[HackGen]: https://github.com/yuru7/HackGen
 [broot]: https://github.com/Canop/broot
 [yazi]: https://github.com/sxyazi/yazi
 [Alacritty]: https://github.com/alacritty/alacritty
