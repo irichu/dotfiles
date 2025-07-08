@@ -1331,6 +1331,42 @@ install_lazdocker() {
   return 0
 }
 
+#--------------------------------------------------
+# waydroid
+#--------------------------------------------------
+
+install_waydroid() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # check waydroid command
+  if cmd_exists waydroid; then
+    info "waydroid already installed."
+    return 0
+  fi
+
+  if cmd_exists apt; then
+    # Install pre-requisites
+    sudo apt install curl ca-certificates -y
+
+    # Add the Waydroid repository and install
+    curl -s https://repo.waydro.id | sudo bash
+
+    # Install Waydroid
+    sudo apt install waydroid -y
+  elif cmd_exists dnf; then
+    sudo dnf install waydroid -y
+    return 0
+  elif cmd_exists pacman; then
+    info "See https://wiki.archlinux.org/title/Waydroid"
+  fi
+
+  # enable and start the Waydroid service
+  sudo systemctl enable --now waydroid-container
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
 ###################################################
 # settings
 ###################################################
@@ -2184,6 +2220,9 @@ i | install)
     ;;
   starship)
     install_or_update_starship
+    ;;
+  waydroid)
+    install_waydroid
     ;;
   zed)
     install_zed
