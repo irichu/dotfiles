@@ -37,7 +37,7 @@ jobs:
       - name: download ubuntu desktop image
         run: curl -L -o assets/images/irichu-dotfiles-ubuntu-desktop.png https://github.com/irichu/dotfiles/releases/download/v0.6.0/ubuntu-desktop-o08.png
       - name: download ubuntu desktop image
-        run: curl -L -o assets/images/irichu-dotfiles-ubuntu-desktop-tv.png https://github.com/irichu/dotfiles/releases/download/v0.6.0/ubuntu-desktop-o10.png
+        run: curl -L -o assets/images/irichu-dotfiles-ubuntu-desktop-tv.png https://github.com/irichu/dotfiles/releases/download/v0.6.0/tiling-desktop.png
       - name: Copy _includes to ./
         run: cp -r .github/pages/_includes ./
       - name: Copy favicon.ico to ./

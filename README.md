@@ -81,14 +81,14 @@ English / [Japanese(日本語)]
 Welcome to my dotfiles. [This GitHub repository] helps easily set up a fast and intuitive desktop and terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop.png"
-  width="800"
-  alt="irichu dotfiles ubuntu desktop">
-
-<img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-tv.png"
   width="800"
   alt="irichu dotfiles ubuntu desktop vscode">
+
+<img
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop.png"
+  width="800"
+  alt="irichu dotfiles ubuntu desktop">
 
 <img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
@@ -224,18 +224,28 @@ exec -l $(which zsh)
 ## ✨ Features
 
 - Desktop
-  - **Gnome Extensions**: [Blur my Shell], [Just Perfection], [Space Bar], [Tactile], etc.
+  - Themes
+    - Icons: Flat-Remix-Blue-Dark
+    - Shell: Marble-blue-dark
+    - GTK: Flat-Remix-GTK-Blue-Dark-Solid
+  - Gnome Extensions
+    - Blur my Shell
+    - Just Perfection
+    - Space Bar
+    - Tactile
+    - etc.
+<!---  - **Gnome Extensions**: [Blur my Shell], [Just Perfection], [Space Bar], [Tactile], etc.
   - **Editor**: [VSCode] (Shortcut: Ctrl+Super+Alt+V), preconfigured with ~50 awesome extensions
   - **Clipboard Manager**: [CopyQ] (Shortcut: Ctrl+Shift+V)
   - **Screenshot Tool**: [Flameshot] (Shortcut: Ctrl+Super+Alt+F)
   - **Remote Desktop**: [RustDesk] for simple and secure remote access
-<!--- **Image Editor**: [GIMP] for advanced image manipulation-->
+  - **Image Editor**: [GIMP] for advanced image manipulation-->
 - Terminal
-  - **Shell**: Zsh with the [starship] prompt
-  - **Editor**: [Neovim] configured via [LazyVim]
-  - **Terminal Multiplexers**: [tmux] for session management, [zellij] for workspace management
-  - **TUI File Managers**: [broot] for efficient navigation, [yazi] for rapid file access
-  - **Terminal Emulator**: [Alacritty] for performance, [Termux] for Android environments
+  - Shell: Zsh with the [starship] prompt
+  - Editor: [Neovim] configured via [LazyVim]
+  - Terminal Multiplexers: [tmux] for session management, [zellij] for workspace management
+  - TUI File Managers: [broot] for efficient navigation, [yazi] for rapid file access
+  - Terminal Emulator: [Alacritty] for performance, [Termux] for Android environments
 
 ## 🐳 Docker
 
@@ -806,14 +816,8 @@ This project is licensed under the [MIT License].
 [Japanese(日本語)]: docs/README-ja.md
 [This GitHub repository]: https://github.com/irichu/dotfiles
 [F-Droid]: https://f-droid.org/
-[Blur my Shell]: https://extensions.gnome.org/extension/3193/blur-my-shell/
-[Just Perfection]: https://extensions.gnome.org/extension/3843/just-perfection/
-[Space Bar]: https://extensions.gnome.org/extension/5090/space-bar/
-[Tactile]: https://extensions.gnome.org/extension/4548/tactile/
-[VSCode]: https://code.visualstudio.com/
 [RustDesk]: https://rustdesk.com/
 [CopyQ]: https://hluk.github.io/CopyQ/
-[Flameshot]: https://flameshot.org/
 [starship]: https://starship.rs/
 [Neovim]: https://github.com/neovim/neovim
 [LazyVim]: https://www.lazyvim.org/
