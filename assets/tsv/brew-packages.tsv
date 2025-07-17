@@ -19,6 +19,7 @@ lazygit	Simple TUI for Git repositories
 ripgrep	grep replacement with blazing fast search
 ruff	Fast Python linter and formatter
 starship	Minimal and customizable shell prompt
+tldr	Simple help for command-line tools
 tmux	Terminal multiplexer for managing multiple panes
 tokei	Code statistics tool for counting lines and files
 typst	Modern markup-based typesetting system

@@ -631,6 +631,7 @@ The `dots install --brew` command mainly installs the following apps
 | `ruff`                    | Fast Python linter and formatter                          |
 | `sd`                      | Simplified and faster replacement for sed                 |
 | `starship`                | Minimal and customizable shell prompt                     |
+| `tldr`                    | Simple help for command-line tools                        |
 | `tmux`                    | Terminal multiplexer for managing multiple panes          |
 | `tokei`                   | Code statistics tool for counting lines and files         |
 | `typst`                   | Modern markup-based typesetting system                    |

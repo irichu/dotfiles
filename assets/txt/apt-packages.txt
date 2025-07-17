@@ -12,6 +12,7 @@ jq
 multitail
 openssh-server
 ripgrep
+tldr
 tmux
 vim
 xsel

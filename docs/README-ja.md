@@ -467,6 +467,7 @@ The following apps can be installed individually from the `dots install <package
 | `ruff`                    | 高速な Python 用リンター＆フォーマッター                       |
 | `sd`                      | シンプルで高速なsedの代替ツール                                |
 | `starship`                | 最小限でカスタマイズ可能なシェルプロンプト                     |
+| `tldr`                    | コマンドラインツールのシンプルなヘルプ表示                      |
 | `tmux`                    | 複数のペインを管理できるターミナルマルチプレクサ               |
 | `tokei`                   | コード統計ツール（ファイルや行数をカウント）                   |
 | `typst`                   | モダンなマークアップベースの組版システム                       |

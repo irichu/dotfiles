@@ -16,6 +16,7 @@ multitail
 openssh-server
 sd
 ripgrep
+tldr
 tmux
 vim
 wakeonlan
