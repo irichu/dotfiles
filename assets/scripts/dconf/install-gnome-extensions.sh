@@ -16,6 +16,7 @@ EXT_IDS=(
   tactile@lundal.io
   tophat@fflewddur.github.io
   undecorate@sun.wxg@gmail.com
+  user-theme@gnome-shell-extensions.gcampax.github.com
 )
 
 # Install gnome-extensions-cli
@@ -36,6 +37,15 @@ done
 # Ubuntu Dock
 gnome-extensions enable ubuntu-dock@ubuntu.com
 
+# Ubuntu Appindicators
+gnome-extensions disable ubuntu-appindicators@ubuntu.com
+
+# Ubuntu Tiling Assistant
+gnome-extensions enable tiling-assistant@ubuntu.com
+
+# Desktop Icons NG (DING)
+gnome-extensions disable ding@rastersoft.com
+
 # Enable extensions
 for ext in "${EXT_IDS[@]}"; do
   EXTENSION_DIR="$HOME/.local/share/gnome-shell/extensions/$ext"
@@ -45,3 +55,7 @@ for ext in "${EXT_IDS[@]}"; do
   fi
   gnome-extensions enable "$ext"
 done
+
+# Create User Themes directory
+mkdir -p "$HOME/.themes"
+mkdir -p "$HOME/.local/share/icons" # for KDE
