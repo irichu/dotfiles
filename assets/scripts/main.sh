@@ -1214,6 +1214,27 @@ install_lazyvim() {
 }
 
 #--------------------------------------------------
+# Mozc
+#--------------------------------------------------
+
+install_mozc() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists apt; then
+    sudo apt install -y ibus-mozc mozc-utils-gui
+
+    info 'To enable Mozc, add input-source in Settings > Keyboard (Or Region & Language) > Input Sources'
+    info 'and select "Japanese (Mozc)".'
+    info 'Then, restart ibus with "ibus restart" command.'
+
+    info 'US配列などJIS配列以外のキーボードを使っている場合は、再起動後、GUI設定(Mozc Setup)のキーマップ設定から Hankaku/Zenkaku キー・コマンドの部分を Ctrl+Space などに置換または追加するのがおすすめです'
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
 # docker
 #--------------------------------------------------
 
@@ -2178,6 +2199,9 @@ i | install)
   copyq)
     install_copyq
     ;;
+  docker)
+    install_docker
+    ;;
   fnm)
     install_fnm
     ;;
@@ -2190,9 +2214,6 @@ i | install)
   hackgen)
     install_hackgen
     ;;
-  docker)
-    install_docker
-    ;;
   lazydocker)
     install_lazdocker
     ;;
@@ -2201,6 +2222,9 @@ i | install)
     ;;
   lazyvim)
     install_lazyvim
+    ;;
+  mozc)
+    install_mozc
     ;;
   neovim)
     build_install_neovim

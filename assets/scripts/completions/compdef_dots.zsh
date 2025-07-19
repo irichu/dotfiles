@@ -5,7 +5,8 @@ _dots_install() {
     "--apt[Install using apt]" \
     "--brew[Install Homebrew and packages]" \
     "--pkg[Install using pkg on Termux]" \
-    "--snap[Install using snap on Ubuntu Desktop]"
+    "--snap[Install using snap on Ubuntu]" \
+    "--ubuntu-desktop[Install Ubuntu Desktop apps and setup GNOME Desktop]"
 
   _values "package" \
     "apt-packages[Apt packages]" \
@@ -18,15 +19,19 @@ _dots_install() {
     "lazygit[Lazygit]" \
     "lazydocker[LazyDocker]" \
     "lazyvim[Lazyvim]" \
+    "mozc[Mozc - a Japanese input method editor(IME)]" \
     "neovim[Neovim]" \
     "rustdesk[RustDesk on Ubuntu Desktop]" \
+    "rustup[rustup on Linux]" \
     "snap-packages[Snap packages]" \
     "starship[Starship]" \
+    "waydroid[Waydroid - Android in a Linux container]" \
     "zed[Zed editor]"
 }
 
 _dots_setup() {
   _values "setup subcommand" \
+    "desktop[Setup gnome-desktop]" \
     "git[Setup git]" \
     "tmux[Setup tmux]" \
     "zellij[Setup zellij]" \
@@ -146,6 +151,8 @@ _dots() {
       "set-lang[Set LANG environment value]" \
       "starship[Show current starship config]" \
       "set-starship[Set starship theme]" \
+      "opacity[Show current terminal opacity]" \
+      "set-opacity[Set terminal opacity (0.00 - 1.00)]" \
       "help[Print help information]" \
       "version[Print dots version information]"
     ;;
