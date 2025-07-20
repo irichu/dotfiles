@@ -43,6 +43,7 @@ rust
 sd
 starship
 tar
+tealdeer
 termux-api
 tmux
 tokei
