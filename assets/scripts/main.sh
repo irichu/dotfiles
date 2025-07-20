@@ -1035,7 +1035,7 @@ setup_desktop() {
 
   "$SCRIPT_DIR"/config/Code/User/apply.sh
 
-  "$SCRIPT_DIR"/assets/scripts/dconf/set-gnome-desktop.sh
+  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop.sh
 
   set_config gtk-3.0
 
