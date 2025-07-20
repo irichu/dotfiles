@@ -991,10 +991,10 @@ install_snap_package() {
   snappy_packages="$SCRIPT_DIR"/assets/txt/snap-packages.txt
 
   # install --classic packages
-  grep -- '--classic' "$snappy_packages" | sed 's/ --classic//' | xargs -d '\n' -I{} sudo snap install {} --classic
+  grep -v '^#' "$snappy_packages" | grep -- '--classic' | sed 's/ --classic//' | xargs -d '\n' -I{} sudo snap install {} --classic
 
   # install snap packages
-  grep -v -- '--classic' "$snappy_packages" | xargs -d '\n' -n1 sudo snap install
+  grep -v '^#' "$snappy_packages" | grep -v -- '--classic' | xargs -d '\n' -n1 sudo snap install
 
   # To allow the program to run as intended
   sudo snap connect bottom:mount-observe
@@ -1032,6 +1032,8 @@ install_snap_package() {
 
 setup_desktop() {
   info "Start: ${FUNCNAME[0]}"
+
+  "$SCRIPT_DIR"/assets/scripts/desktop/install-vscode.sh
 
   "$SCRIPT_DIR"/config/Code/User/apply.sh
 
