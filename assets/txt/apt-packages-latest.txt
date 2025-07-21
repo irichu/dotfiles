@@ -20,6 +20,8 @@ tldr
 tmux
 vim
 wakeonlan
+xdg-desktop-portal-kde
+xdg-desktop-portal
 xsel
 zsh
 zsh-autosuggestions
