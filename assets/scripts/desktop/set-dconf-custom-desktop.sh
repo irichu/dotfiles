@@ -52,8 +52,8 @@ dconf write /org/gnome/shell/favorite-apps "@as [\
   'thunderbird_thunderbird.desktop',\
   'org.gnome.Nautilus.desktop',\
   'gimp_gimp.desktop',\
-  'code_code.desktop',\
-  'code-insiders_code-insiders.desktop',\
+  'code.desktop',\
+  'code-insiders.desktop',\
   'alacritty_alacritty.desktop',\
   'zoom-client_zoom-client.desktop',\
   'gnome-control-center.desktop'\
