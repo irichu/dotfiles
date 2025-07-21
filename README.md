@@ -135,7 +135,7 @@ Use the following `curl`, `wget`, or `git` command:
 </details>
 <br>
 
-**2. Bulk installation**
+**2. Automatic package installation**
 
 > [!IMPORTANT]
 > On Linux (Ubuntu/Fedora/Arch Linux) or macOS, automatic setup is available using `--brew`.<br>
