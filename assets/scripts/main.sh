@@ -1033,13 +1033,18 @@ install_snap_package() {
 setup_desktop() {
   info "Start: ${FUNCNAME[0]}"
 
+  # VSCode
   "$SCRIPT_DIR"/assets/scripts/desktop/install-vscode.sh
-
   "$SCRIPT_DIR"/config/Code/User/apply.sh
 
+  # set gnome desktop
   "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop.sh
 
+  # set gnome desktop appearance
   set_config gtk-3.0
+
+  # User Theme (set gnome desktop appearance)
+  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-appearance.sh
 
   info "End: ${FUNCNAME[0]}"
   return 0

@@ -29,6 +29,11 @@ SCRIPT_DIR=$(
 
 keybindings_file="$SCRIPT_DIR/shortcuts.ini"
 
+# Check if wayland is being used
+if [ -n "$WAYLAND_DISPLAY" ]; then
+  keybindings_file="$SCRIPT_DIR/shortcuts-wayland.ini"
+fi
+
 # Parse the INI file and apply the keybindings
 custom_keybindings=()
 while IFS='=' read -r key value; do
