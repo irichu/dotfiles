@@ -215,7 +215,8 @@ mods = "Control|Shift"
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
-mods = "Control|Shift"
+mods = "Control"
+#mods = "Control|Shift"
 
 # ページアップ（Shiftキーを押しながら）
 [[keyboard.bindings]]
