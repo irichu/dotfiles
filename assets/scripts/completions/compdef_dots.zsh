@@ -19,6 +19,7 @@ _dots_install() {
     "lazygit[Lazygit]" \
     "lazydocker[LazyDocker]" \
     "lazyvim[Lazyvim]" \
+    "mise[mise]" \
     "mozc[Mozc - a Japanese input method editor(IME)]" \
     "neovim[Neovim]" \
     "rustdesk[RustDesk on Ubuntu Desktop]" \

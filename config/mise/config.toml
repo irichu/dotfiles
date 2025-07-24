@@ -1,3 +1,2 @@
 [tools]
-go = "latest"
 node = "lts"
