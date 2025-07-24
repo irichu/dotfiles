@@ -22,11 +22,11 @@ English / [Japanese(日本語)]
       height="22"
     >
     <!-- REPO SIZE -->
-    <img
+    <!--<img
       src="https://img.shields.io/github/repo-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff"
       alt="GitHub repo size"
       height="22"
-    >
+    >-->
     <!-- Tokei LOC -->
     <a href="https://github.com/irichu/dotfiles">
       <img
@@ -48,11 +48,11 @@ English / [Japanese(日本語)]
       height="22"
     >
     <!-- COMMIT ACTIVITY -->
-    <img
+    <!--<img
       src="https://img.shields.io/github/commit-activity/m/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF"
       alt="GitHub commit activity"
       height="22"
-    >
+    >-->
     <!-- LICENSE -->
     <img
       src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99"
