@@ -2,6 +2,7 @@
 
 # Create User Themes directory
 mkdir -p "$HOME/.themes"
+mkdir -p "$HOME/.icons"
 mkdir -p "$HOME/.local/share/icons" # for KDE
 
 CACHE_DIR="$HOME/.cache/dotfiles"
@@ -29,5 +30,5 @@ cd "$CACHE_DIR"
 git clone --depth=1 https://github.com/daniruiz/Flat-Remix.git
 cd Flat-Remix
 
-cp -r Flat-Remix-Blue-Dark "$HOME/.icons/"
+cp -r Flat-Remix-Blue-Dark/ "$HOME/.icons/"
 gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Blue-Dark"
