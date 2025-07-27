@@ -11,11 +11,6 @@ DEBUG=true
 # path
 #--------------------------------------------------
 
-SCRIPT_DIR=$(
-  cd $(dirname ${BASH_SOURCE:-})
-  pwd
-)
-
 CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 mkdir -p "$CONFIG_HOME"
 
@@ -34,7 +29,7 @@ DATA_DIR="$DATA_HOME/dotfiles-main"
 
 # add path
 LOCAL_PATH="$HOME/.local/bin"
-mkdir -p $LOCAL_PATH
+mkdir -p "$LOCAL_PATH"
 
 if [ -d "$LOCAL_PATH" ] && [[ ":$PATH:" != *":$LOCAL_PATH:"* ]]; then
   export PATH="$LOCAL_PATH:$PATH"
@@ -44,7 +39,6 @@ fi
 # logger
 #--------------------------------------------------
 
-COLOR_BLACK='\033[0;30m'
 COLOR_RED='\033[0;31m'
 COLOR_GREEN='\033[0;32m'
 COLOR_YELLOW='\033[1;33m'
@@ -110,17 +104,23 @@ log_color() {
       w)
         LOG_COLOR=$COLOR_WHITE
         ;;
+      *)
+        LOG_COLOR=$COLOR_NONE
+        ;;
       esac
+      ;;
+    *)
+      OPT=""
       ;;
     esac
   done
 
   shift $((OPTIND - 1))
 
-  echo -e ${OPT:-} "$LOG_COLOR""$@""$COLOR_NONE"
+  echo -e ${OPT:-} "$LOG_COLOR""$*""$COLOR_NONE"
 
   $DEBUG && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/debug.log"
-  [ $LOG_LEVEL = 'ERROR' ] && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/errors.log"
+  [ "$LOG_LEVEL" = 'ERROR' ] && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/errors.log"
 
   return 0
 }
@@ -199,7 +199,7 @@ log_date_str() {
 #--------------------------------------------------
 
 cmd_exists() {
-  command -v $1 &>/dev/null
+  command -v "$1" &>/dev/null
 }
 
 is_gum_available() {
@@ -225,7 +225,7 @@ backup_dir() {
 
     info "Rename ... "
 
-    mv "$1"{,.bak$date_str}
+    mv "$1"{,.bak"$date_str"}
 
     info "Renamed to $1.bk$date_str"
 
@@ -303,7 +303,9 @@ case "${1:-}" in
 esac
 
 # download
+info "Downloading dotfiles from GitHub..."
 curl -OL https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
+info "Download completed.\n"
 
 # current git user
 if cmd_exists git; then
@@ -327,7 +329,7 @@ mkdir -p "$zsh_completions_cache_dir"
 cp -rf "$zsh_completions_dir" "$zsh_completions_cache_dir"
 
 # deploy
-tar xvf main.tar.gz
+tar xf main.tar.gz
 backup_dir "$HOME/.local/share/dotfiles-main"
 touch "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
 mv -f dotfiles-main "$HOME/.local/share/"
@@ -393,7 +395,7 @@ fi
 
 if [ -f "$histfile_tmp" ]; then
   if [ ! -f "$histfile" ]; then
-    info "restore .zsh_history"
+    info "Restore .zsh_history\n"
     mkdir -p "$CONFIG_HOME/zsh"
     cp -f "$histfile_tmp" "$histfile"
   fi
@@ -403,7 +405,7 @@ fi
 
 # restore completions
 mkdir -p "$zsh_completions_cache_dir"
-cp -rn "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
+cp -r --update=none "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
 
 success 'The dots command installation has been completed!'
 success 'If the dots command is not found, use the ~/.local/bin/dots command during the installation process.'

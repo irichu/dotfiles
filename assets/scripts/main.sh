@@ -17,8 +17,11 @@ set -o pipefail
 
 export LC_ALL=C
 
-readonly ARCH="$(uname -m)"
-#readonly GITHUB_ACTIONS=1
+ARCH="$(uname -m)"
+readonly ARCH
+
+#GITHUB_ACTIONS=1
+#readonly GITHUB_ACTIONS
 
 #--------------------------------------------------
 # path
@@ -46,7 +49,7 @@ mkdir -p "$DATA_DIR"
 #echo $HOME/.{cache,config,local/state}/dotfiles | read cache_dir config_dir state_dir
 #printf "%s\n" $HOME/.{cache,config,local/state}/dotfiles | xargs -I{} sh -c "mkdir -p $1" && echo "$1"' sh {}
 
-if [ "$SCRIPT_DIR" = "$HOME/.local/bin" -o "$SCRIPT_DIR" = "/data/data/com.termux/files/usr/bin" ]; then
+if [ "$SCRIPT_DIR" = "$HOME/.local/bin" ] || [ "$SCRIPT_DIR" = "/data/data/com.termux/files/usr/bin" ]; then
   SCRIPT_DIR="$DATA_DIR"
   cd "$SCRIPT_DIR"
 fi
@@ -82,7 +85,7 @@ themes=(
 # logger
 #--------------------------------------------------
 
-COLOR_BLACK='\033[0;30m'
+#COLOR_BLACK='\033[0;30m'
 COLOR_RED='\033[0;31m'
 COLOR_GREEN='\033[0;32m'
 COLOR_YELLOW='\033[1;33m'
@@ -159,16 +162,19 @@ log_color() {
         ;;
       esac
       ;;
+    *)
+      true
+      ;;
     esac
   done
 
   shift $((OPTIND - 1))
 
-  echo -e ${OPT:-} "$LOG_COLOR""$@""$COLOR_NONE"
+  echo -e ${OPT:-} "$LOG_COLOR""$*""$COLOR_NONE"
   #echo "$@"
 
   $DEBUG && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/debug.log"
-  [ $LOG_LEVEL = 'ERROR' ] && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/errors.log"
+  [ "$LOG_LEVEL" = 'ERROR' ] && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/errors.log"
 
   return 0
 }
@@ -361,11 +367,11 @@ echo_completion_message() {
 ###################################################
 
 cmd_exists() {
-  command -v $1 &>/dev/null
+  command -v "$1" &>/dev/null
 }
 
 check_command() {
-  if ! cmd_exists $1; then
+  if ! cmd_exists "$1"; then
     error "$1 command not found."
     exit 1
   fi
@@ -753,28 +759,33 @@ install_hackgen() {
 
   local LATEST_VERSION
   LATEST_VERSION=$(get_github_latest_version 'yuru7/HackGen')
-  if [ -z $LATEST_VERSION ]; then
+  if [ -z "$LATEST_VERSION" ]; then
     error 'yuru7/HackGen latest version not found'
     return 1
   fi
-  debug $LATEST_VERSION
+  debug "$LATEST_VERSION"
 
   [ ! -f "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}.zip" ] &&
     curl -Lo "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}.zip" "https://github.com/yuru7/HackGen/releases/download/v${LATEST_VERSION}/HackGen_NF_v${LATEST_VERSION}.zip"
 
-  unzip -o "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}.zip" -d $CACHE_DIR
+  unzip -o "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}.zip" -d "$CACHE_DIR"
 
   [ ! -d "$CACHE_DIR/HackGen_NF" ] &&
     mv "$CACHE_DIR/HackGen_NF_v${LATEST_VERSION}" "$CACHE_DIR/HackGen_NF"
 
-  [ ! -d ~/.local/share/fonts/HackGen_NF ] &&
-    mv "$CACHE_DIR/HackGen_NF" ~/.local/share/fonts/
+  [ ! -d "$DATA_HOME"/fonts/HackGen_NF ] &&
+    mv "$CACHE_DIR/HackGen_NF" "$DATA_HOME"/fonts/
 
-  if [ ${TERMUX_VERSION:-0} = 0 ]; then
-    cmd_exists fc-cache && fc-cache -vf || warning 'fc-cache command not found. please check and install fontconfig.'
+  if [ "${TERMUX_VERSION:-0}" = 0 ]; then
+    (
+      cmd_exists fc-cache &&\
+      info -ny 'Installing HackGen font...' &&\
+      fc-cache -f &&\
+      success "successed!"
+    ) || warning 'fc-cache command not found. please check and install fontconfig.'
   else
-    [ -f ~/.local/share/fonts/HackGen35ConsoleNF-Regular.ttf ] && cp -f ~/.local/share/fonts/HackGen35ConsoleNF-Regular.ttf ~/.termux/font.ttf
-    [ -f ~/.local/share/fonts/HackGen_NF/HackGen35ConsoleNF-Regular.ttf ] && cp -f ~/.local/share/fonts/HackGen_NF/HackGen35ConsoleNF-Regular.ttf ~/.termux/font.ttf
+    [ -f "$DATA_HOME"/fonts/HackGen35ConsoleNF-Regular.ttf ] && cp -f "$DATA_HOME"/fonts/HackGen35ConsoleNF-Regular.ttf ~/.termux/font.ttf
+    [ -f "$DATA_HOME"/fonts/HackGen_NF/HackGen35ConsoleNF-Regular.ttf ] && cp -f "$DATA_HOME"/fonts/HackGen_NF/HackGen35ConsoleNF-Regular.ttf ~/.termux/font.ttf
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -802,7 +813,7 @@ install_apt_package() {
   info "Start: ${FUNCNAME[0]}"
 
   sudo apt-get update
-  cat "$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt | xargs sudo apt-get install -y
+  xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt
 
   # Get the current Ubuntu version
   ubuntu_version=$(lsb_release -r | awk '{print $2}')
@@ -810,10 +821,10 @@ install_apt_package() {
   # Check if the version is 24.04 or higher
   if [[ "$(echo -e "$ubuntu_version\n24.04" | sort -V | head -n 1)" == "24.04" ]]; then
     info "Ubuntu is 24.04 or higher."
-    cat "$SCRIPT_DIR"/assets/txt/apt-packages-latest.txt | xargs sudo apt-get install -y
+    xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-packages-latest.txt
   else
     info "Ubuntu is lower than 24.04."
-    cat "$SCRIPT_DIR"/assets/txt/apt-packages.txt | xargs sudo apt-get install -y
+    xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-packages.txt
   fi
 
   # .local install
@@ -826,8 +837,8 @@ install_apt_package() {
     notice 'snap command not found. Install dust by deb file.'
     local LATEST_VERSION
     LATEST_VERSION=$(get_github_latest_version 'bootandy/dust')
-    [ ! -f "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb" ] &&
-      wget -P $CACHE_DIR "https://github.com/bootandy/dust/releases/download/v${LATEST_VERSION}/du-dust_${LATEST_VERSION}-1_amd64.deb" || error "dust.deb not found"
+    ([ ! -f "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb" ] &&
+      wget -P "$CACHE_DIR" "https://github.com/bootandy/dust/releases/download/v${LATEST_VERSION}/du-dust_${LATEST_VERSION}-1_amd64.deb") || error "dust.deb not found"
     sudo dpkg -i "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb"
   fi
 
@@ -1138,7 +1149,7 @@ build_install_neovim() {
 
   # neovim
   wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz
-  tar -zxvf nvim-linux-x86_64.tar.gz
+  tar -zxf nvim-linux-x86_64.tar.gz
   [ ! -d /usr/bin/nvim ] && sudo mv -f nvim-linux-x86_64/bin/nvim /usr/bin/nvim
   [ ! -d /usr/lib/nvim ] && sudo mv -f nvim-linux-x86_64/lib/nvim /usr/lib/nvim
   [ ! -d /usr/share/nvim ] && sudo mv -f nvim-linux-x86_64/share/nvim/ /usr/share/nvim
@@ -1195,15 +1206,15 @@ install_lazyvim() {
   # required
   date_str=$(now_str)
   [ -d "$CONFIG_HOME"/nvim ] &&
-    mv "$CONFIG_HOME"/nvim{,.bak$date_str}
+    mv "$CONFIG_HOME"/nvim{,.bak"$date_str"}
 
   # optional but recommended
   [ -d ~/.local/share/nvim ] &&
-    mv ~/.local/share/nvim{,.bak$date_str}
+    mv ~/.local/share/nvim{,.bak"$date_str"}
   [ -d ~/.local/state/nvim ] &&
-    mv ~/.local/state/nvim{,.bak$date_str}
+    mv ~/.local/state/nvim{,.bak"$date_str"}
   [ -d ~/.cache/nvim ] &&
-    mv ~/.cache/nvim{,.bak$date_str}
+    mv ~/.cache/nvim{,.bak"$date_str"}
 
   git clone https://github.com/LazyVim/starter "$CONFIG_HOME/nvim"
 
@@ -1436,7 +1447,7 @@ backup_dir() {
 
     info "Rename ... "
 
-    mv "$1"{,.bak$date_str}
+    mv "$1"{,.bak"$date_str"}
 
     info "Renamed to $1.bk$date_str"
 
@@ -1625,7 +1636,7 @@ echo_list() {
     ;;
   brew | --brew)
     info '# Homebrew packages'
-    grep -v ^# "$SCRIPT_DIR"/Brewfile | grep -o "\".*\"" | sort | xargs -i -n1 echo '- {}'
+    grep -v ^# "$SCRIPT_DIR"/Brewfile | grep -o "\".*\"" | sort | xargs -I{} -n1 echo '- {}'
     ;;
   snap | --snap)
     info '# Snap packages'
@@ -1699,7 +1710,7 @@ clean() {
   # Remove cache files
   CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
   CACHE_DIR="$CACHE_HOME/dotfiles"
-  rm -rf "$CACHE_DIR"/*
+  rm -rf "${CACHE_DIR:-}"/*
   success "Success: clean up $CACHE_DIR/*"
 
   # Remove dotfiles backup files
@@ -1824,7 +1835,7 @@ set_theme() {
   success " successfully.\n"
 
   # source tmux config
-  if tmux info &>/dev/null; then
+  if tmux has-session 2>/dev/null; then
     info "tmux is running"
     info "source tmux config..."
 
@@ -1938,7 +1949,10 @@ get_starship() {
   fi
 
   # get theme value
-  theme=$(ls -la "$CONFIG_FILE" | grep -E -o "oneline" || echo 'multiline')
+  theme=multiline
+  if [ -L "$CONFIG_FILE" ]; then
+    theme=$(readlink "$CONFIG_FILE" | grep -E -o "oneline")
+  fi
 
   case "$theme" in
   oneline)
