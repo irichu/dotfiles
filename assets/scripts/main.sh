@@ -1227,6 +1227,13 @@ install_lazyvim() {
 
   nvim +q
 
+  # lazy
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' 's/\blazy\s*=\s*true\s*,/lazy = false,/' "$CONFIG_HOME/nvim/lua/plugins/colorscheme.lua"
+  else
+    sed -i 's/\blazy\s*=\s*true\s*,/lazy = false,/' "$CONFIG_HOME/nvim/lua/plugins/colorscheme.lua"
+  fi
+
   info "End: ${FUNCNAME[0]}"
   return 0
 }
