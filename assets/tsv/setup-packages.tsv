@@ -1,5 +1,7 @@
 Setup	Description
-backup	copy ~/.config to XDG_DATA_HOME/dotfiles/backup
+backup	copy ~/.config to $XDG_DATA_HOME/dotfiles/backup
+desktop	reset Ubuntu desktop config
+git	reset git config
 tmux	reset tmux config
 zellij	reset zellij config
 zsh	deploy dot zsh files and chsh -s zsh

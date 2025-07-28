@@ -4,12 +4,17 @@ copyq	CopyQ
 docker	docker-ce (additional repository)
 fnm	latest FNM and Node.js
 fzf	fzf (github.com)
+gum	gum
 hackgen	HackGen font
 lazydocker	LazyDocker
 lazygit	LazyGit
 lazyvim	LazyVim
+mise	mise
+mozc	Mozc input method
 neovim	neovim and LazyVim
 rustdesk	RustDesk
+rustup	Rust toolchain
 snap-packages	Snappy packages
 starship	starship.rs
+waydroid	Waydroid
 zed	Zed editor

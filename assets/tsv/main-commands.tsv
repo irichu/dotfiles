@@ -2,4 +2,5 @@ Command	Description
 --apt	install Ubuntu apt packages (recommend in container; without systemd)
 --brew	install Homebrew and brew packages on Linux
 --snap	install Ubuntu apt and snap packages
+--ubuntu-desktop	install Ubuntu apt packages and GUI apps and Gnome Extensions
 --pkg	install pkg packages on Termux
