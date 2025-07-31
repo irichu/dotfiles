@@ -21,12 +21,6 @@ English / [Japanese(日本語)]
       alt="GitHub code size in bytes"
       height="22"
     >
-    <!-- REPO SIZE -->
-    <!--<img
-      src="https://img.shields.io/github/repo-size/irichu/dotfiles?style=for-the-badge&logo=github&color=%2377aaff"
-      alt="GitHub repo size"
-      height="22"
-    >-->
     <!-- Tokei LOC -->
     <a href="https://github.com/irichu/dotfiles">
       <img
@@ -47,12 +41,6 @@ English / [Japanese(日本語)]
       alt="GitHub last commit"
       height="22"
     >
-    <!-- COMMIT ACTIVITY -->
-    <!--<img
-      src="https://img.shields.io/github/commit-activity/m/irichu/dotfiles?style=for-the-badge&logo=github&color=%239988FF"
-      alt="GitHub commit activity"
-      height="22"
-    >-->
     <!-- LICENSE -->
     <img
       src="https://img.shields.io/github/license/irichu/dotfiles?style=for-the-badge&logo=github&color=%2355ff99"
@@ -74,32 +62,26 @@ English / [Japanese(日本語)]
   </p>
 </div>
 
-# Dotfiles for Linux, macOS, and Termux
+# Dotfiles for Linux and Termux
 
 ## 🎉 Welcome
 
 Welcome to my dotfiles. [This GitHub repository] helps easily set up a fast and intuitive desktop and terminal environment. This setup installs Zsh with starship prompt, tmux, Neovim, and Golang and Rust-based command-line tools that starts and operates quickly. I would be delighted if even a single element leads to a new discovery for you. Grateful that you found this project and took a look!
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-tv.png"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-guiapps.png"
   width="800"
-  alt="irichu dotfiles ubuntu desktop vscode">
+  alt="irichu dotfiles ubuntu desktop vscode nautilus">
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop.png"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-terminal.png"
   width="800"
-  alt="irichu dotfiles ubuntu desktop">
+  alt="irichu dotfiles ubuntu desktop terminal">
 
 <img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
   width="800"
   alt="irichu dotfiles main screenshot">
-
-<!--
-This dotfiles repository is also available on GitHub Pages.
-- <a href="https://github.com/irichu/dotfiles" rel="me">View on GitHub</a>
-- <a href="https://irichu.github.io/dotfiles/">View on GitHub Pages</a>
--->
 
 ## 🚀 Installation
 
@@ -116,7 +98,7 @@ Use the following `curl`, `wget`, or `git` command:
 
 </details>
 
-<details open="">
+<details>
 <summary>wget</summary>
 
 <pre>

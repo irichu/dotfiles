@@ -35,9 +35,9 @@ jobs:
           mkdir -p assets/images
           curl -L -o assets/images/irichu-dotfiles-main-screenshot.png https://github.com/irichu/dotfiles/releases/download/v0.5.0/terminal-fastfetch.png
       - name: download ubuntu desktop image
-        run: curl -L -o assets/images/irichu-dotfiles-ubuntu-desktop.png https://github.com/irichu/dotfiles/releases/download/v0.6.0/ubuntu-desktop-o08.png
+        run: curl -L -o assets/images/irichu-dotfiles-ubuntu-desktop-terminal.png https://github.com/irichu/dotfiles/releases/download/v0.6.3/ubuntu-desktop-terminal.png
       - name: download ubuntu desktop image
-        run: curl -L -o assets/images/irichu-dotfiles-ubuntu-desktop-tv.png https://github.com/irichu/dotfiles/releases/download/v0.6.0/tiling-desktop.png
+        run: curl -L -o assets/images/irichu-dotfiles-ubuntu-desktop-guiapps.png https://github.com/irichu/dotfiles/releases/download/v0.6.3/ubuntu-desktop-guiapps.png
       - name: Copy _includes to ./
         run: cp -r .github/pages/_includes ./
       - name: Copy favicon.ico to ./
