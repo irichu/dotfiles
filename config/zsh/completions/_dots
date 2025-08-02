@@ -10,6 +10,8 @@ _dots_install() {
 
   _values "package" \
     "apt-packages[Apt packages]" \
+    "chrome[Google Chrome]" \
+    "code[Visual Studio Code]" \
     "copyq[CopyQ]" \
     "docker[Docker on Ubuntu Desktop]" \
     "fnm[fnm(Fast Node Maneger)]" \

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Debian-based
 if command -v apt-get &> /dev/null; then

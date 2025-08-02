@@ -599,6 +599,49 @@ setup_zsh() {
 ###################################################
 
 #--------------------------------------------------
+# Visual Studio Code
+#--------------------------------------------------
+
+install_vscode() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # check already installed
+  if cmd_exists code; then
+    info -cn "Visual Studio Code already installed."
+    info "End: ${FUNCNAME[0]}"
+    return 0
+  fi
+
+  # install
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-vscode.sh
+  bash "$SCRIPT_DIR"/config/Code/User/apply.sh
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# Google Chrome
+#--------------------------------------------------
+
+install_chrome() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # check already installed
+  if cmd_exists google-chrome; then
+    info -cn "google-chrome already installed."
+    info "End: ${FUNCNAME[0]}"
+    return 0
+  fi
+
+  # install
+  bash "$DATA_DIR/scripts/desktop/install-chrome.sh"
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
 # CopyQ
 #--------------------------------------------------
 
@@ -1044,9 +1087,11 @@ install_snap_package() {
 setup_desktop() {
   info "Start: ${FUNCNAME[0]}"
 
+  # Google Chrome
+  install_chrome
+
   # VSCode
-  "$SCRIPT_DIR"/assets/scripts/desktop/install-vscode.sh
-  "$SCRIPT_DIR"/config/Code/User/apply.sh
+  install_vscode
 
   # set gnome desktop
   "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop.sh
@@ -2242,6 +2287,12 @@ i | install)
   #--------------------------------------------------
   apt-packages)
     install_apt_package
+    ;;
+  code)
+    install_vscode
+    ;;
+  chrome)
+    install_chrome
     ;;
   copyq)
     install_copyq
