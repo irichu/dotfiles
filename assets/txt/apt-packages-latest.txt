@@ -8,6 +8,7 @@ fd-find
 flameshot
 git
 git-delta
+gnome-sushi
 htop
 hyperfine
 iproute2
@@ -20,6 +21,7 @@ tldr
 tmux
 vim
 wakeonlan
+wl-clipboard
 xdg-desktop-portal-kde
 xdg-desktop-portal
 xsel
