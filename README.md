@@ -572,11 +572,15 @@ The following apps can be installed individually from the `dots install <package
 
 #### 🖥️ GUI Apps
 
-| Package Name | Description                   |
-| ------------ | ----------------------------- |
-| `copyq`      | [CopyQ]                       |
-| `rustdesk`   | [RustDesk] on Ubuntu Desktop  |
-| `zed`        | [Zed] editor on Linux Desktop |
+| Package Name | Description                        |
+| ------------ | ---------------------------------- |
+| `code`       | [VSCode] on Ubuntu Desktop         |
+| `copyq`      | [CopyQ] on X11                     |
+| `localsend`  | [LocalSend] on Ubuntu Desktop      |
+| `obsidian`   | [Obsidian] on Ubuntu Desktop       |
+| `signal`     | [Signal Desktop] on Ubuntu Desktop |
+| `waydroid`   | [Waydroid] on Ubuntu Desktop       |
+| `zed`        | [Zed] editor on Linux Desktop      |
 
 #### 🪴 Others
 
@@ -804,28 +808,32 @@ This project is licensed under the [MIT License].
 [Flat-Remix-Blue-Dark]: https://www.opendesktop.org/p/1012430
 [Marble-blue-dark]: https://www.gnome-look.org/p/1977647
 [Flat-Remix-GTK-Blue-Dark-Solid]: https://www.opendesktop.org/p/1214931
-[RustDesk]: https://rustdesk.com/
 [CopyQ]: https://hluk.github.io/CopyQ/
-[starship]: https://starship.rs/
-[Neovim]: https://github.com/neovim/neovim
-[LazyVim]: https://www.lazyvim.org/
-[tmux]: https://github.com/tmux/tmux
-[zellij]: https://github.com/zellij-org/zellij
-[Zed]: https://zed.dev/
-[HackGen]: https://github.com/yuru7/HackGen
-[broot]: https://github.com/Canop/broot
-[yazi]: https://github.com/sxyazi/yazi
-[Alacritty]: https://github.com/alacritty/alacritty
-[Termux]: https://github.com/termux/termux-app
+[VSCode]: https://code.visualstudio.com/
+[LocalSend]: https://localsend.org/
+[Obsidian]: https://obsidian.md/
+[Signal Desktop]: https://signal.org/
+[Waydroid]: https://waydro.id/
+[starship]: <https://starship.rs/>
+[Neovim]: <https://github.com/neovim/neovim>
+[LazyVim]: <https://www.lazyvim.org/>
+[tmux]: <https://github.com/tmux/tmux>
+[zellij]: <https://github.com/zellij-org/zellij>
+[Zed]: <https://zed.dev/>
+[HackGen]: <https://github.com/yuru7/HackGen>
+[broot]: <https://github.com/Canop/broot>
+[yazi]: <https://github.com/sxyazi/yazi>
+[Alacritty]: <https://github.com/alacritty/alacritty>
+[Termux]: <https://github.com/termux/termux-app>
 [apt packages]: assets/txt/apt-packages.txt
 [brew packages]: Brewfile
 [snap packages]: assets/txt/snap-packages.txt
 [pkg packages]: assets/txt/pkg-packages.txt
-[tpm]: https://github.com/tmux-plugins/tpm
-[tmux-continuum]: https://github.com/tmux-plugins/tmux-continuum
-[tmux-logging]: https://github.com/tmux-plugins/tmux-logging
-[tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
-[tmux-fingers]: https://github.com/Morantron/tmux-fingers
-[LazyVim keymaps]: https://www.lazyvim.org/keymaps
+[tpm]: <https://github.com/tmux-plugins/tpm>
+[tmux-continuum]: <https://github.com/tmux-plugins/tmux-continuum>
+[tmux-logging]: <https://github.com/tmux-plugins/tmux-logging>
+[tmux-resurrect]: <https://github.com/tmux-plugins/tmux-resurrect>
+[tmux-fingers]: <https://github.com/Morantron/tmux-fingers>
+[LazyVim keymaps]: <https://www.lazyvim.org/keymaps>
 [Emacs-like shortcuts]: docs/neovim.md#emacs-like
 [MIT License]: LICENSE.md
