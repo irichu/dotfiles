@@ -21,13 +21,16 @@ _dots_install() {
     "lazygit[Lazygit]" \
     "lazydocker[LazyDocker]" \
     "lazyvim[Lazyvim]" \
+    "localsend[LocalSend]" \
     "mise[mise]" \
     "mozc[Mozc - a Japanese input method editor(IME)]" \
     "neovim[Neovim]" \
+    "obsidian[Obsidian]" \
     "rustdesk[RustDesk on Ubuntu Desktop]" \
     "rustup[rustup on Linux]" \
     "snap-packages[Snap packages]" \
     "starship[Starship]" \
+    "signal[Signal Desktop]" \
     "waydroid[Waydroid - Android in a Linux container]" \
     "zed[Zed editor]"
 }

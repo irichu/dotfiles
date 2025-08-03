@@ -380,10 +380,27 @@ check_command() {
 
 # for subshell
 get_github_latest_version() {
+
+  if [ -z "$1" ]; then
+    error "Repository name is required."
+    return 1
+  fi
+
   user_regex='[a-zA-Z0-9]([a-zA-Z0-9]?|[\-]?([a-zA-Z0-9])){0,38}'
   repos_regex='[a-zA-Z0-9\-\_]{2,255}'
-  echo "$1" | grep -E "^$user_regex/$repos_regex$" &>/dev/null &&
-    echo "$(curl -w "%{redirect_url}" -s -o /dev/null "https://github.com/$1/releases/latest" | grep -Eo '[0-9]+\.[0-9]+.[0-9]+$')"
+
+  if echo "$1" | grep -E "^$user_regex/$repos_regex$" &>/dev/null; then
+    # 認証なしAPIでは同一IPアドレスからのリクエスト数に制限がある
+    #LATEST_VERSION=$(curl -s "https://api.github.com/repos/$1/releases/latest" | grep -oP '"tag_name": "v?\K[^"]+')  # https://perldoc.perl.org/perlre#%5CK
+    #echo "$LATEST_VERSION"
+    # リダイレクトURLを取得してバージョン番号を抽出
+    LATEST_VERSION=$(curl -w "%{redirect_url}" -s -o /dev/null "https://github.com/$1/releases/latest" | grep -oP '\d+\.\d+\.\d+$')
+    echo "$LATEST_VERSION"
+  else
+    error "Invalid repository name: $1"
+    return 1
+  fi
+
   return 0
 }
 
@@ -1087,11 +1104,26 @@ install_snap_package() {
 setup_desktop() {
   info "Start: ${FUNCNAME[0]}"
 
+  # APT packages
+  xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-desktop-packages.txt
+
   # Google Chrome
   install_chrome
 
-  # VSCode
+  # Visual Studio Code
   install_vscode
+
+  # LocalSend
+  install_localsend
+
+  # Obsidian
+  install_obsidian
+
+  # RustDesk
+  install_rustdesk
+
+  # Signal
+  install_signal
 
   # set gnome desktop
   "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop.sh
@@ -1436,6 +1468,72 @@ install_lazdocker() {
   info "Start: ${FUNCNAME[0]}"
 
   curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# localsend
+#--------------------------------------------------
+
+install_localsend() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # check localsend command
+  if cmd_exists localsend_app; then
+    info "LocalSend already installed."
+    return 0
+  fi
+
+  if cmd_exists apt; then
+    # Install Localsend
+    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-localsend.sh
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# Obsidian
+#--------------------------------------------------
+
+install_obsidian() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # check obsidian command
+  if cmd_exists obsidian; then
+    info "Obsidian already installed."
+    return 0
+  fi
+
+  if cmd_exists apt; then
+    # Install Localsend
+    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-obsidian.sh
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# Signal Desktop
+#--------------------------------------------------
+
+install_signal() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # check signal-desktop command
+  if cmd_exists signal-desktop; then
+    info "Signal Desktop already installed."
+    return 0
+  fi
+
+  if cmd_exists apt; then
+    # Install Signal Desktop
+    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-signal-desktop.sh
+  fi
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -2169,6 +2267,18 @@ background-opacity = ${CURRENT_OPACITY:-0.60}" >"$GHOSTTY_CONFIG_FILE"
   return 0
 }
 
+test_self() {
+  info "Start: ${FUNCNAME[0]}"
+
+  get_github_latest_version 'dandavison/delta'
+  get_github_latest_version 'bootandy/dust'
+  get_github_latest_version 'yuru7/HackGen'
+  get_github_latest_version 'rustdesk/rustdesk'
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
 ###################################################
 # main
 ###################################################
@@ -2321,6 +2431,9 @@ i | install)
   lazyvim)
     install_lazyvim
     ;;
+  localsend)
+    install_localsend
+    ;;
   mise)
     install_mise
     ;;
@@ -2334,11 +2447,17 @@ i | install)
   # nvm)
   #   install_nvm
   #   ;;
+  obsidian)
+    install_obsidian
+    ;;
   rustdesk)
     install_rustdesk
     ;;
   rustup)
     install_rustup
+    ;;
+  signal)
+    install_signal
     ;;
   snap-packages)
     install_snap_package
@@ -2392,6 +2511,10 @@ setup)
     exit 1
     ;;
   esac
+  ;;
+
+test)
+  test_self
   ;;
 
 #--------------------------------------------------

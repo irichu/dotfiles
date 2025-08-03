@@ -1,0 +1,7 @@
+flameshot
+gnome-sushi
+nautilus-dropbox
+vlc
+wl-clipboard
+xdg-desktop-portal-kde
+xdg-desktop-portal
