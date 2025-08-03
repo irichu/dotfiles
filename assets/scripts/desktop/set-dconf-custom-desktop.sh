@@ -52,10 +52,18 @@ dconf write /org/gnome/shell/favorite-apps "@as [\
   'thunderbird_thunderbird.desktop',\
   'org.gnome.Nautilus.desktop',\
   'gimp_gimp.desktop',\
+  'pinta_pinta.desktop',\
+  'vlc.desktop',\
   'code.desktop',\
   'code-insiders.desktop',\
   'alacritty_alacritty.desktop',\
+  'obsidian.desktop',\
+  'Waydroid.desktop',\
+  'localsend_app.desktop',\
+  'signal-desktop.desktop',\
+  'rustdesk.desktop',\
   'zoom-client_zoom-client.desktop',\
+  'org.gnome.Settings.desktop',\
   'gnome-control-center.desktop'\
 ]"
 
