@@ -72,3 +72,22 @@ dconf write /org/gnome/shell/extensions/tophat/disk-display "'both'"
 
 # NET
 dconf write /org/gnome/shell/extensions/tophat/show-net true
+
+#--------------------------------------------------
+# WSMatrix
+#--------------------------------------------------
+
+# General
+dconf write /org/gnome/shell/extensions/wsmatrix/num-columns 3
+dconf write /org/gnome/shell/extensions/wsmatrix/num-rows 2
+dconf write /org/gnome/shell/extensions/wsmatrix/wraparound-mode "'next-previous'"
+
+# Popup
+dconf write /org/gnome/shell/extensions/wsmatrix/popup-timeout 500
+dconf write /org/gnome/shell/extensions/wsmatrix/scale 0.8
+dconf write /org/gnome/shell/extensions/wsmatrix/enable-popup-workspace-hover false
+dconf write /org/gnome/shell/extensions/wsmatrix/show-thumbnails true
+dconf write /org/gnome/shell/extensions/wsmatrix/show-workspace-names false
+
+# Overview
+dconf write /org/gnome/shell/extensions/wsmatrix/show-overview-grid true

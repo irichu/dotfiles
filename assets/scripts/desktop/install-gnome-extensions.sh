@@ -17,6 +17,7 @@ EXT_IDS=(
   tophat@fflewddur.github.io
   undecorate@sun.wxg@gmail.com
   user-theme@gnome-shell-extensions.gcampax.github.com
+  wsmatrix@martin.zurowietz.de
 )
 
 # Install gnome-extensions-cli

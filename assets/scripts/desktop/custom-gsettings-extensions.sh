@@ -72,3 +72,22 @@ gsettings set org.gnome.shell.extensions.tophat disk-display 'both'
 
 # NET
 gsettings set org.gnome.shell.extensions.tophat show-net true
+
+#--------------------------------------------------
+# WSMatrix
+#--------------------------------------------------
+
+# General
+gsettings set org.gnome.shell.extensions.wsmatrix num-columns 3
+gsettings set org.gnome.shell.extensions.wsmatrix num-rows 2
+gsettings set org.gnome.shell.extensions.wsmatrix wraparound-mode 'next-previous'
+
+# Popup
+gsettings set org.gnome.shell.extensions.wsmatrix popup-timeout 500
+gsettings set org.gnome.shell.extensions.wsmatrix scale 0.8
+gsettings set org.gnome.shell.extensions.wsmatrix enable-popup-workspace-hover false
+gsettings set org.gnome.shell.extensions.wsmatrix show-thumbnails true
+gsettings set org.gnome.shell.extensions.wsmatrix show-workspace-names false
+
+# Overview
+gsettings set org.gnome.shell.extensions.wsmatrix show-overview-grid true
