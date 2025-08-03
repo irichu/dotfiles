@@ -82,14 +82,14 @@
 この[リポジトリ](https://github.com/irichu/dotfiles)を利用することで，直感的なデスクトップとターミナル環境を簡単に構築できます．高速に起動・動作する Go言語 と Rust 製のコマンドラインツールを中心に構成しています．何か一つでも新しい知識や考え方との出会いになれば幸甚です．
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-guiapps.png"
-  width="800"
-  alt="irichu dotfiles ubuntu desktop vscode nautilus">
-
-<img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-terminal.png"
   width="800"
   alt="irichu dotfiles ubuntu desktop terminal">
+
+<img
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-guiapps.png"
+  width="800"
+  alt="irichu dotfiles ubuntu desktop vscode nautilus">
 
 <img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
