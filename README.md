@@ -93,7 +93,7 @@ Use the following `curl`, `wget`, or `git` command:
 
 </details>
 
-<details>
+<details open="">
 <summary>wget</summary>
 
 <pre>
@@ -115,9 +115,9 @@ Use the following `curl`, `wget`, or `git` command:
 **2. Automatic package installation**
 
 > [!IMPORTANT]
-> On Linux (Ubuntu/Fedora/Arch Linux) or macOS, automatic setup is available using `--brew`.<br>
-> On Ubuntu, fast installation is possible with `--apt` or `--snap`.<br>
 > On Ubuntu Desktop, automatic setup is possible `--ubuntu-desktop`.<br>
+> On Ubuntu, fast installation is possible with `--apt` or `--snap`.<br>
+> On Linux (Ubuntu/Fedora/Arch Linux) or macOS, automatic setup is available using `--brew`.<br>
 > On Termux, setup can be done using `--pkg`.
 >
 
@@ -222,6 +222,9 @@ exec -l $(which zsh)
   - Terminal Multiplexers: [tmux] for session management, [zellij] for workspace management
   - TUI File Managers: [broot] for efficient navigation, [yazi] for rapid file access
   - Terminal Emulator: [Alacritty] for performance, [Termux] for Android environments
+  - Packages
+    - 🐧 [Linux packages]
+    - 🍺 [Brew Apps]
 
 <!--
   - **Gnome Extensions**: [Blur my Shell], [Just Perfection], [Space Bar], [Tactile], etc.
@@ -248,7 +251,7 @@ docker compose exec dotfiles zsh
 ```
 
 <details>
-<summary>docker command:</summary>
+<summary>docker command</summary>
 
 <pre>
 <code class="language-bash">docker build -t dotfiles-img .
@@ -736,6 +739,7 @@ This project is licensed under the [MIT License].
 [Alacritty]: <https://github.com/alacritty/alacritty>
 [Termux]: <https://github.com/termux/termux-app>
 [App packages]: docs/app-packages.md
+[Linux packages]: docs/app-packages.md
 [Brew Apps]: docs/brew-packages.md
 [tpm]: <https://github.com/tmux-plugins/tpm>
 [tmux-continuum]: <https://github.com/tmux-plugins/tmux-continuum>
