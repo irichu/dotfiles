@@ -78,11 +78,6 @@ Welcome to my dotfiles. [This GitHub repository] helps easily set up a fast and 
   width="800"
   alt="irichu dotfiles ubuntu desktop vscode nautilus">
 
-<img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
-  width="800"
-  alt="irichu dotfiles main screenshot">
-
 ## 🚀 Installation
 
 **1. Download and Install dotfiles**
@@ -197,6 +192,11 @@ exec -l $(which zsh)
 > It is recommended to install it from [F-Droid].
 >
 
+<img
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
+  width="800"
+  alt="irichu dotfiles main screenshot">
+
 <!--
 > [!Note]
 > Some behavior may vary slightly between platforms due to system differences.<br>
@@ -247,13 +247,18 @@ docker compose up -d --build
 docker compose exec dotfiles zsh
 ```
 
-or docker command:
+<details>
+<summary>docker command:</summary>
 
-```bash
-docker build -t dotfiles-img .
+<pre>
+<code class="language-bash">docker build -t dotfiles-img .
 docker run -it -d --name dotfiles-con dotfiles-img
 docker exec -it dotfiles-con /bin/zsh
-```
+</code>
+</pre>
+
+</details>
+<br>
 
 In container, install apt packages
 
@@ -469,6 +474,18 @@ dots clean all</code>
 
 </details>
 
+- 🐧 [App packages]
+- 🍺 [Brew Apps]
+
+<!--
+If you want to check all applications per package manager, please refer:
+
+- 🐧 [apt packages]
+- 🍎 [brew packages]
+- 📓 [snap packages]
+- 📱 [pkg packages]
+-->
+
 <details>
 <summary>Print dotfiles version</summary>
 
@@ -552,105 +569,6 @@ dots clean all</code>
 |                                                        yazi                                                        |
 | :----------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/217ec320-463c-44c2-a4da-464f291eddcf" width="800" alt="yazi"> |
-
-### 🖥️ Install individual package
-
-The following apps can be installed individually from the `dots install <package_name>` command
-
-#### >_ CLI/TUI Apps
-
-| Package Name | Description                                |
-| ------------ | ------------------------------------------ |
-| `docker`     | docker-ce (additional repository)          |
-| `fnm`        | latest FNM (Fast Node Manager) and Node.js |
-| `fzf`        | fzf (fuzzy finder) from github             |
-| `lazydocker` | LazyDocker                                 |
-| `lazygit`    | LazyGit                                    |
-| `lazyvim`    | LazyVim                                    |
-| `neovim`     | Neovim and LazyVim                         |
-| `starship`   | starship.rs                                |
-
-#### 🖥️ GUI Apps
-
-| Package Name | Description                        |
-| ------------ | ---------------------------------- |
-| `code`       | [VSCode] on Ubuntu Desktop         |
-| `copyq`      | [CopyQ] on X11                     |
-| `localsend`  | [LocalSend] on Ubuntu Desktop      |
-| `obsidian`   | [Obsidian] on Ubuntu Desktop       |
-| `signal`     | [Signal Desktop] on Ubuntu Desktop |
-| `waydroid`   | [Waydroid] on Ubuntu Desktop       |
-| `zed`        | [Zed] editor on Linux Desktop      |
-
-#### 🪴 Others
-
-| Package Name | Description                |
-| ------------ | -------------------------- |
-| `hackgen`    | [HackGen] font (Nerd Font) |
-
-### 🍺 Brew Apps
-
-The `dots install --brew` command mainly installs the following apps
-
-#### macOS (cask)
-
-| Package Name              | Description                                               |
-| ------------------------- | --------------------------------------------------------- |
-| `alacritty`               | A fast, GPU-accelerated terminal emulator.                |
-| `clipy`                   | Clipboard manager for macOS with history support.         |
-| `docker`                  | Platform for developing, shipping, and running containers.|
-| `flameshot`               | Powerful and easy-to-use screenshot tool.                 |
-| `ghostty`                 | Minimal, GPU-based terminal emulator for macOS.           |
-| `rectangle`               | Window management app using keyboard shortcuts.           |
-| `visual-studio-code`      | Lightweight yet powerful source code editor.              |
-
-#### Common (Linux, macOS)
-
-| Package Name              | Description                                               |
-| ------------------------- | --------------------------------------------------------- |
-| `bat`                     | cat replacement                                           |
-| `bottom`                  | TUI system resource monitor                               |
-| `broot`                   | Interactive directory navigation tool                     |
-| `cloc`                    | Count lines of code in a project                          |
-| `duf`                     | df replacement with better visualization                  |
-| `dust`                    | du replacement with intuitive output                      |
-| `eza`                     | ls replacement with modern features                       |
-| `fastfetch`               | Fast system information fetcher                           |
-| `fd`                      | find replacement with simpler syntax                      |
-| `fnm`                     | Fast Node Manager for managing Node.js versions           |
-| `fzf`                     | Fuzzy finder for the command line                         |
-| `gh`                      | GitHub CLI tool for interacting with GitHub               |
-| `git-delta`               | Syntax-highlighting pager for git and diff output         |
-| `gping`                   | Graphical ping tool with live visualization               |
-| `gum`                     | A tool for enhancing shell scripts with interactive UI    |
-| `jq`                      | Command-line JSON processor                               |
-| `just`                    | Handy command runner similar to Make                      |
-| `lazygit`                 | Simple TUI for Git repositories                           |
-| `ripgrep`                 | grep replacement with blazing fast search                 |
-| `ruff`                    | Fast Python linter and formatter                          |
-| `sd`                      | Simplified and faster replacement for sed                 |
-| `starship`                | Minimal and customizable shell prompt                     |
-| `tldr`                    | Simple help for command-line tools                        |
-| `tmux`                    | Terminal multiplexer for managing multiple panes          |
-| `tokei`                   | Code statistics tool for counting lines and files         |
-| `typst`                   | Modern markup-based typesetting system                    |
-| `uv`                      | Python version manager with seamless virtual environments |
-| `yazi`                    | TUI file manager inspired by ranger                       |
-| `zellij`                  | Rust-based terminal multiplexer with workspace support    |
-| `zoxide`                  | cd replacement with smart directory jumping               |
-| `zsh`                     | Powerful and customizable shell                           |
-| `zsh-autosuggestions`     | Fish-like command suggestions for zsh                     |
-| `zsh-completions`         | Additional completions for zsh commands                   |
-| `zsh-syntax-highlighting` | Syntax highlighting for zsh command line                  |
-
-### 📓 Target apps
-
-If you want to check all applications per package manager, please refer:
-
-- [apt packages]
-- [brew packages]
-- [snap packages]
-- [pkg packages]
 
 ## ⚡ Aliases for quick start
 
@@ -808,27 +726,17 @@ This project is licensed under the [MIT License].
 [Flat-Remix-Blue-Dark]: https://www.opendesktop.org/p/1012430
 [Marble-blue-dark]: https://www.gnome-look.org/p/1977647
 [Flat-Remix-GTK-Blue-Dark-Solid]: https://www.opendesktop.org/p/1214931
-[CopyQ]: https://hluk.github.io/CopyQ/
-[VSCode]: https://code.visualstudio.com/
-[LocalSend]: https://localsend.org/
-[Obsidian]: https://obsidian.md/
-[Signal Desktop]: https://signal.org/
-[Waydroid]: https://waydro.id/
 [starship]: <https://starship.rs/>
 [Neovim]: <https://github.com/neovim/neovim>
 [LazyVim]: <https://www.lazyvim.org/>
 [tmux]: <https://github.com/tmux/tmux>
 [zellij]: <https://github.com/zellij-org/zellij>
-[Zed]: <https://zed.dev/>
-[HackGen]: <https://github.com/yuru7/HackGen>
 [broot]: <https://github.com/Canop/broot>
 [yazi]: <https://github.com/sxyazi/yazi>
 [Alacritty]: <https://github.com/alacritty/alacritty>
 [Termux]: <https://github.com/termux/termux-app>
-[apt packages]: assets/txt/apt-packages.txt
-[brew packages]: Brewfile
-[snap packages]: assets/txt/snap-packages.txt
-[pkg packages]: assets/txt/pkg-packages.txt
+[App packages]: docs/app-packages.md
+[Brew Apps]: docs/brew-packages.md
 [tpm]: <https://github.com/tmux-plugins/tpm>
 [tmux-continuum]: <https://github.com/tmux-plugins/tmux-continuum>
 [tmux-logging]: <https://github.com/tmux-plugins/tmux-logging>
