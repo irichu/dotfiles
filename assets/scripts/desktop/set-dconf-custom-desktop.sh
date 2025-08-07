@@ -13,12 +13,19 @@ dconf write /org/gnome/desktop/interface/gtk-theme "'Yaru-purple-dark'"
 # 24.04 LTS
 # dconf write /org/gnome/desktop/interface/font-name "'Ubuntu Sans 10.5'"
 # dconf write /org/gnome/desktop/interface/monospace-font-name "'Ubuntu Sans Mono 12'"
-# dconf write /org/gnome/desktop/interface/font-name "'Noto Sans CJK JP 10'"
+
+# dconf write /org/gnome/desktop/interface/font-name "'Noto Sans CJK JP 10.5'"
 # dconf write /org/gnome/desktop/interface/monospace-font-name "'Noto Sans Mono CJK JP 12'"
 
 # Custom
+# dconf write /org/gnome/desktop/interface/font-name "'M Plus 2 11'"
+# dconf write /org/gnome/desktop/interface/monospace-font-name "'M Plus 2 12'"
+
+# dconf write /org/gnome/desktop/interface/font-name "'BIZ UDPGothic 11'"
+# dconf write /org/gnome/desktop/interface/monospace-font-name "'BIZ UDGothic 11'"
+
 # dconf write /org/gnome/desktop/interface/font-name "'HackGen35 Console NF 11'"
-# dconf write /org/gnome/desktop/interface/monospace-font-name "'HackGen35 Console NF 11'"
+# dconf write /org/gnome/desktop/interface/monospace-font-name "'HackGen Console NF 11'"
 
 # Window
 dconf write /org/gnome/desktop/wm/preferences/button-layout "'appmenu:minimize,maximize,close'"
