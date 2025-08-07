@@ -278,20 +278,20 @@ dots install --brew
 ## 📗 Basic commands
 
 <details open="">
-<summary>Get/Set the current color theme</summary>
+<summary>Get/Set the current tmux theme</summary>
 
 <pre>
 <code class="language-bash"># get theme
-dots theme</code>
+dots tmux-theme</code>
 </pre>
 
 <pre>
 <code class="language-bash"># set theme
-dots set-theme
+dots set-tmux-theme
 
 # example
-dots set-theme 4                 # Set by number
-dots set-theme "developer-mono"  # Set by name</code>
+dots set-tmux-theme 4                 # Set by number
+dots set-tmux-theme developer-mono  # Set by name</code>
 </pre>
 
   Available themes:

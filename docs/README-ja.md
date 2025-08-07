@@ -265,20 +265,20 @@ dots opacity
 dots set-opacity
 ```
 
-現在のカラーテーマを取得します:
+現在のTmuxカラーテーマを取得します:
 
 ```bash
-dots theme
+dots tmux-theme
 ```
 
 指定のカラーテーマに設定します:
 
 ```bash
-dots set-theme <NUMBER|NAME>
+dots set-tmux-theme <NUMBER|NAME>
 
 # Example
-dots set-theme 4                 # Set by number
-dots set-theme "developer-mono"  # Set by name
+dots set-tmux-theme 4                 # Set by number
+dots set-tmux-theme "developer-mono"  # Set by name
 ```
 
 利用可能なテーマ:

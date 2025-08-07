@@ -94,7 +94,7 @@ _dots_docker() {
   esac
 }
 
-_dots_set-theme() {
+_dots_set-tmux-theme() {
   local themes=(
     "developer"
     "developer-textcolored"
@@ -152,8 +152,8 @@ _dots() {
       "backup[Backup configuration]" \
       "clean[Clean up]" \
       "docker[Run docker container]" \
-      "theme[Show current theme name]" \
-      "set-theme[Set theme]" \
+      "tmux-theme[Show current tmux theme name]" \
+      "set-tmux-theme[Set tmux theme]" \
       "set-lang[Set LANG environment value]" \
       "starship[Show current starship config]" \
       "set-starship[Set starship theme]" \
@@ -179,8 +179,8 @@ _dots() {
     clean)
       _dots_clean
       ;;
-    set-theme)
-      _dots_set-theme
+    set-tmux-theme)
+      _dots_set-tmux-theme
       ;;
     set-lang)
       _dots_set-lang

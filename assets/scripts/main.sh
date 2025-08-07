@@ -308,10 +308,10 @@ echo_each_command_usage() {
   info -cc 'dots set-opacity [0.0-1.0]'
 
   info ''
-  info -ny -cg 'Get theme: '
-  info -cc 'dots theme'
-  info -ny -cg 'Set theme: '
-  info -cc 'dots set-theme <NUMBER|NAME>'
+  info -ny -cg 'Get tmux theme: '
+  info -cc 'dots tmux-theme'
+  info -ny -cg 'Set tmux theme: '
+  info -cc 'dots set-tmux-theme <NUMBER|NAME>'
 
   # show theme list
   i=1
@@ -2603,18 +2603,26 @@ version | -v | --version)
   echo "MIT License (c) 2025 irichu"
   exit 0
   ;;
-theme)
-  get_theme
+tmux-theme)
+  if [ -z "${2:-}" ]; then
+    get_theme
+  else
+    set_theme "${2:-}"
+  fi
   exit 0
   ;;
-set-theme)
+set-tmux-theme)
   set_theme "${2:-}"
   ;;
 set-lang)
   set_lang "${2:-}"
   ;;
 starship)
-  get_starship
+  if [ -z "${2:-}" ]; then
+    get_starship
+  else
+    set_starship "${2:-}"
+  fi
   exit 0
   ;;
 set-starship)
