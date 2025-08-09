@@ -17,13 +17,14 @@ _dots_install() {
     "fnm[fnm(Fast Node Maneger)]" \
     "fzf[fzf]" \
     "gum[gum]" \
-    "hackgen[HackGen]" \
+    "hackgen[HackGen font]" \
     "lazygit[Lazygit]" \
     "lazydocker[LazyDocker]" \
     "lazyvim[Lazyvim]" \
     "localsend[LocalSend]" \
     "mise[mise]" \
     "mozc[Mozc - a Japanese input method editor(IME)]" \
+    "mplus2[M PLUS 2 font]" \
     "neovim[Neovim]" \
     "obsidian[Obsidian]" \
     "rustdesk[RustDesk on Ubuntu Desktop]" \
@@ -37,6 +38,7 @@ _dots_install() {
 
 _dots_setup() {
   _values "setup subcommand" \
+    "chrome-fonts[Setup Google Chrome fonts]" \
     "desktop[Setup gnome-desktop]" \
     "git[Setup git]" \
     "tmux[Setup tmux]" \

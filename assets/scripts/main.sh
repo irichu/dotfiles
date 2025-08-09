@@ -853,6 +853,32 @@ install_hackgen() {
 }
 
 #--------------------------------------------------
+# M PLUS 2 font
+#--------------------------------------------------
+
+install_mplus2() {
+  info "Start: ${FUNCNAME[0]}"
+
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-mplus2-font.sh
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# Google Chrome font settings
+#--------------------------------------------------
+
+set_chrome_fonts() {
+  info "Start: ${FUNCNAME[0]}"
+
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/set-chrome-fonts.sh "$1"
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
 # terminator
 #--------------------------------------------------
 
@@ -1143,6 +1169,12 @@ setup_desktop() {
 
   # User Theme (set gnome desktop appearance)
   "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-appearance.sh
+
+  # M PLUS 2 font
+  install_mplus2
+
+  # Chrome font settings
+  set_chrome_fonts 'M PLUS 2'
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -2451,6 +2483,9 @@ i | install)
   mozc)
     install_mozc
     ;;
+  mplus2)
+    install_mplus2
+    ;;
   neovim)
     build_install_neovim
     install_lazyvim
@@ -2499,6 +2534,9 @@ setup)
   fi
 
   case "$2" in
+  chrome-fonts)
+    set_chrome_fonts "$3"
+    ;;
   desktop)
     setup_desktop
     ;;
