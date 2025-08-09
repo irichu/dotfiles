@@ -1177,7 +1177,7 @@ setup_desktop() {
   install_mplus2
 
   # Chrome font settings
-  pkill -x chrome
+  sudo pkill -x chrome
   sleep 1
   set_chrome_fonts 'M PLUS 2'
 
