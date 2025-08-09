@@ -433,7 +433,8 @@ The following apps can be installed individually from the `dots install <package
 
 | パッケージ名 | 説明                                                                                 |
 | ------------ | ------------------------------------------------------------------------------------ |
-| `hackgen`    | HackGenフォント(Hack+源柔ゴシックの合成フォント) NerdFont対応版 をインストールします |
+| `hackgen`    | [HackGen]フォント(Hack+源柔ゴシックの合成フォント) [Nerd Fonts]対応版 をインストールします |
+| `mplus2`     | [M PLUS 2]フォント([Google Fonts])をインストールします            |
 
 ### 🍺 Brewパッケージ
 
@@ -730,6 +731,10 @@ window と pane の操作を可能としています．
 [tmux-logging]: https://github.com/tmux-plugins/tmux-logging
 [tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
 [tmux-fingers]: https://github.com/Morantron/tmux-fingers
+[HackGen]: <https://github.com/yuru7/HackGen>
+[Nerd Fonts]: https://www.nerdfonts.com/
+[M PLUS 2]: <https://mplusfonts.github.io>
+[Google Fonts]: https://fonts.google.com/specimen/M+PLUS+2
 
 <!-- relative link -->
 [English]: ../

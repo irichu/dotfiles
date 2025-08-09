@@ -29,9 +29,10 @@ The following apps can be installed individually from the `dots install <package
 
 ## 🪴 Others
 
-| Package Name | Description                |
-| ------------ | -------------------------- |
-| `hackgen`    | [HackGen] font (Nerd Font) |
+| Package Name | Description                      |
+| ------------ | -------------------------------- |
+| `hackgen`    | [HackGen] font ([Nerd Fonts])    |
+| `mplus2`     | [M PLUS 2] font ([Google Fonts]) |
 
 [CopyQ]: https://hluk.github.io/CopyQ/
 [VSCode]: https://code.visualstudio.com/
@@ -41,3 +42,6 @@ The following apps can be installed individually from the `dots install <package
 [Waydroid]: https://waydro.id/
 [Zed]: <https://zed.dev/>
 [HackGen]: <https://github.com/yuru7/HackGen>
+[Nerd Fonts]: https://www.nerdfonts.com/
+[M PLUS 2]: <https://mplusfonts.github.io>
+[Google Fonts]: https://fonts.google.com/specimen/M+PLUS+2
