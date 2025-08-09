@@ -290,7 +290,7 @@ dots tmux-theme</code>
 dots set-tmux-theme
 
 # example
-dots set-tmux-theme 4                 # Set by number
+dots set-tmux-theme 4               # Set by number
 dots set-tmux-theme developer-mono  # Set by name</code>
 </pre>
 
@@ -431,35 +431,6 @@ dots set-opacity</code>
 </details>
 
 <details>
-<summary>Backup a dotfiles directory</summary>
-
-<pre>
-<code class="language-bash"># Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir
-dots backup</code>
-</pre>
-
-</details>
-
-<details>
-<summary>Clean up directories</summary>
-
-<pre>
-<code class="language-bash"># remove dotfiles cache
-dots clean
-
-# remove cache + dotfiles backup directories
-dots clean backup
-
-# remove cache + config directories
-dots clean config
-
-# remove cache + backup + config
-dots clean all</code>
-</pre>
-
-</details>
-
-<details>
 <summary>Show install target package list</summary>
 
 <pre>
@@ -488,6 +459,35 @@ If you want to check all applications per package manager, please refer:
 - 📓 [snap packages]
 - 📱 [pkg packages]
 -->
+
+<details>
+<summary>Backup a dotfiles directory</summary>
+
+<pre>
+<code class="language-bash"># Copy $XDG_CONFIG_HOME to $XDG_DATA_HOME/dotfiles-main/backup dir
+dots backup</code>
+</pre>
+
+</details>
+
+<details>
+<summary>Clean up directories</summary>
+
+<pre>
+<code class="language-bash"># remove dotfiles cache
+dots clean
+
+# remove cache + dotfiles backup directories
+dots clean backup
+
+# remove cache + config directories
+dots clean config
+
+# remove cache + backup + config
+dots clean all</code>
+</pre>
+
+</details>
 
 <details>
 <summary>Print dotfiles version</summary>
@@ -738,7 +738,6 @@ This project is licensed under the [MIT License].
 [yazi]: <https://github.com/sxyazi/yazi>
 [Alacritty]: <https://github.com/alacritty/alacritty>
 [Termux]: <https://github.com/termux/termux-app>
-[App packages]: docs/app-packages.md
 [Linux packages]: docs/app-packages.md
 [Brew Apps]: docs/brew-packages.md
 [tpm]: <https://github.com/tmux-plugins/tpm>

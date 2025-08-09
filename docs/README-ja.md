@@ -420,14 +420,15 @@ The following apps can be installed individually from the `dots install <package
 
 | パッケージ名 | 説明                                               |
 | ------------ | ------------------------------------------------ |
-| `code`       | Visual Studio Codeと拡張機能をインストールします      |
-| `copyq`      | CopyQをインストールします                           |
-| `localsend`  | LocalSendをインストールします                       |
-| `obsidian`   | Obsidianをインストールします                        |
-| `rustdesk`   | RustDeskをインストールします                        |
-| `signal`     | Signal Desktopをインストールします                  |
-| `waydroid`   | Waydroidをインストールします                        |
-| `zed`        | Zedエディターをインストールします                     |
+| `chrome`     | [Google Chrome]をインストールします      |
+| `code`       | [Visual Studio Code]と拡張機能をインストールします      |
+| `copyq`      | [CopyQ]をインストールします                           |
+| `localsend`  | [LocalSend]をインストールします                       |
+| `obsidian`   | [Obsidian]をインストールします                        |
+| `rustdesk`   | [RustDesk]をインストールします                        |
+| `signal`     | [Signal Desktop]をインストールします                  |
+| `waydroid`   | [Waydroid]をインストールします                        |
+| `zed`        | [Zed]エディターをインストールします                     |
 
 #### 🪴 その他
 
@@ -435,6 +436,7 @@ The following apps can be installed individually from the `dots install <package
 | ------------ | ------------------------------------------------------------------------------------ |
 | `hackgen`    | [HackGen]フォント(Hack+源柔ゴシックの合成フォント) [Nerd Fonts]対応版 をインストールします |
 | `mplus2`     | [M PLUS 2]フォント([Google Fonts])をインストールします            |
+| `mozc`       | [Mozc] - 日本語入力(IME)をインストールします |
 
 ### 🍺 Brewパッケージ
 
@@ -731,10 +733,20 @@ window と pane の操作を可能としています．
 [tmux-logging]: https://github.com/tmux-plugins/tmux-logging
 [tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
 [tmux-fingers]: https://github.com/Morantron/tmux-fingers
+[Google Chrome]: https://www.google.com/intl/en_us/chrome/
+[CopyQ]: https://hluk.github.io/CopyQ/
+[Visual Studio Code]: https://code.visualstudio.com/
+[LocalSend]: https://localsend.org/
+[Obsidian]: https://obsidian.md/
+[RustDesk]: https://rustdesk.com/
+[Signal Desktop]: https://signal.org/
+[Waydroid]: https://waydro.id/
+[Zed]: <https://zed.dev/>
 [HackGen]: <https://github.com/yuru7/HackGen>
 [Nerd Fonts]: https://www.nerdfonts.com/
 [M PLUS 2]: <https://mplusfonts.github.io>
 [Google Fonts]: https://fonts.google.com/specimen/M+PLUS+2
+[Mozc]: https://github.com/google/mozc
 
 <!-- relative link -->
 [English]: ../
