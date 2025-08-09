@@ -932,6 +932,16 @@ install_apt_package() {
     sudo dpkg -i "$CACHE_DIR/git-delta_amd64.deb"
   fi
 
+  # bottom
+  if ! cmd_exists bottom; then
+    info 'install bottom'
+    local LATEST_VERSION
+    LATEST_VERSION=$(get_github_latest_version 'ClementTsang/bottom')
+    [ ! -f "$CACHE_DIR/bottom_${LATEST_VERSION}-1_amd64.deb" ] &&
+      curl -Lo "$CACHE_DIR/bottom_${LATEST_VERSION}-1_amd64.deb" "https://github.com/ClementTsang/bottom/releases/download/${LATEST_VERSION}/bottom_${LATEST_VERSION}-1_amd64.deb"
+    sudo dpkg -i "$CACHE_DIR/bottom_${LATEST_VERSION}-1_amd64.deb"
+  fi
+
   # set config
   apps=(
     bat
@@ -2270,6 +2280,7 @@ background-opacity = ${CURRENT_OPACITY:-0.60}" >"$GHOSTTY_CONFIG_FILE"
 test_self() {
   info "Start: ${FUNCNAME[0]}"
 
+  get_github_latest_version 'ClementTsang/bottom'
   get_github_latest_version 'dandavison/delta'
   get_github_latest_version 'bootandy/dust'
   get_github_latest_version 'yuru7/HackGen'
