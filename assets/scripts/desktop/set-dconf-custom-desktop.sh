@@ -74,6 +74,10 @@ dconf write /org/gnome/shell/favorite-apps "@as [\
   'gnome-control-center.desktop'\
 ]"
 
+# Keyboard
+dconf write /org/gnome/desktop/input-sources/sources "@as [('xkb', 'us'), ('ibus', 'mozc-jp')]"
+dconf write /org/gnome/desktop/input-sources/mru-sources "@as [('ibus', 'mozc-jp'), ('xkb', 'jp')]"
+
 # Mouse
 # dconf write /org/gnome/desktop/peripherals/mouse/natural-scroll false
 dconf write /org/gnome/desktop/peripherals/mouse/speed 1.0

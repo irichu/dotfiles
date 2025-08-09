@@ -1143,6 +1143,9 @@ setup_desktop() {
   # APT packages
   xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-desktop-packages.txt
 
+  # Install Mozc
+  install_mozc
+
   # Google Chrome
   install_chrome
 
@@ -1174,6 +1177,8 @@ setup_desktop() {
   install_mplus2
 
   # Chrome font settings
+  pkill -x chrome
+  sleep 1
   set_chrome_fonts 'M PLUS 2'
 
   info "End: ${FUNCNAME[0]}"

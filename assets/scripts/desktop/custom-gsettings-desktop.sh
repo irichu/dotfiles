@@ -59,6 +59,10 @@ gsettings set org.gnome.shell favorite-apps "[\
   'gnome-control-center.desktop'\
 ]"
 
+# Keyboard
+gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'mozc-jp')]"
+gsettings set org.gnome.desktop.input-sources mru-sources "[('ibus', 'mozc-jp'), ('xkb', 'jp')]"
+
 # Mouse
 gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
 gsettings set org.gnome.desktop.peripherals.mouse speed 1.0
