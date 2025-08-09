@@ -17,6 +17,7 @@ cd Marble-shell-theme
 python3 install.py --blue
 
 # gsettings set org.gnome.shell.extensions.user-theme name "Marble-blue-dark"
+dconf write /org/gnome/shell/extensions/user-theme/name "'Marble-blue-dark'"
 
 # GTK Theme
 cd "$CACHE_DIR"
