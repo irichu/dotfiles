@@ -513,14 +513,12 @@ dots clean all</code>
 
 ## 🖼️ Gallery
 
-<!--
-### Linux
+### Ubuntu Desktop
 
 <img
-  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu2404-desktop-terminal.png"
   width="800"
-  alt="ubuntu screenshot">
--->
+  alt="irichu dotfiles ubuntu desktop terminal">
 
 ### Android Termux
 

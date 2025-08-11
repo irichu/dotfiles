@@ -82,7 +82,7 @@
 この[リポジトリ](https://github.com/irichu/dotfiles)を利用することで，直感的なデスクトップとターミナル環境を簡単に構築できます．高速に起動・動作する Go言語 と Rust 製のコマンドラインツールを中心に構成しています．何か一つでも新しい知識や考え方との出会いになれば幸甚です．
 
 <img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-terminal.png"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu2404-desktop-terminal.png"
   width="800"
   alt="irichu dotfiles ubuntu desktop terminal">
 
@@ -90,11 +90,6 @@
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-guiapps.png"
   width="800"
   alt="irichu dotfiles ubuntu desktop vscode nautilus">
-
-<img
-  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
-  width="800"
-  alt="irichu dotfiles main screenshot">
 
 このDotfilesリポジトリの内容は、GitHub Pagesでもご覧いただけます。
 
@@ -105,9 +100,9 @@
 ### Linux
 
 <img
-  src="https://github.com/user-attachments/assets/29e13d2f-a04b-428e-9126-e02b5c5c5911"
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-ubuntu-desktop-terminal.png"
   width="800"
-  alt="ubuntu screenshot">
+  alt="irichu dotfiles ubuntu desktop terminal">
 
 ### Android Termux
 
@@ -230,6 +225,11 @@ exec -l $(which zsh)
 > Google Playストア版のTermuxは一部のコマンドなどが正常に動作しないことがあるようです．<br>
 > [F-Droid]からインストールすることが推奨されています
 >
+
+<img
+  src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
+  width="800"
+  alt="irichu dotfiles main screenshot">
 
 <!--
 > [!Note]
