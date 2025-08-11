@@ -448,7 +448,7 @@ dots set-opacity</code>
 
 </details>
 
-- 🐧 [App packages]
+- 🐧 [Linux packages]
 - 🍺 [Brew Apps]
 
 <!--
