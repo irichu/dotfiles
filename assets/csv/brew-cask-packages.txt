@@ -1,0 +1,8 @@
+App,Description
+alacritty,Modern terminal emulator with GPU acceleration
+clipy,Clipboard manager for macOS
+flameshot,Powerful screenshot tool with annotation features
+ghostty,Terminal multiplexer with a focus on simplicity
+rectangle,Window management tool for macOS
+visual-studio-code,Popular code editor with extensive plugin support
+lazydocker,TUI for managing Docker containers

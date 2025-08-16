@@ -1,4 +1,5 @@
 Package Manager	Description
 apt	Ubuntu apt packages
 brew	Homebrew packages
+pkg	Termux packages
 snap	Snap packages

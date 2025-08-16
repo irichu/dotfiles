@@ -13,9 +13,13 @@ fzf	Fuzzy finder for the command line
 gh	GitHub CLI tool for interacting with GitHub
 git-delta	Syntax-highlighting pager for git and diff output
 gping	Graphical ping tool with live visualization
+gum	Tool for creating interactive command-line applications
+htop	Interactive process viewer
+hyperfine	Benchmarking tool for command-line applications
 jq	Command-line JSON processor
 just	Handy command runner similar to Make
 lazygit	Simple TUI for Git repositories
+neovim	Highly extensible text editor
 ripgrep	grep replacement with blazing fast search
 ruff	Fast Python linter and formatter
 starship	Minimal and customizable shell prompt
@@ -24,6 +28,7 @@ tmux	Terminal multiplexer for managing multiple panes
 tokei	Code statistics tool for counting lines and files
 typst	Modern markup-based typesetting system
 uv	Python version manager with seamless virtual environments
+xclip	Clipboard utility for X11
 yazi	TUI file manager inspired by ranger
 zellij	Rust-based terminal multiplexer with workspace support
 zoxide	cd replacement with smart directory jumping

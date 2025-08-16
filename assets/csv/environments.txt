@@ -1,10 +1,8 @@
-Type,System/Software
-OS,Ubuntu 24.04- / latest Termux
-Shell,zsh
-Prompt,starship.rs
-Editor,neovim + LazyVim
-Terminal multiplexer,tmux / zellij
-TUI Filer,broot / yazi
-
-GUI Editor,VSCode / Zed
-Terminal emulator,alacritty
+"Type","System/Software"
+"Shell","zsh"
+"Prompt","starship.rs"
+"Editor","Neovim + LazyVim"
+"Terminal multiplexer","tmux, zellij"
+"TUI Filer","broot, yazi"
+"GUI Editor","VSCode, Zed"
+"Terminal emulator","alacritty"

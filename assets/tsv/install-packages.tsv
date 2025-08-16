@@ -1,5 +1,7 @@
 Package	Description
 apt-packages	apt packages
+chrome	Google Chrome
+code	Microsoft Visual Studio Code
 copyq	CopyQ
 docker	docker-ce (additional repository)
 fnm	latest FNM and Node.js
@@ -9,12 +11,16 @@ hackgen	HackGen font
 lazydocker	LazyDocker
 lazygit	LazyGit
 lazyvim	LazyVim
+localsend	LocalSend
 mise	mise
 mozc	Mozc input method
+mplus2	M+ 2 font
 neovim	neovim and LazyVim
+obsidian	Obsidian
 rustdesk	RustDesk
 rustup	Rust toolchain
 snap-packages	Snappy packages
 starship	starship.rs
+signal	Signal messenger
 waydroid	Waydroid
 zed	Zed editor

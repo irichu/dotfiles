@@ -1,7 +1,7 @@
 Setup	Description
-backup	copy ~/.config to $XDG_DATA_HOME/dotfiles/backup
+chrome-fonts	Google Chrome fonts
 desktop	reset Ubuntu desktop config
 git	reset git config
 tmux	reset tmux config
 zellij	reset zellij config
-zsh	deploy dot zsh files and chsh -s zsh
+zsh	deploy dot zsh files and change shell to zsh
