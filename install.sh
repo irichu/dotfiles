@@ -392,7 +392,6 @@ if cmd_exists git; then
 fi
 
 # restore zsh
-
 if [ -f "$histfile_tmp" ]; then
   if [ ! -f "$histfile" ]; then
     info "Restore .zsh_history\n"
@@ -404,8 +403,14 @@ if [ -f "$histfile_tmp" ]; then
 fi
 
 # restore completions
+if cp --help 2>&1 | grep -q -- '--update=none'; then
+  cp_update_opt="--update=none"
+else
+  cp_update_opt="-n"
+fi
+
 mkdir -p "$zsh_completions_cache_dir"
-cp -r --update=none "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
+cp -r $cp_update_opt "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
 
 success 'The dots command installation has been completed!'
 success 'If the dots command is not found, use the ~/.local/bin/dots command during the installation process.'
