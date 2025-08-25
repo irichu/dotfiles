@@ -522,41 +522,44 @@ dots clean all</code>
     </thead>
     <tbody>
         <tr>
-            <th>alacritty</th>
-            <td>A fast, GPU-accelerated terminal emulator.</td>
+            <th>`docker`</th>
+            <td>docker-ce (additional repository)</td>
         </tr>
         <tr>
-            <th>clipy</th>
-            <td>Clipboard manager for macOS with history support.</td>
+            <th>`fnm`</th>
+            <td>latest FNM (Fast Node Manager) and Node.js</td>
         </tr>
         <tr>
-            <th>docker</th>
-            <td>Platform for developing, shipping, and running containers.</td>
+            <th>`fzf`</th>
+            <td>fzf (fuzzy finder) from github</td>
         </tr>
         <tr>
-            <th>flameshot</th>
-            <td>Powerful and easy-to-use screenshot tool.</td>
+            <th>`lazydocker`</th>
+            <td>LazyDocker</td>
         </tr>
         <tr>
-            <th>ghostty</th>
-            <td>Minimal, GPU-based terminal emulator for macOS.</td>
+            <th>`lazygit`</th>
+            <td>LazyGit</td>
         </tr>
         <tr>
-            <th>rectangle</th>
-            <td>Window management app using keyboard shortcuts.</td>
+            <th>`lazyvim`</th>
+            <td>LazyVim</td>
         </tr>
         <tr>
-            <th>visual-studio-code</th>
-            <td>Lightweight yet powerful source code editor.</td>
+            <th>`neovim`</th>
+            <td>Neovim and LazyVim</td>
+        </tr>
+        <tr>
+            <th>`starship`</th>
+            <td>starship.rs</td>
         </tr>
     </tbody>
 </table>
-<br>
 
 </details>
 
 <details>
-<summary>🖥️ Linux GUI Apps</summary>
+<summary>🖥️ GUI Apps</summary>
 
 <table>
     <thead>
@@ -604,7 +607,6 @@ dots clean all</code>
         </tr>
     </tbody>
 </table>
-<br>
 
 </details>
 
@@ -633,12 +635,11 @@ dots clean all</code>
         </tr>
     </tbody>
 </table>
-<br>
 
 </details>
 
 <details>
-<summary>🍺 macOS (cask)</summary>
+<summary>🍺 Brew cask</summary>
 
 <table>
     <thead>
@@ -678,12 +679,11 @@ dots clean all</code>
         </tr>
     </tbody>
 </table>
-<br>
 
 </details>
 
 <details>
-<summary>🍺 Brew apps</summary>
+<summary>🍺 Brew packages</summary>
 <table>
     <thead>
         <tr>
@@ -830,7 +830,6 @@ dots clean all</code>
         </tr>
     </tbody>
 </table>
-<br>
 
 </details>
 
