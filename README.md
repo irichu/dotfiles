@@ -222,9 +222,6 @@ exec -l $(which zsh)
   - Terminal Multiplexers: [tmux] for session management, [zellij] for workspace management
   - TUI File Managers: [broot] for efficient navigation, [yazi] for rapid file access
   - Terminal Emulator: [Alacritty] for performance, [Termux] for Android environments
-  - Packages
-    - 🐧 [Linux packages]
-    - 🍺 [Brew Apps]
 
 <!--
   - **Gnome Extensions**: [Blur my Shell], [Just Perfection], [Space Bar], [Tactile], etc.
@@ -510,6 +507,332 @@ dots clean all</code>
 |                                                     Help image                                                     |
 | :----------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/2be34e8d-4dfa-4c3e-9a85-6d3c9cfd6053" width="800" alt="help"> |
+
+## 📚 Application List
+
+<details>
+<summary>&gt;_ CLI/TUI Apps</summary>
+
+<table>
+    <thead>
+        <tr>
+            <th>Package Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>alacritty</th>
+            <td>A fast, GPU-accelerated terminal emulator.</td>
+        </tr>
+        <tr>
+            <th>clipy</th>
+            <td>Clipboard manager for macOS with history support.</td>
+        </tr>
+        <tr>
+            <th>docker</th>
+            <td>Platform for developing, shipping, and running containers.</td>
+        </tr>
+        <tr>
+            <th>flameshot</th>
+            <td>Powerful and easy-to-use screenshot tool.</td>
+        </tr>
+        <tr>
+            <th>ghostty</th>
+            <td>Minimal, GPU-based terminal emulator for macOS.</td>
+        </tr>
+        <tr>
+            <th>rectangle</th>
+            <td>Window management app using keyboard shortcuts.</td>
+        </tr>
+        <tr>
+            <th>visual-studio-code</th>
+            <td>Lightweight yet powerful source code editor.</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+</details>
+
+<details>
+<summary>🖥️ Linux GUI Apps</summary>
+
+<table>
+    <thead>
+        <tr>
+            <th>Package Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>chrome</th>
+            <td>Google Chrome on Ubuntu Desktop</td>
+        </tr>
+        <tr>
+            <th>code</th>
+            <td>Visual Studio Code on Ubuntu Desktop</td>
+        </tr>
+        <tr>
+            <th>copyq</th>
+            <td>CopyQ on X11</td>
+        </tr>
+        <tr>
+            <th>localsend</th>
+            <td>LocalSend on Ubuntu Desktop</td>
+        </tr>
+        <tr>
+            <th>obsidian</th>
+            <td>Obsidian on Ubuntu Desktop</td>
+        </tr>
+        <tr>
+            <th>rustdesk</th>
+            <td>RustDesk on Linux Desktop</td>
+        </tr>
+        <tr>
+            <th>signal</th>
+            <td>Signal Desktop on Ubuntu Desktop</td>
+        </tr>
+        <tr>
+            <th>waydroid</th>
+            <td>Waydroid on Ubuntu Desktop</td>
+        </tr>
+        <tr>
+            <th>zed</th>
+            <td>Zed editor on Linux Desktop</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+</details>
+
+<details>
+<summary>🪴 Others</summary>
+
+<table>
+    <thead>
+        <tr>
+            <th>Package Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>hackgen</th>
+            <td>HackGen font (Nerd Fonts)</td>
+        </tr>
+        <tr>
+            <th>mplus2</th>
+            <td>M PLUS 2 font (Google Fonts)</td>
+        </tr>
+        <tr>
+            <th>mozc</th>
+            <td>Mozc - a Japanese input method editor(IME)</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+</details>
+
+<details>
+<summary>🍺 macOS (cask)</summary>
+
+<table>
+    <thead>
+        <tr>
+            <th>Package Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>alacritty</th>
+            <td>A fast, GPU-accelerated terminal emulator.</td>
+        </tr>
+        <tr>
+            <th>clipy</th>
+            <td>Clipboard manager for macOS with history support.</td>
+        </tr>
+        <tr>
+            <th>docker</th>
+            <td>Platform for developing, shipping, and running containers.</td>
+        </tr>
+        <tr>
+            <th>flameshot</th>
+            <td>Powerful and easy-to-use screenshot tool.</td>
+        </tr>
+        <tr>
+            <th>ghostty</th>
+            <td>Minimal, GPU-based terminal emulator for macOS.</td>
+        </tr>
+        <tr>
+            <th>rectangle</th>
+            <td>Window management app using keyboard shortcuts.</td>
+        </tr>
+        <tr>
+            <th>visual-studio-code</th>
+            <td>Lightweight yet powerful source code editor.</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+</details>
+
+<details>
+<summary>🍺 Brew apps</summary>
+<table>
+    <thead>
+        <tr>
+            <th>Package Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>bat</th>
+            <td>cat replacement</td>
+        </tr>
+        <tr>
+            <th>bottom</th>
+            <td>TUI system resource monitor</td>
+        </tr>
+        <tr>
+            <th>broot</th>
+            <td>Interactive directory navigation tool</td>
+        </tr>
+        <tr>
+            <th>cloc</th>
+            <td>Count lines of code in a project</td>
+        </tr>
+        <tr>
+            <th>duf</th>
+            <td>df replacement with better visualization</td>
+        </tr>
+        <tr>
+            <th>dust</th>
+            <td>du replacement with intuitive output</td>
+        </tr>
+        <tr>
+            <th>eza</th>
+            <td>ls replacement with modern features</td>
+        </tr>
+        <tr>
+            <th>fastfetch</th>
+            <td>Fast system information fetcher</td>
+        </tr>
+        <tr>
+            <th>fd</th>
+            <td>find replacement with simpler syntax</td>
+        </tr>
+        <tr>
+            <th>fnm</th>
+            <td>Fast Node Manager for managing Node.js versions</td>
+        </tr>
+        <tr>
+            <th>fzf</th>
+            <td>Fuzzy finder for the command line</td>
+        </tr>
+        <tr>
+            <th>gh</th>
+            <td>GitHub CLI tool for interacting with GitHub</td>
+        </tr>
+        <tr>
+            <th>git-delta</th>
+            <td>Syntax-highlighting pager for git and diff output</td>
+        </tr>
+        <tr>
+            <th>gping</th>
+            <td>Graphical ping tool with live visualization</td>
+        </tr>
+        <tr>
+            <th>gum</th>
+            <td>A tool for enhancing shell scripts with interactive UI</td>
+        </tr>
+        <tr>
+            <th>jq</th>
+            <td>Command-line JSON processor</td>
+        </tr>
+        <tr>
+            <th>just</th>
+            <td>Handy command runner similar to Make</td>
+        </tr>
+        <tr>
+            <th>lazygit</th>
+            <td>Simple TUI for Git repositories</td>
+        </tr>
+        <tr>
+            <th>ripgrep</th>
+            <td>grep replacement with blazing fast search</td>
+        </tr>
+        <tr>
+            <th>ruff</th>
+            <td>Fast Python linter and formatter</td>
+        </tr>
+        <tr>
+            <th>sd</th>
+            <td>Simplified and faster replacement for sed</td>
+        </tr>
+        <tr>
+            <th>starship</th>
+            <td>Minimal and customizable shell prompt</td>
+        </tr>
+        <tr>
+            <th>tldr</th>
+            <td>Simple help for command-line tools</td>
+        </tr>
+        <tr>
+            <th>tmux</th>
+            <td>Terminal multiplexer for managing multiple panes</td>
+        </tr>
+        <tr>
+            <th>tokei</th>
+            <td>Code statistics tool for counting lines and files</td>
+        </tr>
+        <tr>
+            <th>typst</th>
+            <td>Modern markup-based typesetting system</td>
+        </tr>
+        <tr>
+            <th>uv</th>
+            <td>Python version manager with seamless virtual environments</td>
+        </tr>
+        <tr>
+            <th>yazi</th>
+            <td>TUI file manager inspired by ranger</td>
+        </tr>
+        <tr>
+            <th>zellij</th>
+            <td>Rust-based terminal multiplexer with workspace support</td>
+        </tr>
+        <tr>
+            <th>zoxide</th>
+            <td>cd replacement with smart directory jumping</td>
+        </tr>
+        <tr>
+            <th>zsh</th>
+            <td>Powerful and customizable shell</td>
+        </tr>
+        <tr>
+            <th>zsh-autosuggestions</th>
+            <td>Fish-like command suggestions for zsh</td>
+        </tr>
+        <tr>
+            <th>zsh-completions</th>
+            <td>Additional completions for zsh commands</td>
+        </tr>
+        <tr>
+            <th>zsh-syntax-highlighting</th>
+            <td>Syntax highlighting for zsh command line</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+</details>
 
 ## 🖼️ Gallery
 
