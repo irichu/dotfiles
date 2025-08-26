@@ -1038,6 +1038,10 @@ Based on [LazyVim keymaps], with some additional key bindings added.
 - <kbd>Ctrl</kbd>+<kbd>[abdefnpuwy]</kbd>
 - <kbd>Alt</kbd>+<kbd>[bdf]</kbd>
 
+## 🙌 Contributions
+
+Feedback and contributions are welcome! Feel free to open an issue or submit a pull request.
+
 ## 📜 License
 
 This project is licensed under the [MIT License].
