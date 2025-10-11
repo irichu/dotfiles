@@ -176,7 +176,9 @@
     },
     "bar": {
       "width": 10, // Width of percentage bars
-      "charElapsed": "■", // Character for elapsed portion
+      "char": {
+        "elapsed": "■" // Character for elapsed portion
+      },
       "charTotal": "-" // Character for total portion
     },
     "percent": {
