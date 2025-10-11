@@ -6,6 +6,7 @@ broot
 chafa
 command-not-found
 curl
+difftastic
 doge
 duf
 dust

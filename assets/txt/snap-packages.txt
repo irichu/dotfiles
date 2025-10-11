@@ -2,6 +2,7 @@ alacritty --classic
 bottom
 #code --classic
 #code-insiders --classic
+difftastic
 dog
 dust
 gimp

@@ -23,6 +23,7 @@ The `dots install --brew` command mainly installs the following apps
 | `bottom`                  | TUI system resource monitor                               |
 | `broot`                   | Interactive directory navigation tool                     |
 | `cloc`                    | Count lines of code in a project                          |
+| `difftastic`              | Syntax-aware diff tool                                    |
 | `duf`                     | df replacement with better visualization                  |
 | `dust`                    | du replacement with intuitive output                      |
 | `eza`                     | ls replacement with modern features                       |
