@@ -1,3 +1,4 @@
+bats
 build-essential
 curl
 file

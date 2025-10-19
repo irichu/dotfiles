@@ -1,5 +1,9 @@
 bash-completion
 bat
+bats
+bats-assert
+bats-file
+bats-support
 chafa
 cloc
 duf
