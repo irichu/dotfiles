@@ -522,35 +522,35 @@ dots clean all</code>
     </thead>
     <tbody>
         <tr>
-            <th>`docker`</th>
+            <th>docker</th>
             <td>docker-ce (additional repository)</td>
         </tr>
         <tr>
-            <th>`fnm`</th>
+            <th>fnm</th>
             <td>latest FNM (Fast Node Manager) and Node.js</td>
         </tr>
         <tr>
-            <th>`fzf`</th>
+            <th>fzf</th>
             <td>fzf (fuzzy finder) from github</td>
         </tr>
         <tr>
-            <th>`lazydocker`</th>
+            <th>lazydocker</th>
             <td>LazyDocker</td>
         </tr>
         <tr>
-            <th>`lazygit`</th>
+            <th>lazygit</th>
             <td>LazyGit</td>
         </tr>
         <tr>
-            <th>`lazyvim`</th>
+            <th>lazyvim</th>
             <td>LazyVim</td>
         </tr>
         <tr>
-            <th>`neovim`</th>
+            <th>neovim</th>
             <td>Neovim and LazyVim</td>
         </tr>
         <tr>
-            <th>`starship`</th>
+            <th>starship</th>
             <td>starship.rs</td>
         </tr>
     </tbody>
