@@ -12,6 +12,7 @@ Based on [LazyVim keymaps](https://www.lazyvim.org/keymaps), with some additiona
 | n,v,i | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Backward word / Forward word                                            |
 | i     | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo                                                                    |
 | i     | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo                                                                    |
+| i     | <kbd>jj</kbd>                               | Esc                                                                     |
 
 ### Emacs-like
 

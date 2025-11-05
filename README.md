@@ -1032,6 +1032,7 @@ Based on [LazyVim keymaps], with some additional key bindings added.
 | n,v,i | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | Backward word / Forward word                                            |
 |   i   | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo                                                                    |
 |   i   | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo                                                                    |
+|   i   | <kbd>jj</kbd>                               | Esc                                                                     |
 
 [Emacs-like shortcuts] are configured in insert mode.
 
