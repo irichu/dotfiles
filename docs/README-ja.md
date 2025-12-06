@@ -30,7 +30,7 @@
     <!-- Tokei LOC -->
     <a href="https://github.com/irichu/dotfiles">
       <img
-        src="https://tokei.rs/b1/github/irichu/dotfiles?category=lines&style=for-the-badge&logo=https://simpleicons.org/icons/github.svg&color=%2377aaff"
+        src="https://www.aschey.tech/tokei/github/irichu/dotfiles?style=for-the-badge&&logo=https://simpleicons.org/icons/github.svg&color=%2377aaff"
         alt="Tokei total line"
         height="22"
       >
