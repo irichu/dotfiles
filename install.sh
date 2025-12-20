@@ -304,7 +304,17 @@ esac
 
 # download
 info "Downloading dotfiles from GitHub..."
-curl -OL https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
+
+# Prefer curl if available, fallback to wget
+if cmd_exists curl; then
+  curl -fL -O https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
+elif cmd_exists wget; then
+  wget https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
+else
+  echo "Error: Neither curl nor wget is installed."
+  exit 1
+fi
+
 info "Download completed.\n"
 
 # current git user
