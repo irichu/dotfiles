@@ -12,15 +12,14 @@ tokei -o json . \
     else (v.reports | length | tostring)
     end;
 
-  def sum_stats(items):
+    def sum_stats(items):
     reduce items[].stats as $s (
-      {code: 0, comments: 0, blanks: 0};
-      {
-        code: .code + ($s.code // 0),
-        comments: .comments + ($s.comments // 0),
-        blanks: .blanks + ($s.blanks // 0)
-      }
+        {code: 0, comments: 0, blanks: 0};
+        .code += ($s.code // 0)
+        | .comments += ($s.comments // 0)
+        | .blanks += ($s.blanks // 0)
     );
+
 
   def total_files:
     (
