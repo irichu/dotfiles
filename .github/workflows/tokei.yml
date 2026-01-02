@@ -4,15 +4,21 @@ on:
   push:
     branches:
       - develop
+
   workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * 1"
 
 permissions:
   contents: write
 
 jobs:
   tokei:
+    if: |
+      github.ref == 'refs/heads/develop' ||
+      github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -46,5 +52,5 @@ jobs:
 
           git add assets/txt/tokei.txt
           git add assets/md/tokei.md
-          git commit -m "chore: update tokei statistics (jq formatted)"
+          git commit -m "🕦 chore: Update tokei statistics (jq formatted)"
           git push
