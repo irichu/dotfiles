@@ -1,10 +1,6 @@
 name: Update tokei statistics (jq formatted)
 
 on:
-  push:
-    branches:
-      - develop
-
   workflow_dispatch:
 
   schedule:
@@ -15,10 +11,9 @@ permissions:
 
 jobs:
   tokei:
-    if: |
-      github.ref == 'refs/heads/develop' ||
-      github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -36,7 +31,7 @@ jobs:
 
       - name: Run tokei and format with jq
         run: |
-          mkdir -p assets/md
+          mkdir -p assets/txt assets/md
           tokei . > assets/txt/tokei.txt
           bash assets/scripts/tokei-md-table.sh > assets/md/tokei.md
 
