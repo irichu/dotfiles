@@ -1722,7 +1722,7 @@ setup_git() {
 }
 
 #--------------------------------------------------
-# git
+# jj
 #--------------------------------------------------
 
 setup_jj() {
@@ -1730,11 +1730,8 @@ setup_jj() {
 
   info "setup jj config"
 
-  if check_command jj; then
+  if cmd_exists jj; then
     jj util completion zsh >"$CONFIG_HOME/zsh/completions/_jj"
-
-    # config
-    # set_config jj
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -2575,6 +2572,9 @@ setup)
     ;;
   git)
     setup_git
+    ;;
+  jj)
+    setup_jj
     ;;
   tmux)
     setup_tmux
