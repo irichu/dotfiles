@@ -838,10 +838,10 @@ install_hackgen() {
 
   if [ "${TERMUX_VERSION:-0}" = 0 ]; then
     (
-      cmd_exists fc-cache &&\
-      info -ny 'Installing HackGen font...' &&\
-      fc-cache -f &&\
-      success "successed!"
+      cmd_exists fc-cache &&
+        info -ny 'Installing HackGen font...' &&
+        fc-cache -f &&
+        success "successed!"
     ) || warning 'fc-cache command not found. please check and install fontconfig.'
   else
     [ -f "$DATA_HOME"/fonts/HackGen35ConsoleNF-Regular.ttf ] && cp -f "$DATA_HOME"/fonts/HackGen35ConsoleNF-Regular.ttf ~/.termux/font.ttf
@@ -899,7 +899,7 @@ install_apt_package() {
   info "Start: ${FUNCNAME[0]}"
 
   sudo apt-get update
-  xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt
+  xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt
 
   # Get the current Ubuntu version
   ubuntu_version=$(lsb_release -r | awk '{print $2}')
@@ -907,10 +907,10 @@ install_apt_package() {
   # Check if the version is 24.04 or higher
   if [[ "$(echo -e "$ubuntu_version\n24.04" | sort -V | head -n 1)" == "24.04" ]]; then
     info "Ubuntu is 24.04 or higher."
-    xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-packages-latest.txt
+    xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-packages-latest.txt
   else
     info "Ubuntu is lower than 24.04."
-    xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-packages.txt
+    xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-packages.txt
   fi
 
   # .local install
@@ -1116,6 +1116,7 @@ install_snap_package() {
   # cargo install
   #/snap/bin/cargo install --locked typst-cli
   #/snap/bin/cargo install --locked yazi-fm yazi-cli
+  #/snap/bin/cargo install --locked --bin jj jj-cli
 
   apps=(
     alacritty
@@ -1141,7 +1142,7 @@ setup_desktop() {
   info "Start: ${FUNCNAME[0]}"
 
   # APT packages
-  xargs sudo apt-get install -y < "$SCRIPT_DIR"/assets/txt/apt-desktop-packages.txt
+  xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-desktop-packages.txt
 
   # Install Mozc
   install_mozc
@@ -1222,6 +1223,10 @@ install_rustup() {
   info "  cargo install --locked yazi-fm yazi-cli"
   info ""
 
+  if command_exists rustup; then
+    rustup completions zsh cargo >"$CONFIG_HOME/zsh/completions/_cargo"
+  fi
+
   info "End: ${FUNCNAME[0]}"
   return 0
 }
@@ -1233,7 +1238,7 @@ install_cargo_packages() {
 
   # alacritty
   if cmd_exists apt; then
-    sudo apt install pkg-config libfreetype6-dev libfontconfig1-dev
+    sudo apt install -y pkg-config libfreetype6-dev libfontconfig1-dev
   fi
 
   cargo install alacritty
@@ -1243,6 +1248,10 @@ install_cargo_packages() {
     sudo apt install cmake
   fi
   cargo install gitui --locked
+
+  # jj
+  cargo install --locked --bin jj jj-cli
+  setup_jj
 
   # typst
   cargo install --locked typst-cli
@@ -1371,7 +1380,7 @@ install_mise() {
 
   sudo apt update -y && sudo apt install -y gpg sudo wget curl
   sudo install -dm 755 /etc/apt/keyrings
-  wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null
+  wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1>/dev/null
   echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
   sudo apt update
   sudo apt install -y mise
@@ -1379,7 +1388,6 @@ install_mise() {
   info "End: ${FUNCNAME[0]}"
   return 0
 }
-
 
 #--------------------------------------------------
 # Mozc
@@ -1713,6 +1721,25 @@ setup_git() {
   return 0
 }
 
+#--------------------------------------------------
+# git
+#--------------------------------------------------
+
+setup_jj() {
+  info "Start: ${FUNCNAME[0]}"
+
+  info "setup jj config"
+
+  if check_command jj; then
+    jj util completion zsh >"$CONFIG_HOME/zsh/completions/_jj"
+
+    # config
+    # set_config jj
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
 #--------------------------------------------------
 # termux
 #--------------------------------------------------
@@ -2391,6 +2418,7 @@ i | install)
     setup_zellij
     install_hackgen
     setup_git
+    setup_jj
     remove_zcompdump
     echo_completion_message
     info "End installation with homebrew"
