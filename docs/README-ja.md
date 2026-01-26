@@ -473,6 +473,7 @@ The following apps can be installed individually from the `dots install <package
 | `git-delta`               | Git や diff の出力をシンタックスハイライト付きで表示           |
 | `gping`                   | グラフィカルな ping ツール（リアルタイム可視化）               |
 | `gum`                     | インタラクティブな UI を可能とするシェルスクリプト拡張         |
+| `jj`                      | Git 互換のモダンなバージョン管理システム                         |
 | `jq`                      | コマンドライン用の JSON プロセッサ                             |
 | `just`                    | `Make` に似た便利なコマンドランナー                            |
 | `lazygit`                 | シンプルな TUI の Git クライアント                             |
