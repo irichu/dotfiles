@@ -3,17 +3,15 @@ name: Update tokei statistics (jq formatted)
 on:
   workflow_dispatch:
 
-  schedule:
-    - cron: "0 0 * * 1"
-
 permissions:
   contents: write
 
 jobs:
   tokei:
-    if: github.ref == 'refs/heads/main'
+    if: |
+      github.ref == 'refs/heads/main' ||
+      github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
