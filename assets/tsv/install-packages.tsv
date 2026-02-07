@@ -1,5 +1,6 @@
 Package	Description
 apt-packages	apt packages
+cargo-packages	cargo packages (`dots binstall cargo-packages` is also available)
 chrome	Google Chrome
 code	Microsoft Visual Studio Code
 copyq	CopyQ

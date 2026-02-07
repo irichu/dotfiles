@@ -1,39 +1,63 @@
 #compdef dots
 
 _dots_install() {
-  _arguments -C \
-    "--apt[Install using apt]" \
-    "--brew[Install Homebrew and packages]" \
-    "--pkg[Install using pkg on Termux]" \
-    "--snap[Install using snap on Ubuntu]" \
-    "--ubuntu-desktop[Install Ubuntu Desktop apps and setup GNOME Desktop]"
+  local line state
+  typeset -A opt_args
 
+  _arguments -C \
+    "1: :->command" \
+    "*::arg:->args"
+  case "$state" in
+  command)
+    # explicitly call the _arguments context to include options (such as --apt) in the candidate list
+    _arguments -S \
+      '--apt[Install using apt]' \
+      '--brew[Install Homebrew and packages]' \
+      '--pkg[Install using pkg on Termux]' \
+      '--snap[Install using snap on Ubuntu]' \
+      '--ubuntu-desktop[Install Ubuntu Desktop apps and setup GNOME Desktop]'
+
+    _values "package" \
+      "apt-packages[Apt packages]" \
+      "cargo-packages[Cargo packages]" \
+      "chrome[Google Chrome]" \
+      "code[Visual Studio Code]" \
+      "copyq[CopyQ]" \
+      "docker[Docker on Ubuntu Desktop]" \
+      "fnm[fnm(Fast Node Maneger)]" \
+      "fzf[fzf]" \
+      "gum[gum]" \
+      "hackgen[HackGen font]" \
+      "lazygit[Lazygit]" \
+      "lazydocker[LazyDocker]" \
+      "lazyvim[Lazyvim]" \
+      "localsend[LocalSend]" \
+      "mise[mise]" \
+      "mozc[Mozc - a Japanese input method editor(IME)]" \
+      "mplus2[M PLUS 2 font]" \
+      "neovim[Neovim]" \
+      "obsidian[Obsidian]" \
+      "rustdesk[RustDesk on Ubuntu Desktop]" \
+      "rustup[rustup on Linux]" \
+      "snap-packages[Snap packages]" \
+      "starship[Starship]" \
+      "signal[Signal Desktop]" \
+      "waydroid[Waydroid - Android in a Linux container]" \
+      "zed[Zed editor]"
+    ;;
+  args)
+    case "$line[1]" in
+    cargo-packages)
+      _arguments "--binstall[Use cargo-binstall instead of cargo install]"
+      ;;
+    esac
+    ;;
+  esac
+}
+
+_dots_binstall() {
   _values "package" \
-    "apt-packages[Apt packages]" \
-    "chrome[Google Chrome]" \
-    "code[Visual Studio Code]" \
-    "copyq[CopyQ]" \
-    "docker[Docker on Ubuntu Desktop]" \
-    "fnm[fnm(Fast Node Maneger)]" \
-    "fzf[fzf]" \
-    "gum[gum]" \
-    "hackgen[HackGen font]" \
-    "lazygit[Lazygit]" \
-    "lazydocker[LazyDocker]" \
-    "lazyvim[Lazyvim]" \
-    "localsend[LocalSend]" \
-    "mise[mise]" \
-    "mozc[Mozc - a Japanese input method editor(IME)]" \
-    "mplus2[M PLUS 2 font]" \
-    "neovim[Neovim]" \
-    "obsidian[Obsidian]" \
-    "rustdesk[RustDesk on Ubuntu Desktop]" \
-    "rustup[rustup on Linux]" \
-    "snap-packages[Snap packages]" \
-    "starship[Starship]" \
-    "signal[Signal Desktop]" \
-    "waydroid[Waydroid - Android in a Linux container]" \
-    "zed[Zed editor]"
+    "(cargo-packages)cargo-packages[Cargo packages]"
 }
 
 _dots_setup() {
@@ -41,6 +65,7 @@ _dots_setup() {
     "chrome-fonts[Setup Google Chrome fonts]" \
     "desktop[Setup gnome-desktop]" \
     "git[Setup git]" \
+    "jj[Setup jj]" \
     "tmux[Setup tmux]" \
     "zellij[Setup zellij]" \
     "zsh[Setup zsh]"
@@ -89,7 +114,7 @@ _dots_docker() {
   args)
     case "$line[1]" in
     test)
-      _dots_docker_test
+      _arguments "1: :_dots_docker_test"
       ;;
     esac
     ;;
@@ -136,17 +161,22 @@ _dots_set-starship() {
 }
 
 _dots() {
-
   local line state
+  typeset -A opt_args
+
   _arguments -C \
-    '(-h --help)'{-h,--help}"[Show help.]" \
-    '(-v --version)'{-v,--version}"[Print dots version info]" \
     "1: :->command" \
     "*::arg:->args"
   case "$state" in
   command)
+    # explicitly call the _arguments context to include options (such as --apt) in the candidate list
+    _arguments -s \
+      '(-h --help)'{-h,--help}"[Show help.]" \
+      '(-v --version)'{-v,--version}"[Print dots version info]"
+
     _values "dots command" \
-      "install[Install all dependencies or individual package]" \
+      '(install i)'{install,i}"[Install all dependencies or individual package]" \
+      '(binstall bi)'{binstall,bi}"[Install binary packages]" \
       "setup[Setup environment]" \
       "upgrade[Upgrade packages]" \
       "list[List packages]" \
@@ -166,34 +196,36 @@ _dots() {
     ;;
   args)
     case "$line[1]" in # $words[2]
-    install)
+    install|i)
       _dots_install
       ;;
+    binstall|bi)
+      _arguments "1: :_dots_binstall"
+      ;;
     setup)
-      _dots_setup
+      _arguments "1: :_dots_setup"
       ;;
     list)
-      _dots_list
+      _arguments "1: :_dots_list"
       ;;
     docker)
       _dots_docker
       ;;
     clean)
-      _dots_clean
+      _arguments "1: :_dots_clean"
       ;;
     set-tmux-theme)
-      _dots_set-tmux-theme
+      _arguments "1: :_dots_set-tmux-theme"
       ;;
     set-lang)
-      _dots_set-lang
+      _arguments "1: :_dots_set-lang"
       ;;
     set-starship)
-      _dots_set-starship
+      _arguments "1: :_dots_set-starship"
       ;;
     esac
     ;;
   esac
-
 }
 
 #compdef _dots dots
