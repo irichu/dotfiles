@@ -35,7 +35,7 @@ The `dots install --brew` command mainly installs the following apps
 | `git-delta`               | Syntax-highlighting pager for git and diff output         |
 | `gping`                   | Graphical ping tool with live visualization               |
 | `gum`                     | A tool for enhancing shell scripts with interactive UI    |
-| `jj`                      | A modern, Git-compatible version control system.          |
+| `jj`                      | A modern, Git-compatible version control system           |
 | `jq`                      | Command-line JSON processor                               |
 | `just`                    | Handy command runner similar to Make                      |
 | `lazygit`                 | Simple TUI for Git repositories                           |
