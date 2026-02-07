@@ -753,6 +753,10 @@ dots clean all</code>
             <td>A tool for enhancing shell scripts with interactive UI</td>
         </tr>
         <tr>
+            <th>jj (Jujutsu)</th>
+            <td>A modern, Git-compatible version control system</td>
+        </tr>
+        <tr>
             <th>jq</th>
             <td>Command-line JSON processor</td>
         </tr>
