@@ -1223,7 +1223,13 @@ install_rustup() {
   info "  cargo install --locked yazi-fm yazi-cli"
   info ""
 
-  if command_exists rustup; then
+  # zsh completions
+  mkdir -p "$CONFIG_HOME/zsh/completions"
+  if cmd_exists rustup; then
+    # rustup
+    rustup completions zsh >"$CONFIG_HOME/zsh/completions/_rustup"
+
+    # cargo
     rustup completions zsh cargo >"$CONFIG_HOME/zsh/completions/_cargo"
   fi
 
@@ -1235,29 +1241,95 @@ install_cargo_packages() {
   info "Start: ${FUNCNAME[0]}"
 
   # cargo install
+  if cmd_exists cargo-binstall; then
+    info "cargo-binstall already installed."
+  else
+    info "install cargo-binstall"
+    cargo install cargo-binstall --locked
+  fi
 
-  # alacritty
+  # dependencies
   if cmd_exists apt; then
+    # for alacritty
     sudo apt install -y pkg-config libfreetype6-dev libfontconfig1-dev
+
+    # for gitui
+    sudo apt install -y cmake
   fi
 
-  cargo install alacritty
+  if [ "${1:-}" = "--binstall" ]; then
+    info "Using cargo binstall to install packages. This may take some time.+"
 
-  # gitui
-  if cmd_exists apt; then
-    sudo apt install cmake
+    export CARGO_BINSTALL_TELEMETRY=false
+
+    # Alacritty
+    cargo binstall alacritty --no-confirm
+
+    # bat
+    cargo binstall bat --no-confirm
+
+    # eza
+    cargo binstall eza --no-confirm
+
+    # fd
+    cargo binstall fd-find --no-confirm
+
+    # gitui
+    cargo binstall gitui --no-confirm
+
+    # jj
+    cargo binstall --strategies crate-meta-data jj-cli --no-confirm
+
+    # ripgrep
+    cargo binstall ripgrep --no-confirm
+
+    # starship
+    cargo binstall starship --no-confirm
+
+    # tokei
+    cargo binstall tokei --no-confirm
+
+    # typst
+    cargo binstall typst-cli --no-confirm
+
+    # yazi
+    cargo binstall yazi-fm yazi-cli --no-confirm
+  else
+    # Alacritty
+    cargo install --locked alacritty
+
+    # bat
+    cargo install --locked bat
+
+    # eza
+    cargo install --locked eza
+
+    # fd
+    cargo install --locked fd-find
+
+    # gitui
+    cargo install gitui --locked
+
+    # jj
+    cargo install --locked --bin jj jj-cli
+
+    # ripgrep
+    cargo install --locked ripgrep
+
+    # starship
+    cargo install --locked starship
+
+    # tokei
+    cargo install --locked tokei
+
+    # typst
+    cargo install --locked typst-cli
+
+    # yazi
+    cargo install --force yazi-build
   fi
-  cargo install gitui --locked
 
-  # jj
-  cargo install --locked --bin jj jj-cli
   setup_jj
-
-  # typst
-  cargo install --locked typst-cli
-
-  # yazi
-  cargo install --locked yazi-fm yazi-cli
 
   # config
   apps=(
@@ -1378,12 +1450,16 @@ install_lazyvim() {
 install_mise() {
   info "Start: ${FUNCNAME[0]}"
 
-  sudo apt update -y && sudo apt install -y gpg sudo wget curl
-  sudo install -dm 755 /etc/apt/keyrings
-  wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1>/dev/null
-  echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
-  sudo apt update
-  sudo apt install -y mise
+  if cmd_exists apt; then
+    sudo apt update -y && sudo apt install -y gpg sudo wget curl
+    sudo install -dm 755 /etc/apt/keyrings
+    wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1>/dev/null
+    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+    sudo apt update
+    sudo apt install -y mise
+  else
+    curl https://mise.run | sh
+  fi
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -2471,6 +2547,9 @@ i | install)
   apt-packages)
     install_apt_package
     ;;
+  cargo-packages)
+    install_cargo_packages "${3:-}"
+    ;;
   code)
     install_vscode
     ;;
@@ -2552,6 +2631,23 @@ i | install)
     exit 1
     ;;
   esac
+  ;;
+
+#--------------------------------------------------
+# binary installation
+#--------------------------------------------------
+bi | binstall)
+
+  case "${2:-}" in
+  cargo-packages)
+    install_cargo_packages --binstall
+    ;;
+  *)
+    echo_allcommand_usage
+    exit 1
+    ;;
+  esac
+
   ;;
 
 #--------------------------------------------------
