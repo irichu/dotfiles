@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Font name to set for Zyyy in Chrome
 FONT_NAME="${1:-M PLUS 2}"
