@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ghostty +show-config --default --docs >ghostty_config.txt
 

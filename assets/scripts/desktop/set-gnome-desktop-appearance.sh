@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Create User Themes directory
 mkdir -p "$HOME/.themes"

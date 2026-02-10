@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Converts a script of `gsettings set` commands to equivalent `dconf write` commands.
 # Usage: ./gsettings_to_dconf.sh gsettings_script.sh > dconf_script.sh

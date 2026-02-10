@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Obtain battery information and display charge status and remaining charge
 get_battery_status() {

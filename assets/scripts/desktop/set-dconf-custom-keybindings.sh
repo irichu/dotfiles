@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script sets custom keybindings in GNOME using dconf.
 # Each keybinding is defined with a name, command, and key combination.
