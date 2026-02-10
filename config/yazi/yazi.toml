@@ -6,7 +6,7 @@
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
 "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
-[manager]
+[mgr]
 ratio = [3, 8, 8]
 sort_by = "alphabetical"
 sort_sensitive = false
@@ -27,46 +27,50 @@ max_width = 600
 max_height = 900
 cache_dir = ""
 image_delay = 30
-image_filter = "lanczos3"
 #image_filter = "triangle"
+image_filter = "lanczos3"
 image_quality = 90
-sixel_fraction = 10
+#sixel_fraction = 10
 ueberzug_scale = 1
 ueberzug_offset = [0, 0, 0, 0]
 
 [opener]
 edit = [
-  { run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-  { run = 'code %*', orphan = true, desc = "code", for = "windows" },
-  { run = 'code -w %*', block = true, desc = "code (block)", for = "windows" },
-]
-open = [
-  { run = 'xdg-open "$1"', desc = "Open", for = "linux" },
-  { run = 'open "$@"', desc = "Open", for = "macos" },
-  { run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
-  { run = 'termux-open "$1"', desc = "Open", for = "android" },
-]
-reveal = [
-  { run = 'xdg-open "$(dirname "$1")"', desc = "Reveal", for = "linux" },
-  { run = 'open -R "$1"', desc = "Reveal", for = "macos" },
-  { run = 'explorer /select,"%1"', orphan = true, desc = "Reveal", for = "windows" },
-  { run = 'termux-open "$(dirname "$1")"', desc = "Reveal", for = "android" },
-  { run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
-]
-extract = [
-  { run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
-  { run = 'ya pub extract --list %*', desc = "Extract here", for = "windows" },
+  { run = "${EDITOR:-vi} %s", desc = "$EDITOR", for = "unix", block = true },
+  { run = "code %s", desc = "code", for = "windows", orphan = true },
+  { run = "code -w %s", desc = "code (block)", for = "windows", block = true },
 ]
 play = [
-  { run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-  { run = 'mpv --force-window %*', orphan = true, for = "windows" },
-  { run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+  { run = "xdg-open %s1", desc = "Play", for = "linux", orphan = true },
+  { run = "open %s", desc = "Play", for = "macos" },
+  { run = 'start "" %s1', desc = "Play", for = "windows", orphan = true },
+  { run = "termux-open %s1", desc = "Play", for = "android" },
+  { run = "mediainfo %s1; echo 'Press enter to exit'; read _", block = true, desc = "Show media info", for = "unix" },
+  { run = "mediainfo %s1 & pause", block = true, desc = "Show media info", for = "windows" },
+]
+open = [
+  { run = "xdg-open %s1", desc = "Open", for = "linux" },
+  { run = "open %s", desc = "Open", for = "macos" },
+  { run = 'start "" %s1', desc = "Open", for = "windows", orphan = true },
+  { run = "termux-open %s1", desc = "Open", for = "android" },
+]
+reveal = [
+  { run = "xdg-open %d1", desc = "Reveal", for = "linux" },
+  { run = "open -R %s1", desc = "Reveal", for = "macos" },
+  { run = "explorer /select,%s1", desc = "Reveal", for = "windows", orphan = true },
+  { run = "termux-open %d1", desc = "Reveal", for = "android" },
+  { run = "clear; exiftool %s1; echo 'Press enter to exit'; read _", desc = "Show EXIF", for = "unix", block = true },
+]
+extract = [{ run = "ya pub extract --list %s", desc = "Extract here" }]
+download = [
+  { run = "ya emit download --open %S", desc = "Download and open" },
+  { run = "ya emit download %S", desc = "Download" },
 ]
 
 [open]
 rules = [
   # Folder
-  { name = "*/", use = [
+  { url = "*/", use = [
     "edit",
     "open",
     "reveal",
@@ -105,8 +109,10 @@ rules = [
     "edit",
     "reveal",
   ] },
+  # Virtual file system
+  { mime = "vfs/{absent,stale}", use = "download" },
   # Fallback
-  { name = "*", use = [
+  { url = "*", use = [
     "open",
     "reveal",
   ] },
@@ -116,31 +122,45 @@ rules = [
 micro_workers = 10
 macro_workers = 10
 bizarre_retry = 3
-image_alloc = 536870912  # 512MB
-image_bound = [0, 0]
+file_workers = 3
+plugin_workers = 5
+fetch_workers = 5
+preload_workers = 2
+process_workers = 5
+image_alloc = 536870912 # 512MB
+#image_bound = [0, 0]
+image_bound = [10000, 10000]
 suppress_preload = false
 
 [plugin]
 fetchers = [
   # Mimetype
-  { id = "mime", name = "*", run = "mime", prio = "high" },
+  { id = "mime", url = "*/", run = "mime.dir", prio = "high" },
+  { id = "mime", url = "local://*", run = "mime.local", prio = "high" },
+  { id = "mime", url = "remote://*", run = "mime.remote", prio = "high" },
 ]
 spotters = [
-  { name = "*/", run = "folder" },
+  { url = "*/", run = "folder" },
   # Code
   { mime = "text/*", run = "code" },
   { mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
   # Image
-  { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+  { mime = "image/{avif,hei?,jxl}", run = "magick" },
+  { mime = "image/svg+xml", run = "svg" },
   { mime = "image/*", run = "image" },
   # Video
   { mime = "video/*", run = "video" },
+  # Virtual file system
+  { mime = "vfs/*", run = "vfs" },
+  # Error
+  { mime = "null/*", run = "null" },
   # Fallback
-  { name = "*", run = "file" },
+  { url = "*", run = "file" },
 ]
 preloaders = [
   # Image
-  { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+  { mime = "image/{avif,hei?,jxl}", run = "magick" },
+  { mime = "image/svg+xml", run = "svg" },
   { mime = "image/*", run = "image" },
   # Video
   { mime = "video/*", run = "video" },
@@ -151,14 +171,15 @@ preloaders = [
   { mime = "application/ms-opentype", run = "font" },
 ]
 previewers = [
-  { name = "*/", run = "folder", sync = true },
+  { url = "*/", run = "folder" },
   # Code
   { mime = "text/*", run = "code" },
   { mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
   # JSON
   { mime = "application/{json,ndjson}", run = "json" },
   # Image
-  { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+  { mime = "image/{avif,hei?,jxl}", run = "magick" },
+  { mime = "image/svg+xml", run = "svg" },
   { mime = "image/*", run = "image" },
   # Video
   { mime = "video/*", run = "video" },
@@ -167,18 +188,22 @@ previewers = [
   # Archive
   { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", run = "archive" },
   { mime = "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}", run = "archive" },
-  { name = "*.{AppImage,appimage}", run = "archive" },
+  { url = "*.{AppImage,appimage}", run = "archive" },
   # Virtual Disk / Disk Image
   { mime = "application/{iso9660-image,qemu-disk,ms-wim,apple-diskimage}", run = "archive" },
   { mime = "application/virtualbox-{vhd,vhdx}", run = "archive" },
-  { name = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}", run = "archive" },
+  { url = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}", run = "archive" },
   # Font
   { mime = "font/*", run = "font" },
   { mime = "application/ms-opentype", run = "font" },
   # Empty file
   { mime = "inode/empty", run = "empty" },
+  # Virtual file system
+  { mime = "vfs/*", run = "vfs" },
+  # Error
+  { mime = "null/*", run = "null" },
   # Fallback
-  { name = "*", run = "file" },
+  { url = "*", run = "file" },
 ]
 
 [input]
@@ -232,13 +257,13 @@ delete_offset = [0, 0, 70, 20]
 
 # overwrite
 overwrite_title = "Overwrite file?"
-overwrite_content = "Will overwrite the following file:"
+overwrite_body = "Will overwrite the following file:"
 overwrite_origin = "center"
 overwrite_offset = [0, 0, 50, 15]
 
 # quit
 quit_title = "Quit?"
-quit_content = "The following tasks are still running, are you sure you want to quit?"
+quit_body = "There are unfinished tasks, quit anyway?\n(Open task manager with default key 'w')"
 quit_origin = "center"
 quit_offset = [0, 0, 50, 15]
 

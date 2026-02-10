@@ -45,5 +45,6 @@ jobs:
 
           git add assets/txt/tokei.txt
           git add assets/md/tokei.md
-          git commit -m "🕦 chore: Update tokei statistics (jq formatted)"
+          git commit -m "🕦 chore: Update tokei statistics (jq formatted)" \
+                     -m "Co-authored-by: irichu <197713379+irichu@users.noreply.github.com>"
           git push

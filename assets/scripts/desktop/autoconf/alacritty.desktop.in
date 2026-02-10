@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Alacritty
+Comment=GPU-accelerated terminal emulator
+Exec=@HOME@/.cargo/bin/alacritty
+Icon=Alacritty
+Terminal=false
+Categories=System;TerminalEmulator;
+StartupNotify=true
