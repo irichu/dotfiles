@@ -183,6 +183,8 @@ _dots() {
       "apply[Apply configuration]" \
       "backup[Backup configuration]" \
       "clean[Clean up]" \
+      "completion[Generate zsh completion for dots command]" \
+      "completions[Generate zsh completions for several tools]" \
       "docker[Run docker container]" \
       "tmux-theme[Show current tmux theme name]" \
       "set-tmux-theme[Set tmux theme]" \

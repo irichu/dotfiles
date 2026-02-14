@@ -1951,6 +1951,24 @@ echo_list() {
   return 0
 }
 
+#--------------------------------------------------
+# completion
+#--------------------------------------------------
+
+generate_completion() {
+  cat "$SCRIPT_DIR/assets/scripts/completions/compdef_dots.zsh"
+  exit 0
+}
+
+generate_package_completions() {
+  info "Start: ${FUNCNAME[0]}"
+
+  bash "$SCRIPT_DIR/assets/scripts/completions/generate-zsh-completions.sh"
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
 ###################################################
 # dev
 ###################################################
@@ -2817,6 +2835,12 @@ opacity)
 set-opacity)
   set_opacity "${2:-}"
   exit 0
+  ;;
+completion)
+  generate_completion
+  ;;
+completions)
+  generate_package_completions
   ;;
 *)
   info -cw "No parameter found."
