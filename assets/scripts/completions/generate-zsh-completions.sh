@@ -4,8 +4,6 @@ CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 ZSH_COMPLETIONS_DIR="${ZSH_COMPLETIONS_DIR:-${CONFIG_HOME}/zsh/completions}"
 mkdir -p "$ZSH_COMPLETIONS_DIR"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
 cmd_exists() {
   command -v "$1" &>/dev/null
 }
