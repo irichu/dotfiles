@@ -71,6 +71,8 @@ generate_completions
 if [ -f "${CONFIG_HOME}/zsh/.zcompdump" ]; then
   rm "${CONFIG_HOME}/zsh/.zcompdump" >/dev/null 2>&1
 fi
-complete -C "${SHELL} compinit" zsh >/dev/null 2>&1
+if cmd_exists zsh; then
+  zsh -c 'autoload -Uz compinit && compinit' >/dev/null 2>&1
+fi
 
 cd - || exit 1
