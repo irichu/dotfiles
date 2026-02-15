@@ -103,7 +103,7 @@ Use the following `curl`, `wget`, or `git` command:
 </details>
 
 <details>
-<summary>git (>=2.35.0 recommended)</summary>
+<summary>git >= 2.35.0</summary>
 
 <pre>
 <code class="language-bash">git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./install.sh</code>
