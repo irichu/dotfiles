@@ -281,8 +281,13 @@ echo_descriptions() {
 echo_allcommand_usage() {
 
   info -ny -cg "Usage: "
-  info -cc "dots install <Command>"
+  info -cc "dots [-y|--yes] install <Command>"
 
+  info ""
+  info -ny -cg "Global Options: "
+  info -cc "  -y, --yes    Skip confirmation prompts"
+
+  info ""
   info -cg "Commands: "
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/main-commands.tsv 5
 
@@ -296,6 +301,10 @@ echo_allcommand_usage() {
 }
 
 echo_each_command_usage() {
+
+  info ''
+  info -ny -cg 'Global Options: '
+  info -cc '  -y, --yes    Skip confirmation prompts'
 
   info ''
   info -ny -cg 'Individual installation: '
