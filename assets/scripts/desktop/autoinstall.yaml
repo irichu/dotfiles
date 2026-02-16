@@ -4,7 +4,7 @@ autoinstall:
     hostname: ubuntu-desktop
     realname: "User"
     username: user
-    password: "<your-password>" # openssl passwd -6 <your-password>
+    password: "$6$EXAMPLE$ABCDEFGHIJKLMNOPQRSTUVWXzyxwvutsrqponmlkjihgfedcba1234567890abcdEFGH" # REPLACE with a real SHA-512 hash, e.g. from: openssl passwd -6 'your-password' (do NOT commit real passwords)
   locale: "en_US.UTF-8"
   #locale: "ja_JP.UTF-8"
   keyboard:
