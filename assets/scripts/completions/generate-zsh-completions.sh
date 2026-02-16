@@ -4,10 +4,6 @@ CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 ZSH_COMPLETIONS_DIR="${ZSH_COMPLETIONS_DIR:-${CONFIG_HOME}/zsh/completions}"
 mkdir -p "$ZSH_COMPLETIONS_DIR"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-cd "${SCRIPT_DIR}" || exit 1
-
 cmd_exists() {
   command -v "$1" &>/dev/null
 }
@@ -74,5 +70,3 @@ fi
 if cmd_exists zsh; then
   zsh -c 'autoload -Uz compinit && compinit' >/dev/null 2>&1
 fi
-
-cd - || exit 1

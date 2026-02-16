@@ -20,6 +20,24 @@ export LC_ALL=C
 ARCH="$(uname -m)"
 readonly ARCH
 
+AUTO_YES=false
+POSITIONAL=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -y|--yes)
+      AUTO_YES=true
+      shift
+      ;;
+    *)
+      POSITIONAL+=("$1")
+      shift
+      ;;
+  esac
+done
+
+set -- "${POSITIONAL[@]}"
+
 #GITHUB_ACTIONS=1
 #readonly GITHUB_ACTIONS
 
@@ -326,6 +344,12 @@ echo_each_command_usage() {
   done
 
   info ''
+  info -ny -cg 'Generate zsh completion: '
+  info -cc 'dots completion'
+  info -ny -cg 'Generate package completions: '
+  info -cc 'dots completions'
+
+  info ''
   info -ny -cg 'Test on Docker: '
   info -cc 'dots docker test {ubuntu|ubuntu-22.04|arch|fedora}'
 
@@ -501,6 +525,36 @@ remove_zcompdump() {
   info "End: ${FUNCNAME[0]}"
   return 0
 }
+
+confirm() {
+  local prompt="${1:-Are you sure?}"
+  local reply
+
+  if "$AUTO_YES"; then
+    echo "$prompt [Y/n]: yes (auto)"
+    return 0
+  fi
+
+  if [[ ! -t 0 ]]; then
+    return 0
+  fi
+
+  while true; do
+    read -r -p "$prompt [Y/n]: " reply
+    case "$reply" in
+      [Yy]|"" )
+        return 0
+        ;;
+      [Nn] )
+        return 1
+        ;;
+      * )
+        echo "Please answer y or n."
+        ;;
+    esac
+  done
+}
+
 
 ###################################################
 # shells
@@ -2539,11 +2593,19 @@ i | install)
     remove_zcompdump
     ;;
   --ubuntu-desktop)
-    info "Start installation with apt and snap"
     check_command apt
     check_command snap
 
-    info "Start installation with apt and snap"
+    echo "This process will download and install many packages (~15 minutes)."
+    echo "Please ensure you have a stable internet connection."
+    echo
+
+    if confirm "Proceed?"; then
+      info "Starting installation for Ubuntu Desktop..."
+    else
+      exit 1
+    fi
+
     install_apt_package
     install_snap_package
     setup_zsh
@@ -2557,7 +2619,7 @@ i | install)
     remove_zcompdump
     setup_desktop
     echo_completion_message
-    info "End installation with apt and snap"
+    info "End installation for Ubuntu Desktop..."
     ;;
   #--------------------------------------------------
   # individual installation
