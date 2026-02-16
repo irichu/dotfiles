@@ -278,14 +278,18 @@ echo_descriptions() {
   return 0
 }
 
+echo_global_options() {
+  info ""
+  info -ny -cg "Global Options: "
+  info -cc "  -y, --yes    Skip confirmation prompts"
+}
+
 echo_allcommand_usage() {
 
   info -ny -cg "Usage: "
   info -cc "dots [-y|--yes] install <Command>"
 
-  info ""
-  info -ny -cg "Global Options: "
-  info -cc "  -y, --yes    Skip confirmation prompts"
+  echo_global_options
 
   info ""
   info -cg "Commands: "
@@ -302,9 +306,7 @@ echo_allcommand_usage() {
 
 echo_each_command_usage() {
 
-  info ''
-  info -ny -cg 'Global Options: '
-  info -cc '  -y, --yes    Skip confirmation prompts'
+  echo_global_options
 
   info ''
   info -ny -cg 'Individual installation: '
