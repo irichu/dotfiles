@@ -309,7 +309,6 @@ echo_each_command_usage() {
   info ''
   echo_global_options
 
-  info ''
   info -ny -cg 'Individual installation: '
   info -cc 'dots install <Package>'
 
