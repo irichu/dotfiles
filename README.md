@@ -88,7 +88,7 @@ Use the following `curl`, `wget`, or `git` command:
 <summary>curl</summary>
 
 <pre>
-<code class="language-bash">curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash</code>
+<code class="language-bash">curl -fsSL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash</code>
 </pre>
 
 </details>
