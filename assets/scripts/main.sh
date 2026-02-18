@@ -1151,6 +1151,11 @@ install_snap_package() {
   # snap package list
   snappy_packages="$SCRIPT_DIR"/assets/txt/snap-packages.txt
 
+  if [ "${1:-}" = "--ubuntu-desktop" ]; then
+    info "Installing snap packages for Ubuntu Desktop."
+    snappy_packages="$SCRIPT_DIR"/assets/txt/snap-desktop-packages.txt
+  fi
+
   # install --classic packages
   grep -v '^#' "$snappy_packages" | grep -- '--classic' | sed 's/ --classic//' | xargs -d '\n' -I{} sudo snap install {} --classic
 
@@ -1164,13 +1169,10 @@ install_snap_package() {
   sudo snap connect bottom:process-control
 
   # install latest stable rustc and cargo
-  /snap/bin/rustup default stable
-  #rustup update stable
-
-  # cargo install
-  #/snap/bin/cargo install --locked typst-cli
-  #/snap/bin/cargo install --locked yazi-fm yazi-cli
-  #/snap/bin/cargo install --locked --bin jj jj-cli
+  if ! cmd_exists /snap/bin/rustup; then
+    /snap/bin/rustup default stable
+    #rustup update stable
+  fi
 
   apps=(
     alacritty
@@ -1755,6 +1757,88 @@ install_waydroid() {
 
   # enable and start the Waydroid service
   sudo systemctl enable --now waydroid-container
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# claude code
+#--------------------------------------------------
+
+install_claude_code() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists claude-code; then
+    info "claude-code already installed."
+    return 0
+  fi
+
+  curl -fsSL https://claude.ai/install.sh | bash
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# devbox
+#--------------------------------------------------
+
+install_devbox() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists devbox; then
+    info "devbox already installed."
+    return 0
+  fi
+
+  curl -fsSL https://get.jetify.com/devbox | bash
+
+  if cmd_exists devbox; then
+    devbox completion zsh >"$CONFIG_HOME/zsh/completions/_devbox"
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+install_devbox_packages() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists devbox; then
+    mkdir -p "$DATA_HOME/devbox/global/default"
+    cp "$SCRIPT_DIR"/config/devbox/global/default/* "$DATA_HOME/devbox/global/default/"
+    devbox global install
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# Nix
+#--------------------------------------------------
+
+install_nix() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists nix; then
+    info "Nix already installed."
+    return 0
+  fi
+
+  if command -v systemctl >/dev/null 2>&1 \
+     && [ "$(ps -p 1 -o comm=)" = "systemd" ]; then
+    echo "Installing Nix (multi-user)..."
+    sh <(curl -L https://nixos.org/nix/install) --daemon --yes
+  else
+    echo "Installing Nix (single-user)..."
+    sh <(curl -L https://nixos.org/nix/install) --no-daemon --yes
+  fi
+
+  if cmd_exists nix; then
+    /bin/true
+  fi
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -2522,7 +2606,7 @@ i | install)
       package_managers=("--apt" "--brew" "--pkg" "--snap" "cancel")
       package_manager=$(gum choose --header="Please select a package manager for batch installation" -- "${package_managers[@]}")
 
-      if package_manager="cancel"; then
+      if [ "$package_manager" = "cancel" ]; then
         info "Canceled."
         exit 0
       fi
@@ -2573,7 +2657,6 @@ i | install)
     check_command apt
     check_command snap
 
-    info "Start installation with apt and snap"
     install_apt_package
     install_snap_package
     setup_zsh
@@ -2608,13 +2691,17 @@ i | install)
 
     install_apt_package
     install_snap_package
+    #install_snap_package --ubuntu-desktop
     setup_zsh
+    #install_claude_code
     install_fnm
+    #build_install_neovim
     install_lazyvim
     install_or_update_starship
     install_fzf_via_git
     setup_tmux
     install_hackgen
+    #install_rustup
     setup_git
     remove_zcompdump
     setup_desktop
@@ -2636,8 +2723,14 @@ i | install)
   chrome)
     install_chrome
     ;;
+  claude-code)
+    install_claude_code
+    ;;
   copyq)
     install_copyq
+    ;;
+  devbox)
+    install_devbox
     ;;
   docker)
     install_docker
@@ -2678,6 +2771,9 @@ i | install)
   neovim)
     build_install_neovim
     install_lazyvim
+    ;;
+  nix)
+    install_nix
     ;;
   # nvm)
   #   install_nvm

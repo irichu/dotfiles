@@ -48,3 +48,11 @@ fi
 if cmd_exists rustup; then
   rustup update stable
 fi
+
+#--------------------------------------------------
+# devbox
+#--------------------------------------------------
+
+if cmd_exists devbox; then
+  devbox version update
+fi

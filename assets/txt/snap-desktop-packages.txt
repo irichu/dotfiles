@@ -1,0 +1,5 @@
+gimp
+ghostty --classic
+pinta
+thunderbird
+zoom-client
