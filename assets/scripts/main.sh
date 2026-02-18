@@ -1169,7 +1169,7 @@ install_snap_package() {
   sudo snap connect bottom:process-control
 
   # install latest stable rustc and cargo
-  if ! cmd_exists /snap/bin/rustup; then
+  if cmd_exists /snap/bin/rustup; then
     /snap/bin/rustup default stable
     #rustup update stable
   fi
