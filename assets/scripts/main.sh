@@ -1807,7 +1807,7 @@ install_devbox_packages() {
 
   if cmd_exists devbox; then
     mkdir -p "$DATA_HOME/devbox/global/default"
-    cp "$SCRIPT_DIR"/config/devbox/global/default/* "$DATA_HOME/devbox/global/default/"
+    cp "$SCRIPT_DIR"/assets/devbox/global/* "$DATA_HOME/devbox/global/default/"
     devbox global install
   fi
 
