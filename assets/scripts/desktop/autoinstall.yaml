@@ -25,8 +25,9 @@ autoinstall:
   apt:
     mirror-selection:
       primary:
-        - uri: "http://jp.archive.ubuntu.com/ubuntu"
-        #- uri: "http://archive.ubuntu.com/ubuntu"
+        - country-mirror
+        - uri: "https://jp.archive.ubuntu.com/ubuntu"
+        #- uri: "https://archive.ubuntu.com/ubuntu"
     fallback: abort
   storage:
     layout:

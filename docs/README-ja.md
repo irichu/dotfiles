@@ -134,7 +134,7 @@ curl, wget, git のいずれかでインストールできます
 - curl
 
 ```bash
-curl -sL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/irichu/dotfiles/main/install.sh | bash
 ```
 
 - wget
@@ -405,38 +405,38 @@ The following apps can be installed individually from the `dots install <package
 
 #### >_ CLI/TUI アプリ
 
-| パッケージ名 | 説明                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------ |
-| `docker`     | 追加のaptリポジトリからDockerをインストールします                                    |
-| `fnm`        | 最新版のFNM(Fast Node Manager)と最新版LTSのNode.jsをインストールします               |
-| `fzf`        | fzf(fuzzy finder)をgithubからインストールします                                      |
-| `lazydocker` | LazyDockerをインストールします                                                       |
-| `lazygit`    | LazyGitをインストールします                                                          |
-| `lazyvim`    | LazyVimをインストールします                                                          |
-| `neovim`     | NeovimとLazyVimをインストールします                                                  |
-| `starship`   | starship.rsをインストールします                                                      |
+| パッケージ名 | 説明                                                                   |
+| ------------ | ---------------------------------------------------------------------- |
+| `docker`     | 追加のaptリポジトリからDockerをインストールします                      |
+| `fnm`        | 最新版のFNM(Fast Node Manager)と最新版LTSのNode.jsをインストールします |
+| `fzf`        | fzf(fuzzy finder)をgithubからインストールします                        |
+| `lazydocker` | LazyDockerをインストールします                                         |
+| `lazygit`    | LazyGitをインストールします                                            |
+| `lazyvim`    | LazyVimをインストールします                                            |
+| `neovim`     | NeovimとLazyVimをインストールします                                    |
+| `starship`   | starship.rsをインストールします                                        |
 
 #### 🖥️ GUI アプリ
 
 | パッケージ名 | 説明                                               |
-| ------------ | ------------------------------------------------ |
-| `chrome`     | [Google Chrome]をインストールします      |
-| `code`       | [Visual Studio Code]と拡張機能をインストールします      |
-| `copyq`      | [CopyQ]をインストールします                           |
-| `localsend`  | [LocalSend]をインストールします                       |
-| `obsidian`   | [Obsidian]をインストールします                        |
-| `rustdesk`   | [RustDesk]をインストールします                        |
-| `signal`     | [Signal Desktop]をインストールします                  |
-| `waydroid`   | [Waydroid]をインストールします                        |
-| `zed`        | [Zed]エディターをインストールします                     |
+| ------------ | -------------------------------------------------- |
+| `chrome`     | [Google Chrome]をインストールします                |
+| `code`       | [Visual Studio Code]と拡張機能をインストールします |
+| `copyq`      | [CopyQ]をインストールします                        |
+| `localsend`  | [LocalSend]をインストールします                    |
+| `obsidian`   | [Obsidian]をインストールします                     |
+| `rustdesk`   | [RustDesk]をインストールします                     |
+| `signal`     | [Signal Desktop]をインストールします               |
+| `waydroid`   | [Waydroid]をインストールします                     |
+| `zed`        | [Zed]エディターをインストールします                |
 
 #### 🪴 その他
 
-| パッケージ名 | 説明                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------ |
+| パッケージ名 | 説明                                                                                       |
+| ------------ | ------------------------------------------------------------------------------------------ |
 | `hackgen`    | [HackGen]フォント(Hack+源柔ゴシックの合成フォント) [Nerd Fonts]対応版 をインストールします |
-| `mplus2`     | [M PLUS 2]フォント([Google Fonts])をインストールします            |
-| `mozc`       | [Mozc] - 日本語入力(IME)をインストールします |
+| `mplus2`     | [M PLUS 2]フォント([Google Fonts])をインストールします                                     |
+| `mozc`       | [Mozc] - 日本語入力(IME)をインストールします                                               |
 
 ### 🍺 Brewパッケージ
 
@@ -444,15 +444,15 @@ The following apps can be installed individually from the `dots install <package
 
 #### macOS cask
 
-| パッケージ名              | 説明                                                         |
-| ------------------------- | ------------------------------------------------------------ |
-| `alacritty`               | 高速でGPU対応のターミナルエミュレータ。                     |
-| `clipy`                   | 履歴機能付きのmacOS用クリップボードマネージャ。              |
-| `docker`                  | コンテナの開発・配布・実行を行うためのプラットフォーム。       |
-| `flameshot`               | 高機能で使いやすいスクリーンショットツール。                 |
-| `ghostty`                 | macOS向けのミニマルでGPUベースのターミナルエミュレータ。       |
-| `rectangle`               | キーボード操作でウィンドウを整理できるウィンドウ管理アプリ。   |
-| `visual-studio-code`      | 軽量で高機能なソースコードエディタ。                           |
+| パッケージ名         | 説明                                                         |
+| -------------------- | ------------------------------------------------------------ |
+| `alacritty`          | 高速でGPU対応のターミナルエミュレータ。                      |
+| `clipy`              | 履歴機能付きのmacOS用クリップボードマネージャ。              |
+| `docker`             | コンテナの開発・配布・実行を行うためのプラットフォーム。     |
+| `flameshot`          | 高機能で使いやすいスクリーンショットツール。                 |
+| `ghostty`            | macOS向けのミニマルでGPUベースのターミナルエミュレータ。     |
+| `rectangle`          | キーボード操作でウィンドウを整理できるウィンドウ管理アプリ。 |
+| `visual-studio-code` | 軽量で高機能なソースコードエディタ。                         |
 
 #### 共通(Linux/macOS)
 
@@ -473,7 +473,7 @@ The following apps can be installed individually from the `dots install <package
 | `git-delta`               | Git や diff の出力をシンタックスハイライト付きで表示           |
 | `gping`                   | グラフィカルな ping ツール（リアルタイム可視化）               |
 | `gum`                     | インタラクティブな UI を可能とするシェルスクリプト拡張         |
-| `jj`                      | Git 互換のモダンなバージョン管理システム                         |
+| `jj`                      | Git 互換のモダンなバージョン管理システム                       |
 | `jq`                      | コマンドライン用の JSON プロセッサ                             |
 | `just`                    | `Make` に似た便利なコマンドランナー                            |
 | `lazygit`                 | シンプルな TUI の Git クライアント                             |
@@ -481,7 +481,7 @@ The following apps can be installed individually from the `dots install <package
 | `ruff`                    | 高速な Python 用リンター＆フォーマッター                       |
 | `sd`                      | シンプルで高速なsedの代替ツール                                |
 | `starship`                | 最小限でカスタマイズ可能なシェルプロンプト                     |
-| `tldr`                    | コマンドラインツールのシンプルなヘルプ表示                      |
+| `tldr`                    | コマンドラインツールのシンプルなヘルプ表示                     |
 | `tmux`                    | 複数のペインを管理できるターミナルマルチプレクサ               |
 | `tokei`                   | コード統計ツール（ファイルや行数をカウント）                   |
 | `typst`                   | モダンなマークアップベースの組版システム                       |
@@ -700,13 +700,13 @@ window と pane の操作を可能としています．
 
 [LazyVimのキーマップ] をベースに，いくつかのキーバインドを追加しています.
 
-| モード | キー                                          | 説明                                                             |
+| モード | キー                                        | 説明                                                             |
 | :----: | ------------------------------------------- | ---------------------------------------------------------------- |
 |  n,v   | <kbd>Ctrl</kbd>+(<kbd>↑</kbd>/<kbd>↓</kbd>) | 前のパラグラフの終端，後のパラグラフの先頭にカーソルを移動します |
 | n,v,i  | <kbd>Ctrl</kbd>+(<kbd>←</kbd>/<kbd>→</kbd>) | 前の単語/次の単語にカーソルを移動します                          |
 |   i    | <kbd>Ctrl</kbd>+<kbd>/</kbd>                | Undo (操作を１回戻します)                                        |
 |   i    | <kbd>Ctrl</kbd>+<kbd>r</kbd>                | Redo (操作を１回やり直します)                                    |
-|   i    | <kbd>jj</kbd>                               | Esc (ノーマルモードに切り替えます)                                |
+|   i    | <kbd>jj</kbd>                               | Esc (ノーマルモードに切り替えます)                               |
 
 インサートモードで以下の Emacs ライクなショートカットを設定しています．詳細は[こちら]を参照ください．
 

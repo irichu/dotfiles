@@ -17,6 +17,8 @@ done
 
 chmod +x "$HOME/.local/share/applications"/*.desktop
 
+gtk-update-icon-cache
+
 update-desktop-database "$HOME/.local/share/applications"
 
 cd -
