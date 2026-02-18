@@ -35,6 +35,7 @@ if [ -d "$LOCAL_PATH" ] && [[ ":$PATH:" != *":$LOCAL_PATH:"* ]]; then
   export PATH="$LOCAL_PATH:$PATH"
 fi
 
+ORG_DIR="$(pwd)"
 cd "$CACHE_DIR" || exit 1
 
 #--------------------------------------------------
@@ -346,19 +347,19 @@ backup_dir "$HOME/.local/share/dotfiles-main"
 touch "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
 mv -f dotfiles-main "$HOME/.local/share/"
 
-if [ -f "./assets/scripts/main.sh" ]; then
+if [ -f "$ORG_DIR/assets/scripts/main.sh" ]; then
   # git repos
   if [ -d /data/data/com.termux/files/usr/bin ]; then
     # for termux
-    \cp -f "./assets/scripts/main.sh" /data/data/com.termux/files/usr/bin/dots
+    \cp -f "$ORG_DIR/assets/scripts/main.sh" /data/data/com.termux/files/usr/bin/dots
   fi
 
   # install to .local/bin
-  \cp -f "./assets/scripts/main.sh" "$HOME/.local/bin/dots"
+  \cp -f "$ORG_DIR/assets/scripts/main.sh" "$HOME/.local/bin/dots"
 
   # copy to .local/share/dotfiles
   mkdir -p "$DATA_DIR"
-  \cp -a ./* "$DATA_DIR"/
+  \cp -a "$ORG_DIR"/* "$DATA_DIR"/
 else
   # for termux
   if [ -d /data/data/com.termux/files/usr/bin ]; then
