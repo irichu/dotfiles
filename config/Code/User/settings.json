@@ -158,18 +158,25 @@
   ],
 
   // Live server
-  "liveServer.settings.CustomBrowser": "chrome",
+  /*"liveServer.settings.CustomBrowser": "chrome",
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.root": "/",
+  "liveServer.settings.host": "127.0.0.1",
   "liveServer.settings.port": 81,
+  "liveServer.settings.useWebExt": true,
+  "liveServer.settings.proxy": {
+      "enable": true,
+      "baseUri": "/",
+      "proxyUri": "http://192.168.x.y:80" // actual address
+  },
+  */
+
+  // Markdown Preview Enhanced
   /*
-    "liveServer.settings.useWebExt": true,
-    "liveServer.settings.proxy": {
-        "enable": true,
-        "baseUri": "/",
-        "proxyUri": "http://192.168.x.y:80" // actual address
-    },
-    */
+  "markdown-preview-enhanced.enableScriptExecution": false,
+  "markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": false,
+  */
+
   // Remote SSH
   "remote.SSH.showLoginTerminal": true,
 }
