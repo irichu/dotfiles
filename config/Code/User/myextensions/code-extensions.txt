@@ -33,9 +33,7 @@ ms-vscode.remote-server
 naumovs.color-highlight
 oderwat.indent-rainbow
 pkief.material-icon-theme
-ritwickdey.liveserver
 shardulm94.trailing-spaces
-shd101wyy.markdown-preview-enhanced
 sibiraj-s.vscode-scss-formatter
 tamasfe.even-better-toml
 timonwong.shellcheck
