@@ -17,15 +17,17 @@ if [ ! -d "$HOME/.config/autostart" ]; then
   mkdir -p "$HOME/.config/autostart"
 fi
 
+AUTOSTART_SRC="$SCRIPT_DIR/../../../config/autostart/ulauncher.desktop"
+
 if [ "$XDG_SESSION_TYPE" = "x11" ]; then
   AUTOSTART_SRC="$SCRIPT_DIR/../../../config/autostart/ulauncher.desktop.x11"
-else
-  AUTOSTART_SRC="$SCRIPT_DIR/../../../config/autostart/ulauncher.desktop"
 fi
 
+AUTOSTART_TARGET="$HOME/.config/autostart/ulauncher.desktop"
+
 if [ -f "$AUTOSTART_SRC" ]; then
-  if ! cp -f "$AUTOSTART_SRC" "$HOME/.config/autostart/"; then
-    echo "Failed to copy autostart file from '$AUTOSTART_SRC' to '$HOME/.config/autostart/'" >&2
+  if ! cp -f "$AUTOSTART_SRC" "$AUTOSTART_TARGET"; then
+    echo "Failed to copy autostart file from '$AUTOSTART_SRC' to '$AUTOSTART_TARGET'" >&2
   fi
 else
   echo "Autostart file not found: '$AUTOSTART_SRC'" >&2
