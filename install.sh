@@ -425,7 +425,7 @@ fi
 mkdir -p "$zsh_completions_cache_dir"
 cp -r $cp_update_opt "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
 
-cd - || exit 1
+cd "$OLDPWD" || exit 1
 
 success 'The dots command installation has been completed!'
 success 'If the dots command is not found, use the ~/.local/bin/dots command during the installation process.'
