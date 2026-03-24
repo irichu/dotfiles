@@ -1485,7 +1485,7 @@ install_lazyvim() {
   cp "$SCRIPT_DIR"/config/nvim/lazy-lock.json "$CONFIG_HOME/nvim/"
   cp "$SCRIPT_DIR"/config/nvim/lazyvim.json "$CONFIG_HOME/nvim/"
 
-  nvim +q
+  #nvim +q
 
   # lazy
   if [[ "$OSTYPE" == "darwin"* ]]; then
