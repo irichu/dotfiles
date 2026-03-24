@@ -1,0 +1,10 @@
+autoconf
+automake
+cmake
+gettext
+g++
+libclang-dev
+libtool
+libtool-bin
+ninja-build
+pkg-config

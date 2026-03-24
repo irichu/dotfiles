@@ -844,6 +844,23 @@ install_node_by_fnm() {
   fnm --version
   fnm install --lts
 
+  install_npm_global_packages
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# npm global packages
+#--------------------------------------------------
+
+install_npm_global_packages() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists npm; then
+    npm install -g tree-sitter-cli
+  fi
+
   info "End: ${FUNCNAME[0]}"
   return 0
 }
@@ -964,6 +981,7 @@ install_apt_package() {
   else
     info "Ubuntu is lower than 24.04."
     xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-packages.txt
+    xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-packages-ubuntu2204.txt
   fi
 
   # .local install
@@ -1190,6 +1208,20 @@ install_snap_package() {
 }
 
 #--------------------------------------------------
+# gnome-desktop (interactive setup)
+#--------------------------------------------------
+
+setup_desktop_interactive() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # set gnome desktop
+  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-setup.sh  
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
 # gnome-desktop
 #--------------------------------------------------
 
@@ -1221,7 +1253,7 @@ setup_desktop() {
   install_signal
 
   # set gnome desktop
-  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop.sh
+  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-finalize.sh
 
   # set gnome desktop appearance
   set_config gtk-3.0
@@ -2687,6 +2719,8 @@ i | install)
     else
       exit 1
     fi
+
+    setup_desktop_interactive
 
     install_apt_package
     install_snap_package
