@@ -39,9 +39,17 @@ if pgrep -x "chrome" >/dev/null; then
   exit 1
 fi
 
+if /usr/bin/google-chrome --version >/dev/null 2>&1; then
+  echo "✅ Chrome is installed and not running."
+else
+  echo "Chrome is not properly installed or cannot be executed."
+  exit 1
+fi
+
 # Preferences file existence check
 if [ ! -f "$PREFS_PATH" ]; then
-  echo "⚠️ Preferences file not found at $PREFS_PATH. Please check the path."
+  echo "Chrome preferences file is not found at $PREFS_PATH."
+  echo "Additional font settings are skipped."
   exit 1
 fi
 
