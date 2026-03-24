@@ -180,6 +180,9 @@ exec -l $(which zsh)
 
 - Linux 🐧
   - Ubuntu 22.04 and newer (recommended)
+    - Ubuntu 22.04 LTS: Partial support
+    - Ubuntu 24.04 LTS: Main supported version
+    - Ubuntu 26.04 LTS: Planned
   - Arch Linux
   - Fedora
 - Mac 🍎
