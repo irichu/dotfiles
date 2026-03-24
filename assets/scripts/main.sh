@@ -25,14 +25,14 @@ POSITIONAL=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -y|--yes)
-      AUTO_YES=true
-      shift
-      ;;
-    *)
-      POSITIONAL+=("$1")
-      shift
-      ;;
+  -y | --yes)
+    AUTO_YES=true
+    shift
+    ;;
+  *)
+    POSITIONAL+=("$1")
+    shift
+    ;;
   esac
 done
 
@@ -542,19 +542,18 @@ confirm() {
   while true; do
     read -r -p "$prompt [Y/n]: " reply
     case "$reply" in
-      [Yy]|"" )
-        return 0
-        ;;
-      [Nn] )
-        return 1
-        ;;
-      * )
-        echo "Please answer y or n."
-        ;;
+    [Yy] | "")
+      return 0
+      ;;
+    [Nn])
+      return 1
+      ;;
+    *)
+      echo "Please answer y or n."
+      ;;
     esac
   done
 }
-
 
 ###################################################
 # shells
@@ -1827,8 +1826,8 @@ install_nix() {
     return 0
   fi
 
-  if command -v systemctl >/dev/null 2>&1 \
-     && [ "$(ps -p 1 -o comm=)" = "systemd" ]; then
+  if command -v systemctl >/dev/null 2>&1 &&
+    [ "$(ps -p 1 -o comm=)" = "systemd" ]; then
     echo "Installing Nix (multi-user)..."
     sh <(curl -L https://nixos.org/nix/install) --daemon --yes
   else
