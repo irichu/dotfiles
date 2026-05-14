@@ -658,7 +658,7 @@ setup_zsh() {
   fi
 
   info "Change shell to zsh"
-  sudo -i chsh "$CURRENT_USER" -s "$zsh_path"
+  sudo chsh "$CURRENT_USER" -s "$zsh_path"
 
   info "End: ${FUNCNAME[0]}"
   return 0

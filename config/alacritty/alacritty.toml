@@ -58,6 +58,7 @@ TERM = "xterm-256color"
 [window]
 decorations = "Full" #"None"
 # decorations = "None"
+decorations_theme_variant = "Dark"
 dynamic_padding = false
 dynamic_title = true
 #opacity = 0.80
