@@ -705,7 +705,7 @@ install_chrome() {
   fi
 
   # install
-  bash "$DATA_DIR/scripts/desktop/install-chrome.sh"
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-chrome.sh
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -942,7 +942,7 @@ install_mplus2() {
 set_chrome_fonts() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR"/assets/scripts/desktop/set-chrome-fonts.sh "$1"
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/set-chrome-fonts.sh "$1" || true
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1265,7 +1265,9 @@ setup_desktop() {
   install_mplus2
 
   # Chrome font settings
-  sudo pkill -x chrome
+  if pgrep -x chrome >/dev/null 2>&1; then
+    sudo pkill -x chrome
+  fi
   sleep 1
   set_chrome_fonts 'M PLUS 2'
 
@@ -2720,7 +2722,8 @@ i | install)
       exit 1
     fi
 
-    setup_desktop_interactive
+    # interactive desktop setup
+    #setup_desktop_interactive
 
     install_apt_package
     install_snap_package
@@ -2737,7 +2740,11 @@ i | install)
     #install_rustup
     setup_git
     remove_zcompdump
+
+    # desktop setup
+    setup_desktop_interactive
     setup_desktop
+
     echo_completion_message
     info "End installation for Ubuntu Desktop..."
     ;;
