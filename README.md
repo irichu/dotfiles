@@ -137,6 +137,7 @@ Replace `[--apt|--brew|--snap|--pkg]` with your package manager of choice.
 - To install on Ubuntu Desktop (New):
 
 ```bash
+# Ubuntu LTS >= 22.04
 dots install --ubuntu-desktop
 ```
 
@@ -182,7 +183,7 @@ exec -l $(which zsh)
   - Ubuntu 22.04 and newer (recommended)
     - Ubuntu 22.04 LTS: Partial support
     - Ubuntu 24.04 LTS: Main supported version
-    - Ubuntu 26.04 LTS: Planned
+    - Ubuntu 26.04 LTS: Support
   - Arch Linux
   - Fedora
 - Mac 🍎

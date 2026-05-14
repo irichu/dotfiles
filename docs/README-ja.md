@@ -216,7 +216,7 @@ exec -l $(which zsh)
   - Ubuntu 22.04以降 (推奨)
     - Ubuntu 22.04 LTS 一部サポート対象
     - Ubuntu 24.04 LTS メイン動作確認対象
-    - Ubuntu 26.04 LTS 今後対応予定
+    - Ubuntu 26.04 LTS 対応中！
   - Arch Linux
   - Fedora
 - Mac 🍎
