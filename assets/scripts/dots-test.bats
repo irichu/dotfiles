@@ -28,3 +28,62 @@ set -o pipefail
     run dots list --snap
     [ "$status" -eq 0 ]
 }
+
+@test "dots starship command works" {
+    run dots starship
+    [ "$status" -eq 0 ]
+
+    run dots starship default
+    [ "$status" -eq 0 ]
+
+    run dots starship simple
+    [ "$status" -eq 0 ]
+
+    run dots set-starship default
+    [ "$status" -eq 0 ]
+
+    run dots set-starship simple
+    [ "$status" -eq 0 ]
+}
+
+@test "dots set-lang command works" {
+    run dots set-lang en_US.UTF-8
+    [ "$status" -eq 0 ]
+
+    run dots set-lang ja_JP.UTF-8
+    [ "$status" -eq 0 ]
+}
+
+@test "dots set-opacity command works" {
+    run dots opacity
+    [ "$status" -eq 0 ]
+
+    run dots set-opacity 0.0
+    [ "$status" -eq 0 ]
+
+    run dots opacity
+    [ "$status" -eq 0 ]
+
+    run dots set-opacity 1.0
+    [ "$status" -eq 0 ]
+
+    run dots opacity
+    [ "$status" -eq 0 ]
+
+    run dots set-opacity 0.5
+    [ "$status" -eq 0 ]
+
+    run dots set-opacity 1.5
+    [ "$status" -eq 1 ]
+
+    run dots set-opacity 2
+    [ "$status" -eq 1 ]
+
+    run dots set-opacity -0.1
+    [ "$status" -eq 1 ]
+}
+
+@test "dots upgrade command works" {
+    run dots upgrade
+    [ "$status" -eq 0 ]
+}

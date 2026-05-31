@@ -40,15 +40,15 @@ dots clean backup
 dots clean all
 
 # list test
-dots ls apt
-dots ls pkg
-dots ls snap
-dots ls brew
+dots ls --apt
+dots ls --pkg
+dots ls --snap
+dots ls --brew
 
-dots list apt
-dots list pkg
-dots list snap
-dots list brew
+dots list --apt
+dots list --pkg
+dots list --snap
+dots list --brew
 
 # help test
 dots help

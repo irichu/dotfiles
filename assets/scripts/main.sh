@@ -2438,6 +2438,7 @@ get_starship() {
   theme=multiline
   if [ -L "$CONFIG_FILE" ]; then
     theme=$(readlink "$CONFIG_FILE" | grep -E -o "oneline")
+    theme=${theme:-multiline}
   fi
 
   case "$theme" in
@@ -2461,8 +2462,9 @@ get_starship() {
 set_starship() {
   value="${1:-}"
   newname="multiline"
+  exit_code=0
 
-  current_theme=$(get_starship)
+  current_theme=$(get_starship) || exit_code=$?
   info -ny -cb "Current theme: "
   info -cn "$current_theme"
 
@@ -2499,9 +2501,15 @@ set_starship() {
     exit 1
   fi
 
-  ln -sf "$newname.toml" "$starship_config_dir/config.toml"
+  ln -sf "$newname.toml" "$starship_config_dir/config.toml" || {
+    error "Failed to create symlink for starship config."
+    exit 1
+  }
 
-  exit 0
+  info -ny -cb "Changed to theme: "
+  info -cn "$value"
+
+  exit $exit_code
 }
 
 #--------------------------------------------------
