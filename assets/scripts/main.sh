@@ -1252,6 +1252,12 @@ setup_desktop() {
   # Signal
   install_signal
 
+  # Zed editor
+  install_zed
+
+  # interactive setup
+  # setup_desktop_interactive
+
   # set gnome desktop
   "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-finalize.sh
 
@@ -2721,7 +2727,19 @@ i | install)
     check_command snap
 
     echo "This process will download and install many packages (~15 minutes)."
-    echo "Please ensure you have a stable internet connection."
+    echo "At the beginning of the installation, GNOME extension installation dialogs may appear."
+    echo "Please review the extension names below and click \"Install\" when prompted:"
+    echo "- Alphabetical App Grid"
+    echo "- Blur my Shell"
+    echo "- Compiz alike magic lamp effect"
+    echo "- Compiz windows effect"
+    echo "- Just Perfection"
+    echo "- Space Bar"
+    echo "- Tactile"
+    echo "- TopHat"
+    echo "- Undecorate Window"      
+    echo "- User Themes"
+    echo "- Workspace Matrix"
     echo
 
     if confirm "Proceed?"; then
@@ -2731,7 +2749,7 @@ i | install)
     fi
 
     # interactive desktop setup
-    #setup_desktop_interactive
+    setup_desktop_interactive
 
     install_apt_package
     install_snap_package
@@ -2750,7 +2768,6 @@ i | install)
     remove_zcompdump
 
     # desktop setup
-    setup_desktop_interactive
     setup_desktop
 
     echo_completion_message

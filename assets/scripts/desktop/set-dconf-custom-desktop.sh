@@ -63,6 +63,7 @@ dconf write /org/gnome/shell/favorite-apps "@as [\
   'vlc.desktop',\
   'code.desktop',\
   'code-insiders.desktop',\
+  'dev.zed.Zed.desktop',\
   'alacritty_alacritty.desktop',\
   'obsidian.desktop',\
   'Waydroid.desktop',\

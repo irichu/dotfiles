@@ -48,6 +48,7 @@ gsettings set org.gnome.shell favorite-apps "[\
   'vlc.desktop',\
   'code.desktop',\
   'code-insiders.desktop',\
+  'dev.zed.Zed.desktop',\
   'alacritty_alacritty.desktop',\
   'obsidian.desktop',\
   'Waydroid.desktop',\
