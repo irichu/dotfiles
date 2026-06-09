@@ -4,22 +4,32 @@
 // documentation: https://zed.dev/docs/configuring-zed
 //
 // To see all of Zed's default settings without changing your
-// custom settings, run the `open default settings` command
-// from the command palette or from `Zed` application menu.
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "outline_panel": {
+    "dock": "left"
+  },
+  "project_panel": {
+    "dock": "left"
+  },
   "vim_mode": true,
   "base_keymap": "VSCode",
   "ui_font_size": 16,
-  "buffer_font_size": 16,
-  "ui_font_family": "HackGen Console NF",
-  "buffer_font_family": "HackGen Console NF",
-  "format_on_save": "on",
+  "buffer_font_size": 15,
+  "ui_font_family": "HackGen35 Console NF",
+  "buffer_font_family": "HackGen35 Console NF",
   "remove_trailing_whitespace_on_save": true,
   "show_whitespaces": "all",
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Material Icon Theme"
+  },
   "theme": {
     "mode": "system",
     "light": "Catppuccin Mocha",
-    "dark": "One Dark"
+    "dark": "Zedokai Darker (Filter Spectrum)"
   },
   "lsp": {
     "pyright": {
@@ -41,8 +51,7 @@
           "command": "black",
           "arguments": ["-"]
         }
-      },
-      "format_on_save": "on"
+      }
     }
   }
 }
