@@ -1,0 +1,116 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt alt": "workspace::ToggleVimMode",
+      "ctrl-?": "workspace::ToggleBottomDock",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-s": "workspace::Save",
+      "ctrl-x ctrl-c": "pane::CloseActiveItem",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "shift shift": "file_finder::Toggle",
+      "ctrl-up": ["workspace::SendKeystrokes", "[ ["],
+      "ctrl-down": ["workspace::SendKeystrokes", "] ]"],
+      "ctrl-left": ["workspace::SendKeystrokes", "B"],
+      "ctrl-right": ["workspace::SendKeystrokes", "W"],
+      "shift-left": ["workspace::SendKeystrokes", "b"],
+      "shift-right": ["workspace::SendKeystrokes", "w"],
+    },
+  },
+  {
+    "context": "Editor && edit_prediction",
+    "bindings": {
+      "alt-l": null,
+    },
+  },
+  {
+    "context": "Editor && (edit_prediction && (showing_completions || in_leading_whitespace))",
+    "bindings": {
+      "alt-l": null,
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "ctrl-v": "vim::Paste",
+      "ctrl-s": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", "workspace::Save"],
+      ],
+      "ctrl-a": "editor::MoveToBeginningOfLine",
+      "ctrl-a ctrl-a": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "^ i"]],
+      ],
+      "ctrl-e": "editor::MoveToEndOfLine",
+      "ctrl-e ctrl-e": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g _ a"]],
+      ],
+      "ctrl-d": "editor::Delete",
+      "ctrl-h": "editor::Backspace",
+      "ctrl-f": ["workspace::SendKeystrokes", "right"],
+      "ctrl-b": ["workspace::SendKeystrokes", "left"],
+      "ctrl-p": ["workspace::SendKeystrokes", "up"],
+      "ctrl-n": ["workspace::SendKeystrokes", "down"],
+      "ctrl-k": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d $ a"]],
+      ],
+      "ctrl-y": "editor::Paste",
+      "ctrl-u": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d 0 i"]],
+      ],
+      "ctrl-w": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d B i"]],
+      ],
+      // alt shortcuts
+      "alt-f": ["workspace::SendKeystrokes", "ctrl-right"],
+      "alt-b": ["workspace::SendKeystrokes", "ctrl-left"],
+      "alt-d": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "c W"]],
+      ],
+      "alt-backspace": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d b i"]],
+      ],
+      // To uppercase
+      "alt-u": "editor::ConvertToUpperCase",
+      "alt-shift-u": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g U i w i"]],
+      ],
+      // To lowercase
+      "alt-l": "editor::ConvertToLowerCase",
+      "alt-shift-l": [
+        "action::Sequence",
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g u i w i"]],
+      ],
+      // camel case, snake case
+      "alt-c": "editor::ConvertToUpperCamelCase",
+      "alt-shift-c": "editor::ConvertToSnakeCase",
+      "alt->": "editor::MoveToEnd",
+      "alt-<": "editor::MoveToBeginning",
+      "alt-]": "editor::MoveToEndOfParagraph",
+      "alt-[": "editor::MoveToStartOfParagraph",
+    },
+  },
+]
