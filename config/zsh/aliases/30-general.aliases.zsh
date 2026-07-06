@@ -20,6 +20,9 @@ alias egrep='egrep --color=auto'
 # sudo alias
 alias sudo='sudo '
 
+# crontab
+alias crontab='crontab -i'
+
 alias h='history 0'
 alias h1='history 1'
 alias hg='history 0 | grep'
@@ -474,8 +477,53 @@ alias va='source .venv/bin/activate'
 alias pu='pip install --upgrade pip'
 
 # uv
-alias upy='uv python'
 alias upip='uv pip'
+
+# General
+alias uvv='uv --version'
+
+# Project
+alias uvi='uv init'
+alias uva='uv add'
+alias uvr='uv remove'
+alias uvs='uv sync'
+alias uvl='uv lock'
+alias uvt='uv tree'
+
+# Run
+alias uvrun='uv run'
+alias uvpy='uv run python'
+alias uvip='uv pip'
+
+# Virtual environment
+alias uvvenv='uv venv'
+alias uvact='source .venv/bin/activate'
+
+# Package management (pip compatibility)
+alias uvpi='uv pip install'
+alias uvpu='uv pip uninstall'
+alias uvpl='uv pip list'
+alias uvpf='uv pip freeze'
+alias uvps='uv pip show'
+
+# Tool management
+alias uvtl='uv tool list'
+alias uvti='uv tool install'
+alias uvtu='uv tool uninstall'
+alias uvtx='uv tool run'
+
+# Python versions
+alias uvpyi='uv python install'
+alias uvpyl='uv python list'
+alias uvpyp='uv python pin'
+
+# Cache
+alias uvc='uv cache clean'
+alias uvcs='uv cache size'
+
+# Upgrade dependencies
+alias uvup='uv lock --upgrade'
+alias uvsu='uv sync --upgrade'
 
 alias lzd='lazydocker'
 alias lzg='lazygit'
