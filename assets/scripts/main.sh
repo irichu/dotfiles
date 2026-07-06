@@ -876,6 +876,8 @@ install_zed() {
     curl -f https://zed.dev/install.sh | sh
   fi
 
+  set_config zed
+
   info "End: ${FUNCNAME[0]}"
   return 0
 }
@@ -1215,7 +1217,7 @@ setup_desktop_interactive() {
   info "Start: ${FUNCNAME[0]}"
 
   # set gnome desktop
-  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-setup.sh  
+  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-setup.sh
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -2737,7 +2739,7 @@ i | install)
     echo "- Space Bar"
     echo "- Tactile"
     echo "- TopHat"
-    echo "- Undecorate Window"      
+    echo "- Undecorate Window"
     echo "- User Themes"
     echo "- Workspace Matrix"
     echo

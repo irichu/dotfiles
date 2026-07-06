@@ -10,15 +10,15 @@
     "context": "Workspace",
     "bindings": {
       "alt alt": "workspace::ToggleVimMode",
-      "ctrl-?": "workspace::ToggleBottomDock",
-    },
+      "ctrl-?": "workspace::ToggleBottomDock"
+    }
   },
   {
     "context": "Editor",
     "bindings": {
-      "ctrl-s": "workspace::Save",
-      "ctrl-x ctrl-c": "pane::CloseActiveItem",
-    },
+      "ctrl-s": "workspace::Save"
+      //"ctrl-x ctrl-c": "pane::CloseActiveItem",
+    }
   },
   {
     "context": "Editor && vim_mode == normal",
@@ -29,20 +29,20 @@
       "ctrl-left": ["workspace::SendKeystrokes", "B"],
       "ctrl-right": ["workspace::SendKeystrokes", "W"],
       "shift-left": ["workspace::SendKeystrokes", "b"],
-      "shift-right": ["workspace::SendKeystrokes", "w"],
-    },
+      "shift-right": ["workspace::SendKeystrokes", "w"]
+    }
   },
   {
     "context": "Editor && edit_prediction",
     "bindings": {
-      "alt-l": null,
-    },
+      "alt-l": null
+    }
   },
   {
     "context": "Editor && (edit_prediction && (showing_completions || in_leading_whitespace))",
     "bindings": {
-      "alt-l": null,
-    },
+      "alt-l": null
+    }
   },
   {
     "context": "Editor && vim_mode == insert",
@@ -50,17 +50,17 @@
       "ctrl-v": "vim::Paste",
       "ctrl-s": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", "workspace::Save"],
+        ["vim::SwitchToNormalMode", "workspace::Save"]
       ],
       "ctrl-a": "editor::MoveToBeginningOfLine",
       "ctrl-a ctrl-a": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "^ i"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "^ i"]]
       ],
       "ctrl-e": "editor::MoveToEndOfLine",
       "ctrl-e ctrl-e": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g _ a"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g _ a"]]
       ],
       "ctrl-d": "editor::Delete",
       "ctrl-h": "editor::Backspace",
@@ -70,39 +70,39 @@
       "ctrl-n": ["workspace::SendKeystrokes", "down"],
       "ctrl-k": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d $ a"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d $ a"]]
       ],
       "ctrl-y": "editor::Paste",
       "ctrl-u": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d 0 i"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d 0 i"]]
       ],
       "ctrl-w": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d B i"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d B i"]]
       ],
       // alt shortcuts
       "alt-f": ["workspace::SendKeystrokes", "ctrl-right"],
       "alt-b": ["workspace::SendKeystrokes", "ctrl-left"],
       "alt-d": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "c W"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "c W"]]
       ],
       "alt-backspace": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d b i"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "d b i"]]
       ],
       // To uppercase
       "alt-u": "editor::ConvertToUpperCase",
       "alt-shift-u": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g U i w i"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g U i w i"]]
       ],
       // To lowercase
       "alt-l": "editor::ConvertToLowerCase",
       "alt-shift-l": [
         "action::Sequence",
-        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g u i w i"]],
+        ["vim::SwitchToNormalMode", ["workspace::SendKeystrokes", "g u i w i"]]
       ],
       // camel case, snake case
       "alt-c": "editor::ConvertToUpperCamelCase",
@@ -110,7 +110,31 @@
       "alt->": "editor::MoveToEnd",
       "alt-<": "editor::MoveToBeginning",
       "alt-]": "editor::MoveToEndOfParagraph",
-      "alt-[": "editor::MoveToStartOfParagraph",
-    },
+      "alt-[": "editor::MoveToStartOfParagraph"
+    }
   },
+  {
+    "bindings": {
+      "ctrl-alt-win-g": "git_graph::Open"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-win-/": "terminal_panel::Toggle"
+    }
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-`": "terminal_panel::Toggle"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "alt-left": ["terminal::SendKeystroke", "alt-left"],
+      "alt-right": ["terminal::SendKeystroke", "alt-right"]
+    }
+  }
 ]

@@ -7,51 +7,85 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "auto_install_extensions": {
+    "catppuccin": true,
+    "dockerfile": true,
+    "go-snippets": true,
+    "html": true,
+    "log": true,
+    "material-icon-theme": true,
+    "python-requirements": true,
+    "python-snippets": true,
+    "toml": true,
+    "zedokai": true
+  },
+  "base_keymap": "VSCode",
+  "buffer_font_family": "HackGen35 Console NF",
+  "buffer_font_size": 15,
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Material Icon Theme"
+  },
+  "languages": {
+    "Python": {
+      "formatter": {
+        "external": {
+          "arguments": ["-"],
+          "command": "black"
+        }
+      }
+    }
+  },
+  "lsp": {
+    "pyright": {
+      "settings": {
+        "python": {
+          "pythonPath": ".venv/bin/python"
+        },
+        "python.analysis": {
+          "diagnosticMode": "workspace",
+          "typeCheckingMode": "strict"
+        }
+      }
+    }
+  },
+  "agent": {
+    "dock": "right",
+    "sidebar_side": "right"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
   "outline_panel": {
     "dock": "left"
   },
   "project_panel": {
     "dock": "left"
   },
-  "vim_mode": true,
-  "base_keymap": "VSCode",
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
-  "ui_font_family": "HackGen35 Console NF",
-  "buffer_font_family": "HackGen35 Console NF",
   "remove_trailing_whitespace_on_save": true,
   "show_whitespaces": "all",
-  "icon_theme": {
-    "mode": "system",
-    "light": "Zed (Default)",
-    "dark": "Material Icon Theme"
-  },
   "theme": {
-    "mode": "system",
-    "light": "Catppuccin Mocha",
+    "mode": "dark",
+    "light": "Catppuccin Latte",
     "dark": "Zedokai Darker (Filter Spectrum)"
   },
-  "lsp": {
-    "pyright": {
-      "settings": {
-        "python.analysis": {
-          "diagnosticMode": "workspace",
-          "typeCheckingMode": "strict"
-        },
-        "python": {
-          "pythonPath": ".venv/bin/python"
-        }
-      }
+  "theme_overrides": {
+    "Zedokai Darker (Filter Spectrum)": {
+      "vim.insert.background": "#55ff99",
+      "vim.insert.foreground": "#000000",
+      "vim.normal.background": "#77aaff",
+      "vim.normal.foreground": "#000000",
+      "vim.replace.background": "#ff5588",
+      "vim.replace.foreground": "#000000",
+      "vim.visual.background": "#9988ff",
+      "vim.visual.foreground": "#000000"
     }
   },
-  "languages": {
-    "Python": {
-      "formatter": {
-        "external": {
-          "command": "black",
-          "arguments": ["-"]
-        }
-      }
-    }
-  }
+  "ui_font_family": "HackGen35 Console NF",
+  "ui_font_size": 16,
+  "vim": {
+    "toggle_relative_line_numbers": true
+  },
+  "vim_mode": true
 }
