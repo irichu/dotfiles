@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install jq
-        uses: dcarbone/install-jq-action@v3
+        uses: dcarbone/install-jq-action@v4
 
       - name: Check jq version
         run: jq --version
