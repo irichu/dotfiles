@@ -20,6 +20,16 @@ EXT_IDS=(
   wsmatrix@martin.zurowietz.de
 )
 
+# Include copyous extension only on Ubuntu 26.04+ (GNOME 48+)
+if [ -f /etc/os-release ]; then
+  VERSION_ID=$(grep '^VERSION_ID=' /etc/os-release | cut -d= -f2 | tr -d '"')
+  IFS='.' read -r OS_MAJOR OS_MINOR <<< "$VERSION_ID"
+  OS_MAJOR=${OS_MAJOR:-0}; OS_MINOR=${OS_MINOR:-0}
+  if ((10#$OS_MAJOR > 26)) || ((10#$OS_MAJOR == 26 && 10#$OS_MINOR >= 4)); then
+    EXT_IDS+=(copyous@boerdereinar.dev)
+  fi
+fi
+
 # Install gnome-extensions-cli
 if [ ! -f "$HOME/.local/bin/gext" ]; then
   pipx install gnome-extensions-cli --system-site-packages

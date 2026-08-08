@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Obsidian
+Comment=Obsidian
+Exec=@HOME@/.local/bin/obsidian --no-sandbox %U
+Icon=@HOME@/.local/share/icons/hicolor/256x256/apps/obsidian.png
+Terminal=false
+Type=Application
+Categories=Internet;
+MimeType=x-scheme-handler/obsidian;

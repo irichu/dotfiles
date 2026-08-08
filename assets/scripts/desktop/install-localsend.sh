@@ -5,10 +5,15 @@ cd "$HOME/.cache/dotfiles/"
 ARCH=$(uname -m)
 if [ "$ARCH" = "x86_64" ]; then
   ARCH="x86-64"
-elif [ "$ARCH" = "aarch64" ]; then
-  ARCH="arm64"
+elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+  ARCH="arm-64"
+
+  if command -v apt &> /dev/null; then
+    sudo apt install -y libva-x11-2
+  fi
 fi
-if [ "$ARCH" != "x86-64" ] && [ "$ARCH" != "arm64" ]; then
+
+if [ "$ARCH" != "x86-64" ] && [ "$ARCH" != "arm-64" ]; then
   echo "Unsupported architecture: $ARCH"
   exit 1
 fi

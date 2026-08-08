@@ -50,6 +50,12 @@ dconf write /org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effec
 dconf write /org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect/resize-effect true
 
 #--------------------------------------------------
+# Copyous
+#--------------------------------------------------
+
+dconf write /org/gnome/shell/extensions/copyous/open-clipboard-dialog-shortcut "['<Shift><Control>v']"
+
+#--------------------------------------------------
 # Tophat
 #--------------------------------------------------
 

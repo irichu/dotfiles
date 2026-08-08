@@ -20,6 +20,18 @@ export LC_ALL=C
 ARCH="$(uname -m)"
 readonly ARCH
 
+# Some upstream GitHub releases (e.g. neovim, lazygit) name their Linux ARM64
+# assets "arm64" instead of the "aarch64" reported by `uname -m`.
+case "$ARCH" in
+aarch64)
+  ARCH_GH="arm64"
+  ;;
+*)
+  ARCH_GH="$ARCH"
+  ;;
+esac
+readonly ARCH_GH
+
 AUTO_YES=false
 POSITIONAL=()
 
@@ -399,6 +411,54 @@ check_command() {
     error "$1 command not found."
     exit 1
   fi
+  return 0
+}
+
+# Install apt packages from a newline-separated file (comments with # and empty lines allowed).
+# Usage: install_apt_packages_from_file /path/to/file [do_update]
+# do_update: true (default) to run apt-get update before install; set to false to skip update.
+install_apt_packages_from_file() {
+  local pkg_file="${1:-}"
+  local do_update="${2:-true}"
+
+  if [ -z "$pkg_file" ] || [ ! -f "$pkg_file" ]; then
+    error "Package file not found: $pkg_file"
+    return 1
+  fi
+
+  local available=()
+  local missing=()
+  local line pkg
+
+  while IFS= read -r line || [ -n "$line" ]; do
+    # strip comments and trim
+    pkg="${line%%#*}"
+    pkg="$(echo "$pkg" | tr -d '\r' | xargs || true)"
+    [ -z "$pkg" ] && continue
+
+    # Use apt-cache policy to detect installable candidate (skip purely virtual / no-candidate packages)
+    candidate=$(apt-cache policy "$pkg" 2>/dev/null | awk '/Candidate:/ {print $2}' | tr -d '"')
+    if [ -n "$candidate" ] && [ "$candidate" != "(none)" ]; then
+      available+=("$pkg")
+    else
+      missing+=("$pkg")
+    fi
+  done < "$pkg_file"
+
+  if [ "${#available[@]}" -gt 0 ]; then
+    info "Installing apt packages from $pkg_file: ${available[*]}"
+    if [ "$do_update" = true ]; then
+      sudo apt-get update
+    fi
+    sudo apt-get install -y "${available[@]}"
+  else
+    info "No available apt packages found in $pkg_file"
+  fi
+
+  if [ "${#missing[@]}" -gt 0 ]; then
+    warning "Skipped missing packages from $pkg_file: ${missing[*]}"
+  fi
+
   return 0
 }
 
@@ -970,8 +1030,11 @@ set_chrome_fonts() {
 install_apt_package() {
   info "Start: ${FUNCNAME[0]}"
 
+  local DPKG_ARCH
+  DPKG_ARCH="$(dpkg --print-architecture)"
+
   sudo apt-get update
-  xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-basic-packages.txt
+  install_apt_packages_from_file "$SCRIPT_DIR/assets/txt/apt-basic-packages.txt"
 
   # Get the current Ubuntu version
   ubuntu_version=$(lsb_release -r | awk '{print $2}')
@@ -979,11 +1042,11 @@ install_apt_package() {
   # Check if the version is 24.04 or higher
   if [[ "$(echo -e "$ubuntu_version\n24.04" | sort -V | head -n 1)" == "24.04" ]]; then
     info "Ubuntu is 24.04 or higher."
-    xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-packages-latest.txt
+    install_apt_packages_from_file "$SCRIPT_DIR/assets/txt/apt-packages-latest.txt"
   else
     info "Ubuntu is lower than 24.04."
-    xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-packages.txt
-    xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-packages-ubuntu2204.txt
+    install_apt_packages_from_file "$SCRIPT_DIR/assets/txt/apt-packages.txt"
+    install_apt_packages_from_file "$SCRIPT_DIR/assets/txt/apt-packages-ubuntu2204.txt"
   fi
 
   # .local install
@@ -996,9 +1059,24 @@ install_apt_package() {
     notice 'snap command not found. Install dust by deb file.'
     local LATEST_VERSION
     LATEST_VERSION=$(get_github_latest_version 'bootandy/dust')
-    ([ ! -f "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb" ] &&
-      wget -P "$CACHE_DIR" "https://github.com/bootandy/dust/releases/download/v${LATEST_VERSION}/du-dust_${LATEST_VERSION}-1_amd64.deb") || error "dust.deb not found"
-    sudo dpkg -i "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb"
+    case "$DPKG_ARCH" in
+    amd64)
+      ([ ! -f "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb" ] &&
+        wget -P "$CACHE_DIR" "https://github.com/bootandy/dust/releases/download/v${LATEST_VERSION}/du-dust_${LATEST_VERSION}-1_amd64.deb") || error "dust.deb not found"
+      sudo dpkg -i "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb"
+      ;;
+    arm64)
+      # dust does not publish an arm64 .deb; install the prebuilt tarball instead.
+      local DUST_TARBALL="dust-v${LATEST_VERSION}-aarch64-unknown-linux-gnu.tar.gz"
+      ([ ! -f "$CACHE_DIR/$DUST_TARBALL" ] &&
+        wget -P "$CACHE_DIR" "https://github.com/bootandy/dust/releases/download/v${LATEST_VERSION}/${DUST_TARBALL}") || error "dust tarball not found"
+      tar -xzf "$CACHE_DIR/$DUST_TARBALL" -C "$CACHE_DIR"
+      sudo install "$CACHE_DIR/dust-v${LATEST_VERSION}-aarch64-unknown-linux-gnu/dust" /usr/local/bin/dust
+      ;;
+    *)
+      warning "No prebuilt dust package for architecture $DPKG_ARCH. Skipping dust installation."
+      ;;
+    esac
   fi
 
   # fastfetch
@@ -1026,9 +1104,9 @@ install_apt_package() {
     info 'install git-delta'
     local LATEST_VERSION
     LATEST_VERSION=$(get_github_latest_version 'dandavison/delta')
-    [ ! -f "$CACHE_DIR/git-delta_amd64.deb" ] &&
-      curl -Lo "$CACHE_DIR/git-delta_amd64.deb" "https://github.com/dandavison/delta/releases/latest/download/git-delta_${LATEST_VERSION}_amd64.deb"
-    sudo dpkg -i "$CACHE_DIR/git-delta_amd64.deb"
+    [ ! -f "$CACHE_DIR/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb" ] &&
+      curl -Lo "$CACHE_DIR/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb" "https://github.com/dandavison/delta/releases/latest/download/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb"
+    sudo dpkg -i "$CACHE_DIR/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb"
   fi
 
   # bottom
@@ -1036,9 +1114,9 @@ install_apt_package() {
     info 'install bottom'
     local LATEST_VERSION
     LATEST_VERSION=$(get_github_latest_version 'ClementTsang/bottom')
-    [ ! -f "$CACHE_DIR/bottom_${LATEST_VERSION}-1_amd64.deb" ] &&
-      curl -Lo "$CACHE_DIR/bottom_${LATEST_VERSION}-1_amd64.deb" "https://github.com/ClementTsang/bottom/releases/download/${LATEST_VERSION}/bottom_${LATEST_VERSION}-1_amd64.deb"
-    sudo dpkg -i "$CACHE_DIR/bottom_${LATEST_VERSION}-1_amd64.deb"
+    [ ! -f "$CACHE_DIR/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb" ] &&
+      curl -Lo "$CACHE_DIR/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb" "https://github.com/ClementTsang/bottom/releases/download/${LATEST_VERSION}/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb"
+    sudo dpkg -i "$CACHE_DIR/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb"
   fi
 
   # set config
@@ -1231,7 +1309,7 @@ setup_desktop() {
   info "Start: ${FUNCNAME[0]}"
 
   # APT packages
-  xargs sudo apt-get install -y <"$SCRIPT_DIR"/assets/txt/apt-desktop-packages.txt
+  install_apt_packages_from_file "$SCRIPT_DIR/assets/txt/apt-desktop-packages.txt"
 
   # Install Mozc
   install_mozc
@@ -1254,11 +1332,17 @@ setup_desktop() {
   # Signal
   install_signal
 
+  # Ulauncher
+  install_ulauncher
+
   # Zed editor
   install_zed
 
   # interactive setup
   # setup_desktop_interactive
+
+  # install desktop files to ~/.local/share/applications
+  "$SCRIPT_DIR"/assets/scripts/desktop/entry/install-desktop-files.sh
 
   # set gnome desktop
   "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-finalize.sh
@@ -1450,21 +1534,24 @@ build_install_neovim() {
   info "Start: ${FUNCNAME[0]}"
 
   # neovim
-  wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz
-  tar -zxf nvim-linux-x86_64.tar.gz
-  [ ! -d /usr/bin/nvim ] && sudo mv -f nvim-linux-x86_64/bin/nvim /usr/bin/nvim
-  [ ! -d /usr/lib/nvim ] && sudo mv -f nvim-linux-x86_64/lib/nvim /usr/lib/nvim
-  [ ! -d /usr/share/nvim ] && sudo mv -f nvim-linux-x86_64/share/nvim/ /usr/share/nvim
-  rm -rf nvim-linux-x86_64
-  rm nvim-linux-x86_64.tar.gz
+  wget "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-${ARCH_GH}.tar.gz"
+  tar -zxf "nvim-linux-${ARCH_GH}.tar.gz"
+  [ ! -d /usr/bin/nvim ] && sudo mv -f "nvim-linux-${ARCH_GH}/bin/nvim" /usr/bin/nvim
+  [ ! -d /usr/lib/nvim ] && sudo mv -f "nvim-linux-${ARCH_GH}/lib/nvim" /usr/lib/nvim
+  [ ! -d /usr/share/nvim ] && sudo mv -f "nvim-linux-${ARCH_GH}/share/nvim/" /usr/share/nvim
+  rm -rf "nvim-linux-${ARCH_GH}"
+  rm "nvim-linux-${ARCH_GH}.tar.gz"
 
   mkdir -p "$CONFIG_HOME"/nvim/lua/config/
   mkdir -p "$CONFIG_HOME"/nvim/lua/plugins/
 
+  # a
+
+
   # lazygit
   local LATEST_VERSION
   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_${ARCH}.tar.gz"
+  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_linux_${ARCH_GH}.tar.gz"
   tar xf lazygit.tar.gz lazygit
   sudo install lazygit /usr/local/bin
   rm lazygit lazygit.tar.gz
@@ -1486,7 +1573,7 @@ build_install_lazygit() {
   # lazygit
   local LATEST_VERSION
   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_${ARCH}.tar.gz"
+  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_linux_${ARCH_GH}.tar.gz"
   tar xf lazygit.tar.gz lazygit
   sudo install lazygit /usr/local/bin
   rm lazygit lazygit.tar.gz
@@ -1551,7 +1638,7 @@ install_mise() {
     sudo apt update -y && sudo apt install -y gpg sudo wget curl
     sudo install -dm 755 /etc/apt/keyrings
     wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1>/dev/null
-    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
     sudo apt update
     sudo apt install -y mise
   else
@@ -1768,6 +1855,28 @@ install_signal() {
 }
 
 #--------------------------------------------------
+# Ulauncher
+#--------------------------------------------------
+
+install_ulauncher() {
+  info "Start: ${FUNCNAME[0]}"
+
+  # check ulauncher command
+  if cmd_exists ulauncher; then
+    info "Ulauncher already installed."
+    return 0
+  fi
+
+  if cmd_exists apt; then
+    # Install Ulauncher
+    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-ulauncher.sh
+  fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
 # waydroid
 #--------------------------------------------------
 
@@ -1880,6 +1989,24 @@ install_nix() {
   if cmd_exists nix; then
     /bin/true
   fi
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# uv
+#--------------------------------------------------
+
+install_uv() {
+  info "Start: ${FUNCNAME[0]}"
+
+  if cmd_exists uv; then
+    info "Uv is already installed."
+    return 0
+  fi
+
+  curl -LsSf https://astral.sh/uv/install.sh | sh
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -2862,6 +2989,12 @@ i | install)
     ;;
   starship)
     install_or_update_starship
+    ;;
+  ulauncher)
+    install_ulauncher
+    ;;
+  uv)
+    install_uv
     ;;
   waydroid)
     install_waydroid

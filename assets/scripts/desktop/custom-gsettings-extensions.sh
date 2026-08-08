@@ -50,6 +50,12 @@ gsettings set org.gnome.shell.extensions.com.github.hermes83.compiz-windows-effe
 gsettings set org.gnome.shell.extensions.com.github.hermes83.compiz-windows-effect resize-effect true
 
 #--------------------------------------------------
+# Copyous
+#--------------------------------------------------
+
+gsettings set org.gnome.shell.extensions.copyous open-clipboard-dialog-shortcut "['<Shift><Control>v']"
+
+#--------------------------------------------------
 # Tophat
 #--------------------------------------------------
 
