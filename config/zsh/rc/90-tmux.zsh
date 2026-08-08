@@ -1,8 +1,12 @@
 # enter tmux session in login shell
-if [[ -z $TMUX && $- == *l* ]]; then
-  # termux local terminal
-  [[ -n $TERMUX_VERSION && -z $SSH_CONNECTION ]] && return 0 
+if [[ -z "$TMUX" && $- == *l* ]]; then
+  # macOS local terminal
+  if [[ "$OSTYPE" == darwin*  && -z "$SSH_CONNECTION" ]]; then
+    return 0
+  fi
 
+  # termux local terminal
+  [[ -n "$TERMUX_VERSION" && -z "$SSH_CONNECTION" ]] && return 0
   msg="exit from $(uname -n) ($(hostname -i))?"
 
   # get the IDs
