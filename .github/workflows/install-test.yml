@@ -8,7 +8,11 @@ on:
 
 jobs:
   ubuntu:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -39,6 +43,7 @@ jobs:
         run: chmod +x install.sh && ./install.sh && dots install --brew
 
   arch:
+    # The official archlinux Docker image only supports amd64.
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
