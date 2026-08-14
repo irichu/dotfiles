@@ -42,6 +42,8 @@ _dots_install() {
       "snap-packages[Snap packages]" \
       "starship[Starship]" \
       "signal[Signal Desktop]" \
+      "ulauncher[Ulauncher]" \
+      "uv[UV]" \
       "waydroid[Waydroid - Android in a Linux container]" \
       "zed[Zed editor]"
     ;;

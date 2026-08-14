@@ -62,9 +62,9 @@ dconf write /org/gnome/shell/favorite-apps "@as [\
   'pinta_pinta.desktop',\
   'vlc.desktop',\
   'code.desktop',\
-  'code-insiders.desktop',\
   'dev.zed.Zed.desktop',\
   'alacritty_alacritty.desktop',\
+  'ghostty_ghostty.desktop',\
   'obsidian.desktop',\
   'Waydroid.desktop',\
   'localsend_app.desktop',\

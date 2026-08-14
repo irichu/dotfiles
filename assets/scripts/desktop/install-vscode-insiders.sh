@@ -16,8 +16,8 @@ if command -v apt-get &> /dev/null; then
   sudo apt-get -y install apt-transport-https
   sudo apt-get update
 
-  # Install Visual Studio Code
-  sudo apt-get -y install code
+  # Install Visual Studio Code insiders version
+  sudo apt-get -y install code-insiders
 
 # Red Hat-based
 elif command -v dnf &> /dev/null; then
@@ -25,17 +25,17 @@ elif command -v dnf &> /dev/null; then
   echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
   dnf check-update
-  sudo dnf install code
+  sudo dnf install code-insiders
 
 # Arch-based
 elif command -v pacman &> /dev/null; then
   sudo pacman -Syyu --noconfirm
-  git clone https://AUR.archlinux.org/visual-studio-code-bin.git
-  cd visual-studio-code-bin || exit 1
+  git clone https://AUR.archlinux.org/visual-studio-code-insiders-bin.git
+  cd visual-studio-code-insiders-bin || exit 1
   makepkg -s
-  sudo pacman -U visual-studio-code-bin-*.pkg.tar.zst --noconfirm
+  sudo pacman -U visual-studio-code-insiders-bin-*.pkg.tar.zst --noconfirm
   cd ..
-  rm -rf visual-studio-code-bin
+  rm -rf visual-studio-code-insiders-bin
 
 else
   echo "This script is intended for apt, dnf, pacman management system."
