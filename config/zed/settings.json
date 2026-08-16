@@ -7,68 +7,34 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "auto_install_extensions": {
-    "catppuccin": true,
-    "dockerfile": true,
-    "go-snippets": true,
-    "html": true,
-    "log": true,
-    "material-icon-theme": true,
-    "python-requirements": true,
-    "python-snippets": true,
-    "toml": true,
-    "zedokai": true
-  },
+  // ---- General / application behavior ----
+  "autosave": "on_focus_change",
   "base_keymap": "VSCode",
+  "cli_default_open_behavior": "existing_window",
+  "close_on_file_delete": true,
+  "close_panel_on_toggle": true,
+  "confirm_quit": true,
+  "on_last_window_closed": "quit_app",
+  "restore_on_startup": "last_workspace",
+  "use_system_path_prompts": false,
+  "use_system_prompts": false,
+  "when_closing_with_no_tabs": "close_window",
+
+  // ---- Appearance ----
   "buffer_font_family": "HackGen35 Console NF",
   "buffer_font_size": 15,
+  "buffer_line_height": "comfortable", // or "standard"
+  "cursor_blink": false,
+  "cursor_shape": "bar",
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
-    "dark": "Material Icon Theme"
+    "dark": "Material Icon Theme",
   },
-  "languages": {
-    "Python": {
-      "formatter": {
-        "external": {
-          "arguments": ["-"],
-          "command": "black"
-        }
-      }
-    }
-  },
-  "lsp": {
-    "pyright": {
-      "settings": {
-        "python": {
-          "pythonPath": ".venv/bin/python"
-        },
-        "python.analysis": {
-          "diagnosticMode": "workspace",
-          "typeCheckingMode": "strict"
-        }
-      }
-    }
-  },
-  "agent": {
-    "dock": "right",
-    "sidebar_side": "right"
-  },
-  "git_panel": {
-    "dock": "left"
-  },
-  "outline_panel": {
-    "dock": "left"
-  },
-  "project_panel": {
-    "dock": "left"
-  },
-  "remove_trailing_whitespace_on_save": true,
-  "show_whitespaces": "all",
   "theme": {
     "mode": "dark",
     "light": "Catppuccin Latte",
-    "dark": "Zedokai Darker (Filter Spectrum)"
+    "dark": "Zedokai Darker (Filter Spectrum)",
   },
   "theme_overrides": {
     "Zedokai Darker (Filter Spectrum)": {
@@ -79,13 +45,262 @@
       "vim.replace.background": "#ff5588",
       "vim.replace.foreground": "#000000",
       "vim.visual.background": "#9988ff",
-      "vim.visual.foreground": "#000000"
-    }
+      "vim.visual.foreground": "#000000",
+    },
   },
   "ui_font_family": "HackGen35 Console NF",
   "ui_font_size": 16,
-  "vim": {
-    "toggle_relative_line_numbers": true
+
+  // ---- Editor ----
+  "auto_signature_help": true,
+  "autoscroll_on_clicks": true,
+  "code_lens": "menu",
+  "colorize_brackets": true,
+  "completion_detail_alignment": "right",
+  "completion_menu_item_kind": "symbol",
+  "completion_menu_scrollbar": "always",
+  "completions": {
+    "words": "enabled",
+    "words_min_length": 3,
   },
-  "vim_mode": true
+  "current_line_highlight": "line",
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "max_severity": "warning",
+    },
+  },
+  "double_click_in_multibuffer": "open",
+  "ensure_final_newline_on_save": true,
+  "format_on_save": "on",
+  "hard_tabs": false,
+  "hover_popover_delay": 200,
+  "indent_guides": {
+    "active_line_width": 2,
+    "background_coloring": "disabled",
+    "coloring": "indent_aware",
+    "enabled": true,
+    "line_width": 1,
+  },
+  "inlay_hints": {
+    "enabled": true,
+    "show_background": true,
+  },
+  "line_ending": "prefer_lf",
+  "line_indicator_format": "short",
+  "lsp_results_location": "picker",
+  "minimap": {
+    "thumb": "always",
+    "thumb_border": "left_open",
+    "display_in": "active_editor",
+    "show": "always",
+  },
+  "multi_cursor_modifier": "cmd_or_ctrl",
+  "relative_line_numbers": "disabled",
+  "remove_trailing_whitespace_on_save": true,
+  "scroll_beyond_last_line": "one_page",
+  "scrollbar": {
+    "show": "always",
+  },
+  "seed_search_query_from_cursor": "selection",
+  "semantic_tokens": "combined", // "full": only lsp token
+  "show_signature_help_after_edits": true,
+  "show_whitespaces": "all",
+  "show_wrap_guides": true,
+  "soft_wrap": "editor_width",
+  "sticky_scroll": {
+    "enabled": true, // show scope header
+  },
+  "tab_size": 2,
+  "wrap_guides": [80, 120],
+
+  // ---- Tabs & panels ----
+  "file_finder": {
+    "include_ignored": "all",
+    "modal_max_width": "large",
+  },
+  "git_panel": {
+    "collapse_untracked_diff": true,
+    "dock": "left",
+    "file_icons": true,
+    "tree_view": true,
+  },
+  "max_tabs": 20,
+  "outline_panel": {
+    "dock": "left",
+  },
+  "preview_tabs": {
+    "enabled": false,
+  },
+  "project_panel": {
+    "bold_folder_labels": false,
+    "diagnostic_badges": true,
+    "dock": "left",
+    "entry_spacing": "standard",
+    "git_status_indicator": true,
+    "hide_gitignore": false,
+    "indent_size": 16,
+    "scrollbar": {
+      "show": "always",
+    },
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+  },
+  "tabs": {
+    "activate_on_close": "neighbour",
+    "file_icons": true,
+    "git_status": true,
+    "show_close_button": "always",
+    "show_diagnostics": "all",
+  },
+
+  // ---- Files & search ----
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/.sl",
+    "**/.repo",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    "**/node_modules",
+    "**/.venv",
+  ],
+  "search": {
+    "center_on_match": true,
+    "include_ignored": true,
+    "regex": false,
+    "whole_word": false,
+  },
+  "use_smartcase_search": true,
+
+  // ---- Git ----
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+    },
+  },
+
+  // ---- Terminal ----
+  "terminal": {
+    "blinking": "off",
+    "copy_on_select": true,
+    "cursor_shape": "bar",
+    "font_family": "HackGen35 Console NF",
+    "font_size": 14,
+    "max_scroll_history_lines": 100000,
+    "scrollbar": {
+      "show": "always",
+    },
+    "working_directory": "current_file_directory",
+  },
+
+  // ---- Languages & LSP ----
+  "languages": {
+    "Python": {
+      "formatter": {
+        "external": {
+          "arguments": ["-"],
+          "command": "black",
+        },
+      },
+    },
+  },
+  "lsp": {
+    "pyright": {
+      "settings": {
+        "python": {
+          "pythonPath": ".venv/bin/python",
+        },
+        "python.analysis": {
+          "diagnosticMode": "workspace",
+          "typeCheckingMode": "strict",
+        },
+      },
+    },
+  },
+
+  // ---- Agent / AI ----
+  "agent": {
+    "dock": "right",
+    "play_sound_when_agent_done": "when_hidden",
+    "notify_when_agent_waiting": "all_screens",
+    "show_turn_stats": true,
+    "sidebar_side": "right",
+    "single_file_review": true,
+    "use_modifier_to_send": true,
+  },
+  "agent_buffer_font_size": 15,
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+    },
+    "github-copilot-cli": {
+      "type": "registry",
+    },
+    "codex-acp": {
+      "default_config_options": {
+        "reasoning_effort": "medium",
+        "fast-mode": false,
+      },
+      "type": "registry",
+    },
+  },
+  "agent_ui_font_size": 17,
+  "edit_predictions": {
+    "allow_data_collection": "no",
+    "mode": "eager", // or "subtle"
+    "provider": "copilot",
+  },
+
+  // ---- Extensions ----
+  "auto_install_extensions": {
+    "catppuccin": true,
+    "dockerfile": true,
+    "go-snippets": true,
+    "html": true,
+    "log": true,
+    "material-icon-theme": true,
+    "python-requirements": true,
+    "python-snippets": true,
+    "toml": true,
+    "zedokai": true,
+  },
+
+  // ---- Collaboration ----
+  "calls": {
+    "mute_on_join": true,
+    "share_on_join": false,
+  },
+
+  // ---- Privacy ----
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+
+  // ---- Status bar ----
+  "status_bar": {
+    "line_endings_button": true,
+    "show_active_file": true,
+  },
+
+  // ---- Title bar / toolbar ----
+  "title_bar": {
+    "show_branch_status_icon": true,
+  },
+  "toolbar": {
+    "code_actions": true,
+  },
+
+  // ---- Vim ----
+  "vim": {
+    "toggle_relative_line_numbers": true,
+  },
+  "vim_mode": true,
 }

@@ -450,6 +450,13 @@ alias .t='tmux source ~/.config/tmux/tmux.conf'
 alias .z='source ~/.config/zsh/.zshrc'
 alias .zz='exec -l $(which zsh)'
 
+# zed
+alias ze='zed'
+alias zn='zed --new'
+alias za='zed --add'
+alias zd='zed --diff'
+alias zw='zed --wait'
+
 # zellij
 alias zj='zellij'
 alias zjc='zj --layout=compact'
