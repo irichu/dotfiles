@@ -62,6 +62,12 @@ SCRIPT_DIR=$(
   pwd
 )
 
+# Support running the repository copy directly as well as the installed
+# launcher copied into ~/.local/bin.
+if [ -f "$SCRIPT_DIR/../../install.sh" ] && [ -d "$SCRIPT_DIR/../../config" ]; then
+  SCRIPT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+fi
+
 CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 mkdir -p "$CONFIG_HOME"
 
@@ -75,6 +81,8 @@ mkdir -p "$STATE_DIR"
 
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 DATA_DIR="$DATA_HOME/dotfiles-main"
+ZSH_COMPLETIONS_DIR="$DATA_HOME/zsh/completions"
+ZSH_HISTORY_FILE="$STATE_HOME/zsh/history"
 mkdir -p "$DATA_DIR"
 #echo $HOME/.{cache,config,local/state}/dotfiles | read cache_dir config_dir state_dir
 #printf "%s\n" $HOME/.{cache,config,local/state}/dotfiles | xargs -I{} sh -c "mkdir -p $1" && echo "$1"' sh {}
@@ -293,7 +301,7 @@ echo_descriptions() {
 echo_allcommand_usage() {
 
   info -ny -cg "Usage: "
-  info -cc "dots install <Command>"
+  info -cc "dots <Command> [arguments]"
 
   info -cg "Commands: "
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/main-commands.tsv 5
@@ -322,8 +330,18 @@ echo_each_command_usage() {
   echo_descriptions "$SCRIPT_DIR"/assets/tsv/setup-packages.tsv
 
   info ''
-  info -ny -cg 'Update all package by package manager: '
-  info -cc 'dots update'
+  info -ny -cg 'Update packages through installed package managers: '
+  info -cc 'dots packages update'
+
+  info ''
+  info -ny -cg 'Apply managed configuration: '
+  info -cc 'dots apply [core|editor|desktop|extra|termux|APP|all]'
+  info -ny -cg 'Rollback the latest configuration transaction: '
+  info -cc 'dots rollback [latest|TRANSACTION_ID]'
+  info -ny -cg 'Validate the installation: '
+  info -cc 'dots doctor'
+  info -ny -cg 'Update dotfiles: '
+  info -cc 'dots self-update [--version TAG|--channel main]'
 
   info ''
   info -ny -cg 'Get starship theme: '
@@ -366,17 +384,17 @@ echo_each_command_usage() {
   info -cc 'dots docker test {ubuntu|ubuntu-22.04|arch|fedora}'
 
   info ''
-  info -ny -cg 'Clean up dotfiles [and backup, and config, and both]: '
-  info -cc 'dots clean [backup|config|all]'
+  info -ny -cg 'Clean up dotfiles cache: '
+  info -cc 'dots clean [cache|backup|config|all]'
 
   info -ny -cc '  clean         '
-  info -cn 'remove cache (~/.local/cache/dotfiles/*)'
+  info -cn 'remove cache contents only'
   info -ny -cc '  clean backup  '
-  info -cn 'remove cache and backup (~/.local/dotfiles*.bak*)'
+  info -cn 'explain retained transaction backups'
   info -ny -cc '  clean config  '
-  info -cn 'remove cache and config (~/.config/*.bak*)'
+  info -cn 'explain retained legacy config backups'
   info -ny -cc '  clean all     '
-  info -cn 'remove cache and backup and config'
+  info -cn 'remove cache while retaining recovery data'
 
   return 0
 }
@@ -488,21 +506,6 @@ get_github_latest_version() {
   return 0
 }
 
-# link to config home
-set_config() {
-  info "Start: ${FUNCNAME[0]}"
-
-  package_name="${1:-}"
-
-  backup_dir "$CONFIG_HOME/$package_name"
-
-  info "Link $package_name config"
-  ln -s "$SCRIPT_DIR/config/$package_name" "$CONFIG_HOME/"
-
-  info "End: ${FUNCNAME[0]}"
-  return 0
-}
-
 # Function to install the 'gum' utility, which is used for interactive shell scripts.
 install_gum() {
   info "Start: ${FUNCNAME[0]}"
@@ -510,10 +513,10 @@ install_gum() {
   if is_gum_available; then
     info "gum already installed."
 
-    if [ ! -f "$CONFIG_HOME/zsh/completions/_gum" ]; then
+    if [ ! -f "$ZSH_COMPLETIONS_DIR/_gum" ]; then
       info "Install zsh completions."
-      mkdir -p "$CONFIG_HOME/zsh/completions"
-      gum completion zsh >"$CONFIG_HOME/zsh/completions/_gum"
+      mkdir -p "$ZSH_COMPLETIONS_DIR"
+      gum completion zsh >"$ZSH_COMPLETIONS_DIR/_gum"
     fi
 
     return 0
@@ -555,8 +558,8 @@ install_gum() {
 
     info "Install zsh completions."
 
-    mkdir -p "$CONFIG_HOME/zsh/completions"
-    gum completion zsh >"$CONFIG_HOME/zsh/completions/_gum"
+    mkdir -p "$ZSH_COMPLETIONS_DIR"
+    gum completion zsh >"$ZSH_COMPLETIONS_DIR/_gum"
 
     info "Installed zsh completions."
   else
@@ -574,7 +577,7 @@ is_gum_available() {
 remove_zcompdump() {
   info "Start: ${FUNCNAME[0]}"
 
-  ZCOMPDUMP_FILE="$CONFIG_HOME/zsh/.zcompdump"
+  ZCOMPDUMP_FILE="$CACHE_HOME/zsh/.zcompdump"
   if [ -f "$ZCOMPDUMP_FILE" ]; then
     rm "$ZCOMPDUMP_FILE"
     info "removed .zcompdump file"
@@ -584,35 +587,6 @@ remove_zcompdump() {
 
   info "End: ${FUNCNAME[0]}"
   return 0
-}
-
-confirm() {
-  local prompt="${1:-Are you sure?}"
-  local reply
-
-  if "$AUTO_YES"; then
-    echo "$prompt [Y/n]: yes (auto)"
-    return 0
-  fi
-
-  if [[ ! -t 0 ]]; then
-    return 0
-  fi
-
-  while true; do
-    read -r -p "$prompt [Y/n]: " reply
-    case "$reply" in
-    [Yy] | "")
-      return 0
-      ;;
-    [Nn])
-      return 1
-      ;;
-    *)
-      echo "Please answer y or n."
-      ;;
-    esac
-  done
 }
 
 ###################################################
@@ -654,38 +628,9 @@ setup_zsh() {
   sudo sh -c "echo 'ZDOTDIR=\$HOME/.config/zsh' > /etc/zshenv"
   [ -f /etc/zsh/zshenv ] && ! grep 'ZDOTDIR=' /etc/zsh/zshenv &>/dev/null && sudo sh -c "echo 'ZDOTDIR=\$HOME/.config/zsh' >> /etc/zsh/zshenv"
 
-  # create temp file
-  histfile="$CONFIG_HOME/zsh/.zsh_history"
-  histfile_tmp="$CACHE_DIR/.zsh_history.tmp"
-  if [ -f "$histfile" ]; then
-    cp "$histfile" "$histfile_tmp"
-  fi
-
-  # create completions directory
-  zsh_completions_dir="$CONFIG_HOME/zsh/completions"
-  zsh_completions_cache_dir="$CACHE_DIR/"
-  mkdir -p "$zsh_completions_dir"
-  mkdir -p "$zsh_completions_cache_dir"
-  cp -rf "$zsh_completions_dir" "$zsh_completions_cache_dir"
-
   # config
   set_config zsh
-
-  # restore
-  if [ -f "$histfile_tmp" ]; then
-
-    if [ ! -f "$histfile" ]; then
-      info "restore .zsh_history"
-      cp -f "$histfile_tmp" "$histfile"
-    fi
-
-    # remove temp file
-    rm "$histfile_tmp"
-  fi
-
-  # restore completions
-  mkdir -p "$zsh_completions_cache_dir"
-  cp -rf "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
+  mkdir -p "$ZSH_COMPLETIONS_DIR" "$(dirname "$ZSH_HISTORY_FILE")"
 
   # zsh-completions
   zcpath="$DATA_HOME/zsh-completions"
@@ -811,7 +756,7 @@ install_or_update_starship() {
 
   set_config starship
 
-  "$HOME"/.local/bin/starship preset nerd-font-symbols -o "$CONFIG_HOME"/starship/nerd.toml
+  "$HOME"/.local/bin/starship preset nerd-font-symbols --force -o "$CONFIG_HOME"/starship/nerd.toml
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -898,8 +843,8 @@ install_node_by_fnm() {
     eval "$(fnm env)"
   fi
 
-  mkdir -p "$CONFIG_HOME/zsh/completions"
-  fnm completions --shell zsh >"$CONFIG_HOME/zsh/completions/_fnm"
+  mkdir -p "$ZSH_COMPLETIONS_DIR"
+  fnm completions --shell zsh >"$ZSH_COMPLETIONS_DIR/_fnm"
 
   fnm --version
   fnm install --lts
@@ -1227,7 +1172,7 @@ install_homebrew() {
     set_config "$app"
   done
 
-  starship preset nerd-font-symbols -o "$CONFIG_HOME"/starship/nerd.toml
+  starship preset nerd-font-symbols --force -o "$CONFIG_HOME"/starship/nerd.toml
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1236,6 +1181,21 @@ install_homebrew() {
 #--------------------------------------------------
 # snap
 #--------------------------------------------------
+
+setup_terminal_package_configs() {
+  local apps=(
+    alacritty
+    ghostty
+    lazygit
+  )
+  local app
+
+  for app in "${apps[@]}"; do
+    set_config "$app"
+  done
+
+  setup_zellij
+}
 
 install_snap_package() {
   info "Start: ${FUNCNAME[0]}"
@@ -1254,10 +1214,12 @@ install_snap_package() {
   fi
 
   # install --classic packages
-  grep -v '^#' "$snappy_packages" | grep -- '--classic' | sed 's/ --classic//' | xargs -d '\n' -I{} sudo snap install {} --classic
+  awk '!/^#/ && / --classic$/ { sub(/ --classic$/, ""); print }' "$snappy_packages" |
+    xargs -r -d '\n' -I{} sudo snap install {} --classic
 
   # install snap packages
-  grep -v '^#' "$snappy_packages" | grep -v -- '--classic' | xargs -d '\n' -n1 sudo snap install
+  awk '!/^#/ && !/ --classic$/' "$snappy_packages" |
+    xargs -r -d '\n' -n1 sudo snap install
 
   # To allow the program to run as intended
   sudo snap connect bottom:mount-observe
@@ -1271,17 +1233,75 @@ install_snap_package() {
     #rustup update stable
   fi
 
-  apps=(
-    alacritty
-    ghostty
-    lazygit
-  )
+  setup_terminal_package_configs
 
-  for app in "${apps[@]}"; do
-    set_config "$app"
-  done
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
 
-  setup_zellij
+install_ghostty_ubuntu_desktop() {
+  info "Start: ${FUNCNAME[0]}"
+
+  case "$(ubuntu_desktop_ghostty_method)" in
+  apt)
+    info "Installing Ghostty from the official Ubuntu package."
+    sudo apt-get install -y ghostty
+    setup_terminal_package_configs
+    ;;
+  snap)
+    info "Installing Ghostty from Snap on Ubuntu releases older than 26.04."
+    install_snap_package --ubuntu-desktop
+    ;;
+  esac
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+#--------------------------------------------------
+# flatpak
+#--------------------------------------------------
+
+install_flatpak() {
+  info "Start: ${FUNCNAME[0]}"
+
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-flatpak.sh"
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+install_flatpak_gimp() {
+  info "Start: ${FUNCNAME[0]}"
+
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-gimp.sh"
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+install_flatpak_pinta() {
+  info "Start: ${FUNCNAME[0]}"
+
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-pinta.sh"
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+install_flatpak_thunderbird() {
+  info "Start: ${FUNCNAME[0]}"
+
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-thunderbird.sh"
+
+  info "End: ${FUNCNAME[0]}"
+  return 0
+}
+
+install_flatpak_zoom() {
+  info "Start: ${FUNCNAME[0]}"
+
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-zoom.sh"
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1405,13 +1425,13 @@ install_rustup() {
   info ""
 
   # zsh completions
-  mkdir -p "$CONFIG_HOME/zsh/completions"
+  mkdir -p "$ZSH_COMPLETIONS_DIR"
   if cmd_exists rustup; then
     # rustup
-    rustup completions zsh >"$CONFIG_HOME/zsh/completions/_rustup"
+    rustup completions zsh >"$ZSH_COMPLETIONS_DIR/_rustup"
 
     # cargo
-    rustup completions zsh cargo >"$CONFIG_HOME/zsh/completions/_cargo"
+    rustup completions zsh cargo >"$ZSH_COMPLETIONS_DIR/_cargo"
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -1945,7 +1965,8 @@ install_devbox() {
   curl -fsSL https://get.jetify.com/devbox | bash
 
   if cmd_exists devbox; then
-    devbox completion zsh >"$CONFIG_HOME/zsh/completions/_devbox"
+    mkdir -p "$ZSH_COMPLETIONS_DIR"
+    devbox completion zsh >"$ZSH_COMPLETIONS_DIR/_devbox"
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -2113,7 +2134,8 @@ setup_jj() {
   info "setup jj config"
 
   if cmd_exists jj; then
-    jj util completion zsh >"$CONFIG_HOME/zsh/completions/_jj"
+    mkdir -p "$ZSH_COMPLETIONS_DIR"
+    jj util completion zsh >"$ZSH_COMPLETIONS_DIR/_jj"
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -2166,8 +2188,8 @@ setup_zellij() {
   info "Start: ${FUNCNAME[0]}"
 
   # completions
-  mkdir -p "$CONFIG_HOME/zsh/completions"
-  zellij setup --generate-completion zsh >"$CONFIG_HOME/zsh/completions/_zellij"
+  mkdir -p "$ZSH_COMPLETIONS_DIR"
+  zellij setup --generate-completion zsh >"$ZSH_COMPLETIONS_DIR/_zellij"
 
   # config
   set_config zellij
@@ -2176,46 +2198,10 @@ setup_zellij() {
   return 0
 }
 
-#--------------------------------------------------
-# settings only
-#--------------------------------------------------
-
-apply_settings() {
-  info "Start: ${FUNCNAME[0]}"
-
-  # config
-  apps=(
-    alacritty
-    bat
-    eza
-    fastfetch
-    ghostty
-    git
-    lazygit
-    ripgrep
-    starship
-    tmux
-    zellij
-    zsh
-  )
-
-  for app in "${apps[@]}"; do
-    set_config "$app"
-  done
-
-  # nvim config
-  cp "$SCRIPT_DIR"/config/nvim/lua/config/*.lua "$CONFIG_HOME/nvim/lua/config/"
-  cp "$SCRIPT_DIR"/config/nvim/lua/plugins/*.lua "$CONFIG_HOME/nvim/lua/plugins/"
-  cp "$SCRIPT_DIR"/config/nvim/lazy-lock.json "$CONFIG_HOME/nvim/"
-  cp "$SCRIPT_DIR"/config/nvim/lazyvim.json "$CONFIG_HOME/nvim/"
-
-  info "End: ${FUNCNAME[0]}"
-}
-
 echo_list() {
   package_manager="${1:-none}"
 
-  local package_managers=("--apt" "--brew" "--pkg" "--snap")
+  local package_managers=("--apt" "--brew" "--flatpak" "--pkg" "--snap")
   if printf '%s\n' "${package_managers[@]}" | grep -qx -- "$package_manager"; then
     # option found
     :
@@ -2241,6 +2227,10 @@ echo_list() {
     info '# Homebrew packages'
     grep -v ^# "$SCRIPT_DIR"/Brewfile | grep -o "\".*\"" | sort | xargs -I{} -n1 echo '- {}'
     ;;
+  flatpak | --flatpak)
+    info '# Flatpak applications'
+    sort "$SCRIPT_DIR"/assets/txt/flatpak-packages.txt | xargs -I{} -n1 echo '- {}'
+    ;;
   snap | --snap)
     info '# Snap packages'
     sort "$SCRIPT_DIR"/assets/txt/snap-packages.txt | xargs -i echo '- {}'
@@ -2250,7 +2240,7 @@ echo_list() {
     sort "$SCRIPT_DIR"/assets/txt/pkg-packages.txt | xargs -i echo '- {}'
     ;;
   *)
-    error 'No list found. Usage: dots list {--apt|--brew|--pkg|--snap}'
+    error 'No list found. Usage: dots list {--apt|--brew|--flatpak|--pkg|--snap}'
     ;;
   esac
 
@@ -2316,48 +2306,6 @@ docker_test() {
   bash "$SCRIPT_DIR/assets/scripts/docker-test.sh" "$distribution"
 
   info "End docker testing"
-  return 0
-}
-
-#--------------------------------------------------
-# clean
-#--------------------------------------------------
-
-clean() {
-  info "Start clean up process"
-
-  local res
-
-  # Remove cache files
-  CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-  CACHE_DIR="$CACHE_HOME/dotfiles"
-  rm -rf "${CACHE_DIR:-}"/*
-  success "Success: clean up $CACHE_DIR/*"
-
-  # Remove dotfiles backup files
-  if [[ "${1:-}" = "backup" || "${1:-}" = "all" ]]; then
-    res=$(find "$DATA_HOME" -maxdepth 1 -name 'dotfiles*.bak*' 2>/dev/null || true)
-    if [ -n "$res" ]; then
-      rm -rf "$DATA_HOME"/dotfiles*.bak*
-      success "Success: clean up $DATA_HOME/dotfiles*.bak*"
-    else
-      success "Success: $DATA_HOME/dotfiles*.bak* directories are not found."
-    fi
-  fi
-
-  # Remove config backup files
-  if [[ "${1:-}" = "config" || "${1:-}" = "all" ]]; then
-    res=$(find "$CONFIG_HOME" -maxdepth 1 -name '*.bak*' 2>/dev/null || true)
-    if [ -n "$res" ]; then
-      rm -rf "$CONFIG_HOME"/*.bak*
-      success "Success: clean up $CONFIG_HOME/*.bak*"
-    else
-      success "Success: $CONFIG_HOME/*.bak* directories are not found."
-    fi
-  fi
-
-  info "End clean up process"
-
   return 0
 }
 
@@ -2759,6 +2707,23 @@ test_self() {
   return 0
 }
 
+# Safety, configuration transaction, and lifecycle modules intentionally load
+# after the legacy function definitions so they can provide the current
+# implementations while the remaining installer functions are migrated in
+# smaller, reviewable pieces.
+# shellcheck source=assets/scripts/lib/core.sh
+source "$SCRIPT_DIR/assets/scripts/lib/core.sh"
+# shellcheck source=assets/scripts/lib/config.sh
+source "$SCRIPT_DIR/assets/scripts/lib/config.sh"
+# shellcheck source=assets/scripts/lib/lifecycle.sh
+source "$SCRIPT_DIR/assets/scripts/lib/lifecycle.sh"
+# shellcheck source=assets/scripts/lib/batch.sh
+source "$SCRIPT_DIR/assets/scripts/lib/batch.sh"
+
+# Batch installation modes are explicitly non-interactive by design. Other
+# commands, including `dots apply`, continue to require confirmation or --yes.
+enable_batch_install_auto_yes "$@"
+
 ###################################################
 # main
 ###################################################
@@ -2779,7 +2744,7 @@ i | install)
 
   if [ $# -le 1 ]; then
     if is_gum_available; then
-      package_managers=("--apt" "--brew" "--pkg" "--snap" "cancel")
+      package_managers=("--apt" "--brew" "--flatpak" "--pkg" "--snap" "cancel")
       package_manager=$(gum choose --header="Please select a package manager for batch installation" -- "${package_managers[@]}")
 
       if [ "$package_manager" = "cancel" ]; then
@@ -2794,66 +2759,61 @@ i | install)
 
   case "$package_manager" in
   --apt)
-    check_command apt
-
+    reset_batch_results
     info "Start installation with apt"
-    install_apt_package
-    install_gum
-    setup_zsh
-    install_fnm
-    build_install_neovim
-    install_lazyvim
-    install_or_update_starship
-    install_fzf_via_git
-    setup_tmux
-    install_hackgen
-    install_rustup
-    setup_git
-    remove_zcompdump
-    echo_completion_message
+    run_batch_step "check apt" check_command apt
+    run_batch_plan \
+      install_apt_package install_gum setup_zsh install_fnm \
+      build_install_neovim install_lazyvim install_or_update_starship \
+      install_fzf_via_git setup_tmux install_hackgen install_rustup \
+      setup_git remove_zcompdump echo_completion_message
     info "End installation with apt"
+    finish_batch_install
     ;;
   --brew)
+    reset_batch_results
     info "Start installation with homebrew"
-    install_homebrew
-    setup_zsh
-    install_node_by_fnm
-    install_lazyvim
-    setup_tmux
-    setup_zellij
-    install_hackgen
-    setup_git
-    setup_jj
-    remove_zcompdump
-    echo_completion_message
+    run_batch_step install_homebrew install_homebrew
+    run_batch_step "refresh Homebrew environment" refresh_homebrew_environment
+    run_batch_plan \
+      setup_zsh install_node_by_fnm install_lazyvim setup_tmux setup_zellij \
+      install_hackgen setup_git setup_jj remove_zcompdump echo_completion_message
     info "End installation with homebrew"
+    finish_batch_install
     ;;
   --snap)
+    reset_batch_results
     info "Start installation with apt and snap"
-    check_command apt
-    check_command snap
-
-    install_apt_package
-    install_snap_package
-    setup_zsh
-    install_fnm
-    install_lazyvim
-    install_or_update_starship
-    install_fzf_via_git
-    setup_tmux
-    install_hackgen
-    setup_git
-    remove_zcompdump
-    echo_completion_message
+    run_batch_step "check apt" check_command apt
+    run_batch_step "check snap" check_command snap
+    run_batch_plan \
+      install_apt_package install_snap_package setup_zsh install_fnm \
+      install_lazyvim install_or_update_starship install_fzf_via_git \
+      setup_tmux install_hackgen setup_git remove_zcompdump echo_completion_message
     info "End installation with apt and snap"
+    finish_batch_install
+    ;;
+  --flatpak)
+    reset_batch_results
+    info "Start installation with Flatpak"
+    run_batch_step install_flatpak install_flatpak
+    run_batch_plan \
+      install_flatpak_gimp install_flatpak_pinta \
+      install_flatpak_thunderbird install_flatpak_zoom
+    info "End installation with Flatpak"
+    finish_batch_install
     ;;
   --pkg)
-    setup_termux
-    remove_zcompdump
+    reset_batch_results
+    run_batch_plan setup_termux remove_zcompdump
+    finish_batch_install
     ;;
   --ubuntu-desktop)
-    check_command apt
-    check_command snap
+    reset_batch_results
+    run_batch_step "check apt" check_command apt
+    if [ "$(ubuntu_desktop_ghostty_method)" = snap ]; then
+      run_batch_step "check snap" check_command snap
+    fi
 
     echo "This process will download and install many packages (~15 minutes)."
     echo "At the beginning of the installation, GNOME extension installation dialogs may appear."
@@ -2878,29 +2838,30 @@ i | install)
     fi
 
     # interactive desktop setup
-    setup_desktop_interactive
+    run_batch_step setup_desktop_interactive setup_desktop_interactive
 
-    install_apt_package
-    install_snap_package
-    #install_snap_package --ubuntu-desktop
-    setup_zsh
+    run_batch_step install_apt_package install_apt_package
+    run_batch_step install_ghostty_ubuntu_desktop install_ghostty_ubuntu_desktop
+    run_batch_step install_flatpak install_flatpak
+    run_batch_plan \
+      install_flatpak_gimp install_flatpak_pinta \
+      install_flatpak_thunderbird install_flatpak_zoom
+    run_batch_step setup_zsh setup_zsh
     #install_claude_code
-    install_fnm
+    run_batch_step install_fnm install_fnm
     #build_install_neovim
-    install_lazyvim
-    install_or_update_starship
-    install_fzf_via_git
-    setup_tmux
-    install_hackgen
+    run_batch_plan \
+      install_lazyvim install_or_update_starship install_fzf_via_git \
+      setup_tmux install_hackgen
     #install_rustup
-    setup_git
-    remove_zcompdump
+    run_batch_plan setup_git remove_zcompdump
 
     # desktop setup
-    setup_desktop
+    run_batch_step setup_desktop setup_desktop
 
-    echo_completion_message
+    run_batch_step echo_completion_message echo_completion_message
     info "End installation for Ubuntu Desktop..."
+    finish_batch_install
     ;;
   #--------------------------------------------------
   # individual installation
@@ -2932,11 +2893,17 @@ i | install)
   fnm)
     install_fnm
     ;;
+  flatpak)
+    install_flatpak
+    ;;
   fzf)
     install_fzf_via_git
     ;;
   gum)
     install_gum
+    ;;
+  gimp)
+    install_flatpak_gimp
     ;;
   hackgen)
     install_hackgen
@@ -2975,6 +2942,9 @@ i | install)
   obsidian)
     install_obsidian
     ;;
+  pinta)
+    install_flatpak_pinta
+    ;;
   rustdesk)
     install_rustdesk
     ;;
@@ -2990,6 +2960,9 @@ i | install)
   starship)
     install_or_update_starship
     ;;
+  thunderbird)
+    install_flatpak_thunderbird
+    ;;
   ulauncher)
     install_ulauncher
     ;;
@@ -3001,6 +2974,9 @@ i | install)
     ;;
   zed)
     install_zed
+    ;;
+  zoom)
+    install_flatpak_zoom
     ;;
   *)
     echo_allcommand_usage
@@ -3075,19 +3051,19 @@ test)
 # update all
 #--------------------------------------------------
 up | update | upgrade)
-  if [ $# -le 1 ]; then
-    update_packages
-  else
-    case "${2:-}" in
-    all)
-      update_packages
-      ;;
-    *)
-      echo_allcommand_usage
-      exit 1
-      ;;
-    esac
-  fi
+  warning "'dots $1' is deprecated; use 'dots packages update'."
+  update_packages
+  ;;
+
+self-update)
+  self_update "${@:2}"
+  ;;
+
+packages)
+  case "${2:-}" in
+  update) update_packages ;;
+  *) error "Usage: dots packages update"; exit 2 ;;
+  esac
   ;;
 
 #--------------------------------------------------
@@ -3118,7 +3094,7 @@ docker)
 #--------------------------------------------------
 clean)
   if [ $# -le 1 ]; then
-    clean
+    clean cache
     exit 0
   fi
 
@@ -3135,7 +3111,16 @@ clean)
   ;;
 
 apply)
-  apply_settings
+  apply_settings "${@:2}"
+  ;;
+doctor)
+  dots_doctor
+  ;;
+rollback)
+  rollback_transaction "${2:-latest}"
+  ;;
+uninstall)
+  uninstall_dotfiles
   ;;
 # bash)
 #   setup_bash

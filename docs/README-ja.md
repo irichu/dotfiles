@@ -1,4 +1,5 @@
 <!-- Languages -->
+
 [English] / Japanese(日本語)
 
 <!-- Logo -->
@@ -152,21 +153,23 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 **2. パッケージの一括インストール**
 
 > [!IMPORTANT]
->・Linux(Ubuntu/Fedora/Arch Linux)またはmacOSでは `--brew` による自動構築が可能です<br>
->・Ubuntuデスクトップでは `--ubuntu-desktop` で自動セットアップが可能です<br>
->・Ubuntuターミナルでは `--apt` または `--snap` で高速なインストールが可能です<br>
->・Termuxでは `--pkg` によるセットアップが可能です
->
+> ・Linux(Ubuntu/Fedora/Arch Linux)またはmacOSでは `--brew` による自動構築が可能です<br>
+> ・Ubuntuデスクトップでは `--ubuntu-desktop` で自動セットアップが可能です<br>
+> ・Ubuntuターミナルでは `--apt` または `--snap` で高速なインストールが可能です<br>
+> ・Linux(Ubuntu/Fedora/Arch Linux)では `--flatpak` でデスクトップアプリをインストールできます<br>
+> ・Termuxでは `--pkg` によるセットアップが可能です
 
 > [!NOTE]
 > LinuxまたはmacOSでは `sudo` コマンドが使える必要があります<br>
 > `--brew`ではHomebrew本体をインストールするために利用します<br>
-> `--apt`, `--snap`の場合もパッケージ管理のため使用します
->
+> `--apt`, `--flatpak`, `--snap`の場合もパッケージ管理のため使用します<br>
+> `--ubuntu-desktop`では、Ubuntu 26.04以降ならGhosttyをUbuntu公式APTパッケージから、それ以前ならSnapからインストールします
 
 利用するパッケージマネージャーに応じて以下のコマンドで一括インストールを実施します<br>
-`dots install [--apt|--brew|--snap|--pkg]`<br>
-具体的には `[--apt|--brew|--snap|--pkg]` の部分を置き換えて実行します
+`dots install [--apt|--brew|--flatpak|--snap|--pkg]`<br>
+具体的には `[--apt|--brew|--flatpak|--snap|--pkg]` の部分を置き換えて実行します
+
+`--apt`、`--brew`、`--flatpak`、`--pkg`、`--snap`、`--ubuntu-desktop`は一括インストールモードのため、dotfiles側の確認には自動で同意します。それ以外のコマンドでは、従来どおり確認または明示的な`--yes`が必要です。
 
 Ubuntu デスクトップで自動セットアップする場合は以下を実行します:
 
@@ -180,6 +183,14 @@ LinuxまたはmacOS環境にて，brewでセットアップする場合は以下
 dots install --brew
 ```
 
+FlathubからGIMP、Pinta、Thunderbird、Zoomをインストールする場合は以下を実行します
+
+```bash
+dots install --flatpak
+```
+
+ZoomのFlatpakは未検証のコミュニティパッケージです。既存のSnap版は自動削除しないため、Flatpak版の動作とデータを確認してから必要に応じて手動で削除してください。
+
 Termux にて pkg でセットアップする場合は以下の通りです
 
 ```bash
@@ -190,7 +201,6 @@ dots install --pkg
 > `dots`コマンドが見つからない場合は<br>
 > 以下のコマンドを実行して ~/.local/bin へのパスを通すようにしてみてください
 > もしくは一括インストールが完了するまでは直接 `~/.local/bin/dots` で実行してください
->
 
 ```bash
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
@@ -208,7 +218,6 @@ exec -l $(which zsh)
 > [!NOTE]
 > SSH接続のように，ログインシェルの場合はTmuxが自動起動します．<br>
 > Tmuxサーバーがすでに起動している場合は，セッション一覧から接続するセッションを選択できます.
->
 
 ## ✅ サポートOS
 
@@ -224,10 +233,11 @@ exec -l $(which zsh)
 - Android 📱
   - 最新版の Termux
 
+各Tierで保証する範囲は [サポートポリシー](./SUPPORT.md) を参照してください。
+
 > [!WARNING]
 > Google Playストア版のTermuxは一部のコマンドなどが正常に動作しないことがあるようです．<br>
 > [F-Droid]からインストールすることが推奨されています
->
 
 <img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
@@ -249,6 +259,21 @@ exec -l $(which zsh)
 - **ターミナルエミュレーター**: [Alacritty], [Termux]
 
 ## 📗 基本コマンド
+
+安全な適用・復旧用コマンド:
+
+```bash
+dots apply                 # 対象を表示し、一度確認して適用
+dots apply core            # coreプリセットを適用
+dots --yes apply core      # 非対話環境で明示的に適用
+dots doctor                # インストール状態を診断
+dots rollback latest       # 直前の完了済みトランザクションを復元
+dots self-update           # dotfiles本体を更新
+dots packages update       # インストール済みパッケージを更新
+dots uninstall             # 復元可能な形で管理対象を削除
+```
+
+`dots clean` は破棄可能なキャッシュだけを削除し、設定バックアップやコピー済みのユーザーファイルは保持します。
 
 コマンドのヘルプと使用できるコマンドを表示します
 
@@ -389,7 +414,7 @@ dots clean all
 パッケージマネージャーごとにインストールする対象のパッケージ一覧を表示します
 
 ```bash
-dots list [--apt|--brew|--snap|--pkg]
+dots list [--apt|--brew|--flatpak|--snap|--pkg]
 ```
 
 個別パッケージのインストールを実行します
@@ -503,6 +528,7 @@ The following apps can be installed individually from the `dots install <package
 
 - [apt packages]
 - [brew packages]
+- [flatpak packages]
 - [snap packages]
 - [pkg packages]
 
@@ -573,7 +599,7 @@ dots install --brew
 | :----------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/217ec320-463c-44c2-a4da-464f291eddcf" width="800" alt="yazi"> |
 
-## ⚡  エイリアスコマンド
+## ⚡ エイリアスコマンド
 
 ### Tmux
 
@@ -603,7 +629,7 @@ tks # tmux kill-server
 
 #### Show tmux pane id
 
-Show tmux  pane id
+Show tmux pane id
 
 ```bash
 tid # tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"
@@ -631,7 +657,7 @@ v # fd --type f --hidden --exclude .git | fzf-tmux -p | xargs -o nvim
 
 ### Zsh
 
-Emacsモード  `bindkey -e` に加えていくつかのバインドを追加しています．
+Emacsモード `bindkey -e` に加えていくつかのバインドを追加しています．
 
 | キー                                        | 実行される操作               |
 | ------------------------------------------- | ---------------------------- |
@@ -644,7 +670,6 @@ Emacsモード  `bindkey -e` に加えていくつかのバインドを追加し
 
 > [!NOTE]
 > プレフィックスキーは `Ctrl + \` に設定しています．
->
 
 | キー                         | 説明                                   |
 | ---------------------------- | -------------------------------------- |
@@ -665,7 +690,6 @@ Emacsモード  `bindkey -e` に加えていくつかのバインドを追加し
 > 2回目の `Ctrl-\` で 1つ内側のセッションへ送信されます．
 > 3回目の `Ctrl-\` で最も内側のセッションへ送信されます．
 > さらに，`Ctrl-\` を押すと，そのキー入力がセッション内のシェルに送信されます．
->
 
 ##### tmux プラグイン
 
@@ -718,10 +742,11 @@ window と pane の操作を可能としています．
 
 ## 📜 ライセンス
 
-このプロジェクトは [MIT License](../LICENSE.md) に基づいてライセンスされています．
+このプロジェクトは [MIT License](../LICENSE) に基づいてライセンスされています．
 
 <!-- Reference-style links -->
 <!-- URL -->
+
 [starship]: https://starship.rs/
 [Neovim]: https://github.com/neovim/neovim
 [LazyVim]: https://www.lazyvim.org/
@@ -746,17 +771,19 @@ window と pane の操作を可能としています．
 [RustDesk]: https://rustdesk.com/
 [Signal Desktop]: https://signal.org/
 [Waydroid]: https://waydro.id/
-[Zed]: <https://zed.dev/>
-[HackGen]: <https://github.com/yuru7/HackGen>
+[Zed]: https://zed.dev/
+[HackGen]: https://github.com/yuru7/HackGen
 [Nerd Fonts]: https://www.nerdfonts.com/
-[M PLUS 2]: <https://mplusfonts.github.io>
+[M PLUS 2]: https://mplusfonts.github.io
 [Google Fonts]: https://fonts.google.com/specimen/M+PLUS+2
 [Mozc]: https://github.com/google/mozc
 
 <!-- relative link -->
+
 [English]: ../
 [apt packages]: ../assets/txt/apt-packages.txt
 [brew packages]: ../Brewfile
+[flatpak packages]: ../assets/txt/flatpak-packages.txt
 [snap packages]: ../assets/txt/snap-packages.txt
 [pkg packages]: ../assets/txt/pkg-packages.txt
 [こちら]: ./neovim.md#emacs-like

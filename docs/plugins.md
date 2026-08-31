@@ -29,6 +29,7 @@
 
 - dust
 - fastfetch
+- ghostty (Ubuntu 26.04 or later with `--ubuntu-desktop`)
 - git-delta
 
 ## apt basic
@@ -108,11 +109,19 @@
 - bottom
 - dog
 - dust
+- ghostty --classic (Ubuntu releases older than 26.04 with `--ubuntu-desktop`)
 - go --classic
 - lazygit
 - nvim --classic
 - rustup --classic
 - zellij --classic
+
+## flatpak
+
+- com.github.PintaProject.Pinta
+- org.gimp.GIMP
+- org.mozilla.Thunderbird
+- us.zoom.Zoom (unverified community package)
 
 ## pkg
 

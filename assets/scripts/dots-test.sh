@@ -43,11 +43,13 @@ dots clean all
 dots ls --apt
 dots ls --pkg
 dots ls --snap
+dots ls --flatpak
 dots ls --brew
 
 dots list --apt
 dots list --pkg
 dots list --snap
+dots list --flatpak
 dots list --brew
 
 # help test

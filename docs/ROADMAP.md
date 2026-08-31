@@ -1,17 +1,22 @@
-# Project Roadmap
+# Project roadmap
 
-## ✅ Completed
-- Initial release with basic functionality (v0.1.0)
-- Add color theme configuration feature (v0.2.0)
+## Completed in v0.11
 
-## 🏗️ In Progress
-- Add commands
-  - language setting
-  - unlink individual setting
-  - self-update
-  - uninstall
+- Verified, version-pinned Release installation
+- Manifest-driven configuration application
+- Transaction rollback, diagnostics, and recoverable uninstall
+- Isolated lifecycle tests and repository validation
+- Canonical completion and metadata sources
+- Explicit support tiers
 
-## 🚀 Planned
-- Support for macOS
-- Support for Windows (WSL, Windows Terminal)
-- Advanced customization options
+## Next
+
+- Continue extracting package-manager and desktop-specific code from the legacy command module
+- Expand Tier 2 integration tests, especially macOS and Termux
+- Add migration tests from older installed layouts
+- Improve per-application configuration selection and documentation
+
+## Exploring
+
+- First-class WSL2 support
+- Native Windows configuration where tools support it

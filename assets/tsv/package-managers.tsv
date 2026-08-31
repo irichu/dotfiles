@@ -1,5 +1,6 @@
 Package Manager	Description
 apt	Ubuntu apt packages
 brew	Homebrew packages
+flatpak	Flatpak desktop applications
 pkg	Termux packages
 snap	Snap packages

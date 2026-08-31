@@ -5,12 +5,8 @@ bottom
 difftastic
 dog
 dust
-gimp
 go --classic
 ghostty --classic
 nvim --classic
-pinta
 rustup --classic
-thunderbird
 zellij --classic
-zoom-client

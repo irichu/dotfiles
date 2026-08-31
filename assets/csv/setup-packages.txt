@@ -1,7 +1,0 @@
-Setup,Description
-chrome-fonts,Google Chrome fonts
-desktop,reset Ubuntu desktop config
-git,reset git config
-tmux,reset tmux config
-zellij,reset zellij config
-zsh,deploy dot zsh files and change shell to zsh

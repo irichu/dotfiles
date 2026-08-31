@@ -1,5 +1,2 @@
-gimp
+# Ubuntu Desktop releases older than 26.04 only.
 ghostty --classic
-pinta
-thunderbird
-zoom-client

@@ -5,8 +5,10 @@ chrome	Google Chrome
 code	Microsoft Visual Studio Code
 copyq	CopyQ
 docker	docker-ce (additional repository)
+flatpak	Flatpak and the system Flathub remote
 fnm	latest FNM and Node.js
 fzf	fzf (github.com)
+gimp	GIMP (Flatpak)
 gum	gum
 hackgen	HackGen font
 lazydocker	LazyDocker
@@ -18,10 +20,13 @@ mozc	Mozc input method
 mplus2	M+ 2 font
 neovim	neovim and LazyVim
 obsidian	Obsidian
+pinta	Pinta (Flatpak)
 rustdesk	RustDesk
 rustup	Rust toolchain
+signal	Signal messenger
 snap-packages	Snappy packages
 starship	starship.rs
-signal	Signal messenger
+thunderbird	Thunderbird (Flatpak)
 waydroid	Waydroid
 zed	Zed editor
+zoom	Zoom (Flatpak, community package)

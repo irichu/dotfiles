@@ -1,0 +1,4 @@
+com.github.PintaProject.Pinta
+org.gimp.GIMP
+org.mozilla.Thunderbird
+us.zoom.Zoom

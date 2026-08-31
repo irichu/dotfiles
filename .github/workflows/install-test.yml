@@ -1,12 +1,41 @@
 name: installation testing
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
   workflow_dispatch:
 
 jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Scan tracked content for secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install validation tools
+        run: sudo apt-get update && sudo apt-get install -y bats python3-yaml shellcheck
+
+      - name: Validate shell files and generated files
+        run: bash assets/scripts/validate-repo.sh
+
+      - name: Validate JSON, TOML, and YAML configuration
+        run: python3 assets/scripts/validate-configs.py
+
+      - name: Run isolated Bats tests
+        run: bats assets/scripts/dots-test.bats assets/scripts/flatpak-test.bats
+
+      - name: Run isolated lifecycle smoke test
+        run: bash assets/scripts/smoke-test.sh
+
   ubuntu:
     strategy:
       fail-fast: false
@@ -24,7 +53,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y curl git iproute2 locales tar tzdata wget zsh
 
       - name: Install dotfiles
-        run: chmod +x install.sh && ./install.sh && dots install --apt
+        run: chmod +x install.sh && ./install.sh && dots --yes install --apt
 
   fedora:
     runs-on: ubuntu-latest
@@ -40,7 +69,7 @@ jobs:
         run: dnf install -y git
 
       - name: Install dotfiles
-        run: chmod +x install.sh && ./install.sh && dots install --brew
+        run: chmod +x install.sh && ./install.sh && dots --yes install --brew
 
   arch:
     # The official archlinux Docker image only supports amd64.
@@ -63,4 +92,22 @@ jobs:
         run: pacman -Syu --noconfirm git
 
       - name: Install dotfiles
-        run: chmod +x install.sh && ./install.sh && dots install --brew
+        run: chmod +x install.sh && ./install.sh && dots --yes install --brew
+
+  macos-smoke:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Validate and apply into an isolated home
+        run: |
+          export HOME="$RUNNER_TEMP/home"
+          export XDG_CONFIG_HOME="$HOME/.config"
+          export XDG_CACHE_HOME="$HOME/.cache"
+          export XDG_STATE_HOME="$HOME/.local/state"
+          export XDG_DATA_HOME="$HOME/.local/share"
+          mkdir -p "$HOME"
+          bash install.sh
+          dots --yes apply core
+          dots doctor

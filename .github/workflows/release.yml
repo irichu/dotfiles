@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    name: Create Release
+    name: Build and publish verified release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -15,43 +15,38 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
-      - name: Get version from tag
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-
-      - name: Create tar.gz and zip
+      - name: Validate tag and repository
         run: |
-          mkdir artifacts
-          tar --exclude=artifacts --exclude=.git -czvf artifacts/dotfiles-${VERSION}.tar.gz -- * .[^.]*
-          zip -r artifacts/dotfiles-${VERSION}.zip * .[^.]* -x "artifacts/*" -x ".git/*"
+          bash -n install.sh assets/scripts/main.sh assets/scripts/lib/*.sh
+          test "$(cat assets/txt/version.txt)" = "${GITHUB_REF_NAME#v}"
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+      - name: Build archives and checksums
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          mkdir -p artifacts
+          git archive --format=tar.gz --prefix=dotfiles/ \
+            --output="artifacts/dotfiles-${version}.tar.gz" "$GITHUB_REF_NAME"
+          git archive --format=zip --prefix=dotfiles/ \
+            --output="artifacts/dotfiles-${version}.zip" "$GITHUB_REF_NAME"
+          cd artifacts
+          sha256sum "dotfiles-${version}.tar.gz" "dotfiles-${version}.zip" > SHA256SUMS
 
-      - name: Upload tar.gz
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/dotfiles-${{ env.VERSION }}.tar.gz
-          asset_name: dotfiles-${{ env.VERSION }}.tar.gz
-          asset_content_type: application/gzip
+      - name: Verify release artifacts
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          cd artifacts
+          sha256sum --check SHA256SUMS
+          mkdir extracted
+          tar -xzf "dotfiles-${version}.tar.gz" -C extracted
+          test -x extracted/dotfiles/install.sh
+          test "$(cat extracted/dotfiles/assets/txt/version.txt)" = "$version"
 
-      - name: Upload zip
-        uses: actions/upload-release-asset@v1
+      - name: Publish GitHub Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/dotfiles-${{ env.VERSION }}.zip
-          asset_name: dotfiles-${{ env.VERSION }}.zip
-          asset_content_type: application/zip
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" artifacts/* --generate-notes --verify-tag

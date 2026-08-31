@@ -1,4 +1,5 @@
 <!-- Languages -->
+
 English / [Japanese(日本語)]
 
 <!-- Logo -->
@@ -117,20 +118,22 @@ Use the following `curl`, `wget`, or `git` command:
 > [!IMPORTANT]
 > On Ubuntu Desktop, automatic setup is possible `--ubuntu-desktop`.<br>
 > On Ubuntu, fast installation is possible with `--apt` or `--snap`.<br>
+> On Linux (Ubuntu/Fedora/Arch Linux), Flatpak desktop applications can be installed with `--flatpak`.<br>
 > On Linux (Ubuntu/Fedora/Arch Linux) or macOS, automatic setup is available using `--brew`.<br>
 > On Termux, setup can be done using `--pkg`.
->
 
 > [!NOTE]
 > On Linux or macOS, `sudo` access is required for installation.<br>
-> This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--snap`.<br>
->
+> This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--flatpak`, `--snap`.<br>
+> With `--ubuntu-desktop`, Ghostty is installed from Ubuntu's official APT package on Ubuntu 26.04 or later, and from Snap on older Ubuntu releases.<br>
 
 Install all components using your preferred package manager:
-`dots install [--apt|--brew|--snap|--pkg]`
+`dots install [--apt|--brew|--flatpak|--snap|--pkg]`
 <!--
-Replace `[--apt|--brew|--snap|--pkg]` with your package manager of choice.
+Replace `[--apt|--brew|--flatpak|--snap|--pkg]` with your package manager of choice.
 -->
+
+`--apt`, `--brew`, `--flatpak`, `--pkg`, `--snap`, and `--ubuntu-desktop` are batch modes and automatically confirm dotfiles prompts. Other commands still require confirmation or an explicit `--yes`.
 
 **Examples:**
 
@@ -147,6 +150,14 @@ dots install --ubuntu-desktop
 dots install --brew
 ```
 
+- To install GIMP, Pinta, Thunderbird, and Zoom from Flathub:
+
+```bash
+dots install --flatpak
+```
+
+The Zoom Flatpak is an unverified community package. Existing Snap installations are not removed automatically; verify the Flatpak application and its data before removing a Snap package manually.
+
 - To use pkg on Termux:
 
 ```bash
@@ -157,7 +168,6 @@ dots install --pkg
 > If `dots` command not found,<br>
 > please run the following command to add the path to ~/.local/bin<br>
 > or use `~/.local/bin/dots` command directly during the installation process
->
 
 ```bash
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
@@ -175,7 +185,6 @@ exec -l $(which zsh)
 > [!NOTE]
 > In a login shell, such as an SSH session, Tmux will start automatically.<br>
 > If a Tmux server is already running, you can select a session to connect to.
->
 
 ## ✅ Supported OS
 
@@ -191,10 +200,11 @@ exec -l $(which zsh)
 - Android 📱
   - The latest version of Termux
 
+See the [support policy](docs/SUPPORT.md) for the guarantees attached to each tier.
+
 > [!WARNING]
 > The Google Play Store version of Termux may not work properly with some commands.<br>
 > It is recommended to install it from [F-Droid].
->
 
 <img
   src="https://irichu.github.io/dotfiles/assets/images/irichu-dotfiles-main-screenshot.png"
@@ -278,6 +288,21 @@ dots install --brew
 
 ## 📗 Basic commands
 
+Safe lifecycle commands:
+
+```bash
+dots apply                 # Preview selected defaults and confirm once
+dots apply core            # Apply the core preset
+dots --yes apply core      # Explicit non-interactive use
+dots doctor                # Diagnose the installation and managed links
+dots rollback latest       # Restore the last completed transaction
+dots self-update           # Update the dotfiles release
+dots packages update       # Update installed packages
+dots uninstall             # Recoverably remove managed files
+```
+
+`dots clean` removes only disposable dotfiles caches. Configuration backups and copied user files are retained.
+
 <details open="">
 <summary>Get/Set the current tmux theme</summary>
 
@@ -295,27 +320,27 @@ dots set-tmux-theme 4               # Set by number
 dots set-tmux-theme developer-mono  # Set by name</code>
 </pre>
 
-  Available themes:
+Available themes:
 
   <details open="">
   <summary>Developer (purple base)</summary>
 
-  1. developer
+1. developer
 
   <img src="https://github.com/user-attachments/assets/b11d0239-654c-4bb8-8b00-053052bf6551" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  2. developer-textcolored
+2. developer-textcolored
 
   <img src="https://github.com/user-attachments/assets/eb263ac8-43a4-40b6-9416-d062500ce4db" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  3. developer-colorful
+3. developer-colorful
 
   <img src="https://github.com/user-attachments/assets/bdf15c2c-fa79-482e-acc4-d5cff417ea26" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  4. developer-mono
+4. developer-mono
 
   <img src="https://github.com/user-attachments/assets/ff462435-3c49-4671-9ae7-dd5b58e8ddb6" alt="tmux status image" style="padding-left:30px;">
   <br>
@@ -325,22 +350,22 @@ dots set-tmux-theme developer-mono  # Set by name</code>
   <details>
   <summary>Turquoise</summary>
 
-  5. dark-turquoise
+5. dark-turquoise
 
   <img src="https://github.com/user-attachments/assets/04e742ca-9ce8-433b-9b07-19618274d36c" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  6. dark-turquoise-textcolored
+6. dark-turquoise-textcolored
 
   <img src="https://github.com/user-attachments/assets/56cccb66-fb8f-4ca3-872b-16ec20abc619" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  7. dark-turquoise-colorful
+7. dark-turquoise-colorful
 
   <img src="https://github.com/user-attachments/assets/bb5f85de-c149-4ad1-a912-ce62c1b62580" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  8. dark-turquoise-mono
+8. dark-turquoise-mono
 
   <img src="https://github.com/user-attachments/assets/66e21e1b-f1f5-487e-87b0-ad1655e5fd28" alt="tmux status image" style="padding-left:30px;">
   <br>
@@ -350,22 +375,22 @@ dots set-tmux-theme developer-mono  # Set by name</code>
   <details>
   <summary>Orange</summary>
 
-  9. dark-orange
+9. dark-orange
 
   <img src="https://github.com/user-attachments/assets/e7a84520-94e6-44c9-ab0e-8c1358123e58" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  10. dark-orange-textcolored
+10. dark-orange-textcolored
 
   <img src="https://github.com/user-attachments/assets/f9d520d0-8740-4538-ae4e-7e88d77aa10d" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  11. dark-orange-colorful
+11. dark-orange-colorful
 
   <img src="https://github.com/user-attachments/assets/5aebc5e0-bef7-451b-9cd0-0f22be945a76" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  12. dark-orange-mono
+12. dark-orange-mono
 
   <img src="https://github.com/user-attachments/assets/4bb9b5b7-e5e1-4865-9a5e-f4e2e4fc2da1" alt="tmux status image" style="padding-left:30px;">
   <br>
@@ -375,22 +400,22 @@ dots set-tmux-theme developer-mono  # Set by name</code>
   <details>
   <summary>Skyblue</summary>
 
-  13. dark-skyblue
+13. dark-skyblue
 
   <img src="https://github.com/user-attachments/assets/2b97e6ef-9510-40b0-85e0-dd9629db7eac" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  14. dark-skyblue-textcolored
+14. dark-skyblue-textcolored
 
   <img src="https://github.com/user-attachments/assets/406430fe-ba61-4790-9b8a-0ea752d0fe4b" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  15. dark-skyblue-colorful
+15. dark-skyblue-colorful
 
   <img src="https://github.com/user-attachments/assets/5a3dfb75-9f9d-4324-ac70-fcb988e7c313" alt="tmux status image" style="padding-left:30px;">
   <br>
 
-  16. dark-skyblue-mono
+16. dark-skyblue-mono
 
   <img src="https://github.com/user-attachments/assets/02e7bf8a-9269-4bfa-bdab-212bea7c9c4a" alt="tmux status image" style="padding-left:30px;">
 
@@ -435,7 +460,7 @@ dots set-opacity</code>
 <summary>Show install target package list</summary>
 
 <pre>
-<code class="language-bash">dots list [--apt|--brew|--snap|--pkg]</code>
+<code class="language-bash">dots list [--apt|--brew|--flatpak|--snap|--pkg]</code>
 </pre>
 
 </details>
@@ -451,6 +476,7 @@ dots set-opacity</code>
 
 - 🐧 [Linux packages]
 - 🍺 [Brew Apps]
+- 📦 [Flatpak packages]
 
 <!--
 If you want to check all applications per package manager, please refer:
@@ -939,7 +965,7 @@ tks # tmux kill-server
 
 #### Show tmux pane id
 
-Show tmux  pane id
+Show tmux pane id
 
 ```bash
 tid # tmux display -pt "${TMUX_PANE:?}" "#{pane_index}"
@@ -980,7 +1006,6 @@ Based on Emacs mode with `bindkey -e`, with some additional key bindings added.
 
 > [!NOTE]
 > The tmux prefix key is configured to `Ctrl + \` for easier access.
->
 
 | Key                          | Description                   |
 | ---------------------------- | ----------------------------- |
@@ -1000,7 +1025,6 @@ Based on Emacs mode with `bindkey -e`, with some additional key bindings added.
 > pressing `Ctrl-\` twice will send the prefix key to the inner session.
 > If you are three levels deep, you need to press `Ctrl-\` three times.
 > Additionally, pressing `Ctrl-\` sends the key input to the shell within the session.
->
 
 ##### tmux plugins
 
@@ -1056,28 +1080,30 @@ Feedback and contributions are welcome! Feel free to open an issue or submit a p
 This project is licensed under the [MIT License].
 
 <!-- Reference-style links -->
+
 [Japanese(日本語)]: docs/README-ja.md
 [This GitHub repository]: https://github.com/irichu/dotfiles
 [F-Droid]: https://f-droid.org/
 [Flat-Remix-Blue-Dark]: https://www.opendesktop.org/p/1012430
 [Marble-blue-dark]: https://www.gnome-look.org/p/1977647
 [Flat-Remix-GTK-Blue-Dark-Solid]: https://www.opendesktop.org/p/1214931
-[starship]: <https://starship.rs/>
-[Neovim]: <https://github.com/neovim/neovim>
-[LazyVim]: <https://www.lazyvim.org/>
-[tmux]: <https://github.com/tmux/tmux>
-[zellij]: <https://github.com/zellij-org/zellij>
-[broot]: <https://github.com/Canop/broot>
-[yazi]: <https://github.com/sxyazi/yazi>
-[Alacritty]: <https://github.com/alacritty/alacritty>
-[Termux]: <https://github.com/termux/termux-app>
+[starship]: https://starship.rs/
+[Neovim]: https://github.com/neovim/neovim
+[LazyVim]: https://www.lazyvim.org/
+[tmux]: https://github.com/tmux/tmux
+[zellij]: https://github.com/zellij-org/zellij
+[broot]: https://github.com/Canop/broot
+[yazi]: https://github.com/sxyazi/yazi
+[Alacritty]: https://github.com/alacritty/alacritty
+[Termux]: https://github.com/termux/termux-app
 [Linux packages]: docs/app-packages.md
 [Brew Apps]: docs/brew-packages.md
-[tpm]: <https://github.com/tmux-plugins/tpm>
-[tmux-continuum]: <https://github.com/tmux-plugins/tmux-continuum>
-[tmux-logging]: <https://github.com/tmux-plugins/tmux-logging>
-[tmux-resurrect]: <https://github.com/tmux-plugins/tmux-resurrect>
-[tmux-fingers]: <https://github.com/Morantron/tmux-fingers>
-[LazyVim keymaps]: <https://www.lazyvim.org/keymaps>
+[Flatpak packages]: assets/txt/flatpak-packages.txt
+[tpm]: https://github.com/tmux-plugins/tpm
+[tmux-continuum]: https://github.com/tmux-plugins/tmux-continuum
+[tmux-logging]: https://github.com/tmux-plugins/tmux-logging
+[tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
+[tmux-fingers]: https://github.com/Morantron/tmux-fingers
+[LazyVim keymaps]: https://www.lazyvim.org/keymaps
 [Emacs-like shortcuts]: docs/neovim.md#emacs-like
-[MIT License]: LICENSE.md
+[MIT License]: LICENSE

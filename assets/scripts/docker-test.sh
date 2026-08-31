@@ -16,6 +16,7 @@ mkdir -p "$DATA_DIR"
 if [ ! -f ./Dockerfile ] || [ ! -d assets ]; then
   cd "$DATA_DIR"
 fi
+PROJECT_DIR="$(pwd -P)"
 
 #--------------------------------------------------
 # docker
@@ -25,19 +26,19 @@ distribution="ubuntu"
 case "$1" in
   ubuntu)
     distribution="ubuntu"
-    cp "$DATA_DIR"/assets/ci/docker/ubuntu/latest/Dockerfile "$DATA_DIR"
+    dockerfile_path="$PROJECT_DIR/Dockerfile"
     ;;
   ubuntu-22.04)
     distribution="ubuntu-22.04"
-    cp "$DATA_DIR"/assets/ci/docker/ubuntu/22.04/Dockerfile "$DATA_DIR"
+    dockerfile_path="$PROJECT_DIR/assets/ci/docker/ubuntu/22.04/Dockerfile"
     ;;
   arch)
     distribution="arch"
-    cp "$DATA_DIR"/assets/ci/docker/$1/Dockerfile "$DATA_DIR"
+    dockerfile_path="$PROJECT_DIR/assets/ci/docker/$1/Dockerfile"
     ;;
   fedora)
     distribution="fedora"
-    cp "$DATA_DIR"/assets/ci/docker/$1/Dockerfile "$DATA_DIR"
+    dockerfile_path="$PROJECT_DIR/assets/ci/docker/$1/Dockerfile"
     ;;
   *)
     echo "Usage: dots docker test {ubuntu|ubuntu-22.04|arch|fedora}"
@@ -65,6 +66,6 @@ fi
 #--------------------------------------------------
 # create
 #--------------------------------------------------
-docker build -t "$IMAGE_NAME" .
+docker build -f "$dockerfile_path" -t "$IMAGE_NAME" "$PROJECT_DIR"
 docker run -it -d --name "$CONTAINER_NAME" "$IMAGE_NAME"
 docker exec -it "$CONTAINER_NAME" /bin/zsh -c 'dots install --brew'

@@ -13,6 +13,7 @@ _dots_install() {
     _arguments -S \
       '--apt[Install using apt]' \
       '--brew[Install Homebrew and packages]' \
+      '--flatpak[Install Flatpak desktop applications]' \
       '--pkg[Install using pkg on Termux]' \
       '--snap[Install using snap on Ubuntu]' \
       '--ubuntu-desktop[Install Ubuntu Desktop apps and setup GNOME Desktop]'
@@ -24,8 +25,10 @@ _dots_install() {
       "code[Visual Studio Code]" \
       "copyq[CopyQ]" \
       "docker[Docker on Ubuntu Desktop]" \
+      "flatpak[Flatpak and the system Flathub remote]" \
       "fnm[fnm(Fast Node Maneger)]" \
       "fzf[fzf]" \
+      "gimp[GIMP from Flathub]" \
       "gum[gum]" \
       "hackgen[HackGen font]" \
       "lazygit[Lazygit]" \
@@ -37,15 +40,18 @@ _dots_install() {
       "mplus2[M PLUS 2 font]" \
       "neovim[Neovim]" \
       "obsidian[Obsidian]" \
+      "pinta[Pinta from Flathub]" \
       "rustdesk[RustDesk on Ubuntu Desktop]" \
       "rustup[rustup on Linux]" \
       "snap-packages[Snap packages]" \
       "starship[Starship]" \
+      "thunderbird[Thunderbird from Flathub]" \
       "signal[Signal Desktop]" \
       "ulauncher[Ulauncher]" \
       "uv[UV]" \
       "waydroid[Waydroid - Android in a Linux container]" \
-      "zed[Zed editor]"
+      "zed[Zed editor]" \
+      "zoom[Zoom from Flathub (community package)]"
     ;;
   args)
     case "$line[1]" in
@@ -77,6 +83,7 @@ _dots_list() {
   _values "list subcommand" \
     "--apt[Apt packages]" \
     "--brew[Homebrew packages]" \
+    "--flatpak[Flatpak desktop applications]" \
     "--pkg[Termux packages]" \
     "--snap[Snap packages]"
 
@@ -90,9 +97,24 @@ _dots_list() {
 
 _dots_clean() {
   _values "clean subcommand" \
-    "backup[Remove ~/.local/share/dotfiles*.bak*]" \
-    "config[Remove ~/.config/*.bak* directories]" \
-    "all[Remove all backup and config files]"
+    "cache[Remove cache contents]" \
+    "backup[Explain retained transaction backups]" \
+    "config[Explain retained legacy config backups]" \
+    "all[Remove cache and retain recovery data]"
+}
+
+_dots_apply() {
+  _values "configuration or preset" \
+    "core[Core terminal configuration]" \
+    "editor[Editor configuration]" \
+    "desktop[Linux desktop configuration]" \
+    "extra[Optional tools]" \
+    "termux[Termux configuration]" \
+    "all[All supported configuration]"
+}
+
+_dots_packages() {
+  _values "packages subcommand" "update[Update packages using installed package managers]"
 }
 
 _dots_docker_test() {
@@ -174,15 +196,20 @@ _dots() {
     # explicitly call the _arguments context to include options (such as --apt) in the candidate list
     _arguments -s \
       '(-h --help)'{-h,--help}"[Show help.]" \
-      '(-v --version)'{-v,--version}"[Print dots version info]"
+      '(-v --version)'{-v,--version}"[Print dots version info]" \
+      '(-y --yes)'{-y,--yes}"[Confirm noninteractive changes]"
 
     _values "dots command" \
       '(install i)'{install,i}"[Install all dependencies or individual package]" \
       '(binstall bi)'{binstall,bi}"[Install binary packages]" \
       "setup[Setup environment]" \
-      "upgrade[Upgrade packages]" \
+      "packages[Manage packages]" \
+      "self-update[Update dotfiles from a release]" \
       "list[List packages]" \
       "apply[Apply configuration]" \
+      "doctor[Validate installation]" \
+      "rollback[Restore a configuration transaction]" \
+      "uninstall[Remove managed dotfiles]" \
       "backup[Backup configuration]" \
       "clean[Clean up]" \
       "completion[Generate zsh completion for dots command]" \
@@ -217,6 +244,12 @@ _dots() {
       ;;
     clean)
       _arguments "1: :_dots_clean"
+      ;;
+    apply)
+      _arguments "*::configuration:_dots_apply"
+      ;;
+    packages)
+      _arguments "1: :_dots_packages"
       ;;
     set-tmux-theme)
       _arguments "1: :_dots_set-tmux-theme"

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-ZSH_COMPLETIONS_DIR="${ZSH_COMPLETIONS_DIR:-${CONFIG_HOME}/zsh/completions}"
+ZSH_COMPLETIONS_DIR="${ZSH_COMPLETIONS_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/zsh/completions}"
+ZSH_COMPDUMP_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
 mkdir -p "$ZSH_COMPLETIONS_DIR"
 
 cmd_exists() {
@@ -64,9 +65,10 @@ generate_completions() {
 generate_completions
 
 # Regenerate zsh completion dump file
-if [ -f "${CONFIG_HOME}/zsh/.zcompdump" ]; then
-  rm "${CONFIG_HOME}/zsh/.zcompdump" >/dev/null 2>&1
+if [ -f "$ZSH_COMPDUMP_FILE" ]; then
+  rm "$ZSH_COMPDUMP_FILE" >/dev/null 2>&1
 fi
 if cmd_exists zsh; then
-  zsh -c 'autoload -Uz compinit && compinit' >/dev/null 2>&1
+  ZSH_COMPDUMP_FILE="$ZSH_COMPDUMP_FILE" \
+    zsh -c 'autoload -Uz compinit && compinit -d "$ZSH_COMPDUMP_FILE"' >/dev/null 2>&1
 fi

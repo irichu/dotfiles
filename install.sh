@@ -1,436 +1,355 @@
 #!/usr/bin/env bash
 
-set -ue
-set -o pipefail
+set -Eeuo pipefail
 
 export LC_ALL=C
 
-DEBUG=true
+readonly DOTFILES_REPOSITORY="${DOTFILES_REPOSITORY:-irichu/dotfiles}"
+readonly CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+readonly CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+readonly STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+readonly DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+readonly CACHE_DIR="$CACHE_HOME/dotfiles"
+readonly STATE_DIR="$STATE_HOME/dotfiles"
+readonly DATA_DIR="$DATA_HOME/dotfiles-main"
+readonly BIN_DIR="$HOME/.local/bin"
 
-#--------------------------------------------------
-# path
-#--------------------------------------------------
+CHANNEL="stable"
+REQUESTED_VERSION=""
+FORCE_REMOTE=false
+DEBUG="${DEBUG:-false}"
+INSTALL_GUM=false
 
-CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-mkdir -p "$CONFIG_HOME"
+usage() {
+  cat <<'EOF'
+Usage: install.sh [options]
 
-CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-CACHE_DIR="$CACHE_HOME/dotfiles"
-mkdir -p "$CACHE_DIR"
+Options:
+  --version <tag>   Install a specific release tag (for example v1.2.0)
+  --channel <name>  Install from "stable" (default) or "main"
+  --remote          Ignore a local checkout and download the selected channel
+  --gum             Install Gum and generate its Zsh completion
+  --debug           Enable verbose shell tracing
+  -h, --help        Show this help
+EOF
+}
 
-STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
-STATE_DIR="$STATE_HOME/dotfiles"
-mkdir -p "$STATE_DIR"
-
-DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-mkdir -p "$DATA_HOME"
-
-DATA_DIR="$DATA_HOME/dotfiles-main"
-
-# add path
-LOCAL_PATH="$HOME/.local/bin"
-mkdir -p "$LOCAL_PATH"
-
-if [ -d "$LOCAL_PATH" ] && [[ ":$PATH:" != *":$LOCAL_PATH:"* ]]; then
-  export PATH="$LOCAL_PATH:$PATH"
-fi
-
-ORG_DIR="$(pwd)"
-cd "$CACHE_DIR" || exit 1
-
-#--------------------------------------------------
-# logger
-#--------------------------------------------------
-
-COLOR_RED='\033[0;31m'
-COLOR_GREEN='\033[0;32m'
-COLOR_YELLOW='\033[1;33m'
-COLOR_BLUE='\033[0;34m'
-COLOR_PURPLE='\033[0;35m'
-COLOR_CYAN='\033[0;36m'
-COLOR_WHITE='\033[1;37m'
-COLOR_NONE='\033[0m'
-
-COLOR_DEBUG=$COLOR_PURPLE
-COLOR_INFO=$COLOR_BLUE
-COLOR_NOTICE=$COLOR_CYAN
-COLOR_WARNING=$COLOR_YELLOW
-COLOR_ERROR=$COLOR_RED
-COLOR_SUCCESS=$COLOR_GREEN
-
-log_color() {
-  LOG_LEVEL="$1"
-  shift
-
-  LOG_COLOR=$COLOR_WHITE
-  case $LOG_LEVEL in
-  DEBUG)
-    LOG_COLOR=$COLOR_DEBUG
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+  --version)
+    [ "$#" -ge 2 ] || { echo "--version requires a tag" >&2; exit 2; }
+    REQUESTED_VERSION="$2"
+    shift 2
     ;;
-  INFO)
-    LOG_COLOR=$COLOR_INFO
+  --channel)
+    [ "$#" -ge 2 ] || { echo "--channel requires stable or main" >&2; exit 2; }
+    CHANNEL="$2"
+    shift 2
     ;;
-  NOTICE)
-    LOG_COLOR=$COLOR_NOTICE
-    ;;
-  WARNING)
-    LOG_COLOR=$COLOR_WARNING
-    ;;
-  ERROR)
-    LOG_COLOR=$COLOR_ERROR
-    ;;
-  SUCCESS)
-    LOG_COLOR=$COLOR_SUCCESS
-    ;;
-  esac
-
-  local OPT=""
-  local OPTS
-  local OPTIND=1
-  while getopts ":c:n:" OPTS; do
-    # echo "$OPTS"
-    case "$OPTS" in
-    n)
-      OPT=-n
-      ;;
-    c)
-      case "$OPTARG" in
-      c)
-        LOG_COLOR=$COLOR_NOTICE
-        ;;
-      g)
-        LOG_COLOR=$COLOR_SUCCESS
-        ;;
-      n)
-        LOG_COLOR=$COLOR_NONE
-        ;;
-      w)
-        LOG_COLOR=$COLOR_WHITE
-        ;;
-      *)
-        LOG_COLOR=$COLOR_NONE
-        ;;
-      esac
-      ;;
-    *)
-      OPT=""
-      ;;
-    esac
-  done
-
-  shift $((OPTIND - 1))
-
-  echo -e ${OPT:-} "$LOG_COLOR""$*""$COLOR_NONE"
-
-  $DEBUG && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/debug.log"
-  [ "$LOG_LEVEL" = 'ERROR' ] && echo "[$(log_date_str)][$LOG_LEVEL]" "$@" >>"$STATE_DIR/errors.log"
-
-  return 0
-}
-
-debug() {
-  $DEBUG && log_color DEBUG "$1"
-  return 0
-}
-
-info() {
-  log_color INFO "$1" "${2:-}" "${3:-}"
-}
-
-notice() {
-  log_color NOTICE "$1" "${2:-}"
-}
-
-warning() {
-  log_color WARNING "$1" "${2:-}"
-}
-
-error() {
-  log_color ERROR "$1" "${2:-}"
-}
-
-success() {
-  log_color SUCCESS "$1" "${2:-}"
-}
-
-log() {
-  LOG_LEVEL="$1"
-  shift
-
-  local OPTS
-  if getopts ":n:" OPTS; then
-    OPTS=-$OPTS
+  --remote)
+    FORCE_REMOTE=true
     shift
-  else
-    OPTS=""
-  fi
-
-  case "$LOG_LEVEL" in
-  DEBUG)
-    debug $OPTS "$@"
     ;;
-  INFO)
-    info $OPTS "$@"
+  --gum)
+    INSTALL_GUM=true
+    shift
     ;;
-  NOTICE)
-    notice $OPTS "$@"
+  --debug)
+    DEBUG=true
+    shift
     ;;
-  WARNING)
-    warning $OPTS "$@"
+  -h | --help)
+    usage
+    exit 0
     ;;
-  ERROR)
-    error $OPTS "$@"
-    ;;
-  SUCCESS)
-    success $OPTS "$@"
+  *)
+    echo "Unknown option: $1" >&2
+    usage >&2
+    exit 2
     ;;
   esac
+done
 
-  return 0
-}
-
-now_str() {
-  date +'%Y%m%d-%H%M%S'
-}
-
-log_date_str() {
-  date +'%Y-%m-%d %H:%M:%S.%3N'
-}
-
-#--------------------------------------------------
-# utils
-#--------------------------------------------------
-
-cmd_exists() {
-  command -v "$1" &>/dev/null
-}
-
-is_gum_available() {
-  [[ "${TERMUX_VERSION:-}" != *googleplay* ]] && command -v gum &>/dev/null
-}
-
-#--------------------------------------------------
-# backup
-#--------------------------------------------------
-
-backup_dir() {
-  date_str=$(now_str)
-
-  if [ -e "$1" ]; then
-    info "Dir $1 already exists."
-
-    if [ -L "$1" ]; then
-      info "Unlink ... "
-      unlink "$1"
-
-      return 0
-    fi
-
-    info "Rename ... "
-
-    mv "$1"{,.bak"$date_str"}
-
-    info "Renamed to $1.bk$date_str"
-
-    return 0
-  fi
-
-  return 0
-}
-
-#--------------------------------------------------
-# intall
-#--------------------------------------------------
-
-# Function to install the 'gum' utility, which is used for interactive shell scripts.
-install_gum() {
-  info "Start: ${FUNCNAME[0]}"
-
-  if is_gum_available; then
-    info "gum already installed."
-    return 0
-  fi
-
-  if cmd_exists apt; then
-    if [ -n "${TERMUX_VERSION:-}" ]; then
-      # termux
-      pkg install gum -y
-    else
-      # ubuntu debian
-      sudo mkdir -p /etc/apt/keyrings
-      curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
-      echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-      sudo apt update && sudo apt install gum -y
-    fi
-
-  elif cmd_exists dnf; then
-    # fedora
-    echo '[charm]
-    name=Charm
-    baseurl=https://repo.charm.sh/yum/
-    enabled=1
-    gpgcheck=1
-    gpgkey=https://repo.charm.sh/yum/gpg.key' | sudo tee /etc/yum.repos.d/charm.repo >/dev/null
-
-    sudo rpm --import https://repo.charm.sh/yum/gpg.key
-
-    sudo dnf install gum
-
-  elif cmd_exists pacman; then
-    # arch
-    sudo pacman -S gum --noconfirm
-  fi
-
-  # zsh completions
-  if is_gum_available; then
-    info "gum installation completed."
-
-    info "Install zsh completions."
-
-    mkdir -p "$CONFIG_HOME/zsh/completions"
-    gum completion zsh >"$CONFIG_HOME/zsh/completions/_gum"
-
-    info "Installed zsh completions."
-  else
-    warning "gum installation failed."
-  fi
-
-  info "End: ${FUNCNAME[0]}"
-  return 0
-}
-
-case "${1:-}" in
---gum)
-  install_gum
+case "$CHANNEL" in
+stable | main) ;;
+*)
+  echo "Unsupported channel: $CHANNEL (expected stable or main)" >&2
+  exit 2
   ;;
 esac
 
-# download
-info "Downloading dotfiles from GitHub..."
+if [ -n "$REQUESTED_VERSION" ] && [ "$CHANNEL" = "main" ]; then
+  echo "--version and --channel main cannot be used together" >&2
+  exit 2
+fi
 
-# Prefer curl if available, fallback to wget
-if cmd_exists curl; then
-  curl -fL -O https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
-elif cmd_exists wget; then
-  wget https://github.com/irichu/dotfiles/archive/refs/heads/main.tar.gz
+[ "$DEBUG" = true ] && set -x
+
+mkdir -p "$CONFIG_HOME" "$CACHE_DIR" "$STATE_DIR" "$DATA_HOME" "$BIN_DIR"
+
+GIT_USER_NAME=""
+GIT_USER_EMAIL=""
+if command -v git >/dev/null 2>&1; then
+  GIT_USER_NAME="$(git config user.name || true)"
+  GIT_USER_EMAIL="$(git config user.email || true)"
+fi
+
+TEMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/dotfiles-install.XXXXXX")"
+STAGING_DIR="$DATA_HOME/.dotfiles-main.staging.$$"
+
+cleanup() {
+  rm -rf -- "$TEMP_DIR"
+  if [ -d "$STAGING_DIR" ]; then
+    rm -rf -- "$STAGING_DIR"
+  fi
+}
+trap cleanup EXIT INT TERM
+
+if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
+  COLOR_BLUE='\033[0;34m'
+  COLOR_GREEN='\033[0;32m'
+  COLOR_RED='\033[0;31m'
+  COLOR_YELLOW='\033[1;33m'
+  COLOR_RESET='\033[0m'
 else
-  echo "Error: Neither curl nor wget is installed."
+  COLOR_BLUE=''
+  COLOR_GREEN=''
+  COLOR_RED=''
+  COLOR_YELLOW=''
+  COLOR_RESET=''
+fi
+
+log() {
+  write_log INFO "$*"
+  printf '%b[dotfiles] %s%b\n' "$COLOR_BLUE" "$*" "$COLOR_RESET"
+}
+
+success() {
+  write_log SUCCESS "$*"
+  printf '%b[dotfiles] %s%b\n' "$COLOR_GREEN" "$*" "$COLOR_RESET"
+}
+
+warning() {
+  write_log WARNING "$*"
+  printf '%b[dotfiles] WARNING: %s%b\n' "$COLOR_YELLOW" "$*" "$COLOR_RESET" >&2
+}
+
+die() {
+  write_log ERROR "$*"
+  printf '%b[dotfiles] ERROR: %s%b\n' "$COLOR_RED" "$*" "$COLOR_RESET" >&2
   exit 1
-fi
+}
 
-info "Download completed.\n"
+write_log() {
+  local level="$1"
+  shift
+  local timestamp
+  timestamp="$(date +'%Y-%m-%d %H:%M:%S')"
+  printf '[%s][%s] %s\n' "$timestamp" "$level" "$*" >>"$STATE_DIR/debug.log"
+  if [ "$level" = ERROR ]; then
+    printf '[%s][%s] %s\n' "$timestamp" "$level" "$*" >>"$STATE_DIR/errors.log"
+  fi
+}
 
-# current git user
-if cmd_exists git; then
-  git_user_name="$(git config user.name || true)"
-  git_user_email="$(git config user.email || true)"
-fi
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
 
-# current zsh history if exists
-histfile="$CONFIG_HOME/zsh/.zsh_history"
-histfile_tmp="$CACHE_DIR/.zsh_history.tmp"
-if [ -f "$histfile" ]; then
-  info "$histfile found"
-  cp "$histfile" "$histfile_tmp"
-fi
+download() {
+  url="$1"
+  destination="$2"
+  if command_exists curl; then
+    curl --fail --location --silent --show-error "$url" --output "$destination"
+  elif command_exists wget; then
+    wget --quiet "$url" --output-document="$destination"
+  else
+    die "curl or wget is required"
+  fi
+}
 
-# create completions directory
-zsh_completions_dir="$CONFIG_HOME/zsh/completions"
-zsh_completions_cache_dir="$CACHE_DIR/"
-mkdir -p "$zsh_completions_dir"
-mkdir -p "$zsh_completions_cache_dir"
-cp -rf "$zsh_completions_dir" "$zsh_completions_cache_dir"
+sha256_file() {
+  if command_exists sha256sum; then
+    sha256sum "$1" | awk '{print $1}'
+  elif command_exists shasum; then
+    shasum -a 256 "$1" | awk '{print $1}'
+  else
+    die "sha256sum or shasum is required to verify a release"
+  fi
+}
 
-# deploy
-tar xf main.tar.gz
-backup_dir "$HOME/.local/share/dotfiles-main"
-touch "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
-mv -f dotfiles-main "$HOME/.local/share/"
+latest_release_tag() {
+  redirect_url=""
+  if command_exists curl; then
+    redirect_url="$(curl --fail --location --silent --show-error --output /dev/null --write-out '%{url_effective}' \
+      "https://github.com/$DOTFILES_REPOSITORY/releases/latest")"
+  elif command_exists wget; then
+    redirect_url="$(wget --server-response --max-redirect=0 \
+      "https://github.com/$DOTFILES_REPOSITORY/releases/latest" 2>&1 \
+      | awk '/^  Location: / {print $2}' | tr -d '\r' | tail -n 1)"
+  fi
+  tag="${redirect_url##*/}"
+  [ -n "$tag" ] || die "could not determine the latest release"
+  printf '%s\n' "$tag"
+}
 
-if [ -f "$ORG_DIR/assets/scripts/main.sh" ]; then
-  # git repos
+copy_local_checkout() {
+  source_dir="$1"
+  log "Installing from local checkout: $source_dir"
+  mkdir -p "$STAGING_DIR"
+  cp -a "$source_dir/." "$STAGING_DIR/"
+  rm -rf -- "$STAGING_DIR/.git"
+}
+
+download_release() {
+  tag="${REQUESTED_VERSION:-$(latest_release_tag)}"
+  version="${tag#v}"
+  archive_name="dotfiles-$version.tar.gz"
+  archive_path="$TEMP_DIR/$archive_name"
+  checksum_path="$TEMP_DIR/SHA256SUMS"
+  base_url="https://github.com/$DOTFILES_REPOSITORY/releases/download/$tag"
+
+  log "Downloading stable release $tag"
+  download "$base_url/$archive_name" "$archive_path"
+  download "$base_url/SHA256SUMS" "$checksum_path"
+
+  expected="$(awk -v name="$archive_name" '$2 == name || $2 == "*" name {print $1}' "$checksum_path" | head -n 1)"
+  [ -n "$expected" ] || die "$archive_name is missing from SHA256SUMS"
+  actual="$(sha256_file "$archive_path")"
+  [ "$actual" = "$expected" ] || die "checksum verification failed for $archive_name"
+
+  mkdir -p "$TEMP_DIR/extracted"
+  tar -xzf "$archive_path" -C "$TEMP_DIR/extracted"
+  extracted_root="$TEMP_DIR/extracted/dotfiles"
+  if [ ! -d "$extracted_root" ]; then
+    extracted_root="$TEMP_DIR/extracted"
+  fi
+  mkdir -p "$STAGING_DIR"
+  cp -a "$extracted_root/." "$STAGING_DIR/"
+}
+
+download_main() {
+  archive_path="$TEMP_DIR/main.tar.gz"
+  log "Downloading the main development channel (checksum verification unavailable)"
+  download "https://github.com/$DOTFILES_REPOSITORY/archive/refs/heads/main.tar.gz" "$archive_path"
+  mkdir -p "$TEMP_DIR/extracted"
+  tar -xzf "$archive_path" -C "$TEMP_DIR/extracted"
+  extracted_root="$(find "$TEMP_DIR/extracted" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+  [ -n "$extracted_root" ] || die "downloaded archive has an unexpected layout"
+  mkdir -p "$STAGING_DIR"
+  cp -a "$extracted_root/." "$STAGING_DIR/"
+}
+
+install_command() {
+  local destination="$1"
+  local source="$DATA_DIR/assets/scripts/main.sh"
+  if { [ -e "$destination" ] || [ -L "$destination" ]; } && ! cmp -s "$destination" "$source"; then
+    local backup_root="$STATE_DIR/install-backups"
+    local backup_dir
+    mkdir -p "$backup_root"
+    backup_dir="$(mktemp -d "$backup_root/$(date +'%Y%m%d-%H%M%S')-XXXXXX")"
+    local backup="$backup_dir/dots"
+    mv -- "$destination" "$backup"
+    log "Existing command preserved at: $backup"
+  fi
+  cp -f -- "$source" "$destination"
+  chmod +x "$destination"
+}
+
+preserve_zsh_state() {
+  local legacy_history="$CONFIG_HOME/zsh/.zsh_history"
+  local history_dir="$STATE_HOME/zsh"
+  local history_file="$history_dir/history"
+  local legacy_completions="$CONFIG_HOME/zsh/completions"
+  local completions_dir="$DATA_HOME/zsh/completions"
+  local entry destination
+
+  mkdir -p "$history_dir" "$completions_dir"
+  if [ -f "$legacy_history" ] && [ ! -e "$history_file" ]; then
+    cp -p -- "$legacy_history" "$history_file"
+    log "Preserved Zsh history at: $history_file"
+  fi
+
+  if [ -d "$legacy_completions" ]; then
+    while IFS= read -r entry; do
+      destination="$completions_dir/$(basename "$entry")"
+      if [ ! -e "$destination" ] && [ ! -L "$destination" ]; then
+        cp -a -- "$entry" "$destination"
+      fi
+    done < <(find "$legacy_completions" -mindepth 1 -maxdepth 1 -print)
+    log "Preserved Zsh completions at: $completions_dir"
+  fi
+}
+
+install_staged_tree() {
+  # Local checkouts created on Windows may contain CRLF even though these files
+  # execute in a Unix environment. Normalize only the staged copy.
+  while IFS= read -r script_file; do
+    if grep -q $'\r$' "$script_file"; then
+      sed -i 's/\r$//' "$script_file"
+    fi
+  done < <(find "$STAGING_DIR" -type f \( -name '*.sh' -o -name '*.bash' -o -name '*.zsh' \))
+
+  [ -f "$STAGING_DIR/assets/scripts/main.sh" ] || die "staged tree is missing assets/scripts/main.sh"
+  [ -d "$STAGING_DIR/config" ] || die "staged tree is missing config"
+
+  previous_dir=""
+  if [ -e "$DATA_DIR" ] || [ -L "$DATA_DIR" ]; then
+    previous_dir="$(mktemp -d "$DATA_HOME/dotfiles-main.bak$(date +'%Y%m%d-%H%M%S')-XXXXXX")"
+    rmdir "$previous_dir"
+    mv -- "$DATA_DIR" "$previous_dir"
+  fi
+
+  if ! mv -- "$STAGING_DIR" "$DATA_DIR"; then
+    if [ -n "$previous_dir" ] && [ -e "$previous_dir" ]; then
+      mv -- "$previous_dir" "$DATA_DIR"
+    fi
+    die "could not activate the staged dotfiles tree"
+  fi
+
+  chmod +x "$DATA_DIR/assets/scripts/main.sh"
+  install_command "$BIN_DIR/dots"
   if [ -d /data/data/com.termux/files/usr/bin ]; then
-    # for termux
-    \cp -f "$ORG_DIR/assets/scripts/main.sh" /data/data/com.termux/files/usr/bin/dots
+    install_command /data/data/com.termux/files/usr/bin/dots
+  fi
+}
+
+preserve_user_state() {
+  if command_exists git; then
+    if [ -n "$GIT_USER_NAME" ] || [ -n "$GIT_USER_EMAIL" ]; then
+      mkdir -p "$CONFIG_HOME/git"
+      [ -e "$CONFIG_HOME/git/config" ] || touch "$CONFIG_HOME/git/config"
+      [ -n "$GIT_USER_NAME" ] && git config -f "$CONFIG_HOME/git/config" user.name "$GIT_USER_NAME"
+      [ -n "$GIT_USER_EMAIL" ] && git config -f "$CONFIG_HOME/git/config" user.email "$GIT_USER_EMAIL"
+    fi
   fi
 
-  # install to .local/bin
-  \cp -f "$ORG_DIR/assets/scripts/main.sh" "$HOME/.local/bin/dots"
+  [ -f "$HOME/.bashrc" ] || touch "$HOME/.bashrc"
+  if ! grep -Fqx 'export PATH="$HOME/.local/bin:$PATH"' "$HOME/.bashrc"; then
+    printf '%s\n' 'export PATH="$HOME/.local/bin:$PATH"' >>"$HOME/.bashrc"
+  fi
+}
 
-  # copy to .local/share/dotfiles
-  mkdir -p "$DATA_DIR"
-  \cp -a "$ORG_DIR"/* "$DATA_DIR"/
+ORIGINAL_DIR="$(pwd -P)"
+preserve_zsh_state
+if [ "$FORCE_REMOTE" = false ] && [ -f "$ORIGINAL_DIR/assets/scripts/main.sh" ]; then
+  copy_local_checkout "$ORIGINAL_DIR"
+elif [ "$CHANNEL" = "main" ]; then
+  download_main
 else
-  # for termux
-  if [ -d /data/data/com.termux/files/usr/bin ]; then
-    \cp -f "$HOME/.local/share/dotfiles-main/assets/scripts/main.sh" /data/data/com.termux/files/usr/bin/dots
-  fi
-
-  # install
-  \cp -f "$HOME/.local/share/dotfiles-main/assets/scripts/main.sh" "$HOME/.local/bin/dots"
+  download_release
 fi
 
-# Remove
-rm ./main.tar.gz
-rm "$HOME/.local/share/dotfiles-tmp-74ead8f4-4501-47a1-8e4a-b9ba72b39c3a"
+install_staged_tree
+preserve_user_state
 
-# create ~/.bashrc if not exists
-if [ ! -f "$HOME/.bashrc" ]; then
-  touch "$HOME/.bashrc"
-  echo "# Created .bashrc" >>"$HOME/.bashrc"
+if "$INSTALL_GUM"; then
+  log "Installing Gum (--gum compatibility mode)"
+  "$BIN_DIR/dots" --yes install gum
 fi
 
-# add to PATH
-if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc; then
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >>~/.bashrc
-fi
-
-# restore git user
-if cmd_exists git; then
-
-  if [ ! -f ~/.config/git/config ]; then
-    mkdir -p ~/.config/git
-    touch ~/.config/git/config
-  fi
-
-  # name
-  if [ -n "${git_user_name:-}" ]; then
-    git config -f ~/.config/git/config user.name "${git_user_name:-}"
-  fi
-
-  # email
-  if [ -n "${git_user_email:-}" ]; then
-    git config -f ~/.config/git/config user.email "${git_user_email:-}"
-  fi
-fi
-
-# restore zsh
-if [ -f "$histfile_tmp" ]; then
-  if [ ! -f "$histfile" ]; then
-    info "Restore .zsh_history\n"
-    mkdir -p "$CONFIG_HOME/zsh"
-    cp -f "$histfile_tmp" "$histfile"
-  fi
-
-  rm "$histfile_tmp"
-fi
-
-# restore completions
-if cp --help 2>&1 | grep -q -- '--update=none'; then
-  cp_update_opt="--update=none"
-else
-  cp_update_opt="-n"
-fi
-
-mkdir -p "$zsh_completions_cache_dir"
-cp -r $cp_update_opt "$zsh_completions_cache_dir"/completions "$CONFIG_HOME/zsh/"
-
-cd "$OLDPWD" || exit 1
-
-success 'The dots command installation has been completed!'
-success 'If the dots command is not found, use the ~/.local/bin/dots command during the installation process.'
-info ''
-
-success 'If you like it, please consider starring the repository.'
-success 'https://github.com/irichu/dotfiles'
-info ''
+success "Installation completed"
+log "Run: $BIN_DIR/dots doctor"
+log "Then apply settings with: $BIN_DIR/dots apply"
+printf '\n'
+success "If you like this repository, please consider starring it on GitHub!"
+success "https://github.com/$DOTFILES_REPOSITORY"

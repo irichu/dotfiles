@@ -1,6 +1,17 @@
 Command	Description
---apt	install Ubuntu apt packages (recommend in container; without systemd)
---brew	install Homebrew and brew packages on Linux
---snap	install Ubuntu apt and snap packages
---ubuntu-desktop	install Ubuntu apt packages and GUI apps and Gnome Extensions
---pkg	install pkg packages on Termux
+install	install a package or a platform package set
+binstall	install prebuilt Cargo packages
+setup	set up an individual environment integration
+apply	apply managed configuration (default set, app, preset, or all)
+doctor	validate prerequisites, manifest sources, and installation state
+rollback	restore configuration from the latest or selected transaction
+self-update	update dotfiles from a stable release or selected channel
+packages	manage operating-system and language packages
+uninstall	remove managed links and retain a recoverable installation
+list	show packages for a package manager
+backup	copy the current configuration into the dotfiles backup directory
+clean	clear cache data while retaining rollback backups
+completion	print the dots Zsh completion
+completions	generate completions for installed tools
+docker	run distribution integration tests in Docker
+version	print dots version information

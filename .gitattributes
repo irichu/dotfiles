@@ -1,0 +1,11 @@
+/install.sh text eol=lf
+/assets/scripts/main.sh text eol=lf
+/assets/scripts/lib/*.sh text eol=lf
+/assets/scripts/desktop/flatpak/*.sh text eol=lf
+/assets/scripts/*.bats text eol=lf
+/assets/scripts/smoke-test.sh text eol=lf
+/assets/scripts/validate-repo.sh text eol=lf
+/assets/scripts/completions/compdef_dots.zsh text eol=lf
+/config/zsh/completions/_dots text eol=lf
+/.github/workflows/install-test.yml text eol=lf
+/.github/workflows/release.yml text eol=lf
