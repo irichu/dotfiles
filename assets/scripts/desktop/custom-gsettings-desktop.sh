@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=desktop-favorites.sh
+source "$SCRIPT_DIR/desktop-favorites.sh"
+
 # Interface
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Yaru-purple'
@@ -38,27 +42,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock show-trash true
 # gsettings get org.gnome.desktop.wm.preferences num-workspaces
 
 # Favorite apps
-gsettings set org.gnome.shell favorite-apps "[\
-  'google-chrome.desktop',\
-  'firefox_firefox.desktop',\
-  'thunderbird_thunderbird.desktop',\
-  'org.gnome.Nautilus.desktop',\
-  'gimp_gimp.desktop',\
-  'pinta_pinta.desktop',\
-  'vlc.desktop',\
-  'code.desktop',\
-  'dev.zed.Zed.desktop',\
-  'alacritty_alacritty.desktop',\
-  'ghostty_ghostty.desktop',\
-  'obsidian.desktop',\
-  'Waydroid.desktop',\
-  'localsend_app.desktop',\
-  'signal-desktop.desktop',\
-  'rustdesk.desktop',\
-  'zoom-client_zoom-client.desktop',\
-  'org.gnome.Settings.desktop',\
-  'gnome-control-center.desktop'\
-]"
+gsettings set org.gnome.shell favorite-apps "$(desktop_favorites_gvariant)"
 
 # Keyboard
 gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'mozc-jp')]"

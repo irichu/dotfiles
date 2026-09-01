@@ -50,7 +50,7 @@ EOF
   done <<'EOF'
 install-gimp.sh|org.gimp.GIMP
 install-pinta.sh|com.github.PintaProject.Pinta
-install-thunderbird.sh|org.mozilla.Thunderbird
+install-thunderbird.sh|org.mozilla.thunderbird_esr
 install-zoom.sh|us.zoom.Zoom
 EOF
 }

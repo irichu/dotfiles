@@ -9,7 +9,7 @@
 - Transaction history, `dots rollback`, `dots doctor`, and recoverable `dots uninstall`.
 - Preservation and XDG-based storage for mutable Zsh history, generated completions, and completion caches.
 - Backward-compatible `install.sh --gum` support and persistent installer debug/error logs.
-- Automatic confirmation for `dots install --apt`, `--brew`, `--pkg`, `--snap`, and `--ubuntu-desktop` batch modes.
+- Automatic confirmation for batch installs, with a one-time Ubuntu Desktop notice that explicit `--yes` can skip.
 - Best-effort batch execution with an end-of-run failure summary while retaining fail-fast individual installs.
 - Flatpak setup and per-application installers for GIMP, Pinta, Thunderbird, and Zoom.
 - Isolated smoke and Bats tests plus repository validation in CI.

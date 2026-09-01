@@ -33,12 +33,14 @@ esac
 readonly ARCH_GH
 
 AUTO_YES=false
+EXPLICIT_YES=false
 POSITIONAL=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
   -y | --yes)
     AUTO_YES=true
+    EXPLICIT_YES=true
     shift
     ;;
   *)
@@ -688,8 +690,8 @@ install_vscode() {
   fi
 
   # install
-  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-vscode.sh
-  bash "$SCRIPT_DIR"/config/Code/User/apply.sh
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-vscode.sh || return $?
+  bash "$SCRIPT_DIR"/config/Code/User/apply.sh || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -710,7 +712,7 @@ install_chrome() {
   fi
 
   # install
-  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-chrome.sh
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-chrome.sh || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -863,7 +865,14 @@ install_npm_global_packages() {
   info "Start: ${FUNCNAME[0]}"
 
   if cmd_exists npm; then
-    npm install -g tree-sitter-cli
+    # tree-sitter-cli uses an install script to download its platform binary.
+    # Limit npm's approval to this reviewed package instead of allowing all
+    # global install scripts.
+    npm install -g --allow-scripts=tree-sitter-cli tree-sitter-cli || return $?
+    if ! cmd_exists tree-sitter; then
+      error 'tree-sitter-cli was installed, but the tree-sitter command was not found.'
+      return 1
+    fi
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -878,7 +887,11 @@ install_zed() {
   info "Start: ${FUNCNAME[0]}"
 
   if [ "$(uname)" == "Linux" ]; then
-    curl -f https://zed.dev/install.sh | sh
+    curl -f https://zed.dev/install.sh | sh || return $?
+    if ! cmd_exists zed; then
+      error 'Zed installation completed without providing the zed command.'
+      return 1
+    fi
   fi
 
   set_config zed
@@ -914,12 +927,17 @@ install_hackgen() {
     mv "$CACHE_DIR/HackGen_NF" "$DATA_HOME"/fonts/
 
   if [ "${TERMUX_VERSION:-0}" = 0 ]; then
-    (
-      cmd_exists fc-cache &&
-        info -ny 'Installing HackGen font...' &&
-        fc-cache -f &&
-        success "successed!"
-    ) || warning 'fc-cache command not found. please check and install fontconfig.'
+    if ! cmd_exists fc-cache; then
+      error 'fc-cache command not found. Please install fontconfig.'
+      return 1
+    fi
+
+    info -ny 'Updating the HackGen font cache...'
+    if ! fc-cache -f "$DATA_HOME/fonts"; then
+      error 'Failed to update the user font cache for HackGen.'
+      return 1
+    fi
+    success 'succeeded!'
   else
     [ -f "$DATA_HOME"/fonts/HackGen35ConsoleNF-Regular.ttf ] && cp -f "$DATA_HOME"/fonts/HackGen35ConsoleNF-Regular.ttf ~/.termux/font.ttf
     [ -f "$DATA_HOME"/fonts/HackGen_NF/HackGen35ConsoleNF-Regular.ttf ] && cp -f "$DATA_HOME"/fonts/HackGen_NF/HackGen35ConsoleNF-Regular.ttf ~/.termux/font.ttf
@@ -936,7 +954,7 @@ install_hackgen() {
 install_mplus2() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-mplus2-font.sh
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/install-mplus2-font.sh || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1191,10 +1209,10 @@ setup_terminal_package_configs() {
   local app
 
   for app in "${apps[@]}"; do
-    set_config "$app"
+    if cmd_exists "$app"; then
+      set_config "$app"
+    fi
   done
-
-  setup_zellij
 }
 
 install_snap_package() {
@@ -1244,15 +1262,18 @@ install_ghostty_ubuntu_desktop() {
 
   case "$(ubuntu_desktop_ghostty_method)" in
   apt)
-    info "Installing Ghostty from the official Ubuntu package."
-    sudo apt-get install -y ghostty
-    setup_terminal_package_configs
+    local terminal_packages=()
+    mapfile -t terminal_packages < <(ubuntu_desktop_apt_terminal_packages)
+    info "Installing Alacritty and Ghostty from the official Ubuntu packages."
+    sudo apt-get install -y "${terminal_packages[@]}" || return $?
     ;;
   snap)
     info "Installing Ghostty from Snap on Ubuntu releases older than 26.04."
-    install_snap_package --ubuntu-desktop
+    install_snap_package --ubuntu-desktop || return $?
     ;;
   esac
+
+  setup_terminal_package_configs || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1265,7 +1286,7 @@ install_ghostty_ubuntu_desktop() {
 install_flatpak() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-flatpak.sh"
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-flatpak.sh" || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1274,7 +1295,7 @@ install_flatpak() {
 install_flatpak_gimp() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-gimp.sh"
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-gimp.sh" || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1283,7 +1304,7 @@ install_flatpak_gimp() {
 install_flatpak_pinta() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-pinta.sh"
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-pinta.sh" || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1292,7 +1313,7 @@ install_flatpak_pinta() {
 install_flatpak_thunderbird() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-thunderbird.sh"
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-thunderbird.sh" || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1301,7 +1322,7 @@ install_flatpak_thunderbird() {
 install_flatpak_zoom() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-zoom.sh"
+  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-zoom.sh" || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1325,63 +1346,73 @@ setup_desktop_interactive() {
 # gnome-desktop
 #--------------------------------------------------
 
-setup_desktop() {
-  info "Start: ${FUNCNAME[0]}"
-
-  # APT packages
+install_desktop_apt_packages() {
   install_apt_packages_from_file "$SCRIPT_DIR/assets/txt/apt-desktop-packages.txt"
+}
 
-  # Install Mozc
-  install_mozc
-
-  # Google Chrome
-  install_chrome
-
-  # Visual Studio Code
-  install_vscode
-
-  # LocalSend
-  install_localsend
-
-  # Obsidian
-  install_obsidian
-
-  # RustDesk
-  install_rustdesk
-
-  # Signal
-  install_signal
-
-  # Ulauncher
-  install_ulauncher
-
-  # Zed editor
-  install_zed
-
-  # interactive setup
-  # setup_desktop_interactive
-
-  # install desktop files to ~/.local/share/applications
+install_desktop_entries() {
   "$SCRIPT_DIR"/assets/scripts/desktop/entry/install-desktop-files.sh
+}
 
-  # set gnome desktop
+finalize_gnome_desktop() {
   "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-finalize.sh
+}
 
-  # set gnome desktop appearance
-  set_config gtk-3.0
-
-  # User Theme (set gnome desktop appearance)
+setup_desktop_appearance() {
+  set_config gtk-3.0 || return $?
   "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-appearance.sh
+}
 
-  # M PLUS 2 font
-  install_mplus2
-
-  # Chrome font settings
+setup_chrome_desktop_fonts() {
   if pgrep -x chrome >/dev/null 2>&1; then
     sudo pkill -x chrome
   fi
   sleep 1
   set_chrome_fonts 'M PLUS 2'
+}
+
+# Retained as an internal compatibility wrapper. Ubuntu Desktop runs these as
+# separate batch steps so one failed application cannot hide or stop the rest.
+setup_desktop() {
+  info "Start: ${FUNCNAME[0]}"
+
+  install_desktop_apt_packages || return $?
+
+  # Install Mozc
+  install_mozc || return $?
+
+  # Google Chrome
+  install_chrome || return $?
+
+  # Visual Studio Code
+  install_vscode || return $?
+
+  # LocalSend
+  install_localsend || return $?
+
+  # Obsidian
+  install_obsidian || return $?
+
+  # RustDesk
+  install_rustdesk || return $?
+
+  # Signal
+  install_signal || return $?
+
+  # Ulauncher
+  install_ulauncher || return $?
+
+  # Zed editor
+  install_zed || return $?
+
+  # interactive setup
+  # setup_desktop_interactive
+
+  install_desktop_entries || return $?
+  finalize_gnome_desktop || return $?
+  setup_desktop_appearance || return $?
+  install_mplus2 || return $?
+  setup_chrome_desktop_fonts || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1823,7 +1854,7 @@ install_localsend() {
 
   if cmd_exists apt; then
     # Install Localsend
-    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-localsend.sh
+    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-localsend.sh || return $?
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -1844,8 +1875,10 @@ install_obsidian() {
   fi
 
   if cmd_exists apt; then
-    # Install Localsend
-    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-obsidian.sh
+    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-obsidian.sh || return $?
+  else
+    error 'APT is required to install Obsidian on this platform.'
+    return 1
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -1867,7 +1900,7 @@ install_signal() {
 
   if cmd_exists apt; then
     # Install Signal Desktop
-    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-signal-desktop.sh
+    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-signal-desktop.sh || return $?
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -1889,7 +1922,7 @@ install_ulauncher() {
 
   if cmd_exists apt; then
     # Install Ulauncher
-    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-ulauncher.sh
+    bash "$SCRIPT_DIR"/assets/scripts/desktop/install-ulauncher.sh || return $?
   fi
 
   info "End: ${FUNCNAME[0]}"
@@ -2186,6 +2219,11 @@ setup_tmux() {
 
 setup_zellij() {
   info "Start: ${FUNCNAME[0]}"
+
+  if ! cmd_exists zellij; then
+    error 'zellij command not found.'
+    return 1
+  fi
 
   # completions
   mkdir -p "$ZSH_COMPLETIONS_DIR"
@@ -2720,8 +2758,9 @@ source "$SCRIPT_DIR/assets/scripts/lib/lifecycle.sh"
 # shellcheck source=assets/scripts/lib/batch.sh
 source "$SCRIPT_DIR/assets/scripts/lib/batch.sh"
 
-# Batch installation modes are explicitly non-interactive by design. Other
-# commands, including `dots apply`, continue to require confirmation or --yes.
+# Batch installation modes automatically accept their internal prompts. Ubuntu
+# Desktop handles its initial notice separately unless --yes was explicit.
+# Other commands, including `dots apply`, continue to require confirmation.
 enable_batch_install_auto_yes "$@"
 
 ###################################################
@@ -2815,23 +2854,8 @@ i | install)
       run_batch_step "check snap" check_command snap
     fi
 
-    echo "This process will download and install many packages (~15 minutes)."
-    echo "At the beginning of the installation, GNOME extension installation dialogs may appear."
-    echo "Please review the extension names below and click \"Install\" when prompted:"
-    echo "- Alphabetical App Grid"
-    echo "- Blur my Shell"
-    echo "- Compiz alike magic lamp effect"
-    echo "- Compiz windows effect"
-    echo "- Just Perfection"
-    echo "- Space Bar"
-    echo "- Tactile"
-    echo "- TopHat"
-    echo "- Undecorate Window"
-    echo "- User Themes"
-    echo "- Workspace Matrix"
-    echo
-
-    if confirm "Proceed?"; then
+    show_ubuntu_desktop_install_notice
+    if confirm_unless_explicit_yes "Proceed with Ubuntu Desktop installation?"; then
       info "Starting installation for Ubuntu Desktop..."
     else
       exit 1
@@ -2841,7 +2865,7 @@ i | install)
     run_batch_step setup_desktop_interactive setup_desktop_interactive
 
     run_batch_step install_apt_package install_apt_package
-    run_batch_step install_ghostty_ubuntu_desktop install_ghostty_ubuntu_desktop
+    run_batch_step install_ubuntu_desktop_terminals install_ghostty_ubuntu_desktop
     run_batch_step install_flatpak install_flatpak
     run_batch_plan \
       install_flatpak_gimp install_flatpak_pinta \
@@ -2856,8 +2880,14 @@ i | install)
     #install_rustup
     run_batch_plan setup_git remove_zcompdump
 
-    # desktop setup
-    run_batch_step setup_desktop setup_desktop
+    # Desktop applications and finalization are intentionally separate so a
+    # failure is reported without preventing the remaining installations.
+    run_batch_plan \
+      install_desktop_apt_packages install_mozc install_chrome install_vscode \
+      install_localsend install_obsidian install_rustdesk install_signal \
+      install_ulauncher install_zed install_desktop_entries \
+      finalize_gnome_desktop setup_desktop_appearance install_mplus2 \
+      setup_chrome_desktop_fonts
 
     run_batch_step echo_completion_message echo_completion_message
     info "End installation for Ubuntu Desktop..."

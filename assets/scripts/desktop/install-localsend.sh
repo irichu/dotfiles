@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
 cd "$HOME/.cache/dotfiles/"
 
 ARCH=$(uname -m)

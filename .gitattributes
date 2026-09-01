@@ -1,4 +1,6 @@
 /install.sh text eol=lf
+*.sh text eol=lf
+*.bats text eol=lf
 /assets/scripts/main.sh text eol=lf
 /assets/scripts/lib/*.sh text eol=lf
 /assets/scripts/desktop/flatpak/*.sh text eol=lf

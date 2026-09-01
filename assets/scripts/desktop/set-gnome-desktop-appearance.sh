@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
 # Create User Themes directory
 mkdir -p "$HOME/.themes"
 mkdir -p "$HOME/.icons"

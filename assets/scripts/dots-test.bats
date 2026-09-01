@@ -31,6 +31,39 @@ dots_run() {
   [ "$status" -ne 0 ]
 }
 
+@test "Ubuntu Desktop start confirmation only accepts explicit yes automatically" {
+  run bash -c '
+    error() { printf "%s\n" "$*" >&2; }
+    AUTO_YES=true
+    EXPLICIT_YES=false
+    source "$1"
+    confirm_unless_explicit_yes "Proceed?"
+  ' bash "$TEST_REPO_ROOT/assets/scripts/lib/core.sh" </dev/null
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"Confirmation requires an interactive terminal"* ]]
+  [[ "$output" != *"yes (auto)"* ]]
+
+  run bash -c '
+    error() { printf "%s\n" "$*" >&2; }
+    AUTO_YES=true
+    EXPLICIT_YES=true
+    source "$1"
+    confirm_unless_explicit_yes "Proceed?"
+  ' bash "$TEST_REPO_ROOT/assets/scripts/lib/core.sh"
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"yes (--yes)"* ]]
+
+  run bash -c '
+    error() { printf "%s\n" "$*" >&2; }
+    AUTO_YES=true
+    EXPLICIT_YES=false
+    source "$1"
+    confirm "Internal prompt?"
+  ' bash "$TEST_REPO_ROOT/assets/scripts/lib/core.sh"
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"yes (auto)"* ]]
+}
+
 @test "Ubuntu Desktop selects the Ghostty package source by Ubuntu version" {
   while IFS='|' read -r version expected; do
     os_release="$BATS_TEST_TMPDIR/os-release-$version"
@@ -46,6 +79,70 @@ dots_run() {
 26.04|apt
 26.10|apt
 EOF
+
+  os_release="$BATS_TEST_TMPDIR/os-release-terminal-packages"
+  printf 'ID=ubuntu\nVERSION_ID="26.04"\n' >"$os_release"
+  run bash -c 'source "$1"; DOTS_OS_RELEASE_FILE="$2"; ubuntu_desktop_apt_terminal_packages' \
+    bash "$TEST_REPO_ROOT/assets/scripts/lib/core.sh" "$os_release"
+  [ "$status" -eq 0 ]
+  [ "$output" = $'alacritty\nghostty' ]
+}
+
+@test "Ubuntu Desktop notice lists version-specific GNOME extensions" {
+  for version in 24.04 26.04; do
+    os_release="$BATS_TEST_TMPDIR/notice-os-release-$version"
+    printf 'ID=ubuntu\nVERSION_ID="%s"\n' "$version" >"$os_release"
+
+    run bash -c 'source "$1"; DOTS_OS_RELEASE_FILE="$2"; show_ubuntu_desktop_install_notice' \
+      bash "$TEST_REPO_ROOT/assets/scripts/lib/core.sh" "$os_release"
+    [ "$status" -eq 0 ]
+    [[ "$output" == *"~15 minutes"* ]]
+    [[ "$output" == *"GNOME extension installation dialogs may appear"* ]]
+    if [ "$version" = 26.04 ]; then
+      [[ "$output" == *"- Copyous"* ]]
+    else
+      [[ "$output" != *"- Copyous"* ]]
+    fi
+  done
+}
+
+@test "Obsidian installer selects the latest desktop release assets" {
+  run bash -c '
+    source "$1"
+    version="$(printf "%s\n" "{\"latestVersion\":\"1.13.7\",\"beta\":{\"latestVersion\":\"1.13.8\"}}" | parse_obsidian_desktop_version)"
+    printf "%s\n" "$version"
+    obsidian_download_url x86_64 "$version"
+    obsidian_download_url aarch64 "$version"
+  ' bash "$TEST_REPO_ROOT/assets/scripts/desktop/install-obsidian.sh"
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "1.13.7" ]
+  [[ "${lines[1]}" == */v1.13.7/obsidian_1.13.7_amd64.deb ]]
+  [[ "${lines[2]}" == */v1.13.7/Obsidian-1.13.7-arm64.AppImage ]]
+}
+
+@test "GNOME favorites use installed APT and Flatpak desktop IDs" {
+  desktop_dir="$BATS_TEST_TMPDIR/applications"
+  mkdir -p "$desktop_dir"
+  touch \
+    "$desktop_dir/com.mitchellh.ghostty.desktop" \
+    "$desktop_dir/Alacritty.desktop" \
+    "$desktop_dir/org.mozilla.thunderbird_esr.desktop" \
+    "$desktop_dir/org.gimp.GIMP.desktop" \
+    "$desktop_dir/us.zoom.Zoom.desktop"
+
+  run env DOTS_DESKTOP_ENTRY_DIRS="$desktop_dir" bash -c 'source "$1"; desktop_favorites_gvariant' \
+    bash "$TEST_REPO_ROOT/assets/scripts/desktop/desktop-favorites.sh"
+  [ "$status" -eq 0 ]
+  [ "$output" = "@as ['org.mozilla.thunderbird_esr.desktop', 'org.gimp.GIMP.desktop', 'Alacritty.desktop', 'com.mitchellh.ghostty.desktop', 'us.zoom.Zoom.desktop']" ]
+  [[ "$output" != *Waydroid.desktop* ]]
+}
+
+@test "reviewed install scripts and current Thunderbird Flatpak ID are explicit" {
+  grep -Fq -- 'npm install -g --allow-scripts=tree-sitter-cli tree-sitter-cli' \
+    "$TEST_REPO_ROOT/assets/scripts/main.sh"
+  grep -Fq 'APP_ID="org.mozilla.thunderbird_esr"' \
+    "$TEST_REPO_ROOT/assets/scripts/desktop/flatpak/install-thunderbird.sh"
+  grep -Fq 'fc-cache -f "$DATA_HOME/fonts"' "$TEST_REPO_ROOT/assets/scripts/main.sh"
 }
 
 @test "batch runner continues after a failed step and reports partial failure" {

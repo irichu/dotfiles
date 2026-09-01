@@ -45,6 +45,32 @@ AUTO_YES=false
 enable_batch_install_auto_yes apply core
 [ "$AUTO_YES" = false ]
 
+AUTO_YES=true
+EXPLICIT_YES=true
+confirm_unless_explicit_yes "Proceed?" | grep -Fq 'yes (--yes)'
+
+ubuntu_os_release="$test_root/ubuntu-os-release"
+printf 'ID=ubuntu\nVERSION_ID="26.04"\n' >"$ubuntu_os_release"
+DOTS_OS_RELEASE_FILE="$ubuntu_os_release"
+[ "$(ubuntu_desktop_apt_terminal_packages)" = $'alacritty\nghostty' ]
+unset DOTS_OS_RELEASE_FILE
+
+source "$XDG_DATA_HOME/dotfiles-main/assets/scripts/desktop/install-obsidian.sh"
+obsidian_version="$(printf '%s\n' '{"latestVersion":"1.13.7","beta":{"latestVersion":"1.13.8"}}' | parse_obsidian_desktop_version)"
+[ "$obsidian_version" = 1.13.7 ]
+[[ "$(obsidian_download_url x86_64 "$obsidian_version")" == */v1.13.7/obsidian_1.13.7_amd64.deb ]]
+
+desktop_entry_test_dir="$test_root/applications"
+mkdir -p "$desktop_entry_test_dir"
+touch \
+  "$desktop_entry_test_dir/Alacritty.desktop" \
+  "$desktop_entry_test_dir/com.mitchellh.ghostty.desktop" \
+  "$desktop_entry_test_dir/org.mozilla.thunderbird_esr.desktop"
+DOTS_DESKTOP_ENTRY_DIRS="$desktop_entry_test_dir"
+source "$XDG_DATA_HOME/dotfiles-main/assets/scripts/desktop/desktop-favorites.sh"
+[ "$(desktop_favorites_gvariant)" = "@as ['org.mozilla.thunderbird_esr.desktop', 'Alacritty.desktop', 'com.mitchellh.ghostty.desktop']" ]
+unset DOTS_DESKTOP_ENTRY_DIRS
+
 info() { :; }
 success() { :; }
 warning() { :; }

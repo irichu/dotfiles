@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
 shopt -s nullglob
 
 SCRIPT_DIR=$(
@@ -43,9 +45,10 @@ for f in *.desktop.in; do
   mv "$tmp" "$HOME/.local/share/applications/${f%.in}"
 done
 
-chmod +x "$HOME/.local/share/applications"/*.desktop
-
-gtk-update-icon-cache
+desktop_files=("$HOME/.local/share/applications"/*.desktop)
+if [ "${#desktop_files[@]}" -gt 0 ]; then
+  chmod +x "${desktop_files[@]}"
+fi
 
 update-desktop-database "$HOME/.local/share/applications"
 

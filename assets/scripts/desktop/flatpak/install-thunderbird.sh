@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-APP_ID="org.mozilla.Thunderbird"
+APP_ID="org.mozilla.thunderbird_esr"
 
 bash "$SCRIPT_DIR/install-flatpak.sh"
 

@@ -120,7 +120,7 @@
 
 - com.github.PintaProject.Pinta
 - org.gimp.GIMP
-- org.mozilla.Thunderbird
+- org.mozilla.thunderbird_esr
 - us.zoom.Zoom (unverified community package)
 
 ## pkg

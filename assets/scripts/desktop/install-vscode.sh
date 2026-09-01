@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
 # Debian-based
 if command -v apt-get &> /dev/null; then
   echo "Detected Debian-based system. Proceeding with installation..."

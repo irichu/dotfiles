@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
 # Debian-based
 # https://signal.org/download/linux/
 

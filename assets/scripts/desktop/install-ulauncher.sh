@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
 # Install Ulauncher
 # https://ulauncher.io/#Download
 sudo add-apt-repository universe -y

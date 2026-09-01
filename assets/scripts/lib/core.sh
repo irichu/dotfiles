@@ -60,14 +60,36 @@ ubuntu_desktop_ghostty_method() {
   fi
 }
 
-confirm() {
+ubuntu_desktop_apt_terminal_packages() {
+  if [ "$(ubuntu_desktop_ghostty_method)" = apt ]; then
+    printf '%s\n' alacritty ghostty
+  fi
+}
+
+show_ubuntu_desktop_install_notice() {
+  echo "This process will download and install many packages (~15 minutes)."
+  echo "At the beginning of the installation, GNOME extension installation dialogs may appear."
+  echo "Please review the extension names below and click \"Install\" when prompted:"
+  echo "- Alphabetical App Grid"
+  echo "- Blur my Shell"
+  echo "- Compiz alike magic lamp effect"
+  echo "- Compiz windows effect"
+  if ubuntu_version_at_least 26 4; then
+    echo "- Copyous"
+  fi
+  echo "- Just Perfection"
+  echo "- Space Bar"
+  echo "- Tactile"
+  echo "- TopHat"
+  echo "- Undecorate Window"
+  echo "- User Themes"
+  echo "- Workspace Matrix"
+  echo
+}
+
+prompt_for_confirmation() {
   local prompt="${1:-Are you sure?}"
   local reply
-
-  if "$AUTO_YES"; then
-    echo "$prompt [y/N]: yes (auto)"
-    return 0
-  fi
 
   if [[ ! -t 0 ]]; then
     error "Confirmation requires an interactive terminal; pass --yes to continue."
@@ -82,6 +104,28 @@ confirm() {
     *) echo "Please answer y or n." ;;
     esac
   done
+}
+
+confirm() {
+  local prompt="${1:-Are you sure?}"
+
+  if "$AUTO_YES"; then
+    echo "$prompt [y/N]: yes (auto)"
+    return 0
+  fi
+
+  prompt_for_confirmation "$prompt"
+}
+
+confirm_unless_explicit_yes() {
+  local prompt="${1:-Are you sure?}"
+
+  if "${EXPLICIT_YES:-false}"; then
+    echo "$prompt [y/N]: yes (--yes)"
+    return 0
+  fi
+
+  prompt_for_confirmation "$prompt"
 }
 
 dots_platform() {
