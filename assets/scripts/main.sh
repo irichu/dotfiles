@@ -1239,11 +1239,13 @@ install_snap_package() {
   awk '!/^#/ && !/ --classic$/' "$snappy_packages" |
     xargs -r -d '\n' -n1 sudo snap install
 
-  # To allow the program to run as intended
-  sudo snap connect bottom:mount-observe
-  sudo snap connect bottom:hardware-observe
-  sudo snap connect bottom:system-observe
-  sudo snap connect bottom:process-control
+  # The Ubuntu Desktop-only list contains terminal emulators but not bottom.
+  if snap list bottom >/dev/null 2>&1; then
+    sudo snap connect bottom:mount-observe
+    sudo snap connect bottom:hardware-observe
+    sudo snap connect bottom:system-observe
+    sudo snap connect bottom:process-control
+  fi
 
   # install latest stable rustc and cargo
   if cmd_exists /snap/bin/rustup; then
@@ -1268,7 +1270,7 @@ install_ghostty_ubuntu_desktop() {
     sudo apt-get install -y "${terminal_packages[@]}" || return $?
     ;;
   snap)
-    info "Installing Ghostty from Snap on Ubuntu releases older than 26.04."
+    info "Installing Alacritty and Ghostty from Snap on Ubuntu releases older than 26.04."
     install_snap_package --ubuntu-desktop || return $?
     ;;
   esac

@@ -88,8 +88,17 @@ EOF
   [ "$output" = $'alacritty\nghostty' ]
 }
 
+@test "older Ubuntu Desktop releases install both terminals from Snap" {
+  run awk '!/^#/ && / --classic$/ { sub(/ --classic$/, ""); print }' \
+    "$TEST_REPO_ROOT/assets/txt/snap-desktop-packages.txt"
+
+  [ "$status" -eq 0 ]
+  [ "$output" = $'alacritty\nghostty' ]
+  grep -Fq 'if snap list bottom >/dev/null 2>&1; then' "$TEST_REPO_ROOT/assets/scripts/main.sh"
+}
+
 @test "Ubuntu Desktop notice lists version-specific GNOME extensions" {
-  for version in 24.04 26.04; do
+  for version in 22.04 24.04 26.04; do
     os_release="$BATS_TEST_TMPDIR/notice-os-release-$version"
     printf 'ID=ubuntu\nVERSION_ID="%s"\n' "$version" >"$os_release"
 

@@ -53,6 +53,9 @@ ubuntu_os_release="$test_root/ubuntu-os-release"
 printf 'ID=ubuntu\nVERSION_ID="26.04"\n' >"$ubuntu_os_release"
 DOTS_OS_RELEASE_FILE="$ubuntu_os_release"
 [ "$(ubuntu_desktop_apt_terminal_packages)" = $'alacritty\nghostty' ]
+printf 'ID=ubuntu\nVERSION_ID="22.04"\n' >"$ubuntu_os_release"
+[ "$(ubuntu_desktop_ghostty_method)" = snap ]
+[ "$(awk '!/^#/ && / --classic$/ { sub(/ --classic$/, ""); print }' "$repo_root/assets/txt/snap-desktop-packages.txt")" = $'alacritty\nghostty' ]
 unset DOTS_OS_RELEASE_FILE
 
 source "$XDG_DATA_HOME/dotfiles-main/assets/scripts/desktop/install-obsidian.sh"

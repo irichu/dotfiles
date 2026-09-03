@@ -1,2 +1,3 @@
 # Ubuntu Desktop releases older than 26.04 only.
+alacritty --classic
 ghostty --classic
