@@ -1336,7 +1336,7 @@ setup_desktop_interactive() {
   info "Start: ${FUNCNAME[0]}"
 
   # set gnome desktop
-  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-setup.sh
+  "$SCRIPT_DIR"/assets/scripts/desktop/set-gnome-desktop-setup.sh || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0

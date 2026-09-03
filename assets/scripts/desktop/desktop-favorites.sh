@@ -60,7 +60,7 @@ code.desktop
 dev.zed.Zed.desktop
 Alacritty.desktop alacritty.desktop alacritty_alacritty.desktop
 com.mitchellh.ghostty.desktop ghostty_ghostty.desktop
-obsidian.desktop
+obsidian.desktop md.obsidian.Obsidian.desktop
 Waydroid.desktop
 localsend_app.desktop
 signal-desktop.desktop

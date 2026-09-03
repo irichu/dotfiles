@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -Eeuo pipefail
 
 SCRIPT_DIR=$(
   cd "$(dirname "${BASH_SOURCE:-$0}")"
@@ -7,4 +8,4 @@ SCRIPT_DIR=$(
 
 echo "$SCRIPT_DIR"
 
-"$SCRIPT_DIR/"install-gnome-extensions.sh
+"$SCRIPT_DIR/install-gnome-extensions.sh"

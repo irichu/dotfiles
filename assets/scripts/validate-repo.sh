@@ -26,7 +26,10 @@ fi
 
 if command -v shellcheck >/dev/null 2>&1; then
   # The legacy command module still has a warning backlog; errors remain release-blocking.
-  shellcheck --severity=error install.sh assets/scripts/main.sh assets/scripts/lib/*.sh assets/scripts/desktop/flatpak/*.sh assets/scripts/dots-test.sh assets/scripts/docker-test.sh
+  shellcheck --severity=error install.sh assets/scripts/main.sh assets/scripts/lib/*.sh \
+    assets/scripts/desktop/install-gnome-extensions.sh \
+    assets/scripts/desktop/set-gnome-desktop-setup.sh \
+    assets/scripts/desktop/flatpak/*.sh assets/scripts/dots-test.sh assets/scripts/docker-test.sh
 fi
 
 while IFS= read -r link; do
