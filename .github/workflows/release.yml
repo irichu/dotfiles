@@ -4,6 +4,15 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to build or repair
+        required: true
+        type: string
+
+env:
+  RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
 
 jobs:
   release:
@@ -17,36 +26,59 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          ref: ${{ env.RELEASE_TAG }}
 
       - name: Validate tag and repository
         run: |
+          set -euo pipefail
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]
+          git rev-parse --verify --quiet "refs/tags/${RELEASE_TAG}^{commit}"
           bash -n install.sh assets/scripts/main.sh assets/scripts/lib/*.sh
-          test "$(cat assets/txt/version.txt)" = "${GITHUB_REF_NAME#v}"
+          test "$(cat assets/txt/version.txt)" = "${RELEASE_TAG#v}"
 
       - name: Build archives and checksums
         run: |
           set -euo pipefail
-          version="${GITHUB_REF_NAME#v}"
+          version="${RELEASE_TAG#v}"
           mkdir -p artifacts
           git archive --format=tar.gz --prefix=dotfiles/ \
-            --output="artifacts/dotfiles-${version}.tar.gz" "$GITHUB_REF_NAME"
+            --output="artifacts/dotfiles-${version}.tar.gz" "$RELEASE_TAG"
           git archive --format=zip --prefix=dotfiles/ \
-            --output="artifacts/dotfiles-${version}.zip" "$GITHUB_REF_NAME"
+            --output="artifacts/dotfiles-${version}.zip" "$RELEASE_TAG"
           cd artifacts
           sha256sum "dotfiles-${version}.tar.gz" "dotfiles-${version}.zip" > SHA256SUMS
 
       - name: Verify release artifacts
         run: |
           set -euo pipefail
-          version="${GITHUB_REF_NAME#v}"
-          cd artifacts
-          sha256sum --check SHA256SUMS
-          mkdir extracted
-          tar -xzf "dotfiles-${version}.tar.gz" -C extracted
-          test -x extracted/dotfiles/install.sh
-          test "$(cat extracted/dotfiles/assets/txt/version.txt)" = "$version"
+          version="${RELEASE_TAG#v}"
+          verify_dir="$(mktemp -d "$RUNNER_TEMP/dotfiles-release.XXXXXX")"
+          trap 'rm -rf -- "$verify_dir"' EXIT
+          (
+            cd artifacts
+            sha256sum --check SHA256SUMS
+          )
+          tar -xzf "artifacts/dotfiles-${version}.tar.gz" -C "$verify_dir"
+          test -x "$verify_dir/dotfiles/install.sh"
+          test "$(cat "$verify_dir/dotfiles/assets/txt/version.txt")" = "$version"
 
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" artifacts/* --generate-notes --verify-tag
+        run: |
+          set -euo pipefail
+          version="${RELEASE_TAG#v}"
+          assets=(
+            artifacts/SHA256SUMS
+            "artifacts/dotfiles-${version}.tar.gz"
+            "artifacts/dotfiles-${version}.zip"
+          )
+          for asset in "${assets[@]}"; do
+            test -f "$asset"
+          done
+
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "${assets[@]}" --clobber
+          else
+            gh release create "$RELEASE_TAG" "${assets[@]}" --generate-notes --verify-tag
+          fi
