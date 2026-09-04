@@ -161,11 +161,12 @@ EOF
   run bash -c '
     info() { :; }; success() { :; }; warning() { :; }; error() { :; }
     source "$1"
+    continued_file="$2"
     failed() { return 7; }
-    continued() { printf continued >"$2"; }
+    continued() { printf continued >"$continued_file"; }
     reset_batch_results
     run_batch_plan failed continued
-    [ "$BATCH_FAILURES" -eq 1 ] && [ -f "$2" ] && ! finish_batch_install
+    [ "$BATCH_FAILURES" -eq 1 ] && [ -f "$continued_file" ] && ! finish_batch_install
   ' bash "$TEST_REPO_ROOT/assets/scripts/lib/batch.sh" "$BATS_TEST_TMPDIR/continued"
   [ "$status" -eq 0 ]
 }
