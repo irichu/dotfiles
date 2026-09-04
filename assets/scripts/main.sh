@@ -1111,12 +1111,9 @@ install_homebrew() {
     sudo apt-get update
     sudo apt-get install -y build-essential procps curl file git
   elif cmd_exists dnf; then
-    if dnf --version 2>/dev/null | grep -q "dnf5"; then
-      sudo dnf install -y @development-tools
-    else
-      sudo dnf install -y "@Development Tools"
-    fi
-    sudo dnf install -y procps-ng curl file git
+    # Explicit packages work with both DNF4 and DNF5 and do not depend on
+    # package-group metadata being available in minimal Fedora containers.
+    sudo dnf install -y gcc gcc-c++ make procps-ng curl file git
     sudo dnf install -y wget util-linux-user # for chsh
   elif cmd_exists pacman; then
     sudo pacman -S base-devel procps-ng curl file git --noconfirm
@@ -2815,7 +2812,7 @@ i | install)
     reset_batch_results
     info "Start installation with homebrew"
     run_batch_step install_homebrew install_homebrew
-    run_batch_step "refresh Homebrew environment" refresh_homebrew_environment
+    run_batch_environment_step "refresh Homebrew environment" refresh_homebrew_environment
     run_batch_plan \
       setup_zsh install_node_by_fnm install_lazyvim setup_tmux setup_zellij \
       install_hackgen setup_git setup_jj remove_zcompdump echo_completion_message

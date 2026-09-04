@@ -8,19 +8,9 @@ reset_batch_results() {
   BATCH_FAILED_STEPS=()
 }
 
-run_batch_step() {
+record_batch_step_result() {
   local label="$1"
-  shift
-  local status
-
-  info "Batch step: $label"
-  set +e
-  (
-    set -Eeuo pipefail
-    "$@"
-  )
-  status=$?
-  set -e
+  local status="$2"
 
   if [ "$status" -eq 0 ]; then
     success "Batch step completed: $label"
@@ -37,6 +27,39 @@ run_batch_step() {
   BATCH_FAILED_STEPS+=("$label (exit $status)")
   warning "Batch step failed: $label (exit $status). Continuing."
   return 0
+}
+
+run_batch_step() {
+  local label="$1"
+  shift
+  local status
+
+  info "Batch step: $label"
+  set +e
+  (
+    set -Eeuo pipefail
+    "$@"
+  )
+  status=$?
+  set -e
+
+  record_batch_step_result "$label" "$status"
+}
+
+# Run environment setup in the current shell so exported variables remain
+# available to later isolated batch steps.
+run_batch_environment_step() {
+  local label="$1"
+  shift
+  local status
+
+  info "Batch step: $label"
+  set +e
+  "$@"
+  status=$?
+  set -e
+
+  record_batch_step_result "$label" "$status"
 }
 
 run_batch_plan() {

@@ -149,6 +149,9 @@ EOF
 @test "reviewed install scripts and current Thunderbird Flatpak ID are explicit" {
   grep -Fq -- 'npm install -g --allow-scripts=tree-sitter-cli tree-sitter-cli' \
     "$TEST_REPO_ROOT/assets/scripts/main.sh"
+  grep -Fq 'sudo dnf install -y gcc gcc-c++ make procps-ng curl file git' \
+    "$TEST_REPO_ROOT/assets/scripts/main.sh"
+  ! grep -Fq '@Development Tools' "$TEST_REPO_ROOT/assets/scripts/main.sh"
   grep -Fq 'APP_ID="org.mozilla.thunderbird_esr"' \
     "$TEST_REPO_ROOT/assets/scripts/desktop/flatpak/install-thunderbird.sh"
   grep -Fq 'fc-cache -f "$DATA_HOME/fonts"' "$TEST_REPO_ROOT/assets/scripts/main.sh"
@@ -164,6 +167,25 @@ EOF
     run_batch_plan failed continued
     [ "$BATCH_FAILURES" -eq 1 ] && [ -f "$2" ] && ! finish_batch_install
   ' bash "$TEST_REPO_ROOT/assets/scripts/lib/batch.sh" "$BATS_TEST_TMPDIR/continued"
+  [ "$status" -eq 0 ]
+}
+
+@test "environment batch steps preserve PATH for later isolated steps" {
+  mock_bin="$BATS_TEST_TMPDIR/homebrew-bin"
+  mkdir -p "$mock_bin"
+  printf '#!/usr/bin/env bash\nexit 0\n' >"$mock_bin/brew-installed-command"
+  chmod +x "$mock_bin/brew-installed-command"
+
+  run bash -c '
+    info() { :; }; success() { :; }; warning() { :; }; error() { :; }
+    source "$1"
+    update_environment() { export PATH="$1:$PATH"; }
+    verify_environment() { command -v brew-installed-command >/dev/null; }
+    reset_batch_results
+    run_batch_environment_step environment update_environment "$2"
+    run_batch_step verify_environment verify_environment
+    [ "$BATCH_FAILURES" -eq 0 ]
+  ' bash "$TEST_REPO_ROOT/assets/scripts/lib/batch.sh" "$mock_bin"
   [ "$status" -eq 0 ]
 }
 
