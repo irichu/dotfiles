@@ -19,6 +19,11 @@ dots_run() {
   run "$HOME/.local/bin/dots" "$@"
 }
 
+@test "Neovim reinstalls replace old runtime files and propagate failures" {
+  run bash "$TEST_REPO_ROOT/assets/scripts/neovim-test.sh"
+  [ "$status" -eq 0 ]
+}
+
 @test "batch installation modes enable automatic confirmation" {
   for mode in --apt --brew --flatpak --pkg --snap --ubuntu-desktop; do
     run bash -c 'AUTO_YES=false; source "$1"; enable_batch_install_auto_yes install "$2"; "$AUTO_YES"' \

@@ -1584,13 +1584,7 @@ build_install_neovim() {
   info "Start: ${FUNCNAME[0]}"
 
   # neovim
-  wget "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-${ARCH_GH}.tar.gz"
-  tar -zxf "nvim-linux-${ARCH_GH}.tar.gz"
-  [ ! -d /usr/bin/nvim ] && sudo mv -f "nvim-linux-${ARCH_GH}/bin/nvim" /usr/bin/nvim
-  [ ! -d /usr/lib/nvim ] && sudo mv -f "nvim-linux-${ARCH_GH}/lib/nvim" /usr/lib/nvim
-  [ ! -d /usr/share/nvim ] && sudo mv -f "nvim-linux-${ARCH_GH}/share/nvim/" /usr/share/nvim
-  rm -rf "nvim-linux-${ARCH_GH}"
-  rm "nvim-linux-${ARCH_GH}.tar.gz"
+  install_neovim_release || return 1
 
   mkdir -p "$CONFIG_HOME"/nvim/lua/config/
   mkdir -p "$CONFIG_HOME"/nvim/lua/plugins/
@@ -2756,6 +2750,8 @@ source "$SCRIPT_DIR/assets/scripts/lib/config.sh"
 source "$SCRIPT_DIR/assets/scripts/lib/lifecycle.sh"
 # shellcheck source=assets/scripts/lib/batch.sh
 source "$SCRIPT_DIR/assets/scripts/lib/batch.sh"
+# shellcheck source=assets/scripts/lib/neovim.sh
+source "$SCRIPT_DIR/assets/scripts/lib/neovim.sh"
 
 # Batch installation modes automatically accept their internal prompts. Ubuntu
 # Desktop handles its initial notice separately unless --yes was explicit.
@@ -2959,7 +2955,7 @@ i | install)
     install_mplus2
     ;;
   neovim)
-    build_install_neovim
+    build_install_neovim || exit 1
     install_lazyvim
     ;;
   nix)
