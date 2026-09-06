@@ -2752,6 +2752,8 @@ source "$SCRIPT_DIR/assets/scripts/lib/lifecycle.sh"
 source "$SCRIPT_DIR/assets/scripts/lib/batch.sh"
 # shellcheck source=assets/scripts/lib/neovim.sh
 source "$SCRIPT_DIR/assets/scripts/lib/neovim.sh"
+# shellcheck source=assets/scripts/lib/desktop-inhibit.sh
+source "$SCRIPT_DIR/assets/scripts/lib/desktop-inhibit.sh"
 
 # Batch installation modes automatically accept their internal prompts. Ubuntu
 # Desktop handles its initial notice separately unless --yes was explicit.
@@ -2854,6 +2856,8 @@ i | install)
       exit 1
     fi
 
+    start_desktop_inhibit
+
     # interactive desktop setup
     run_batch_step setup_desktop_interactive setup_desktop_interactive
 
@@ -2884,6 +2888,7 @@ i | install)
 
     run_batch_step echo_completion_message echo_completion_message
     info "End installation for Ubuntu Desktop..."
+    stop_desktop_inhibit
     finish_batch_install
     ;;
   #--------------------------------------------------

@@ -68,6 +68,7 @@ ubuntu_desktop_apt_terminal_packages() {
 
 show_ubuntu_desktop_install_notice() {
   echo "This process will download and install many packages (~15 minutes)."
+  echo "Automatic screen blanking and suspend will be temporarily inhibited when available; saved power settings are unchanged."
   echo "At the beginning of the installation, GNOME extension installation dialogs may appear."
   echo "Please review the extension names below and click \"Install\" when prompted:"
   echo "- Alphabetical App Grid"
