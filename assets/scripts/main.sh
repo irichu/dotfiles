@@ -468,9 +468,9 @@ install_apt_packages_from_file() {
   if [ "${#available[@]}" -gt 0 ]; then
     info "Installing apt packages from $pkg_file: ${available[*]}"
     if [ "$do_update" = true ]; then
-      sudo apt-get update
+      dots_apt_get update || return $?
     fi
-    sudo apt-get install -y "${available[@]}"
+    dots_apt_get install -y "${available[@]}" || return $?
   else
     info "No available apt packages found in $pkg_file"
   fi
@@ -533,7 +533,7 @@ install_gum() {
       sudo mkdir -p /etc/apt/keyrings
       curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
       echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-      sudo apt update && sudo apt install gum -y
+      dots_apt_get update && dots_apt_get install gum -y || return $?
     fi
 
   elif cmd_exists dnf; then
@@ -734,8 +734,8 @@ install_copyq() {
   # install
   if cmd_exists apt; then
     sudo add-apt-repository --yes ppa:hluk/copyq
-    sudo apt update
-    sudo apt install copyq -y
+    dots_apt_get update || return $?
+    dots_apt_get install copyq -y || return $?
   elif cmd_exists dnf; then
     sudo dnf install copyq -y
   elif cmd_exists pacman; then
@@ -996,7 +996,7 @@ install_apt_package() {
   local DPKG_ARCH
   DPKG_ARCH="$(dpkg --print-architecture)"
 
-  sudo apt-get update
+  dots_apt_get update || return $?
   install_apt_packages_from_file "$SCRIPT_DIR/assets/txt/apt-basic-packages.txt"
 
   # Get the current Ubuntu version
@@ -1026,7 +1026,7 @@ install_apt_package() {
     amd64)
       ([ ! -f "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb" ] &&
         wget -P "$CACHE_DIR" "https://github.com/bootandy/dust/releases/download/v${LATEST_VERSION}/du-dust_${LATEST_VERSION}-1_amd64.deb") || error "dust.deb not found"
-      sudo dpkg -i "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb"
+      dots_apt_get install -y "$CACHE_DIR/du-dust_${LATEST_VERSION}-1_amd64.deb" || return $?
       ;;
     arm64)
       # dust does not publish an arm64 .deb; install the prebuilt tarball instead.
@@ -1046,8 +1046,8 @@ install_apt_package() {
   if ! cmd_exists fastfetch; then
     info 'install fastfetch'
     sudo add-apt-repository --yes ppa:zhangsongcui3371/fastfetch
-    sudo apt update
-    sudo apt-get install fastfetch
+    dots_apt_get update || return $?
+    dots_apt_get install -y fastfetch || return $?
   fi
 
   # pre Ubuntu 22.04
@@ -1058,8 +1058,8 @@ install_apt_package() {
     wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg --yes
     echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
     sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
-    sudo apt-get update
-    sudo apt-get install -y eza
+    dots_apt_get update || return $?
+    dots_apt_get install -y eza || return $?
   fi
 
   # git-delta
@@ -1069,7 +1069,7 @@ install_apt_package() {
     LATEST_VERSION=$(get_github_latest_version 'dandavison/delta')
     [ ! -f "$CACHE_DIR/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb" ] &&
       curl -Lo "$CACHE_DIR/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb" "https://github.com/dandavison/delta/releases/latest/download/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb"
-    sudo dpkg -i "$CACHE_DIR/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb"
+    dots_apt_get install -y "$CACHE_DIR/git-delta_${LATEST_VERSION}_${DPKG_ARCH}.deb" || return $?
   fi
 
   # bottom
@@ -1079,7 +1079,7 @@ install_apt_package() {
     LATEST_VERSION=$(get_github_latest_version 'ClementTsang/bottom')
     [ ! -f "$CACHE_DIR/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb" ] &&
       curl -Lo "$CACHE_DIR/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb" "https://github.com/ClementTsang/bottom/releases/download/${LATEST_VERSION}/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb"
-    sudo dpkg -i "$CACHE_DIR/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb"
+    dots_apt_get install -y "$CACHE_DIR/bottom_${LATEST_VERSION}-1_${DPKG_ARCH}.deb" || return $?
   fi
 
   # set config
@@ -1108,8 +1108,8 @@ install_homebrew() {
   # install requirements
   # https://docs.brew.sh/Homebrew-on-Linux#requirements
   if cmd_exists apt; then
-    sudo apt-get update
-    sudo apt-get install -y build-essential procps curl file git
+    dots_apt_get update || return $?
+    dots_apt_get install -y build-essential procps curl file git || return $?
   elif cmd_exists dnf; then
     # Explicit packages work with both DNF4 and DNF5 and do not depend on
     # package-group metadata being available in minimal Fedora containers.
@@ -1264,7 +1264,7 @@ install_ghostty_ubuntu_desktop() {
     local terminal_packages=()
     mapfile -t terminal_packages < <(ubuntu_desktop_apt_terminal_packages)
     info "Installing Alacritty and Ghostty from the official Ubuntu packages."
-    sudo apt-get install -y "${terminal_packages[@]}" || return $?
+    dots_apt_get install -y "${terminal_packages[@]}" || return $?
     ;;
   snap)
     info "Installing Alacritty and Ghostty from Snap on Ubuntu releases older than 26.04."
@@ -1426,8 +1426,8 @@ install_rustdesk() {
 
   local LATEST_VERSION
   LATEST_VERSION=$(get_github_latest_version 'rustdesk/rustdesk')
-  wget "https://github.com/rustdesk/rustdesk/releases/download/${LATEST_VERSION}/rustdesk-${LATEST_VERSION}-${ARCH}.deb"
-  sudo dpkg -i "rustdesk-${LATEST_VERSION}-${ARCH}.deb"
+  wget -O "$CACHE_DIR/rustdesk-${LATEST_VERSION}-${ARCH}.deb" "https://github.com/rustdesk/rustdesk/releases/download/${LATEST_VERSION}/rustdesk-${LATEST_VERSION}-${ARCH}.deb" || return $?
+  dots_apt_get install -y "$CACHE_DIR/rustdesk-${LATEST_VERSION}-${ARCH}.deb" || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -1482,10 +1482,10 @@ install_cargo_packages() {
   # dependencies
   if cmd_exists apt; then
     # for alacritty
-    sudo apt install -y pkg-config libfreetype6-dev libfontconfig1-dev
+    dots_apt_get install -y pkg-config libfreetype6-dev libfontconfig1-dev || return $?
 
     # for gitui
-    sudo apt install -y cmake
+    dots_apt_get install -y cmake || return $?
   fi
 
   if [ "${1:-}" = "--binstall" ]; then
@@ -1679,12 +1679,12 @@ install_mise() {
   info "Start: ${FUNCNAME[0]}"
 
   if cmd_exists apt; then
-    sudo apt update -y && sudo apt install -y gpg sudo wget curl
+    dots_apt_get update -y && dots_apt_get install -y gpg sudo wget curl || return $?
     sudo install -dm 755 /etc/apt/keyrings
     wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1>/dev/null
     echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
-    sudo apt update
-    sudo apt install -y mise
+    dots_apt_get update || return $?
+    dots_apt_get install -y mise || return $?
   else
     curl https://mise.run | sh
   fi
@@ -1701,7 +1701,7 @@ install_mozc() {
   info "Start: ${FUNCNAME[0]}"
 
   if cmd_exists apt; then
-    sudo apt install -y ibus-mozc mozc-utils-gui
+    dots_apt_get install -y ibus-mozc mozc-utils-gui || return $?
 
     info 'To enable Mozc, add input-source in Settings > Keyboard (Or Region & Language) > Input Sources'
     info 'and select "Japanese (Mozc)".'
@@ -1733,8 +1733,8 @@ install_docker() {
       echo "termux not supported."
     else
       # ubuntu debian
-      sudo apt update
-      sudo apt install ca-certificates curl gnupg
+      dots_apt_get update || return $?
+      dots_apt_get install ca-certificates curl gnupg || return $?
 
       sudo install -m 0755 -d /etc/apt/keyrings
       sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
@@ -1745,7 +1745,7 @@ install_docker() {
         "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
         $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
         sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-      sudo apt update
+      dots_apt_get update || return $?
 
       # add docker group
       if ! getent group docker >/dev/null; then
@@ -1756,7 +1756,7 @@ install_docker() {
       sudo usermod -aG docker "$CURRENT_USER"
 
       # install docker
-      sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      dots_apt_get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin || return $?
       sudo systemctl enable docker
       sudo systemctl start docker
     fi
@@ -1937,13 +1937,13 @@ install_waydroid() {
 
   if cmd_exists apt; then
     # Install pre-requisites
-    sudo apt install curl ca-certificates -y
+    dots_apt_get install curl ca-certificates -y || return $?
 
     # Add the Waydroid repository and install
     curl -s https://repo.waydro.id | sudo bash
 
     # Install Waydroid
-    sudo apt install waydroid -y
+    dots_apt_get install waydroid -y || return $?
   elif cmd_exists dnf; then
     sudo dnf install waydroid -y
     return 0
@@ -2754,6 +2754,8 @@ source "$SCRIPT_DIR/assets/scripts/lib/batch.sh"
 source "$SCRIPT_DIR/assets/scripts/lib/neovim.sh"
 # shellcheck source=assets/scripts/lib/desktop-inhibit.sh
 source "$SCRIPT_DIR/assets/scripts/lib/desktop-inhibit.sh"
+# shellcheck source=assets/scripts/lib/apt.sh
+source "$SCRIPT_DIR/assets/scripts/lib/apt.sh"
 
 # Batch installation modes automatically accept their internal prompts. Ubuntu
 # Desktop handles its initial notice separately unless --yes was explicit.
@@ -2832,8 +2834,7 @@ i | install)
   --flatpak)
     reset_batch_results
     info "Start installation with Flatpak"
-    run_batch_step install_flatpak install_flatpak
-    run_batch_plan \
+    run_batch_dependent_plan install_flatpak \
       install_flatpak_gimp install_flatpak_pinta \
       install_flatpak_thunderbird
     info "End installation with Flatpak"
@@ -2863,10 +2864,10 @@ i | install)
 
     run_batch_step install_apt_package install_apt_package
     run_batch_step install_ubuntu_desktop_terminals install_ghostty_ubuntu_desktop
-    run_batch_step install_flatpak install_flatpak
-    run_batch_plan \
+    run_batch_dependent_plan install_flatpak \
       install_flatpak_gimp install_flatpak_pinta \
-      install_flatpak_thunderbird install_snap_zoom
+      install_flatpak_thunderbird
+    run_batch_step install_snap_zoom install_snap_zoom
     run_batch_step setup_zsh setup_zsh
     #install_claude_code
     run_batch_step install_fnm install_fnm

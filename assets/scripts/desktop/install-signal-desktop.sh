@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# shellcheck source=assets/scripts/lib/apt.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../lib/apt.sh"
+
 set -Eeuo pipefail
 
 # Debian-based
@@ -32,8 +35,8 @@ echo "deb [arch=$ARCH signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] 
   sudo tee /etc/apt/sources.list.d/signal-xenial.list
 
 # Update your package database and install Signal
-sudo apt update
-sudo apt -y install signal-desktop
+dots_apt_get update
+dots_apt_get -y install signal-desktop
 
 rm "./signal-desktop-keyring.gpg"
 

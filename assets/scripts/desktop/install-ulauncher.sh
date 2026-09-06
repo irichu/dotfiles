@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
+# shellcheck source=assets/scripts/lib/apt.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../lib/apt.sh"
+
 set -Eeuo pipefail
 
 # Install Ulauncher
 # https://ulauncher.io/#Download
 sudo add-apt-repository universe -y
 sudo add-apt-repository ppa:agornostal/ulauncher -y
-sudo apt update
-sudo apt install ulauncher -y
+dots_apt_get update
+dots_apt_get install ulauncher -y
 
 SCRIPT_DIR=$(
   cd "$(dirname "${BASH_SOURCE:-$0}")"

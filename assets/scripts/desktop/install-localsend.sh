@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# shellcheck source=assets/scripts/lib/apt.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../lib/apt.sh"
+
 set -Eeuo pipefail
 
 cd "$HOME/.cache/dotfiles/"
@@ -11,7 +14,7 @@ elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
   ARCH="arm-64"
 
   if command -v apt &> /dev/null; then
-    sudo apt install -y libva-x11-2
+    dots_apt_get install -y libva-x11-2
   fi
 fi
 
@@ -25,7 +28,7 @@ fi
 # Redirect URL
 LATEST_VERSION=$(curl -w "%{redirect_url}" -s -o /dev/null "https://github.com/localsend/localsend/releases/latest" | grep -oP '\d+\.\d+\.\d+$')
 wget "https://github.com/localsend/localsend/releases/latest/download/LocalSend-${LATEST_VERSION}-linux-${ARCH}.deb"
-sudo apt install -y "./LocalSend-${LATEST_VERSION}-linux-${ARCH}.deb"
+dots_apt_get install -y "./LocalSend-${LATEST_VERSION}-linux-${ARCH}.deb"
 rm "./LocalSend-${LATEST_VERSION}-linux-${ARCH}.deb"
 
 cd -

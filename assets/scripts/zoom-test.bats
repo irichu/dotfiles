@@ -75,6 +75,7 @@ EOF
       ubuntu_desktop_ghostty_method() { echo apt; }
       run_batch_step() { printf "%s\n" "$*"; }
       run_batch_plan() { printf "%s\n" "$@"; }
+      run_batch_dependent_plan() { printf "%s\n" "$@"; }
       finish_batch_install() { :; }
       start_desktop_inhibit() { :; }; stop_desktop_inhibit() { :; }
       eval "$(sed -n "/^  $2)$/,/^    ;;$/p" "$1/assets/scripts/main.sh" | sed "1d;\$d" | tr -d "\r")"

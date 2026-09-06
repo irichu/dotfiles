@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# shellcheck source=assets/scripts/lib/apt.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../lib/apt.sh"
+
 set -Eeuo pipefail
 
 readonly OBSIDIAN_DESKTOP_RELEASES_URL="${OBSIDIAN_DESKTOP_RELEASES_URL:-https://raw.githubusercontent.com/obsidianmd/obsidian-releases/master/desktop-releases.json}"
@@ -65,14 +68,14 @@ install_obsidian_desktop() (
 
   case "$arch" in
   x86_64)
-    sudo apt-get install -y "$work_dir/$asset"
+    dots_apt_get install -y "$work_dir/$asset"
     ;;
   aarch64 | arm64)
     ubuntu_version="$(. /etc/os-release && printf '%s' "${VERSION_ID:-0}")"
     if dpkg --compare-versions "$ubuntu_version" ge 24.04; then
-      sudo apt-get install -y libfuse2t64
+      dots_apt_get install -y libfuse2t64
     else
-      sudo apt-get install -y libfuse2
+      dots_apt_get install -y libfuse2
     fi
 
     chmod +x "$work_dir/$asset"

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# shellcheck source=assets/scripts/lib/apt.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../lib/apt.sh"
 set -Eeuo pipefail
 
 GNOME_EXTENSIONS_DIR="${GNOME_EXTENSIONS_DIR:-$HOME/.local/share/gnome-shell/extensions}"
@@ -75,7 +78,7 @@ install_gnome_extensions() {
 		extension_ids+=(copyous@boerdereinar.dev)
 	fi
 
-	sudo apt install -y gnome-shell-extension-manager pipx
+	dots_apt_get install -y gnome-shell-extension-manager pipx
 	if [ ! -x "$GEXT_COMMAND" ]; then
 		pipx install gnome-extensions-cli --system-site-packages
 	fi

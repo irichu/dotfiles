@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# shellcheck source=assets/scripts/lib/apt.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../lib/apt.sh"
+
 set -Eeuo pipefail
 
 # Debian-based
@@ -7,19 +10,19 @@ if command -v apt-get &> /dev/null; then
   echo "Detected Debian-based system. Proceeding with installation..."
 
   # Install Visual Studio Code on Debian-based systems
-  sudo apt-get update
-  sudo apt-get -y install wget gpg
+  dots_apt_get update
+  dots_apt_get -y install wget gpg
 
   wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
   sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
   echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
   rm -f packages.microsoft.gpg
 
-  sudo apt-get -y install apt-transport-https
-  sudo apt-get update
+  dots_apt_get -y install apt-transport-https
+  dots_apt_get update
 
   # Install Visual Studio Code
-  sudo apt-get -y install code
+  dots_apt_get -y install code
 
 # Red Hat-based
 elif command -v dnf &> /dev/null; then

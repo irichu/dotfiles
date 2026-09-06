@@ -69,6 +69,20 @@ run_batch_plan() {
   done
 }
 
+# Skip dependent applications when their shared prerequisite failed, while
+# allowing unrelated batch steps to continue as usual.
+run_batch_dependent_plan() {
+  local prerequisite="$1"
+  local failures_before="$BATCH_FAILURES"
+  shift
+  run_batch_step "$prerequisite" "$prerequisite"
+  if [ "$BATCH_FAILURES" -ne "$failures_before" ]; then
+    warning "Skipping dependent steps because $prerequisite failed: $*"
+    return 0
+  fi
+  run_batch_plan "$@"
+}
+
 finish_batch_install() {
   if [ "$BATCH_FAILURES" -eq 0 ]; then
     success "All batch installation steps completed."

@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
+# shellcheck source=assets/scripts/lib/apt.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../../lib/apt.sh"
+
 set -Eeuo pipefail
 
 FLATHUB_URL="https://dl.flathub.org/repo/flathub.flatpakrepo"
 
 if ! command -v flatpak >/dev/null 2>&1; then
   if command -v apt-get >/dev/null 2>&1; then
-    sudo apt-get update
-    sudo apt-get install -y flatpak
+    dots_apt_get update
+    dots_apt_get install -y flatpak
   elif command -v dnf >/dev/null 2>&1; then
     sudo dnf install -y flatpak
   elif command -v pacman >/dev/null 2>&1; then

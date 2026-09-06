@@ -145,6 +145,7 @@ EOF
         fi
       }
       run_batch_plan() { :; }
+      run_batch_dependent_plan() { :; }
       confirmation="$3"
       eval "$(sed -n "/^  $2)$/,/^    ;;$/p" "$1/assets/scripts/main.sh" | sed "1d;\$d" | tr -d "\r")"
     ' bash "$TEST_REPO_ROOT" "$mode" "$confirm"
