@@ -39,7 +39,7 @@ if pgrep -x "chrome" >/dev/null; then
   exit 1
 fi
 
-if /usr/bin/google-chrome --version >/dev/null 2>&1; then
+if google-chrome --version >/dev/null 2>&1; then
   echo "✅ Chrome is installed and not running."
 else
   echo "Chrome is not properly installed or cannot be executed."
@@ -54,11 +54,21 @@ if [ ! -f "$PREFS_PATH" ]; then
 fi
 
 # backup Preferences file
-cp "$PREFS_PATH" "${PREFS_PATH}.bak"
+cp "$PREFS_PATH" "${PREFS_PATH}.bak" || exit 1
 
-# replace Zyyy font settings in Preferences file
-jq --arg font "$FONT_NAME" '
-  (.webkit.webprefs.fonts[]?.Zyyy) |= $font
-' "$PREFS_PATH" >"${PREFS_PATH}.tmp" && mv "${PREFS_PATH}.tmp" "$PREFS_PATH"
+# Create missing font families as well as updating existing ones. Chrome does
+# not persist default font preferences until the user changes them.
+if ! jq --arg font "$FONT_NAME" '
+  .webkit.webprefs.fonts |= (
+    . // {} |
+    reduce ((keys + ["standard", "serif", "sansserif", "fixed", "cursive", "fantasy", "math"]) | unique[]) as $family
+      (.; .[$family].Zyyy = $font)
+  )
+' "$PREFS_PATH" >"${PREFS_PATH}.tmp"; then
+  rm -f -- "${PREFS_PATH}.tmp"
+  echo "Failed to update Chrome font preferences." >&2
+  exit 1
+fi
+mv -- "${PREFS_PATH}.tmp" "$PREFS_PATH" || exit 1
 
 echo "✅ Updated all Zyyy font settings to '$FONT_NAME'"

@@ -19,6 +19,22 @@ dots_run() {
   run "$HOME/.local/bin/dots" "$@"
 }
 
+@test "Chrome fonts accepts omitted and explicit font names with nounset" {
+  # Stop at the font availability check, before accessing Chrome preferences.
+  printf '#!/usr/bin/env bash\nexit 0\n' >"$HOME/.local/bin/fc-list"
+  chmod +x "$HOME/.local/bin/fc-list"
+
+  run env DEBUG=true "$HOME/.local/bin/dots" setup chrome-fonts
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"Font 'M PLUS 2' is not installed"* ]]
+  [[ "$output" != *"unbound variable"* ]]
+
+  run env DEBUG=true "$HOME/.local/bin/dots" setup chrome-fonts 'Noto Sans CJK JP'
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"Font 'Noto Sans CJK JP' is not installed"* ]]
+  [[ "$output" != *"unbound variable"* ]]
+}
+
 @test "Neovim reinstalls replace old runtime files and propagate failures" {
   run bash "$TEST_REPO_ROOT/assets/scripts/neovim-test.sh"
   [ "$status" -eq 0 ]

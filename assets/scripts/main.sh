@@ -967,7 +967,7 @@ install_mplus2() {
 set_chrome_fonts() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR"/assets/scripts/desktop/set-chrome-fonts.sh "$1" || true
+  bash "$SCRIPT_DIR"/assets/scripts/desktop/set-chrome-fonts.sh "${1:-}" || true
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -3036,7 +3036,7 @@ setup)
 
   case "$2" in
   chrome-fonts)
-    set_chrome_fonts "$3"
+    set_chrome_fonts "${3:-}"
     ;;
   desktop)
     setup_desktop
