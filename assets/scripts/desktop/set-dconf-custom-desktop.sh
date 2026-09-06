@@ -8,6 +8,10 @@ source "$SCRIPT_DIR/desktop-favorites.sh"
 
 # Interface
 dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+# Older Ubuntu releases use the Yaru theme variants below for accent colors.
+if gsettings list-keys org.gnome.desktop.interface | grep -Fxq 'accent-color'; then
+  dconf write /org/gnome/desktop/interface/accent-color "'purple'"
+fi
 dconf write /org/gnome/desktop/interface/icon-theme "'Yaru-purple'"
 dconf write /org/gnome/desktop/interface/gtk-theme "'Yaru-purple-dark'"
 
