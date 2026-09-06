@@ -21,6 +21,7 @@ jq	Command-line JSON processor
 just	Handy command runner similar to Make
 lazygit	Simple TUI for Git repositories
 neovim	Highly extensible text editor
+restic	Fast, efficient and secure backup program
 ripgrep	grep replacement with blazing fast search
 ruff	Fast Python linter and formatter
 starship	Minimal and customizable shell prompt

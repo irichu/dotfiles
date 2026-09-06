@@ -18,6 +18,7 @@ jq
 multitail
 openssh-server
 sd
+restic
 ripgrep
 tmux
 vim

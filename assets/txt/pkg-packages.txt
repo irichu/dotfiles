@@ -38,6 +38,7 @@ poppler
 python-pip
 python
 p7zip
+restic
 ripgrep
 ruff
 rust

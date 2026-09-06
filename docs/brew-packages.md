@@ -39,6 +39,7 @@ The `dots install --brew` command mainly installs the following apps
 | `jq`                      | Command-line JSON processor                               |
 | `just`                    | Handy command runner similar to Make                      |
 | `lazygit`                 | Simple TUI for Git repositories                           |
+| `restic`                  | Fast, efficient and secure backup program                 |
 | `ripgrep`                 | grep replacement with blazing fast search                 |
 | `ruff`                    | Fast Python linter and formatter                          |
 | `sd`                      | Simplified and faster replacement for sed                 |
