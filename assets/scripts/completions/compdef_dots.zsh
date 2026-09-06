@@ -51,7 +51,7 @@ _dots_install() {
       "uv[UV]" \
       "waydroid[Waydroid - Android in a Linux container]" \
       "zed[Zed editor]" \
-      "zoom[Zoom from Flathub (community package)]"
+      "zoom[Zoom from Snap]"
     ;;
   args)
     case "$line[1]" in

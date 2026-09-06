@@ -118,17 +118,16 @@ Use the following `curl`, `wget`, or `git` command:
 > [!IMPORTANT]
 > On Ubuntu Desktop, automatic setup is possible `--ubuntu-desktop`.<br>
 > On Ubuntu, fast installation is possible with `--apt` or `--snap`.<br>
-> On Linux (Ubuntu/Fedora/Arch Linux), Flatpak desktop applications can be installed with `--flatpak`.<br>
 > On Linux (Ubuntu/Fedora/Arch Linux) or macOS, automatic setup is available using `--brew`.<br>
 > On Termux, setup can be done using `--pkg`.
 
 > [!NOTE]
 > On Linux or macOS, `sudo` access is required for installation.<br>
-> This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--flatpak`, `--snap`.<br>
+> This is needed to install Homebrew itself with `--brew` and to install packages using `--apt`, `--snap`.<br>
 > With `--ubuntu-desktop`, Ghostty is installed from Ubuntu's official APT package on Ubuntu 26.04 or later, and from Snap on older Ubuntu releases.<br>
 
 Install all components using your preferred package manager:
-`dots install [--apt|--brew|--flatpak|--snap|--pkg]`
+`dots install [--apt|--brew|--snap|--pkg]`
 <!--
 Replace `[--apt|--brew|--flatpak|--snap|--pkg]` with your package manager of choice.
 -->
@@ -149,14 +148,6 @@ dots install --ubuntu-desktop
 ```bash
 dots install --brew
 ```
-
-- To install GIMP, Pinta, Thunderbird, and Zoom from Flathub:
-
-```bash
-dots install --flatpak
-```
-
-The Zoom Flatpak is an unverified community package. Existing Snap installations are not removed automatically; verify the Flatpak application and its data before removing a Snap package manually.
 
 - To use pkg on Termux:
 

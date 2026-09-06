@@ -183,14 +183,6 @@ LinuxまたはmacOS環境にて，brewでセットアップする場合は以下
 dots install --brew
 ```
 
-FlathubからGIMP、Pinta、Thunderbird、Zoomをインストールする場合は以下を実行します
-
-```bash
-dots install --flatpak
-```
-
-ZoomのFlatpakは未検証のコミュニティパッケージです。既存のSnap版は自動削除しないため、Flatpak版の動作とデータを確認してから必要に応じて手動で削除してください。
-
 Termux にて pkg でセットアップする場合は以下の通りです
 
 ```bash

@@ -1,4 +1,3 @@
 com.github.PintaProject.Pinta
 org.gimp.GIMP
 org.mozilla.thunderbird_esr
-us.zoom.Zoom

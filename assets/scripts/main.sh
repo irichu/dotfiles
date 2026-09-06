@@ -1318,10 +1318,10 @@ install_flatpak_thunderbird() {
   return 0
 }
 
-install_flatpak_zoom() {
+install_snap_zoom() {
   info "Start: ${FUNCNAME[0]}"
 
-  bash "$SCRIPT_DIR/assets/scripts/desktop/flatpak/install-zoom.sh" || return $?
+  bash "$SCRIPT_DIR/assets/scripts/desktop/install-zoom.sh" || return $?
 
   info "End: ${FUNCNAME[0]}"
   return 0
@@ -2833,7 +2833,7 @@ i | install)
     run_batch_step install_flatpak install_flatpak
     run_batch_plan \
       install_flatpak_gimp install_flatpak_pinta \
-      install_flatpak_thunderbird install_flatpak_zoom
+      install_flatpak_thunderbird
     info "End installation with Flatpak"
     finish_batch_install
     ;;
@@ -2845,9 +2845,7 @@ i | install)
   --ubuntu-desktop)
     reset_batch_results
     run_batch_step "check apt" check_command apt
-    if [ "$(ubuntu_desktop_ghostty_method)" = snap ]; then
-      run_batch_step "check snap" check_command snap
-    fi
+    run_batch_step "check snap" check_command snap
 
     show_ubuntu_desktop_install_notice
     if confirm_unless_explicit_yes "Proceed with Ubuntu Desktop installation?"; then
@@ -2864,7 +2862,7 @@ i | install)
     run_batch_step install_flatpak install_flatpak
     run_batch_plan \
       install_flatpak_gimp install_flatpak_pinta \
-      install_flatpak_thunderbird install_flatpak_zoom
+      install_flatpak_thunderbird install_snap_zoom
     run_batch_step setup_zsh setup_zsh
     #install_claude_code
     run_batch_step install_fnm install_fnm
@@ -3001,7 +2999,7 @@ i | install)
     install_zed
     ;;
   zoom)
-    install_flatpak_zoom
+    install_snap_zoom || exit $?
     ;;
   *)
     echo_allcommand_usage

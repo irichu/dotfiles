@@ -209,12 +209,13 @@ EOF
   dots_run list --flatpak
   [ "$status" -eq 0 ]
   [[ "$output" == *"org.gimp.GIMP"* ]]
-  [[ "$output" == *"us.zoom.Zoom"* ]]
+  [[ "$output" != *"us.zoom.Zoom"* ]]
 
   dots_run completion
   [ "$status" -eq 0 ]
   [[ "$output" == *"--flatpak[Install Flatpak desktop applications]"* ]]
   [[ "$output" == *"gimp[GIMP from Flathub]"* ]]
+  [[ "$output" == *"zoom[Zoom from Snap]"* ]]
 }
 
 @test "installer retains the --gum compatibility option and writes debug logs" {

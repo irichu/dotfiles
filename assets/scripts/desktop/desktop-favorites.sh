@@ -65,7 +65,7 @@ Waydroid.desktop
 localsend_app.desktop
 signal-desktop.desktop
 rustdesk.desktop
-us.zoom.Zoom.desktop zoom-client_zoom-client.desktop
+zoom-client_zoom-client.desktop us.zoom.Zoom.desktop
 org.gnome.Settings.desktop gnome-control-center.desktop
 EOF
 }

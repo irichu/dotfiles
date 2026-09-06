@@ -51,7 +51,6 @@ EOF
 install-gimp.sh|org.gimp.GIMP
 install-pinta.sh|com.github.PintaProject.Pinta
 install-thunderbird.sh|org.mozilla.thunderbird_esr
-install-zoom.sh|us.zoom.Zoom
 EOF
 }
 
@@ -65,9 +64,9 @@ EOF
 }
 
 @test "an unavailable Flatpak application fails without installing" {
-  export MOCK_UNAVAILABLE="us.zoom.Zoom"
+  export MOCK_UNAVAILABLE="org.gimp.GIMP"
 
-  run bash "$TEST_REPO_ROOT/assets/scripts/desktop/flatpak/install-zoom.sh"
+  run bash "$TEST_REPO_ROOT/assets/scripts/desktop/flatpak/install-gimp.sh"
   [ "$status" -ne 0 ]
   [[ "$output" == *"not available from Flathub"* ]]
   ! grep -Fq "flatpak install" "$MOCK_LOG"
