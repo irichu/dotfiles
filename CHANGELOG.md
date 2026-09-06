@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.11.1 - 2026-09-06
+
+### Fixed
+
+- Homebrew environment changes now persist across batch steps, including installations on Arch Linux and Fedora.
+- Fedora Homebrew prerequisites use explicit compiler packages compatible with DNF4 and DNF5.
+- Neovim reinstalls replace existing libraries and runtime files together with the binary, removing obsolete files and stopping on installation failures.
+- Chrome font setup accepts an omitted font name and creates missing preference entries while preserving unrelated settings and language-specific fonts.
+- APT installations wait for package-manager locks and retry downloads; local Debian packages use APT to resolve dependencies instead of leaving packages unconfigured through direct `dpkg -i` installation.
+- Flatpak applications are skipped when their shared setup fails, while independent installation steps continue.
+- CI secret scanning and isolated batch continuation tests are more reliable.
+
+### Changed
+
+- Zoom is installed from Snap by the individual command and Ubuntu Desktop setup, and is no longer included in the Flatpak batch.
+- Ubuntu Desktop temporarily inhibits automatic screen blanking and suspend during installation, with cleanup on completion and interruption and no changes to saved power settings.
+- GNOME desktop setup explicitly selects the purple accent color when supported, alongside the existing dark style.
+
+### Added
+
+- Manual rebuilding and repair of release archives and checksums for an existing tag.
+- Regression tests for APT contention, dependency handling, Neovim replacement, Chrome fonts, Zoom installation, and desktop inhibition.
+
 ## 0.11.0
 
 ### Added
