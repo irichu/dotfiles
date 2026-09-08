@@ -465,6 +465,67 @@ dots set-opacity</code>
 
 </details>
 
+<details>
+<summary>Set up a RustDesk server and Ubuntu clients</summary>
+
+On an Ubuntu Server with systemd, install the latest stable RustDesk Server OSS
+ID/signaling server (`hbbs`) and relay (`hbbr`):
+
+```bash
+dots install rustdesk-server --host rd.example.com
+```
+
+Use an IPv4 address or DNS name reachable from all clients. `--host` advertises
+the relay address; it does not restrict which names clients can use to reach
+the server. URLs, custom ports, and IPv6 literals are not accepted.
+
+The command downloads and verifies the official deb packages, installs any
+required dependencies, creates a `rustdesk` system account with a `nologin`
+shell, and enables and starts both systemd services. Data and keys are stored
+in `/var/lib/rustdesk-server`, with logs in `/var/log/rustdesk-server`.
+Service settings are installed as systemd drop-ins. Root privileges are
+requested through `sudo`; no desktop setup is required on the server.
+
+The command prints the public key and a ready-to-copy client setup command.
+Allow **TCP 21115–21117 and UDP 21116** through the server firewall and, if
+needed, configure router forwarding. Dots does not change these settings.
+This setup targets native clients; Pro account management and web clients
+are not included. The public key identifies the server and is separate from
+each client's remote-access password.
+
+On each Ubuntu desktop, install the deb client if needed, then apply the
+server address and public key printed by the server installer:
+
+```bash
+dots install rustdesk
+dots setup rustdesk-client --host rd.example.com --key 'PUBLIC_KEY'
+```
+
+Client setup requires RustDesk 1.4.9 or newer. It sets the ID server, relay,
+and public key, clears the Pro API server setting, and verifies the saved
+values through RustDesk's CLI. It leaves remote-access passwords unchanged.
+Changing network settings may disconnect active RustDesk sessions.
+Previous network settings are saved in
+`${XDG_STATE_HOME:-~/.local/state}/dotfiles/rustdesk/client-options.*.sh`;
+the command prints the exact path. Run `bash /path/to/client-options.…sh`
+to restore that snapshot.
+
+```bash
+sudo systemctl start rustdesk-hbbs rustdesk-hbbr
+sudo systemctl stop rustdesk-hbbr rustdesk-hbbs
+systemctl status rustdesk-hbbs rustdesk-hbbr
+sudo systemctl disable rustdesk-hbbs rustdesk-hbbr  # disable boot startup
+sudo tail /var/log/rustdesk-server/{hbbs,hbbr}.{log,error}
+```
+
+Rerunning the server command updates the packages and advertised host while
+preserving keys and the database, and enables and starts both services again.
+Run only one server setup at a time. A failed setup retains its data and can
+be retried with the same command. Installations created by other methods,
+including conflicting `rustdesk` accounts, are rejected before changes.
+
+</details>
+
 - 🐧 [Linux packages]
 - 🍺 [Brew Apps]
 - 📦 [Flatpak packages]
@@ -613,6 +674,10 @@ dots clean all</code>
         <tr>
             <th>rustdesk</th>
             <td>RustDesk on Linux Desktop</td>
+        </tr>
+        <tr>
+            <th>rustdesk-server</th>
+            <td>RustDesk OSS ID/relay server on Ubuntu (--host required)</td>
         </tr>
         <tr>
             <th>signal</th>

@@ -415,6 +415,41 @@ dots list [--apt|--brew|--flatpak|--snap|--pkg]
 dots install <package_name>
 ```
 
+#### RustDeskサーバーとUbuntuクライアントの設定
+
+systemdが動作するUbuntu Server上で、RustDesk Server OSSのIDサーバー（`hbbs`）と中継サーバー（`hbbr`）を導入します。
+
+```bash
+dots install rustdesk-server --host rd.example.com
+```
+
+`--host`には全クライアントから到達できるIPv4アドレスまたはDNS名を指定します。中継先の案内に使用する値で、その名前での接続だけを許可する設定ではありません。URL、ポート付きの値、IPv6リテラルは指定できません。
+
+公式の最新安定版debをダウンロード・検証し、必要な依存パッケージとともにインストールします。シェルを`nologin`にしたシステムユーザー`rustdesk`を作成し、systemdのdrop-inで両サービスの実行ユーザーを設定して、自動起動の有効化と起動まで行います。データと鍵は`/var/lib/rustdesk-server`、ログは`/var/log/rustdesk-server`に保存します。必要な管理者権限は`sudo`で取得し、サーバーにデスクトップ設定は行いません。
+
+完了時に公開鍵と、クライアントでコピーして実行できる設定コマンドを表示します。ファイアウォールで **TCP 21115–21117、UDP 21116** を許可し、必要に応じてルーターのポート転送も設定してください。これらのネットワーク設定はdotsでは変更しません。ネイティブクライアント向けの構成で、Proのアカウント管理やWebクライアントは対象外です。公開鍵はサーバーを識別するためのもので、各クライアントの接続用パスワードとは別です。
+
+Ubuntuクライアント側では、必要に応じてdeb版をインストールし、サーバー導入時に表示された公開鍵を指定します。
+
+```bash
+dots install rustdesk
+dots setup rustdesk-client --host rd.example.com --key '公開鍵'
+```
+
+クライアント設定はRustDesk 1.4.9以降に対応します。IDサーバー・中継サーバー・公開鍵を設定し、Pro用APIサーバー指定を空にして、RustDeskのCLIで設定値を読み戻して確認します。接続用パスワードは変更しません。設定変更で既存のRustDesk接続が切れることがあります。
+
+変更前のネットワーク設定は`${XDG_STATE_HOME:-~/.local/state}/dotfiles/rustdesk/client-options.*.sh`に保存し、実際のパスを表示します。戻す場合は`bash /表示されたパス/client-options.…sh`を実行してください。
+
+```bash
+sudo systemctl start rustdesk-hbbs rustdesk-hbbr
+sudo systemctl stop rustdesk-hbbr rustdesk-hbbs
+systemctl status rustdesk-hbbs rustdesk-hbbr
+sudo systemctl disable rustdesk-hbbs rustdesk-hbbr  # 自動起動を無効化
+sudo tail /var/log/rustdesk-server/{hbbs,hbbr}.{log,error}
+```
+
+サーバー導入コマンドを再実行すると、鍵とデータベースを保持してパッケージと接続先設定を更新し、両サービスを再び有効化・起動します。同時に複数の導入コマンドを実行しないでください。途中で失敗した場合もデータを残し、同じコマンドで再試行できます。他の方法で導入したサーバーや、競合する既存の`rustdesk`ユーザーがある場合は変更前に停止します。
+
 |                                                ヘルプ表示のイメージ                                                |
 | :----------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/2be34e8d-4dfa-4c3e-9a85-6d3c9cfd6053" width="800" alt="help"> |
@@ -446,6 +481,7 @@ The following apps can be installed individually from the `dots install <package
 | `localsend`  | [LocalSend]をインストールします                    |
 | `obsidian`   | [Obsidian]をインストールします                     |
 | `rustdesk`   | [RustDesk]をインストールします                     |
+| `rustdesk-server` | RustDesk OSSのID・中継サーバーをUbuntuに導入します（`--host`必須） |
 | `signal`     | [Signal Desktop]をインストールします               |
 | `waydroid`   | [Waydroid]をインストールします                     |
 | `zed`        | [Zed]エディターをインストールします                |

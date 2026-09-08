@@ -42,6 +42,7 @@ _dots_install() {
       "obsidian[Obsidian]" \
       "pinta[Pinta from Flathub]" \
       "rustdesk[RustDesk on Ubuntu Desktop]" \
+      "rustdesk-server[RustDesk OSS ID/relay server on Ubuntu]" \
       "rustup[rustup on Linux]" \
       "snap-packages[Snap packages]" \
       "starship[Starship]" \
@@ -58,6 +59,9 @@ _dots_install() {
     cargo-packages)
       _arguments "--binstall[Use cargo-binstall instead of cargo install]"
       ;;
+    rustdesk-server)
+      _arguments '--host[Server IPv4 address or DNS name]:host:' '--help[Show usage]'
+      ;;
     esac
     ;;
   esac
@@ -69,14 +73,27 @@ _dots_binstall() {
 }
 
 _dots_setup() {
-  _values "setup subcommand" \
-    "chrome-fonts[Setup Google Chrome fonts]" \
-    "desktop[Setup gnome-desktop]" \
-    "git[Setup git]" \
-    "jj[Setup jj]" \
-    "tmux[Setup tmux]" \
-    "zellij[Setup zellij]" \
-    "zsh[Setup zsh]"
+  local line state
+  typeset -A opt_args
+  _arguments -C "1: :->command" "*::arg:->args"
+  case "$state" in
+  command)
+    _values "setup subcommand" \
+      "chrome-fonts[Setup Google Chrome fonts]" \
+      "desktop[Setup gnome-desktop]" \
+      "git[Setup git]" \
+      "jj[Setup jj]" \
+      "rustdesk-client[Configure RustDesk on Ubuntu]" \
+      "tmux[Setup tmux]" \
+      "zellij[Setup zellij]" \
+      "zsh[Setup zsh]"
+    ;;
+  args)
+    if [[ "$line[1]" == rustdesk-client ]]; then
+      _arguments '--host[Server IPv4 address or DNS name]:host:' '--key[Server public key]:key:' '--help[Show usage]'
+    fi
+    ;;
+  esac
 }
 
 _dots_list() {
@@ -234,7 +251,7 @@ _dots() {
       _arguments "1: :_dots_binstall"
       ;;
     setup)
-      _arguments "1: :_dots_setup"
+      _dots_setup
       ;;
     list)
       _arguments "1: :_dots_list"

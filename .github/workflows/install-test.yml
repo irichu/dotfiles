@@ -33,7 +33,7 @@ jobs:
         run: python3 assets/scripts/validate-configs.py
 
       - name: Run isolated Bats tests
-        run: bats assets/scripts/dots-test.bats assets/scripts/apt-test.bats assets/scripts/flatpak-test.bats assets/scripts/zoom-test.bats assets/scripts/chrome-fonts-test.bats assets/scripts/desktop-inhibit-test.bats assets/scripts/gnome-extensions-test.bats
+        run: bats assets/scripts/dots-test.bats assets/scripts/apt-test.bats assets/scripts/flatpak-test.bats assets/scripts/zoom-test.bats assets/scripts/chrome-fonts-test.bats assets/scripts/desktop-inhibit-test.bats assets/scripts/gnome-extensions-test.bats assets/scripts/rustdesk-test.bats
 
       - name: Run isolated lifecycle smoke test
         run: bash assets/scripts/smoke-test.sh

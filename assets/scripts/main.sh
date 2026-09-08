@@ -2756,6 +2756,8 @@ source "$SCRIPT_DIR/assets/scripts/lib/neovim.sh"
 source "$SCRIPT_DIR/assets/scripts/lib/desktop-inhibit.sh"
 # shellcheck source=assets/scripts/lib/apt.sh
 source "$SCRIPT_DIR/assets/scripts/lib/apt.sh"
+# shellcheck source=assets/scripts/lib/rustdesk.sh
+source "$SCRIPT_DIR/assets/scripts/lib/rustdesk.sh"
 
 # Batch installation modes automatically accept their internal prompts. Ubuntu
 # Desktop handles its initial notice separately unless --yes was explicit.
@@ -2977,6 +2979,9 @@ i | install)
   rustdesk)
     install_rustdesk
     ;;
+  rustdesk-server)
+    install_rustdesk_server "${@:3}" || exit $?
+    ;;
   rustup)
     install_rustup
     ;;
@@ -3043,6 +3048,9 @@ setup)
   case "$2" in
   chrome-fonts)
     set_chrome_fonts "${3:-}"
+    ;;
+  rustdesk-client)
+    setup_rustdesk_client "${@:3}" || exit $?
     ;;
   desktop)
     setup_desktop

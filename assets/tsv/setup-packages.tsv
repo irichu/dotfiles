@@ -2,6 +2,7 @@ Setup	Description
 chrome-fonts	Google Chrome fonts
 desktop	reset Ubuntu desktop config
 git	reset git config
+rustdesk-client	RustDesk Ubuntu client network settings (--host and --key required)
 tmux	reset tmux config
 zellij	reset zellij config
 zsh	deploy dot zsh files and change shell to zsh
