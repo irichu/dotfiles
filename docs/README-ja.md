@@ -169,8 +169,6 @@ git clone --depth=1 https://github.com/irichu/dotfiles.git && cd dotfiles && ./i
 `dots install [--apt|--brew|--flatpak|--snap|--pkg]`<br>
 具体的には `[--apt|--brew|--flatpak|--snap|--pkg]` の部分を置き換えて実行します
 
-`--apt`、`--brew`、`--flatpak`、`--pkg`、`--snap`、`--ubuntu-desktop`は一括インストールモードのため、dotfiles側の確認には自動で同意します。ただしUbuntu Desktopでは、所要時間とGNOME Extensionsを表示した後に一度だけ確認します。この案内も省略する場合は`dots --yes install --ubuntu-desktop`を使用します。それ以外のコマンドでは、従来どおり確認または明示的な`--yes`が必要です。
-
 Ubuntu デスクトップで自動セットアップする場合は以下を実行します:
 
 ```bash

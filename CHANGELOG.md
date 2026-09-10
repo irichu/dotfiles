@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.11.2
+
+### Added
+
+- Restic installation via APT, Homebrew, and Termux pkg.
+- RustDesk server and client setup commands.
+
+### Fixed
+
+- Restored Snap CLI package installation in Ubuntu Desktop setup.
+
 ## 0.11.1 - 2026-09-06
 
 ### Fixed

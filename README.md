@@ -132,8 +132,6 @@ Install all components using your preferred package manager:
 Replace `[--apt|--brew|--flatpak|--snap|--pkg]` with your package manager of choice.
 -->
 
-`--apt`, `--brew`, `--flatpak`, `--pkg`, `--snap`, and `--ubuntu-desktop` are batch modes and automatically confirm dotfiles prompts. Ubuntu Desktop still asks once after showing the estimated time and GNOME extensions; use `dots --yes install --ubuntu-desktop` to skip this notice. Other commands require confirmation or an explicit `--yes`.
-
 **Examples:**
 
 - To install on Ubuntu Desktop (New):
