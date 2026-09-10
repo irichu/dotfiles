@@ -1,0 +1,6 @@
+# CLI tools supplementing the shared APT, Neovim and Rustup installers.
+difftastic
+dog
+dust
+go --classic
+zellij --classic

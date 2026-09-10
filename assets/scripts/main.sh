@@ -1256,6 +1256,27 @@ install_snap_package() {
   return 0
 }
 
+install_desktop_cli_snap() {
+  local package="$1"
+  local -a options=()
+  [ "${2:-}" != --classic ] || options+=(--classic)
+  if ! snap list "$package" >/dev/null 2>&1; then
+    sudo snap install "$package" "${options[@]}" || return $?
+  fi
+  if [ "$package" = zellij ]; then
+    setup_zellij || return $?
+  fi
+}
+
+# Run in the caller so each package contributes to the shared batch result.
+install_ubuntu_desktop_cli() {
+  local package option
+  while read -r package option; do
+    case "$package" in '' | \#*) continue ;; esac
+    run_batch_step "snap $package" install_desktop_cli_snap "$package" "$option"
+  done <"$SCRIPT_DIR/assets/txt/snap-desktop-cli-packages.txt"
+}
+
 install_ghostty_ubuntu_desktop() {
   info "Start: ${FUNCNAME[0]}"
 
@@ -2873,11 +2894,11 @@ i | install)
     run_batch_step setup_zsh setup_zsh
     #install_claude_code
     run_batch_step install_fnm install_fnm
-    #build_install_neovim
+    install_ubuntu_desktop_cli
+    run_batch_dependent_plan build_install_neovim install_lazyvim
     run_batch_plan \
-      install_lazyvim install_or_update_starship install_fzf_via_git \
-      setup_tmux install_hackgen
-    #install_rustup
+      install_or_update_starship install_fzf_via_git \
+      setup_tmux install_hackgen install_rustup
     run_batch_plan setup_git remove_zcompdump
 
     # Desktop applications and finalization are intentionally separate so a

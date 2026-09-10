@@ -473,18 +473,18 @@ The following apps can be installed individually from the `dots install <package
 
 #### 🖥️ GUI アプリ
 
-| パッケージ名 | 説明                                               |
-| ------------ | -------------------------------------------------- |
-| `chrome`     | [Google Chrome]をインストールします                |
-| `code`       | [Visual Studio Code]と拡張機能をインストールします |
-| `copyq`      | [CopyQ]をインストールします                        |
-| `localsend`  | [LocalSend]をインストールします                    |
-| `obsidian`   | [Obsidian]をインストールします                     |
-| `rustdesk`   | [RustDesk]をインストールします                     |
+| パッケージ名      | 説明                                                               |
+| ----------------- | ------------------------------------------------------------------ |
+| `chrome`          | [Google Chrome]をインストールします                                |
+| `code`            | [Visual Studio Code]と拡張機能をインストールします                 |
+| `copyq`           | [CopyQ]をインストールします                                        |
+| `localsend`       | [LocalSend]をインストールします                                    |
+| `obsidian`        | [Obsidian]をインストールします                                     |
+| `rustdesk`        | [RustDesk]をインストールします                                     |
 | `rustdesk-server` | RustDesk OSSのID・中継サーバーをUbuntuに導入します（`--host`必須） |
-| `signal`     | [Signal Desktop]をインストールします               |
-| `waydroid`   | [Waydroid]をインストールします                     |
-| `zed`        | [Zed]エディターをインストールします                |
+| `signal`          | [Signal Desktop]をインストールします                               |
+| `waydroid`        | [Waydroid]をインストールします                                     |
+| `zed`             | [Zed]エディターをインストールします                                |
 
 #### 🪴 その他
 
