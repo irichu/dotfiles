@@ -23,7 +23,7 @@ jobs:
         run: jq --version
 
       - name: Install tokei
-        uses: taiki-e/install-action@v2.87.5
+        uses: taiki-e/install-action@v2.87.15
         with:
           tool: tokei
 
