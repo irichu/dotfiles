@@ -37,7 +37,7 @@ openssl
 poppler
 python-pip
 python
-p7zip
+7zip
 restic
 ripgrep
 ruff

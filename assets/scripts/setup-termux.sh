@@ -68,7 +68,7 @@ if [ ! -f ~/.config/nvim/lazy-lock.json ]; then
   ln -f -s "$(command -v lua-language-server)" /data/data/com.termux/files/home/.local/share/nvim/mason/packages/lua-language-server/libexec/bin/lua-language-server
 
   # neovim pluguins
-  nvim +q
+  #nvim +q
 fi
 
 # font
