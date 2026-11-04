@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.3
+
+### Fixed
+
+- Replaced p7zip with 7zip in Termux packages.
+
 ## 0.11.2
 
 ### Added
